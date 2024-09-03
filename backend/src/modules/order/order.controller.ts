@@ -4,42 +4,50 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
+import { AuthGuard } from 'src/core/guards/order.guard';
 
 @Controller('orders')
+@UseGuards(AuthGuard)
 export class OrderController {
   constructor(private readonly _orderService: OrderService) {}
 
   @Post()
-  createOrder(@Body() createOrderDto: any) {
-    return this._orderService.createOrder(createOrderDto);
+  createOrder(@Body() createOrderDto: any, @Req() req: any) {
+    const userId = req.userId;
+    return this._orderService.createOrder(createOrderDto, userId);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updateOrder(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
+    @Req() req: any,
   ) {
-    return this._orderService.updateOrder(id, updateOrderDto);
+    const userId = req.userId;
+    return this._orderService.updateOrder(id, updateOrderDto, userId);
   }
   @Delete(':id')
-  async deleteOrder(@Param('id') id: string) {
-    return this._orderService.deleteOrder(id);
+  async deleteOrder(@Param('id') id: string, @Req() req: any) {
+    const userName = req.name;
+    return this._orderService.deleteOrder(id, userName);
   }
 
-  @Get('user/:userId')
-  async getAllOrdersByUserId(@Param('userId') userId: string) {
+  @Get('user')
+  async getAllOrdersByUserId(@Req() req: any) {
+    const userId = req.userId;
     return this._orderService.getOrdersByUserId(userId);
-    // async getAllOrdersByUserId(@Body() body: { userId: string }) {
-    //     const { userId } = body;
   }
 
   @Get()
-  async getAllOrders() {
-    return this._orderService.getAllOrders();
+  async getAllOrders(@Req() req: any) {
+    const userRole = req.role;
+    return this._orderService.getAllOrders(userRole);
   }
 }

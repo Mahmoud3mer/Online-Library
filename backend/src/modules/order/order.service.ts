@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order } from 'src/core/schemas/order.schema';
@@ -13,17 +17,19 @@ export class OrderService {
 
   async createOrder(
     createOrderDto: CreateOrderDto,
+    userId: string,
   ): Promise<{ message: string; newOrder: Order }> {
-    const newOrder = new this.orderModel(createOrderDto);
+    const newOrder = new this.orderModel({ ...createOrderDto, userId });
     await newOrder.save();
     return { message: 'Order created successfully', newOrder };
   }
   async updateOrder(
     id: string,
     updateOrderDto: UpdateOrderDto,
+    userId: string,
   ): Promise<{ message: string; updatedOrder: Order }> {
     const updatedOrder = await this.orderModel.findByIdAndUpdate(
-      id,
+      { _id: id, userId },
       { $set: updateOrderDto, orderDate: new Date().toLocaleString() }, // Only update the fields provided in the DTO
       { new: true, runValidators: true }, // Return the updated document and run validators
     );
@@ -34,11 +40,11 @@ export class OrderService {
 
     return { message: 'order updated successfully', updatedOrder };
   }
-  async deleteOrder(id: string) {
+  async deleteOrder(id: string, userName: string) {
     const result = await this.orderModel.findByIdAndDelete({ _id: id });
 
     if (!result) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
+      throw new NotFoundException(`No Orders found for ${userName}`);
     }
 
     return { message: 'The order deleted Successfully', deleted: true };
@@ -53,13 +59,16 @@ export class OrderService {
     return orders;
   }
 
-  async getAllOrders(): Promise<Order[]> {
+  async getAllOrders(userRole: string): Promise<Order[]> {
     const orders = await this.orderModel.find();
 
     if (orders.length === 0) {
       throw new NotFoundException(`No orders found`);
     }
-
-    return orders;
+    if (userRole === 'admin') {
+      return orders;
+    } else {
+      throw new ForbiddenException('Admins only have admin permissions');
+    }
   }
 }
