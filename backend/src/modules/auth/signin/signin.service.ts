@@ -31,7 +31,7 @@ if(user && await bcrypt.compare(info.password,user.password)){
     if (user.role === info.role) {
       
       const token = this._jwtService.sign(
-          { name: user.name, email: user.email, role: user.role }, 
+          { name: user.name, email: user.email, role: user.role , userId: user._id}, 
           { secret: "gaher" }
         );
 

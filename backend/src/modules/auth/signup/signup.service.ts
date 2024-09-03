@@ -8,24 +8,23 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class SignupService {
-    
-    constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-   
-    async signup(body:SignUpDTO) {
-    
-   let user=await this.userModel.findOne({email:body.email})
-   if(user) throw new HttpException('email is already register', HttpStatus.FORBIDDEN);
 
-body.password = await bcrypt.hash(body.password, 8);
+    constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-if (!body.role) {
-    body.role = 'user';    
-} else if (body.role !== 'user' && body.role !== 'admin'&&body.role !=='auther') {
-    throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST);     
-}
+    async signup(body: SignUpDTO) {
 
-   let adduser =await this.userModel.create(body)
-        return {message:'added success',adduser}
+        let user = await this.userModel.findOne({ email: body.email })
+        if (user) throw new HttpException('email is already register', HttpStatus.FORBIDDEN);
+
+        body.password = await bcrypt.hash(body.password, 8);
+
+        if (!body.role) {
+            body.role = 'user';
+        } else if (body.role !== 'user' && body.role !== 'admin' && body.role !== 'author') {
+            throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST);
+        }
+
+        let adduser = await this.userModel.create(body)
+        return { message: 'added success', adduser }
     }
 }
- 
