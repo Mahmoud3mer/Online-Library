@@ -6,7 +6,7 @@ import { BookModule } from './modules/book/book.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [BookModule, AuthModule, MongooseModule.forRoot('mongodb://localhost:27017/onlineLibrary')],
+  imports: [BookModule, AuthModule, MongooseModule.forRoot('mongodb://localhost:27017/nest_iti')],
   controllers: [AppController],
   providers: [AppService],
 })
