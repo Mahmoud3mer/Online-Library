@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     else{
       // ! set user in request
       req.user = {role: decoded.role , userId: decoded.userId , userName: decoded.name}
-      // console.log(req.user)
+      // console.log(req.user)z
       // ! My logic code (validation)
       if (roles.includes(decoded.role)) {
         return true
