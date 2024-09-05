@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty } from 'class-validator';
+import { Types } from 'mongoose';
 
 export class CreateStreamEventDTO {
   @IsString()
@@ -8,4 +9,9 @@ export class CreateStreamEventDTO {
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  
+  authorId: Types.ObjectId;
 }
