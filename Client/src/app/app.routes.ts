@@ -10,6 +10,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
+import { Err404Component } from './pages/err404/err404.component';
 
 export const routes: Routes = [
   {
@@ -61,5 +62,8 @@ export const routes: Routes = [
     path: 'user-settings',
     component: UserSettingsComponent
   },
-
+  {
+    path: '**',
+    component: Err404Component,
+  },
 ];
