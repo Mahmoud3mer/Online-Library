@@ -40,7 +40,4 @@ export class SignInDTO {
     @MinLength(3)
     @MaxLength(8)
     password: string;
-
-    @IsString()
-    role: string;
 }
