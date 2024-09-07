@@ -1,0 +1,53 @@
+/*======================================
+    Call Action CSS
+========================================*/
+.call-action {
+    background-color: #0167F3;
+}
+
+.call-action .content {
+    text-align: center;
+}
+
+.call-action .content h2 {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 42px;
+    color: #fff;
+    display: block;
+    margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .call-action .content h2 {
+        font-size: 28px;
+        line-height: 35px;
+    }
+}
+
+@media (max-width: 767px) {
+    .call-action .content h2 {
+        font-size: 22px;
+        line-height: 32px;
+    }
+}
+
+.call-action .content p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.call-action .content .button {
+    margin-top: 30px;
+}
+
+.call-action .content .button .btn {
+    background-color: #fff;
+    color: #081828;
+}
+
+.call-action .content .button .btn:hover {
+    color: #fff;
+    background: #081828;
+}
