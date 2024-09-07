@@ -3,8 +3,9 @@ import { OrderService } from './order.service';
 import { OrderController } from './order.controller';
 import { OrderSchema } from 'src/core/schemas/order.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthGuard } from 'src/core/guards/order.guard';
+
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from 'src/core/guards/auth.guard';
 
 @Module({
   imports: [
