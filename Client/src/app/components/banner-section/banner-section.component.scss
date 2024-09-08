@@ -1,0 +1,98 @@
+/*======================================
+    Banner CSS
+========================================*/
+.single-banner {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .single-banner.custom-responsive-margin {
+        margin-top: 30px;
+    }
+}
+
+.single-banner.right {
+    text-align: right;
+}
+
+.single-banner.right .content {
+    padding: 50px 40px;
+}
+
+.single-banner .content {
+    padding: 70px 40px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .single-banner .content {
+        padding: 50px 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .single-banner .content {
+        padding: 35px;
+    }
+}
+
+.single-banner .content h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .single-banner .content h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .single-banner .content h2 {
+        font-size: 18px;
+    }
+}
+
+.single-banner .content .price span {
+    color: #081828;
+    display: block;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.single-banner .content p {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .single-banner .content p {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .single-banner .content p {
+        margin-top: 8px;
+    }
+}
+
+.single-banner .content .button {
+    margin-top: 25px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .single-banner .content .button {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .single-banner .content .button {
+        margin-top: 15px;
+    }
+}
