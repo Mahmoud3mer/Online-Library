@@ -18,7 +18,7 @@ import { Role } from 'src/core/EnumRoles/role.enum';
 @Controller('orders')
 @UseGuards(AuthGuard)
 export class OrderController {
-  constructor(private readonly _orderService: OrderService) {}
+  constructor(private readonly _orderService: OrderService) { }
 
   @Roles(Role.User)
   @Post()

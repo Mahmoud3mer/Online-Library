@@ -4,6 +4,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { User, UserSchema } from 'src/core/schemas/user.schema';
 import { SignupController } from './signup/signup.controller';
 import { SignupService } from './signup/signup.service';
+import { SigninController } from './signin/signin.controller';
+import { SigninService } from './signin/signin.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { SignupService } from './signup/signup.service';
       },
     }),
   ],
-  controllers: [SignupController],
-  providers: [SignupService],
+  controllers: [SignupController,SigninController],
+  providers: [SignupService,SigninService,JwtService],
 })
 export class AuthModule {}
