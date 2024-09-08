@@ -10,7 +10,9 @@ import { HeroSectionComponent } from '../../components/hero-section/hero-section
   imports: [CardComponent,CallSectionComponent,BannerSectionComponent,ShippingInfoComponent,HeroSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [
+    // CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class HomeComponent {
 
