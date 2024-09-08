@@ -19,11 +19,11 @@ export class BookService {
 
      // ! All Books and Pagination
     getAllBooks = async (paginationDTO: PaginationDTO) => {
-        let page = paginationDTO.page;
-        let limit = paginationDTO.limit;
-        let skip = (page - 1) * limit
+        const page = paginationDTO.page;
+        const limit = paginationDTO.limit;
+        const skip = (page - 1) * limit
         try {
-            let books = await this.bookModel.find().limit(limit).skip(skip).populate({path: 'authorId',select: 'name _id email role'});
+            const books = await this.bookModel.find().limit(limit).skip(skip).populate({path: 'authorId',select: 'name _id email role'});
             return {message: "Success, Get All Books." , data: books};
         } catch (error) {
             return {message: "Error fetching the books.", Error: error.message }
@@ -32,7 +32,7 @@ export class BookService {
 
     getOneBook = async (id: string) => {
         try {
-            let findBook = await this.bookModel.findOne({_id: id});
+            const findBook = await this.bookModel.findOne({_id: id});
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
             return {message: "Success, Get Spesific Book." , data: findBook};
@@ -56,7 +56,7 @@ export class BookService {
 
     updateThisBook = async (bookId : string , book: any , user: any) => {
         try {
-            let findBook = await this.bookModel.findById({_id: bookId});
+            const findBook = await this.bookModel.findById({_id: bookId});
 
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
@@ -64,7 +64,7 @@ export class BookService {
             if (user.role !== 'auther' && user.userId !== findBook.authorId) {
                 throw new HttpException('Unauthorized, You do not own this book.', HttpStatus.UNAUTHORIZED)
             }
-            let updateBook = await this.bookModel.findByIdAndUpdate({_id: bookId} , {$set: book});
+            const updateBook = await this.bookModel.findByIdAndUpdate({_id: bookId} , {$set: book});
             return {message: "Success, Book Updated." ,data: updateBook};
         } catch (error) {
             return {message: "Error fetching the book.", Error: error.message }
@@ -73,7 +73,7 @@ export class BookService {
 
     removeBook = async (bookId : string) => {
         try {
-            let findBook = await this.bookModel.findByIdAndDelete({_id: bookId});
+            const findBook = await this.bookModel.findByIdAndDelete({_id: bookId});
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
     
             return {message: "Success, Book Deleted." ,data: findBook};
@@ -82,4 +82,101 @@ export class BookService {
         }
 
     }
+//   constructor(@InjectModel(Book.name) private bookModel: Model<Book>) {}
+
+//   addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
+//     // console.log(file);
+//     book.image = file.path;
+//     book.publishedDate = new Date();
+//     await this.bookModel.insertMany(book);
+//     return { message: 'Success, Book Added.', data: book };
+//   };
+
+//   // ! All Books and Pagination
+//   getAllBooks = async (paginationDTO: PaginationDTO) => {
+//     let page = paginationDTO.page;
+//     let limit = paginationDTO.limit;
+//     let skip = (page - 1) * limit;
+//     try {
+//       let books = await this.bookModel
+//         .find()
+//         .limit(limit)
+//         .skip(skip)
+//         .populate({ path: 'authorId', select: 'name _id email role' });
+//       return { message: 'Success, Get All Books.', data: books };
+//     } catch (error) {
+//       return { message: 'Error fetching the books.', Error: error.message };
+//     }
+//   };
+
+//   getOneBook = async (id: string) => {
+//     try {
+//       let findBook = await this.bookModel.findOne({ _id: id });
+//       if (!findBook)
+//         throw new HttpException(
+//           'Fail, Book Not Found!',
+//           HttpStatus.BAD_REQUEST,
+//         );
+
+//       return { message: 'Success, Get Spesific Book.', data: findBook };
+//     } catch (error) {
+//       return { message: 'Error fetching the book.', Error: error.message };
+//     }
+//   };
+
+//   // ! Pagination
+//   // paginationBooks = async (paginationDTO: PaginationDTO) => {
+//   //     let page = paginationDTO.page;
+//   //     let limit = paginationDTO.limit;
+//   //     let skip = (page - 1) * limit
+//   //     try {
+//   //         let books = await this.bookModel.find().limit(limit).skip(skip).populate({path: 'author',select: 'name _id email role'});
+//   //         return {message: "Success, Get All Books." , data: books};
+//   //     } catch (error) {
+//   //         return {message: "Error fetching the books.", Error: error.message }
+//   //     }
+//   // }
+
+//   updateThisBook = async (bookId: string, book: any, user: any) => {
+//     try {
+//       let findBook = await this.bookModel.findById({ _id: bookId });
+
+//       if (!findBook)
+//         throw new HttpException(
+//           'Fail, Book Not Found!',
+//           HttpStatus.BAD_REQUEST,
+//         );
+
+//       // ! Check the owner of the book
+//       if (user.role !== 'auther' && user.userId !== findBook.authorId) {
+//         throw new HttpException(
+//           'Unauthorized, You do not own this book.',
+//           HttpStatus.UNAUTHORIZED,
+//         );
+//       }
+//       let updateBook = await this.bookModel.findByIdAndUpdate(
+//         { _id: bookId },
+//         { $set: book },
+//       );
+//       return { message: 'Success, Book Updated.', data: updateBook };
+//     } catch (error) {
+//       return { message: 'Error fetching the book.', Error: error.message };
+//     }
+//   };
+
+//   removeBook = async (bookId: string) => {
+//     try {
+//       let findBook = await this.bookModel.findByIdAndDelete({ _id: bookId });
+//       if (!findBook)
+//         throw new HttpException(
+//           'Fail, Book Not Found!',
+//           HttpStatus.BAD_REQUEST,
+//         );
+
+//       return { message: 'Success, Book Deleted.', data: findBook };
+//     } catch (error) {
+//       return { message: 'Error fetching the book.', Error: error.message };
+//     }
+//   };
+// >>>>>>> 945094a30b1fd6c10f26d7307aaa6fa7613b4236
 }

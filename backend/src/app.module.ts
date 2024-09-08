@@ -4,12 +4,21 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BookModule } from './modules/book/book.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { CartModule } from './modules/cart/cart.module';
-import { WishlistModule } from './modules/wishlist/wishlist.module';
+import { ReviewModule } from './modules/review/review.module';
+import { StreamEventModule } from './modules/stream-event/stream-event.module';
+import { OrderModule } from './modules/order/order.module';
+
 
 @Module({
-  imports: [BookModule, AuthModule,CartModule,WishlistModule, MongooseModule.forRoot('mongodb://localhost:27017/nest_iti')],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/onlineLibrary'),
+    BookModule,
+    AuthModule,
+    ReviewModule,
+    StreamEventModule,
+    OrderModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

@@ -24,9 +24,7 @@ import { Roles } from 'src/core/decorators/roles.decorator';
    
     @Post()
       @Roles(Role.User) 
-    async createCart(@Body() body: UserDTO, @Req() req:any ) {  
-       console.log(req);
-       
+    async createCart(@Body() body: UserDTO, @Req() req:any ) {   
         body["userId"] = req.user.userId;
       return await this._cartService.createCart(body);
     }

@@ -9,9 +9,9 @@ import {
   import { Book } from 'src/core/schemas/book.schema';
   
   import { CartDTO, UpdateDTO } from './dto/cart.dto';
-import { Cart } from 'src/core/schemas/cart.schema';
-import { UserDTO } from '../wishlist/dto/wishlist.dto';
-   
+  import { Cart } from 'src/core/schemas/cart.schema';
+  import { UserDTO } from '../wishlist/dto/wishlist.dto';
+    
   
   @Injectable()
   export class CartService {

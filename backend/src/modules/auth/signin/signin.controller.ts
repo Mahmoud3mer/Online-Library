@@ -5,10 +5,10 @@ import { SigninService } from './signin.service';
 @Controller('signin')
 export class SigninController {
 
-    constructor(private _signinService:SigninService){ }
+    constructor(private _signinService: SigninService) { }
 
     @Post()
-    signin(@Body() body:SignInDTO){
-return this._signinService.signin(body)
+    signin(@Body() body: SignInDTO) {
+        return this._signinService.signin(body)
     }
 }

@@ -1,15 +1,34 @@
 import { Module } from '@nestjs/common';
-import { SigninController } from './signin/signin.controller';
-import { SignupController } from './signup/signup.controller';
-import { SigninService } from './signin/signin.service';
-import { SignupService } from './signup/signup.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { User, UserSchema } from 'src/core/schemas/user.schema';
+import { SignupController } from './signup/signup.controller';
+import { SignupService } from './signup/signup.service';
+import { SigninController } from './signin/signin.controller';
+import { SigninService } from './signin/signin.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
-    controllers:[SigninController,SignupController],
-    providers:[SigninService,SignupService,JwtService]
+  imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 587,
+        auth: {
+          user: 'itinoteapp@gmail.com',
+          pass: 'bbjq ryus fmox qwow',
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      },
+      defaults: {
+        from: 'itinoteapp@gmail.com',
+      },
+    }),
+  ],
+  controllers: [SignupController,SigninController],
+  providers: [SignupService,SigninService,JwtService],
 })
 export class AuthModule {}

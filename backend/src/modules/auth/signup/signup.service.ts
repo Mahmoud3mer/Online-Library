@@ -4,27 +4,86 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/core/schemas/user.schema';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-
+import { generateEmailToken } from 'src/core/utils/token.util';
+import { MailerService } from '@nestjs-modules/mailer';
+import emailHtml from '../mails/mail-verification';
 
 @Injectable()
 export class SignupService {
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly mailerService: MailerService,
+  ) {}
 
-    constructor(@InjectModel(User.name) private userModel: Model<User>) { }
-
-    async signup(body: SignUpDTO) {
-
-        let user = await this.userModel.findOne({ email: body.email })
-        if (user) throw new HttpException('email is already register', HttpStatus.FORBIDDEN);
-
-        body.password = await bcrypt.hash(body.password, 8);
-
-        if (!body.role) {
-            body.role = 'user';
-        } else if (body.role !== 'user' && body.role !== 'admin' && body.role !== 'author') {
-            throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST);
-        }
-
-        let adduser = await this.userModel.create(body)
-        return { message: 'added success', adduser }
+  async signup(body: SignUpDTO) {
+    const existingUser = await this.userModel.findOne({ email: body.email });
+    if (existingUser) {
+      if (existingUser.isVerified) {
+        throw new HttpException(
+          'Email is already registered',
+          HttpStatus.FORBIDDEN,
+        );
+      } else {
+        throw new HttpException(
+          ' Please check your email to verify your account.',
+          HttpStatus.FORBIDDEN,
+        );
+      }
     }
+
+    const hashedPassword = await bcrypt.hash(body.password, 10);
+    body.password = hashedPassword;
+
+    if (!body.role) {
+      body.role = 'user';
+    } else if (!['user', 'admin', 'author'].includes(body.role)) {
+      throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST);
+    }
+
+    const { token: verificationToken, expiresAt: verificationTokenExpiresAt } =
+      generateEmailToken();
+
+    const newUser = new this.userModel({
+      ...body,
+      isVerified: false,
+      verificationCode: verificationToken,
+      verificationExpiresAt: verificationTokenExpiresAt,
+    });
+
+    await newUser.save();
+
+    const verificationLink = `http://localhost:3000/signup/verify-email?token=${verificationToken}`;
+
+    await this.mailerService.sendMail({
+      to: body.email,
+      subject: 'Email Verification',
+      html: emailHtml(body.name, verificationLink),
+    });
+
+    return {
+      message:
+        'Registration successful. Please check your email to verify your account.',
+    };
+  }
+
+  async verifyEmail(token: string) {
+    const user = await this.userModel.findOne({
+      verificationCode: token,
+      verificationExpiresAt: { $gt: new Date() },
+    });
+
+    if (!user) {
+      throw new HttpException(
+        'Invalid or expired verification token',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    user.isVerified = true;
+    user.verificationCode = null;
+    user.verificationExpiresAt = null;
+    await user.save();
+
+    return { message: 'Email successfully verified.' };
+  }
 }
