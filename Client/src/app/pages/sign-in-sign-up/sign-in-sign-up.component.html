@@ -1,0 +1,49 @@
+<!-- sign-in-sign-up.component.html -->
+<div class="relative w-full max-w-4xl mx-auto mt-10 min-h-screen bg-white shadow-lg overflow-hidden" [ngClass]="{'right-panel-active': isRightPanelActive}" id="container">
+  <div class="absolute top-0 h-full w-1/2 transition-all ease-in-out duration-600" [ngClass]="{'translate-x-full opacity-100 z-10': isRightPanelActive}">
+    <form class="bg-white flex flex-col items-center justify-center p-12 h-full text-center" (submit)="onSignUp($event)">
+      <h1 class="text-2xl font-bold text-[#24C6DC] mb-4">Sign Up</h1>
+      <div class="flex space-x-3 my-4">
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span class="text-sm">or use your email for registration</span>
+      <input type="text" placeholder="Name" class="bg-gray-200 w-full p-3 my-2 rounded" />
+      <input type="email" placeholder="Email" class="bg-gray-200 w-full p-3 my-2 rounded" />
+      <input type="password" placeholder="Password" class="bg-gray-200 w-full p-3 my-2 rounded" />
+      <button class="mt-6 px-8 py-3 bg-red-500 text-white font-bold uppercase rounded-full">Sign Up</button>
+    </form>
+  </div>
+
+  <div class="absolute top-0 h-full w-1/2 left-0 transition-all ease-in-out duration-600" [ngClass]="{'-translate-x-full opacity-100 z-10': isRightPanelActive}">
+    <form class="bg-white flex flex-col items-center justify-center p-12 h-full text-center" (submit)="onSignIn($event)">
+      <h1 class="text-2xl font-bold text-[#24C6DC] mb-4">Sign In</h1>
+      <div class="flex space-x-3 my-4">
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="p-3 border border-gray-300 rounded-full"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <span class="text-sm">or use your email account</span>
+      <input type="email" placeholder="Email" class="bg-gray-200 w-full p-3 my-2 rounded" />
+      <input type="password" placeholder="Password" class="bg-gray-200 w-full p-3 my-2 rounded" />
+      <a href="#" class="text-blue-500 text-sm mt-4">Forgot your password?</a>
+      <button class="mt-6 px-8 py-3 bg-red-500 text-white font-bold uppercase rounded-full">Sign In</button>
+    </form>
+  </div>
+
+  <div class="absolute top-0 right-0 h-full w-1/2 bg-gradient-to-t from-[#514A9D] to-[#24C6DC] text-white z-20" [ngClass]="{'translate-x-full': isRightPanelActive}">
+    <div class="absolute left-0 top-0 w-full h-full flex items-center justify-center flex-col text-center px-10">
+      <div *ngIf="!isRightPanelActive">
+        <h1 class="text-3xl font-bold">Welcome Back!</h1>
+        <p class="my-6 text-sm">To stay connected with us, please log in with your personal info</p>
+        <button class="px-8 py-3 border-2 border-white font-bold uppercase rounded-full" (click)="togglePanel('signIn')">Sign In</button>
+      </div>
+      <div *ngIf="isRightPanelActive">
+        <h1 class="text-3xl font-bold">Hello, Friend!</h1>
+        <p class="my-6 text-sm">Enter your personal details and start your journey with us</p>
+        <button class="px-8 py-3 border-2 border-white font-bold uppercase rounded-full" (click)="togglePanel('signUp')">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>

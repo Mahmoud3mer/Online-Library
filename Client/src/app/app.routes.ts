@@ -12,6 +12,7 @@ import { UserSettingsComponent } from './pages/user-settings/user-settings.compo
 import { BookDetailsComponent } from './pages/book-details/book-details.component';
 import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
+import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,9 @@ export const routes: Routes = [
   {
     path: 'authors',
     component: AuthorsComponent
+  },
+  { path: 'auth',
+    component: SignInSignUpComponent
   },
   {
     path: '**',

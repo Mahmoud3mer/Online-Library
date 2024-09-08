@@ -1,5 +1,5 @@
 import { Component
-  //  , CUSTOM_ELEMENTS_SCHEMA
+  , CUSTOM_ELEMENTS_SCHEMA
 
 } from '@angular/core';
 
@@ -9,7 +9,7 @@ import { Component
   imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  // schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent {
 
