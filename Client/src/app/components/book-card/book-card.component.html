@@ -1,0 +1,46 @@
+<div class="book-card mt-6 bg-white rounded" style="box-shadow: 0px 0px 20px #00000012;">
+  <div class="p-2 ">
+    <div class="relative overflow-hidden bg-gray-50 img-holder">
+      <div style="width: 80%; margin: auto;" class="py-4">
+        @if (bookCoverImg) {
+        <img class="block mx-auto lg:w-40 h-60" [src]="bookCoverImg" [alt]="bookTitle">
+        }
+      </div>
+      <div class="absolute add-to-cart-btn-holder w-40">
+        <button
+          class="block mx-auto py-2 px-3 bg-blue-500 text-sm text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75">
+          <i class="fa-solid fa-cart-shopping me-1"></i>
+          Add To Cart
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="book-content p-5">
+    @if (bookCategory) {
+    <p class="text-sm text-gray-500">{{bookCategory}}</p>
+    }
+    @if (bookTitle) {
+    <h5
+      class="text-gray-900 text-base font-bold  my-1 h-12 text-ellipsis overflow-hidden cursor-pointer hover:text-blue-600">
+      {{bookTitle}}</h5>
+    }
+    @if (authorName) {
+    <h6 class="text-gray-500 mb-1 text-sm">{{authorName}}</h6>
+    }
+    @if (bookPrice) {
+    <p class="text-blue-600 font-semibold"> <span class="text-xl">{{bookPrice}}</span> L.E</p>
+    }
+    @if (bookRating) {
+    <p class="text-gray-400 text-sm font-semibold flex justify-between">
+      <span>
+        <i class="fas fa-star text-yellow-500"></i>
+        <i class="fas fa-star text-yellow-500"></i>
+        <i class="fas fa-star text-yellow-500"></i>
+        <i class="fas fa-star text-yellow-500"></i>
+        <i class="fas fa-star text-yellow-500"></i>
+      </span>
+      <span> <span class="text-gray-700">{{bookRating}}</span> Reviews</span>
+    </p>
+    }
+  </div>
+</div>
