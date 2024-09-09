@@ -1,0 +1,54 @@
+<swiper-container 
+    loop="true"
+    navigation="true"
+    slides-per-view="3"
+    speed="100"
+    class="w-full h-[500px]"
+>
+
+    <!-- @for (author of authors; track author.id) {
+        <swiper-slide class="relative">
+            <img [src]="author.image" alt="" class="w-full h-full object-cover">
+            <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{author.name}}</p>
+            <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{author.bio}}</p>
+        </swiper-slide>
+    } -->
+
+    <swiper-slide class="relative">
+        <img [src]="authors[0].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[0].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[0].bio}}</p>
+    </swiper-slide>
+
+    <swiper-slide class="relative">
+        <img [src]="authors[1].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[1].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[1].bio}}</p>
+    </swiper-slide>
+
+    <swiper-slide class="relative">
+        <img [src]="authors[2].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[2].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[2].bio}}</p>
+    </swiper-slide>
+
+    <swiper-slide class="relative">
+        <img [src]="authors[0].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[0].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[0].bio}}</p>
+    </swiper-slide>
+
+    <swiper-slide class="relative">
+        <img [src]="authors[1].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[1].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[1].bio}}</p>
+    </swiper-slide>
+
+    <swiper-slide class="relative">
+        <img [src]="authors[2].image" alt="" class="w-full h-full object-cover">
+        <p class="absolute bottom-[22%] right-[31%] text-white text-lg font-bold">{{authors[2].name}}</p>
+        <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{authors[2].bio}}</p>
+    </swiper-slide>
+
+
+</swiper-container>
