@@ -1,11 +1,11 @@
 import { Component , CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { BookCardComponent } from '../book-card/book-card.component';
-
+import { NgForOf } from '@angular/common';
 @Component({
   selector: 'app-swiper',
   standalone: true,
-  imports: [CardComponent, BookCardComponent],
+  imports: [CardComponent, BookCardComponent,NgForOf],
   templateUrl: './swiper.component.html',
   styleUrl: './swiper.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA] // for swiper
@@ -17,6 +17,7 @@ export class SwiperComponent {
     1024: { slidesPerView: 4, spaceBetween: 40 },
     1280: { slidesPerView: 5, spaceBetween: 50 }
   };
+  
 
   @Input() loopTest: any = [];
 

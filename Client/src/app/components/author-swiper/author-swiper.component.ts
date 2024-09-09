@@ -11,4 +11,11 @@ import { CardComponent } from '../card/card.component';
 })
 export class AuthorSwiperComponent {
   @Input() authors: any;
+
+  breakpoints = {
+    640: { slidesPerView: 2},
+    768: { slidesPerView: 2},
+    1024: { slidesPerView: 3},
+    1280: { slidesPerView: 4}
+  };
 }
