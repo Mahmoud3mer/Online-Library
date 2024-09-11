@@ -7,6 +7,7 @@ import { SignupService } from './signup/signup.service';
 import { SigninController } from './signin/signin.controller';
 import { SigninService } from './signin/signin.service';
 import { JwtService } from '@nestjs/jwt';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -27,8 +28,9 @@ import { JwtService } from '@nestjs/jwt';
         from: 'itinoteapp@gmail.com',
       },
     }),
+    HttpModule,
   ],
-  controllers: [SignupController,SigninController],
-  providers: [SignupService,SigninService,JwtService],
+  controllers: [SignupController, SigninController],
+  providers: [SignupService, SigninService, JwtService],
 })
 export class AuthModule {}

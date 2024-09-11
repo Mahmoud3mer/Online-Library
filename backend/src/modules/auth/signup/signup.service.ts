@@ -7,12 +7,17 @@ import * as bcrypt from 'bcrypt';
 import { generateEmailToken } from 'src/core/utils/token.util';
 import { MailerService } from '@nestjs-modules/mailer';
 import emailHtml from '../mails/mail-verification';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class SignupService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly mailerService: MailerService,
+    private readonly httpService: HttpService,
+    private _jwtService: JwtService,
   ) {}
 
   async signup(body: SignUpDTO) {
@@ -52,7 +57,7 @@ export class SignupService {
 
     await newUser.save();
 
-    const verificationLink = `http://localhost:3000/signup/verify-email?token=${verificationToken}`;
+    const verificationLink = `http://localhost:4200/verify-email?token=${verificationToken}`;
 
     await this.mailerService.sendMail({
       to: body.email,
@@ -61,8 +66,7 @@ export class SignupService {
     });
 
     return {
-      message:
-        'Registration successful. Please check your email to verify your account.',
+      message: `Registration successful. Please check your email to verify your account.`,
     };
   }
 
@@ -84,6 +88,53 @@ export class SignupService {
     user.verificationExpiresAt = null;
     await user.save();
 
-    return { message: 'Email successfully verified.' };
+    return {
+      message:
+        'Email Verified Successfully. You can now log in to your account.',
+    };
+  }
+  async verifyGoogleToken(token: string) {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get(
+          `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`,
+        ),
+      );
+
+      const { sub: googleId, email, name } = response.data;
+
+      let user = await this.userModel.findOne({ email });
+
+      if (!user) {
+        user = new this.userModel({
+          name,
+          email,
+          googleId,
+          isVerified: true,
+          loginMethod: 'google',
+        });
+        await user
+          .save()
+          .then((savedUser) => {
+            console.log('User saved successfully:', savedUser);
+          })
+          .catch((err) => {
+            console.error('Error saving user:', err);
+          });
+      } else {
+        if (!user.googleId) {
+          user.googleId = googleId;
+          await user.save();
+        }
+      }
+
+      return user;
+    } catch (error) {
+      console.error('Error during Google token verification:', error);
+      throw new HttpException(
+        error?.response?.data || 'Failed to verify Google token',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }

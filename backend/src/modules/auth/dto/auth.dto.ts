@@ -11,9 +11,8 @@ import {
 export class SignUpDTO {
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
-  @MaxLength(10)
-  @NotContains(' ')
+  @MinLength(5)
+  @MaxLength(30)
   name: string;
 
   @IsString()
@@ -23,13 +22,17 @@ export class SignUpDTO {
   email: string;
 
   @IsString()
-  @MinLength(3)
-  @MaxLength(8)
+  @MinLength(8)
   password: string;
 
   @IsString()
   @IsOptional()
   role: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  phone: string;
 
   @IsString()
   @IsOptional()
@@ -45,10 +48,9 @@ export class SignInDTO {
   email: string;
 
   @IsString()
-  @MinLength(3)
-  @MaxLength(8)
   password: string;
 
   @IsString()
+  @IsOptional()
   role: string;
 }
