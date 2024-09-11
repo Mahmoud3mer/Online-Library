@@ -1,9 +1,9 @@
-<div class="book-card mt-6 bg-white rounded" style="box-shadow: 0px 0px 20px #00000012;">
+<div class="book-card mt-6 bg-white dark:bg-[#123656c8] rounded" style="box-shadow: 0px 0px 20px #00000012;">
   <div class="p-2 ">
-    <div class="relative overflow-hidden bg-gray-50 img-holder">
+    <div class="relative overflow-hidden bg-gray-50 dark:bg-[#123656] img-holder">
       <div style="width: 80%; margin: auto;" class="py-4">
         @if (bookCoverImg) {
-        <img class="block mx-auto lg:w-40 h-60" [src]="bookCoverImg" [alt]="bookTitle">
+        <img class="block mx-auto lg:w-40 h-60 dark:text-white" [src]="bookCoverImg" [alt]="bookTitle">
         }
       </div>
       <div class="absolute add-to-cart-btn-holder w-40">
@@ -17,21 +17,21 @@
   </div>
   <div class="book-content p-5">
     @if (bookCategory) {
-    <p class="text-sm text-gray-500">{{bookCategory}}</p>
+    <p class="text-sm text-gray-500 dark:text-gray-300">{{bookCategory}}</p>
     }
     @if (bookTitle) {
     <h5
-      class="text-gray-900 text-base font-bold  my-1 h-12 text-ellipsis overflow-hidden cursor-pointer hover:text-blue-600" (click)="goToDetails()">
+      class="text-gray-900 text-base font-bold  my-1 h-12 text-ellipsis overflow-hidden cursor-pointer hover:text-blue-600 dark:text-gray-400" (click)="goToDetails(256)">
       {{bookTitle}}</h5>
     }
     @if (authorName) {
-    <h6 class="text-gray-500 mb-1 text-sm">{{authorName}}</h6>
+    <h6 class="text-gray-500 mb-1 text-sm dark:text-gray-300">{{authorName}}</h6>
     }
     @if (bookPrice) {
-    <p class="text-blue-600 font-semibold"> <span class="text-xl">{{bookPrice}}</span> L.E</p>
+    <p class="text-blue-600 font-semibold dark:text-blue-300"> <span class="text-xl">{{bookPrice}}</span> L.E</p>
     }
     @if (bookRating) {
-    <p class="text-gray-400 text-sm font-semibold flex justify-between">
+    <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
       <span>
         <i class="fas fa-star text-yellow-500"></i>
         <i class="fas fa-star text-yellow-500"></i>
@@ -39,7 +39,7 @@
         <i class="fas fa-star text-yellow-500"></i>
         <i class="fas fa-star text-yellow-500"></i>
       </span>
-      <span> <span class="text-gray-700">{{bookRating}}</span> Reviews</span>
+      <span> <span class="text-gray-700 dark:text-gray-300">{{bookRating}}</span> Reviews</span>
     </p>
     }
   </div>

@@ -12,6 +12,7 @@ export class ReviewService {
 
 
     addReview = async (body: reviewDTO) => {
+        body.date = new Date();
         const addedReview = await this.ReviewModel.insertMany(body)
         return {message: "added Review", addedReview}
     }

@@ -11,7 +11,7 @@ export class StreamEventController {
   constructor(private readonly _streamEventService: StreamEventService) { }
 
   // Endpoint for Authors to request a stream event
-  @Roles(Role.Author)
+  @Roles(Role.Admin)
   @UseGuards(AuthGuard)
   @Post()
   async requestStreamEvent(@Body() createStreamEventDTO: CreateStreamEventDTO) {

@@ -21,22 +21,12 @@ export class BooksService {
 
   getAllBooks(): Observable <any> {
     // ! send token to header
-    if (this.isBrowser) {
-      // this.token = localStorage.getItem('token');
-      if (this.token) {
-        this.headers = this.headers.set('token', this.token);
-      }
-    }
-
-    return this._httpClient.get(`${apiUrl}/book`,{headers: this.headers});
+    return this._httpClient.get(`assets/data.json`);
   }
 
   getSinglBook(bookId: string): Observable<any>{
     if (this.isBrowser) {
-      // this.token = localStorage.getItem('token');
-      if (this.token) {
-        this.headers = this.headers.set('token', this.token);
-      }
+      this.headers = this.headers.set('token', this.token);
     }
     return this._httpClient.get(`${apiUrl}/book/${bookId}`,{headers: this.headers});
   }

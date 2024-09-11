@@ -5,7 +5,7 @@ import { AuthGuard } from 'src/core/guards/auth.guard';
 import { PaginationDTO } from '../book/bookdto/pagination.dto';
 
 @Controller('review')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class ReviewController {
   constructor(private readonly _reviewService: ReviewService,
     
@@ -16,7 +16,6 @@ export class ReviewController {
   
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async addReview(@Body() body: reviewDTO, @Req() req : any) {
-    
     const res = await this._reviewService.addReview(body);
     return res;
   }

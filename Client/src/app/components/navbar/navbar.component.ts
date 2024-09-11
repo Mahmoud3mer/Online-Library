@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { DarkModeService } from '../../services/dark-mode/dark-mode.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,47 +13,42 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class NavbarComponent {
   currencies: string[] = ["$ USD","€ EURO","$ CAD","₹ INR","¥ CNY","৳ CNY"]
   languages: string[] = ["English","Español","Filipino","Français","العربية","हिन्दी"]
-  router = inject(Router)
-  carts: any[] = [
-    {
-      title: "Apple Watch Series 6",
-      image:"assets/images/header/cart-items/item1.jpg",
-      price: 99.00,
-      stock: 3
-    },
-    {
-      title: "Apple Watch Series 6",
-      image:"assets/images/header/cart-items/item1.jpg",
-      price: 99.00,
-      stock: 1
+  token: string | null = ""
+  isLogedIn : boolean = true;
+
+  isDarkMode: boolean = false;
+
+  private isBrowser: Boolean = false;
+
+  constructor(@Inject(PLATFORM_ID) platformId: object ,private _darkModeService: DarkModeService) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    if (this.isBrowser) {
+      this.isDarkMode = localStorage.getItem('darkMode') === "dark"? true : false
     }
-  ]
-
-  totalPrice: number = 0;
-
-  constructor(){
-    this.calcTotalPrice()
+    this.getToken()
   }
 
-  goToWishlistPage(){
-    this.router.navigate(["/wishlist"])
+  getToken(){
+    if (this.isBrowser) {
+      this.token = localStorage.getItem('token')
+      if (this.token) {
+        this.isLogedIn = true;
+      }
+    }
   }
 
-  calcTotalPrice(){
-    this.totalPrice = 0;
-    // for (let i = 0; i < this.carts.length; i++) {
-    //   let stoks = this.carts[i].stock;
-    //   for (let j = 0; j < stoks; j++) {
-    //     this.totalPrice += this.carts[i].price;
-    //   }
-    // }
-
-    this.totalPrice = this.carts.reduce((total, item) => total + (item.price * item.stock), 0);
+  logOut(){
+    if (this.isBrowser) {
+      localStorage.removeItem('token');
+    }
+    this.isLogedIn = false
   }
 
-  removeBookFromCart(itemToRemove: any){
-    this.carts = this.carts.filter(item => item !== itemToRemove);
-    this.calcTotalPrice();
+  toggleDarkMode(event : any){
+    if (this.isBrowser) {
+      this.isDarkMode = event.target.value === "dark"? true : false;
+      localStorage.setItem('darkMode', this.isDarkMode == true? "dark": "light")
+    }
+    this._darkModeService.toggleDarkMode(event.target.value)
   }
-
 }

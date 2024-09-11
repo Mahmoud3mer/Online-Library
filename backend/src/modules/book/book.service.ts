@@ -48,9 +48,9 @@ export class BookService {
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
             // ! Check the owner of the book
-            if (user.role !== 'auther' && user.userId !== findBook.authorId) {
-                throw new HttpException('Unauthorized, You do not own this book.', HttpStatus.UNAUTHORIZED)
-            }
+            // if (user.role !== 'auther' && user.userId !== findBook.authorId) {
+            //     throw new HttpException('Unauthorized, You do not own this book.', HttpStatus.UNAUTHORIZED)
+            // }
             const updateBook = await this.bookModel.findByIdAndUpdate({_id: bookId} , {$set: book});
             return {message: "Success, Book Updated." ,data: updateBook};
         } catch (error) {

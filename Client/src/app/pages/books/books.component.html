@@ -1,19 +1,21 @@
-<div style="background-color: #f9f9f9;" class="py-24 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2">
+<app-sub-navbar></app-sub-navbar>
+
+<div class="bg-[#f9f9f9] dark:bg-[#081d31] py-24 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2">
 
   <div class="">
     <div class="grid xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
 
 
       <aside class="grid gap-7">
-        <div class="search bg-white border-gray-100 border-2 rounded  p-7">
-          <h5 class="border-b pb-3 mb-6">Search Product</h5>
+        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded  p-7">
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Search Product</h5>
 
           <form class="max-w-md mx-auto ">
             <label for="default-search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
               <input type="search" id="default-search"
-                class="block w-full py-3 pe-8 ps-4 text-md text-gray-900 border border-gray-300 rounded  focus:outline-none"
+                class="block w-full py-3 pe-8 ps-4 text-md text-gray-900 border border-gray-300 rounded dark:bg-[#081d31] dark:text-gray-300 focus:outline-none"
                 placeholder="Search Here ..." style="appearance: none;" />
               <button type="submit" class="text-gray-600 absolute end-1 bottom-2 text-sm p-2">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -21,18 +23,18 @@
             </div>
           </form>
         </div>
-        <div class="search bg-white border-gray-100 border-2 rounded  p-7">
-          <h5 class="border-b pb-3 mb-6">All Categories</h5>
-          <p class="mb-3 text-gray-500">Category 1</p>
-          <p class="mb-3 text-gray-500">Category 2</p>
-          <p class="mb-3 text-gray-500">Category 3</p>
-          <p class="mb-3 text-gray-500">Category 4</p>
-          <p class="mb-3 text-gray-500">Category 5</p>
-          <p class="mb-3 text-gray-500">Category 6</p>
+        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded  p-7">
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">All Categories</h5>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 1</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 2</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 3</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 4</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 5</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Category 6</p>
 
         </div>
-        <div class="search bg-white border-gray-100 border-2 rounded p-7">
-          <h5 class="border-b pb-3 mb-6">Price Range</h5>
+        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Price Range</h5>
 
           <div class="relative mb-6">
             <label for="labels-range-input" class="sr-only">Labels range</label>
@@ -44,23 +46,23 @@
           </div>
 
         </div>
-        <div class="search bg-white border-gray-100 border-2 rounded p-7">
-          <h5 class="border-b pb-3 mb-6">Filter By Author</h5>
-          <p class="mb-3 text-gray-500">Author 1</p>
-          <p class="mb-3 text-gray-500">Author 2</p>
-          <p class="mb-3 text-gray-500">Author 3</p>
-          <p class="mb-3 text-gray-500">Author 4</p>
-          <p class="mb-3 text-gray-500">Author 5</p>
-          <p class="mb-3 text-gray-500">Author 6</p>
+        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Filter By Author</h5>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 1</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 2</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 3</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 4</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 5</p>
+          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 6</p>
         </div>
       </aside>
 
 
       <section class="xs:grid-cols-1 md:col-span-2 lg:col-span-3 ">
-        <div class="flex bg-white border-gray-100 border-2 rounded p-4 items-center justify-between">
+        <div class="flex bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-4 items-center justify-between">
 
           <form class="max-w-sm mx-3 flex items-center">
-            <span class="text-gray-500 me-4">Sort by:</span>
+            <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
             <select id="filter-select"
               class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200">
               <option selected>Popularity</option>
@@ -73,10 +75,10 @@
 
           <div>
             <span class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer" style="background-color: #0167F3;">
-              <i class="fa-solid fa-grip " style="color: white;" ></i>
+              <i class="fa-solid fa-grip dark:text-gray-300 text-white"></i>
             </span>
             <span class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer">
-              <i class="fa-solid fa-list"></i>
+              <i class="fa-solid fa-list dark:text-gray-300"></i>
             </span>
           </div>
 

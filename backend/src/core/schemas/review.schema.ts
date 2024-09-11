@@ -11,12 +11,13 @@ export class Review {
     bookId: string;
     
     @Prop({required: true})
-    rating: number;
+    raiting: number;
     
     @Prop({required: false})
     comment: string;
 
-    // date: Date;
+    @Prop({ required: true })
+    date: Date;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review)

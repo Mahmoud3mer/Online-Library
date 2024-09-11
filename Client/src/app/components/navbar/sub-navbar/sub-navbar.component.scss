@@ -1435,167 +1435,6 @@ ol {
     /* End Main Menu Search */
 }
 
-.header .topbar {
-    // background-color: #081828;
-    padding: 18px 40px;
-}
-
-@media (max-width: 767px) {
-    .header .topbar .top-left {
-        text-align: center;
-    }
-}
-
-.header .topbar .top-left .menu-top-link .select-position {
-    position: relative;
-}
-
-.header .topbar .top-left .menu-top-link .select-position select {
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    position: relative;
-    border: none;
-    padding: 0 10px 0 0px;
-    margin-left: 5px;
-    color: #fff !important;
-    font-weight: 500;
-    font-size: 14px;
-    // background-color: #081828 !important;
-}
-
-.header .topbar .top-left .menu-top-link .select-position select:focus {
-    text-decoration: none;
-    outline: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.header .topbar .top-left .menu-top-link .select-position::after {
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
-    content: '';
-    display: block;
-    height: 6px;
-    margin-top: -3px;
-    pointer-events: none;
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    -webkit-transform-origin: 66% 66%;
-    transform-origin: 66% 66%;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transition: all 0.15s ease-in-out;
-    transition: all 0.15s ease-in-out;
-    width: 6px;
-}
-
-.header .topbar .top-left .menu-top-link li {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.header .topbar .top-left .menu-top-link li:last-child {
-    margin: 0;
-}
-
-.header .topbar .top-middle {
-    text-align: center;
-}
-
-@media (max-width: 767px) {
-    .header .topbar .top-middle {
-        display: none;
-    }
-}
-
-.header .topbar .top-middle .useful-links li {
-    display: inline-block;
-    margin-right: 10px;
-    padding-right: 10px;
-}
-
-.header .topbar .top-middle .useful-links li:last-child {
-    margin: 0;
-    border: none;
-}
-
-.header .topbar .top-middle .useful-links li a {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.header .topbar .top-middle .useful-links li a:hover {
-    color: #0167F3;
-}
-.activRouter{
-    color: #0167F3;
-    font-weight: bold;
-}
-.header .topbar .top-end {
-    float: right;
-    display: inline-block;
-}
-
-@media (max-width: 767px) {
-    .header .topbar .top-end {
-        float: none;
-        text-align: center;
-        display: block;
-        margin-top: 15px;
-    }
-}
-
-.header .topbar .top-end .user {
-    color: #fff;
-    display: inline-block;
-    margin-right: 5px;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.header .topbar .top-end .user i {
-    color: #fff;
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.header .topbar .top-end .user-login {
-    display: inline-block;
-    white-space: nowrap;
-}
-
-.header .topbar .top-end .user-login li {
-    display: inline-block;
-    border-right: 1px solid rgba(255, 255, 255, 0.459);
-    padding: 0px 10px;
-    white-space: nowrap;
-}
-
-.header .topbar .top-end .user-login li:first-child {
-    padding-right: 12px;
-}
-
-.header .topbar .top-end .user-login li:last-child {
-    margin-right: 0;
-    padding-right: 0;
-    border-right: none;
-}
-
-.header .topbar .top-end .user-login li a {
-    color: #fff;
-    font-weight: 500;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.header .topbar .top-end .user-login li a:hover {
-    color: #0167F3;
-}
-
 .header .header-middle {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1656,7 +1495,7 @@ ol {
 }
 
 .header .nav-hotline i {
-    color: #081828;
+    // color: #081828;
     font-size: 18px;
     position: absolute;
     left: 0;
@@ -1675,11 +1514,11 @@ ol {
 .header .nav-hotline h3 {
     font-size: 15px;
     font-weight: 600;
-    color: #081828;
+    // color: #081828;
 }
 
 .header .nav-hotline h3 span {
-    color: #888;
+    color: #9b9b9b;
     font-weight: 500;
     font-size: 14px;
     display: block;
@@ -1713,7 +1552,7 @@ ol {
     display: inline-block;
     border-radius: 50%;
     border: 1px solid #eee;
-    color: #555;
+    // color: #555;
     font-size: 18px;
     text-align: center;
     position: relative;
@@ -1732,8 +1571,8 @@ ol {
     height: 19px;
     width: 19px;
     line-height: 19px;
-    background-color: #081828;
-    color: #fff;
+    // background-color: #081828;
+    // color: #fff;
     font-size: 12px;
     font-weight: 500;
     text-align: center;
@@ -1757,7 +1596,7 @@ ol {
     display: inline-block;
     border-radius: 50%;
     border: 1px solid #eee;
-    color: #555;
+    // color: #555;
     font-size: 18px;
     text-align: center;
     position: relative;
@@ -1770,8 +1609,8 @@ ol {
     height: 19px;
     width: 19px;
     line-height: 19px;
-    background-color: #081828;
-    color: #fff;
+    // background-color: #081828;
+    // color: #fff;
     font-size: 12px;
     font-weight: 500;
     text-align: center;
@@ -1788,7 +1627,7 @@ ol {
     top: 72px;
     right: 0;
     width: 300px;
-    background: #fff;
+    // background: #fff;
     padding: 20px 25px;
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
@@ -1826,7 +1665,7 @@ ol {
 
 .header .navbar-cart .cart-items .shopping-item .dropdown-cart-header span {
     text-transform: capitalize;
-    color: #222;
+    // color: #222;
     font-size: 14px;
     font-weight: 600;
 }
@@ -1834,7 +1673,7 @@ ol {
 .header .navbar-cart .cart-items .shopping-item .dropdown-cart-header a {
     float: right;
     text-transform: capitalize;
-    color: #222;
+    // color: #222;
     font-size: 14px;
     font-weight: 600;
 }
@@ -1924,7 +1763,7 @@ ol {
 .header .navbar-cart .cart-items .shopping-item .shopping-list li .content h4 a {
     font-size: 14px;
     font-weight: 600;
-    color: #081828;
+    // color: #081828;
 }
 
 @media (max-width: 767px) {
@@ -1954,7 +1793,7 @@ ol {
 
 .header .navbar-cart .cart-items .shopping-item .bottom .total span {
     text-transform: capitalize;
-    color: #222;
+    // color: #222;
     font-size: 14px;
     font-weight: 600;
     float: left;
@@ -2044,7 +1883,7 @@ ol {
     width: 100%;
     height: 45px;
     border: 1px solid #e2e2e2;
-    background-color: #fff;
+    // background-color: #fff;
     color: #000;
     border-radius: 0;
     padding: 0 15px;

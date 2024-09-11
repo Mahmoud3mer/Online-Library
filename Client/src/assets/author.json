@@ -1,0 +1,37 @@
+[{
+    "id": 1,
+    "name": "Ernest Hemingway",
+    "bio": "Ernest Miller Hemingway was an American novelist, short-story writer and journalist.",
+    "image": "../../../assets/images/authors/Ernest Hemingway.jpeg"
+},
+{
+    "id": 2,
+    "name": "Khaled Hosseini",
+    "bio": "Khaled Hosseini is an Afghan-American novelist, UNHCR goodwill ambassador, and former physician.",
+    "image": "../../../assets/images/authors/Khaled Hossein.jpeg"
+},
+{
+    "id": 3,
+    "name": "Franz Kafka",
+    "bio": "Franz Kafka was a German-language novelist and writer from Prague.",
+    "image": "../../../assets/images/authors/Franz Kafka.jpeg"
+},
+{
+    "id": 3,
+    "name": "Franz Kafka",
+    "bio": "Franz Kafka was a German-language novelist and writer from Prague.",
+    "image": "../../../assets/images/authors/Franz Kafka.jpeg"
+},
+{
+    "id": 3,
+    "name": "Franz Kafka",
+    "bio": "Franz Kafka was a German-language novelist and writer from Prague.",
+    "image": "../../../assets/images/authors/Franz Kafka.jpeg"
+},
+{
+    "id": 3,
+    "name": "Franz Kafka",
+    "bio": "Franz Kafka was a German-language novelist and writer from Prague.",
+    "image": "../../../assets/images/authors/Franz Kafka.jpeg"
+}
+]

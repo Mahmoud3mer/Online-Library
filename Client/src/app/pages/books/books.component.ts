@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
+import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [BookCardComponent],
+  imports: [BookCardComponent,SubNavbarComponent],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
