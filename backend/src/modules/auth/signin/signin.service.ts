@@ -3,18 +3,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
 import { SignInDTO } from '../dto/auth.dto';
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-
-
-
 
 @Injectable()
 export class SigninService {
-
-  constructor(@InjectModel(User.name) private userModel: Model<User>, private _jwtService: JwtService) { }
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private _jwtService: JwtService,
+  ) {}
 
   async signin(info: SignInDTO) {
+    console.log('Received data:', info);
+
+
 
     const user = await this.userModel.findOne({ email: info.email })
 
@@ -30,14 +32,16 @@ export class SigninService {
     if (user && await bcrypt.compare(info.password, user.password)) {
 
       const token = this._jwtService.sign(
-        { fName: user.fName, lName: user.lName, email: user.email, role: user.role, userId: user._id },
+        {name: user.name fName: user.fName, lName: user.lName, email: user.email, role: user.role, userId: user._id },
         { secret: "gaher" }
       );
 
       return { message: 'Welcome back', token: token };
     } else {
-
-      throw new HttpException('Email or password is incorrect', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'Email or password is incorrect',
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 

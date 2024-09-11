@@ -7,6 +7,8 @@ import { SignupService } from './signup/signup.service';
 import { SigninController } from './signin/signin.controller';
 import { SigninService } from './signin/signin.service';
 import { JwtService } from '@nestjs/jwt';
+import { HttpModule } from '@nestjs/axios';
+
 import { UserSettingsController } from './user-settings/user-settings.controller';
 import { UserSettingsService } from './user-settings/user-settings.service';
 
@@ -29,7 +31,9 @@ import { UserSettingsService } from './user-settings/user-settings.service';
         from: 'itinoteapp@gmail.com',
       },
     }),
+    HttpModule,
   ],
+
   controllers: [SignupController,SigninController,UserSettingsController],
   providers: [SignupService,SigninService,JwtService,UserSettingsService],
 })
