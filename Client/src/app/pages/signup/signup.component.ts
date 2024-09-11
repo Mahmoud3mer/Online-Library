@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AuthourizationService } from '../../services/users/authourization.service';
 import { Router, RouterOutlet } from '@angular/router';
+import { googleClientId } from '../../util/apiUrl';
 
 declare var google: any;
 @Component({
@@ -72,8 +73,7 @@ export class SignupComponent implements OnInit {
   private initializeGoogleSignIn(): void {
     if (typeof google !== 'undefined' && google.accounts) {
       google.accounts.id.initialize({
-        client_id:
-          '245458561891-1r7uviuvvqsduopobd7j656nqhvrt06r.apps.googleusercontent.com', // Replace with your actual client ID
+        client_id: googleClientId, // Replace with your actual client ID
         callback: this.handleCredentialResponse.bind(this),
       });
 
