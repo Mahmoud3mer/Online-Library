@@ -1,0 +1,89 @@
+<swiper-container 
+    loop="true"
+    navigation="true" 
+    speed="200" 
+    [breakpoints] = "breakpoints"
+>
+    <!-- @for (book of loopTest; track $index) {
+            <swiper-slide>
+                <app-book-card
+                [bookTitle]="book.bookTitle"
+                [bookCoverImg]="book.bookCoverImg"
+                [bookCategory]="book.bookCategory"
+                [bookPrice]="book.bookPrice"
+                [authorName]="book.authorName"
+                [bookRating]="book.bookRating"
+                ></app-book-card>
+            </swiper-slide>
+    } -->
+    <!-- <swiper-slide>
+        <app-book-card></app-book-card>
+    </swiper-slide> -->
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+    <swiper-slide>
+        <app-book-card
+                [bookTitle]="loopTest[0].bookTitle"
+                [bookCoverImg]="loopTest[0].bookCoverImg"
+                [bookCategory]="loopTest[0].bookCategory"
+                [bookPrice]="loopTest[0].bookPrice"
+                [authorName]="loopTest[0].authorName"
+                [bookRating]="loopTest[0].bookRating"
+                ></app-book-card>
+    </swiper-slide>
+
+</swiper-container>

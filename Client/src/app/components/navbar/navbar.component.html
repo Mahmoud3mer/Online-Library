@@ -1,35 +1,25 @@
 <header class="header navbar-area">
-    <!-- Start Topbar -->
     <div class="topbar ">
         <div class="container mx-auto">
             <div class="flex flex-wrap items-center justify-center">
-                <!-- First Column -->
                 <div class="w-full lg:w-1/3 md:w-1/3">
                     <div class="top-left">
                         <ul class="menu-top-link">
                             <li>
                                 <div class="select-position">
                                     <select name="" id="select4">
-                                        <option value="0" selected>$ USD</option>
-                                        <option value="1">€ EURO</option>
-                                        <option value="2">$ CAD</option>
-                                        <option value="3">₹ INR</option>
-                                        <option value="4">¥ CNY</option>
-                                        <option value="5">৳ BDT</option>
+                                        @for (item of currencies; track item){
+                                            <option value="0" selected>{{item}}</option>
+                                        }
                                     </select>
-
                                 </div>
                             </li>
                             <li>
                                 <div class="select-position">
                                     <select id="select5">
-                                        <option value="0" selected>English</option>
-                                        <option value="1">Español</option>
-                                        <option value="2">Filipino</option>
-                                        <option value="3">Français</option>
-                                        <option value="4">العربية</option>
-                                        <option value="5">हिन्दी</option>
-                                        <option value="6">বাংলা</option>
+                                        @for (item of languages; track item){
+                                            <option value="0">{{item}}</option>
+                                        }
                                     </select>
                                 </div>
                             </li>
@@ -37,23 +27,21 @@
                     </div>
                 </div>
 
-                <!-- Second Column -->
                 <div class="w-full lg:w-1/3 md:w-1/3">
                     <div class="top-middle">
                         <ul class="useful-links">
                             <li><a routerLink="/home" routerLinkActive="text-blue-800">Home</a></li>
                             <li><a routerLink="/about" routerLinkActive="text-blue-800">About Us</a></li>
                             <li>
-                              <a routerLink="/contact" routerLinkActive="text-blue-800">Contact Us</a>
+                                <a routerLink="/contact" routerLinkActive="text-blue-800">Contact Us</a>
                             </li>
                             <li>
-                              <a routerLink="/books" routerLinkActive="text-blue-800">books</a>
+                                <a routerLink="/books" routerLinkActive="text-blue-800">Books</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Third Column -->
                 <div class="w-full lg:w-1/3 md:w-1/3">
                     <div class="top-end">
                         <div class="user flex items-center space-x-2">
@@ -69,9 +57,7 @@
             </div>
         </div>
     </div>
-<!-- ! ************************************************************************** -->
-    <!-- End Topbar -->
-    <!-- Start Header Middle -->
+
     <div class="header-middle">
         <div class="container mx-auto">
             <div class="flex items-center">
@@ -82,11 +68,9 @@
                     </a>
                 </div>
 
-                <!-- Search -->
                 <div class="lg:w-2/5 md:w-2/3 hidden md:block">
                     <div class="main-menu-search">
                         <div class="navbar-search flex items-center space-x-2">
-                            <!-- Select dropdown -->
                             <div class="search-select">
                                 <div class="select-position">
                                     <select id="select1">
@@ -99,11 +83,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- Search input -->
                             <div class="search-input flex-1">
                                 <input type="text" placeholder="Search" class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
-                            <!-- Search button -->
                             <div class="search-btn">
                                 <button class="p-2 bg-blue-500 text-white rounded-md focus:ring-2 focus:ring-blue-700">
                                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -112,8 +94,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotline & Cart -->
                 <div class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4">
                     <div class="nav-hotline flex items-center">
                         <div class="nav-hotline">
@@ -124,66 +104,56 @@
                         </div>
                     </div>
                     <div class="navbar-cart flex items-center space-x-4">
-                        <!-- Wishlist -->
-                        <div class="wishlist">
+                        <div class="wishlist" (click)="goToWishlistPage()">
                             <a href="javascript:void(0)">
                                 <i class="fa-regular fa-heart"></i>
                                 <span class="total-items">0</span>
                             </a>
                         </div>
-                        <!-- Cart -->
                         <div class="cart-items relative">
                             <a href="javascript:void(0)" class="main-btn">
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 <span class="total-items">2</span>
                             </a>
-                            <!-- Shopping Item -->
                             <div class="shopping-item">
                                 <div class="dropdown-cart-header">
                                     <span>2 Items</span>
-                                    <a href="cart.html">View Cart</a>
+                                    <a routerLink="/cart">View Cart</a>
                                 </div>
+                                <!--! Carts -->
                                 <ul class="shopping-list">
-                                    <li>
-                                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="fa-solid fa-xmark"></i></a>
-                                        <div class="cart-img-head">
-                                            <a class="cart-img" href="product-details.html"><img
-                                                    src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
-                                        </div>
-
-                                        <div class="content">
-                                            <h4><a href="product-details.html">
-                                                    Apple Watch Series 6</a></h4>
-                                            <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                        </div>
-                                    </li>
+                                    @for (book of carts; track $index){
+                                        <li>
+                                            <a href="javascript:void(0)" class="remove" title="Remove this item" (click)="removeBookFromCart(book)"><i class="fa-solid fa-xmark"></i></a>
+                                            <div class="cart-img-head">
+                                                <a class="cart-img" href="product-details.html"><img
+                                                        [src]="book.image" alt="#"></a>
+                                            </div>
+                                            <div class="content">
+                                                <h4><a href="product-details.html">
+                                                        {{book.title}}</a></h4>
+                                                <p class="quantity">{{book.stock}}x - <span class="amount">${{book.price}}</span></p>
+                                            </div>
+                                        </li>
+                                    }
                                 </ul>
+
                                 <div class="bottom">
                                     <div class="total">
                                         <span>Total</span>
-                                        <span class="total-amount">$134.00</span>
+                                        <span class="total-amount">${{totalPrice}}</span>
                                     </div>
                                     <div class="button">
                                         <a href="checkout.html" class="btn animate">Checkout</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Shopping Item -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ! ************************************************ -->
-    <!-- End Header Middle -->
-
     <div >
     </div>
-
-    <!-- Start Header Bottom -->
-
-    <!-- Start Navbar -->
-
-    <!-- End Navbar -->
 </header>

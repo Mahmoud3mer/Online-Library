@@ -8,11 +8,11 @@ export class Cart {
   user: mongoose.Types.ObjectId;
 
   @Prop([{
-    book: { type: mongoose.Schema.Types.ObjectId||Book, ref: 'Book', required: true },
-    quantity: { type: Number, required: true},
+    book: { type: mongoose.Schema.Types.ObjectId || Book, ref: 'Book', required: true },
+    quantity: { type: Number, required: true },
   }])
-  books: { book: mongoose.Types.ObjectId|Book, quantity: number }[];
- 
+  books: { book: mongoose.Types.ObjectId | Book, quantity: number }[];
+
   @Prop({ type: Number, default: 0 })
   totalPrice: number;
 
