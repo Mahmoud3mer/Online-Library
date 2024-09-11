@@ -7,16 +7,16 @@ import { apiUrl } from '../../util/apiUrl';
 @Injectable({
   providedIn: 'root',
 })
+export class GetWishlistService {
 
-export class GetCartService {
-  private myApi = `${apiUrl}/carts`;
+  private myApi = `${apiUrl}/wishlist`;
   private isBrowser: Boolean = false;
   private userToken = '';
   constructor(private _httpClient: HttpClient,@Inject(PLATFORM_ID) platformId: object ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  getCart(): Observable<any> {
+  getWishlist(): Observable<any> {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
@@ -28,8 +28,5 @@ export class GetCartService {
     }
 
     return this._httpClient.get<any>(this.myApi, { headers });
-  }
 }
-
-
-
+}

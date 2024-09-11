@@ -4,6 +4,9 @@ import { UpdateCartQuantiy } from '../../services/cart/updateCartQuantiy.service
 import { DeleteBookFromCartService } from '../../services/cart/delete.service';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
+import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
+import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 
 
 
@@ -15,8 +18,10 @@ import { ConfirmationDialogComponent } from '../../components/confirmation-dialo
   styleUrl:'./cart.component.scss',
   imports: [
     CommonModule,
-    ConfirmationDialogComponent
-  ],
+    ConfirmationDialogComponent,
+    AddToWishlistBtnComponent,
+    AddToCartBtnComponent
+],
 })
 export class CartComponent implements OnInit {
   cartBooks:any[] = []
@@ -24,18 +29,22 @@ export class CartComponent implements OnInit {
   totalPrice:number=0;
   showConfirmationDialog = false;
   bookIdToRemove: string =''
-  constructor(private _getCartService:GetCartService,private _updatCartQuantity:UpdateCartQuantiy,private _deleteBookFromCart:DeleteBookFromCartService) { }
+  isLoading:boolean=true;
+  constructor(private _getCartService:GetCartService,private _updatCartQuantity:UpdateCartQuantiy,private _deleteBookFromCart:DeleteBookFromCartService,private router:Router) { }
 
   ngOnInit(): void {
     this.getCart();
   }
 
+    roundedPrice(): number {
+    return Math.ceil(this.totalPrice);
+  }
   //confirmation //
   openConfirmationDialog(bookId: string): void {
     this.bookIdToRemove = bookId;
     this.showConfirmationDialog = true;
   }
-    
+
 
   handleConfirm(): void {
     if (this.bookIdToRemove) {
@@ -62,7 +71,7 @@ export class CartComponent implements OnInit {
 
   // Fetch items from CartService
   getCart(){
-    this._getCartService.getCartProducts().subscribe(
+    this._getCartService.getCart().subscribe(
       {
         next: (res) => {
           this.cartBooks=res.data.books;
@@ -72,18 +81,18 @@ export class CartComponent implements OnInit {
           this.numOfCartItems=res.data.numOfCartItems;
           console.log(this.cartBooks);
 
-          // this.data=res.data
 
           // this._cartCount.updateNumOfCartItems(this.numOfCartItems);
-          // this.isLoading = false;
+
 
         },
         error: (err) => {
           console.log(err);
-          // this.isLoading = false;
+
         },
         complete: () => {
           console.log("get cart products");
+          this.isLoading = false;
         }
       }
     )
@@ -104,12 +113,9 @@ export class CartComponent implements OnInit {
       }
     });
   }
-
-  // Calculate the total price of items in the cart
-  // calculateTotalPrice(): void {
-  //   this.totalPrice = this.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  // }
-
+  navigatToProducts(){
+    this.router.navigate(['/books']);
+  }
 
   removeItem(itemId: any): void {
     this._deleteBookFromCart.deleteBookFormCart(itemId).subscribe(
@@ -131,17 +137,7 @@ export class CartComponent implements OnInit {
     )
   }
 
-  // Increase quantity of a cart item
-  // increaseQuantity(item: any): void {
-  //   this.cartService.increaseQuantity(item);
-  //   this.calculateTotalPrice();
-  // }
 
-  // // Decrease quantity of a cart item
-  // decreaseQuantity(item: any): void {
-  //   this.cartService.decreaseQuantity(item);
-  //   this.calculateTotalPrice();
-  // }
 
   // // Clear all items from the cart
   // clearCart(): void {

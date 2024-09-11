@@ -1,20 +1,22 @@
 import { Component, Input } from '@angular/core';
-import { AddToCartServie } from '../../services/cart/AddToCart.service';
+import { AddToWishListService } from '../../services/wishlist/addToWishlist.service';
 
 @Component({
-  selector: 'app-add-to-cart-btn',
+  selector: 'app-add-to-wishlist-btn',
   standalone: true,
   imports: [],
-  templateUrl: './add-to-cart-btn.component.html',
-  styleUrl: './add-to-cart-btn.component.scss'
+  templateUrl: './add-to-wishlist-btn.component.html',
+  styleUrl: './add-to-wishlist-btn.component.scss'
 })
-export class AddToCartBtnComponent {
-  constructor(private _addToCartService:AddToCartServie){}
+export class AddToWishlistBtnComponent {
+  constructor(private _addToWishList:AddToWishListService){}
   @Input() bookId: string = '';
 
 
-  addToCart(bookId:string){
-    this._addToCartService.addToCart(bookId).subscribe(
+  addToWishlist(bookId:string){
+    console.log(bookId);
+
+    this._addToWishList.addToWishList(bookId).subscribe(
     {
       next: (res) => {
         console.log(res);
@@ -33,6 +35,5 @@ export class AddToCartBtnComponent {
   )
   }
 
+
 }
-
-

@@ -5,31 +5,39 @@ import { isPlatformBrowser } from '@angular/common';
 import { apiUrl } from '../../util/apiUrl';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
-export class GetCartService {
-  private myApi = `${apiUrl}/carts`;
-  private isBrowser: Boolean = false;
+export class DeleteBookFromWishlistServiece {
+  private myApi = `${apiUrl}/wishlist`;
+  private isBrowser: boolean = false;
   private userToken = '';
-  constructor(private _httpClient: HttpClient,@Inject(PLATFORM_ID) platformId: object ) {
+
+  constructor(private _httpClient: HttpClient, @Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  getCart(): Observable<any> {
+  deleteFromWihslist(prodId: string): Observable<any> {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
       this.userToken = localStorage.getItem('token') || '';
-
       if (this.userToken) {
-        headers = headers.set('token',this.userToken);
+        headers = headers.set('token', this.userToken);
       }
     }
 
-    return this._httpClient.get<any>(this.myApi, { headers });
+    const body = { bookId: prodId };
+
+
+    return this._httpClient.request<any>('delete', this.myApi, {
+      body: body,
+      headers: headers
+    });
   }
+
 }
+
+
 
 
 
