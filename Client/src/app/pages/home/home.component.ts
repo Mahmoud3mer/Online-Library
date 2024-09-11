@@ -5,7 +5,7 @@ import { BannerSectionComponent } from '../../components/banner-section/banner-s
 import { ShippingInfoComponent } from '../../components/shipping-info/shipping-info.component';
 import { HeroSectionComponent } from '../../components/hero-section/hero-section.component';
 import { BooksService } from '../../services/books/Books.service';
-import { BookInterface } from '../../interfaces/books';
+import { BookInterface } from '../../interfaces/books.interface';
 import { SwiperComponent } from '../../components/BookSwiper/swiper.component';
 import { AuthorSwiperComponent } from '../../components/author-swiper/author-swiper.component';
 import { AddBooksService } from '../../services/books/add-book.service';
@@ -26,7 +26,7 @@ import { AddBooksService } from '../../services/books/add-book.service';
 export class HomeComponent {
   allBooks: BookInterface[] = [];
   book!: BookInterface ;
-  
+
       // ! for test (المحتوى هييي من اليوسر ك براميتر)
   body = {
     title: "JS",

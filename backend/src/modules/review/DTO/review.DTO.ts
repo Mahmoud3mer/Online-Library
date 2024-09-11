@@ -15,6 +15,4 @@ export class reviewDTO {
     @IsString()
     @IsOptional()
     comment: string;
-
-    // date: Date;
 }

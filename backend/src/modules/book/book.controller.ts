@@ -10,32 +10,31 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PaginationDTO } from './bookdto/pagination.dto';
 import { Role } from 'src/core/EnumRoles/role.enum';
 
-@Controller('book')
-@UseGuards(AuthGuard) //! for all controller
+@Controller('books')
 export class BookController {
   constructor(private _bookService: BookService) { }
 
   @Post()
-  @Roles(Role.Author, Role.Admin) //! Rolles for guar (athorization)
+  @Roles(Role.Admin) //! Rolles for guar (athorization)
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image')) //! pload file (image)
   addBook(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
     return this._bookService.addNewBook(body, file);
   }
 
   @Get()
-  @Roles(Role.Author, Role.Admin)
   getBooks(@Query() paginationDTO: PaginationDTO) {
     return this._bookService.getAllBooks(paginationDTO);
   }
 
   @Get('/:id')
-  @Roles(Role.Author, Role.Admin)
   getBook(@Param('id') id: string) {
     return this._bookService.getOneBook(id);
   }
 
   @Put('/:id')
-  @Roles(Role.Author)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard)
   updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any) {
     const user = req.user;
     // return user
@@ -43,7 +42,8 @@ export class BookController {
   }
 
   @Delete('/:id')
-  @Roles(Role.Author, Role.Admin)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard)
   deleteBook(@Param('id') id: string) {
     return this._bookService.removeBook(id);
   }

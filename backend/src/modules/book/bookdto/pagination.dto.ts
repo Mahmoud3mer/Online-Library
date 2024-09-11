@@ -6,11 +6,11 @@ export class PaginationDTO{
     @IsPositive()
     @IsOptional()
     @Transform(({ value }) => Number(value))
-    limit: number
+    limit: number; 
 
     @IsNumber()
     @IsPositive()
     @IsOptional()
     @Transform(({ value }) => Number(value))
-    page: number
+    page: number;
 }

@@ -21,4 +21,5 @@ export class BookCardComponent {
   goToDetails(){
     this.router.navigate(["book-details"])
   }
+
 }
