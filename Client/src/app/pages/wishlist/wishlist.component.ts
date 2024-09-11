@@ -5,6 +5,8 @@ import { GetWishlistService } from '../../services/wishlist/getWishlist.service'
 import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 import { DeleteBookFromWishlistServiece } from '../../services/wishlist/deleteFromWishlist.service';
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
+import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
+
 
 
 
@@ -12,6 +14,8 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 @Component({
   selector: 'app-wishlist',
   standalone: true,
+
+  imports: [SubNavbarComponent],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss',
   imports: [AddToCartBtnComponent, ConfirmationDialogComponent],

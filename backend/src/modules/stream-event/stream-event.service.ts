@@ -1,96 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { StreamEvent } from 'src/core/schemas/stream-event.schema';
-import { CreateStreamEventDTO } from './DTO/create-stream-event.DTO';
-import { UpdateStreamEventStatusDTO } from './DTO/update-stream-event.DTO';
+import { StreamEvent } from '../../core/schemas/stream-event.schema';
+import { StreamEventDTO } from './DTO/stream-event.DTO';
+import { PaginationDTO } from '../book/bookdto/pagination.dto';
 
 @Injectable()
 export class StreamEventService {
-
-
     constructor(@InjectModel(StreamEvent.name) private streamEventModel: Model<StreamEvent>) { }
 
-    async createRequest(createStreamEventDTO: CreateStreamEventDTO): Promise<StreamEvent> {
-        const newEvent = new this.streamEventModel({
-            ...createStreamEventDTO,
-            status: 'Pending', 
-            youtubeUrl: '', 
-            date: null, 
-        });
-        return newEvent.save();
+    async createStream(body: StreamEventDTO): Promise<StreamEvent> {
+        const createdEvent = new this.streamEventModel(body);
+        return createdEvent.save();
+    }
+
+    async getAllStreams(paginationDTO: PaginationDTO) {
+        const { page, limit } = paginationDTO;
+        const skip = (page - 1) * limit;
+        const total = await this.streamEventModel.countDocuments().exec();
+        const allStreams = await this.streamEventModel.find()
+            .limit(limit)
+            .skip(skip);
+        return {
+            message: 'Success, Got All Categories',
+            results: allStreams.length,
+            metaData: {
+                currentPage: page,
+                numberOfPages: Math.ceil(total / limit),
+                limit,
+            },
+            data: allStreams,
+        };
     }
 
 
-    async updateStatus(id: string, updateStreamEventStatusDTO: UpdateStreamEventStatusDTO): Promise<StreamEvent> {
-        const { status, youtubeUrl, date, adminId } = updateStreamEventStatusDTO;
-        return this.streamEventModel.findByIdAndUpdate(
-            id,
-            { status, youtubeUrl, date, approvedBy: adminId },
-            { new: true },
-        ).exec();
+    async findById(id: string) {
+        return this.streamEventModel.findById(id).exec();
     }
-    // create = async (createStreamEventDTO: CreateStreamEventDTO) => {
-    //     const createNewStream = new this.streamEventModel(createStreamEventDTO);
-    //     return createNewStream.save();
-    // }
 
-    // getAllStreams = async () => {
-    //     return this.streamEventModel.find()
-    // }
+    async updateStatus(id: string, body: StreamEventDTO): Promise<StreamEvent> {
+        return this.streamEventModel.findByIdAndUpdate(id, body, { new: true }).exec();
+    }
 
-    // getStreamById = async (id : string) => {
-    //     return this.streamEventModel.findById(id)
-    // }
-
-    // updateStream = async (id: string, updateStatusDTO: UpdateStreamEventStatusDTO) => {
-    //     return this.streamEventModel.findByIdAndUpdate(id,{ status: updateStatusDTO.status, approvedBy: updateStatusDTO.adminId }, { new: true })
-    // }
-
-    // deleteStream = async (id: string) => {
-    //     return this.streamEventModel.findByIdAndDelete(id)
-    // }
+    async delete(id: string): Promise<StreamEvent> {
+        return this.streamEventModel.findByIdAndDelete(id).exec();
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-// import { Injectable } from '@nestjs/common';
-// import { InjectModel } from '@nestjs/mongoose';
-// import { Model } from 'mongoose';
-// import { StreamEvent, StreamEventDocument } from '../../core/schemas/stream-event.schema';
-// import { CreateStreamEventDTO } from './DTO/create-stream-event.DTO';
-// import { UpdateStreamEventStatusDTO } from './DTO/update-stream-event.DTO';
-
-// @Injectable()
-// export class StreamEventService {
-//   constructor(@InjectModel(StreamEvent.name) private streamEventModel: Model<StreamEventDocument>) {}
-
-//   async create(createStreamEventDTO: CreateStreamEventDTO): Promise<StreamEvent> {
-//     const createdEvent = new this.streamEventModel(createStreamEventDTO);
-//     return createdEvent.save();
-//   }
-
-//   async findAll(): Promise<StreamEvent[]> {
-//     return this.streamEventModel.find().exec();
-//   }
-
-//   async findById(id: string): Promise<StreamEvent> {
-//     return this.streamEventModel.findById(id).exec();
-//   }
-
-//   async updateStatus(id: string, updateStatusDTO: UpdateStreamEventStatusDTO): Promise<StreamEvent> {
-//     return this.streamEventModel.findByIdAndUpdate(id, { status: updateStatusDTO.status, approvedBy: updateStatusDTO.adminId }, { new: true }).exec();
-//   }
-
-//   async delete(id: string): Promise<StreamEvent> {
-//     return this.streamEventModel.findByIdAndRemove(id).exec();
-//   }
-// }

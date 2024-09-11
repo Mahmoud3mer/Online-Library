@@ -11,7 +11,7 @@ import { CartModule } from './modules/cart/cart.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { RecommendationModule } from './modules/recommendation/recommendation.module';
 import { CategoryModule } from './modules/category/category.module';
- 
+import { AuthorModule } from './modules/author/author.module';
 
 
 @Module({
@@ -25,7 +25,8 @@ import { CategoryModule } from './modules/category/category.module';
     CartModule,
     WishlistModule,
     RecommendationModule,
-    CategoryModule
+    CategoryModule,
+    AuthorModule
   ],
   controllers: [AppController],
   providers: [AppService],

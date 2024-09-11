@@ -13,6 +13,7 @@ import { BookDetailsComponent } from './pages/book-details/book-details.componen
 import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
 import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
+import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
 
 export const routes: Routes = [
   {
@@ -22,55 +23,56 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'contact',
-    component: ContactComponent
+    component: ContactComponent,
   },
   {
-    path: 'book-details',
+    path: 'book-details/:id',
     component: BookDetailsComponent
+   
   },
   {
     path: 'books',
-    component: BooksComponent
+    component: BooksComponent,
   },
   {
     path: 'check-out',
-    component: CheckOutComponent
+    component: CheckOutComponent,
   },
   {
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
   },
   {
     path: 'wishlist',
-    component: WishlistComponent
+    component: WishlistComponent,
   },
   {
     path: 'signin',
-    component: SigninComponent
+    component: SigninComponent,
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
   },
+  { path: 'verify-email', component: EmailVerifiedComponent },
   {
     path: 'user-settings',
-    component: UserSettingsComponent
+    component: UserSettingsComponent,
   },
   {
     path: 'authors',
-    component: AuthorsComponent
+    component: AuthorsComponent,
   },
-  { path: 'auth',
-    component: SignInSignUpComponent
-  },
+  { path: 'auth', component: SignInSignUpComponent },
+
   {
     path: '**',
     component: Err404Component,

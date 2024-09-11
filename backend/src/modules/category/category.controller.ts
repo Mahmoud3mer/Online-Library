@@ -1,19 +1,19 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
- 
+
+import { Controller, Get, Post, Delete, Body, Param, UseGuards, Patch, Query } from '@nestjs/common';
+import { CategoryService } from './category.service';
 import { CategoryDTO } from './dto/Category.DTO';
- 
+import { PaginationDTO } from '../book/bookdto/pagination.dto';
 import { AuthGuard } from 'src/core/guards/auth.guard';
 import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
-import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
-import { CategoryService } from './category.service';
 
 @Controller('category')
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
     @Get()
-    getAllCategories(@Body() paginationDTO: PaginationDTO) {
+
+    getAllCategories(@Query() paginationDTO: PaginationDTO) {
         return this.categoryService.getAllCategories(paginationDTO);
     }
 
@@ -30,7 +30,8 @@ export class CategoryController {
         return res;
     }
 
-    @Put(':id')
+
+    @Patch(':id')
     @UseGuards(AuthGuard)
     @Roles(Role.Admin)
     updateCategory(@Param('id') id: string, @Body() categoryDTO: CategoryDTO) {

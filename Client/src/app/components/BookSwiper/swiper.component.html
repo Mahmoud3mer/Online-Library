@@ -1,0 +1,32 @@
+
+<swiper-container 
+    loop="true"
+    navigation="true" 
+    speed="200" 
+    [breakpoints] = "breakpoints"
+>
+    @for (book of Books; track $index) {
+        <swiper-slide>
+            <app-book-card
+                    [bookTitle]="book.title"
+                    [bookCoverImg]="book.image"
+                    [bookCategory]="book.category"
+                    [bookPrice]="book.price"
+                    [bookRating]="book.raiting"
+                    ></app-book-card>
+        </swiper-slide>
+    }
+
+    <!-- <swiper-slide>
+        <app-book-card
+                [bookTitle]="Books[0].title"
+                [bookCoverImg]="Books[0].image"
+                [bookCategory]="Books[0].category"
+                [bookPrice]="Books[0].price"
+                [bookRating]="Books[0].raiting"
+                ></app-book-card>
+    </swiper-slide> -->
+
+
+
+</swiper-container>

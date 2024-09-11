@@ -1,4 +1,5 @@
-import { Component, Input, Output,  } from '@angular/core';
+import { Component, inject, Input, Output,  } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-card',
@@ -15,4 +16,11 @@ export class BookCardComponent {
   @Input() bookRating : any = 0 ;
   @Input() bookCoverImg : any = '';
   @Input() authorName : any = '';
+
+  router = inject(Router);
+
+  goToDetails(bookId:number){
+    this.router.navigate(["book-details",bookId])
+  }
+
 }

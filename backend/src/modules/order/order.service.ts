@@ -1,5 +1,4 @@
 import {
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,12 +7,13 @@ import { Model } from 'mongoose';
 import { Order } from 'src/core/schemas/order.schema';
 import { CreateOrderDto } from './dto/createOrder.dto';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
+import { PaginationDTO } from '../book/bookdto/pagination.dto';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectModel('Order') private readonly orderModel: Model<Order>,
-  ) {}
+  ) { }
 
   async createOrder(
     createOrderDto: CreateOrderDto,
@@ -59,16 +59,54 @@ export class OrderService {
     return orders;
   }
 
-  async getAllOrders(userRole: string): Promise<Order[]> {
-    const orders = await this.orderModel.find();
-
-    if (orders.length === 0) {
+  async getAllOrders(userId: any, paginationDTO: PaginationDTO) {
+    const page = paginationDTO.page;
+    const limit = paginationDTO.limit;
+    const skip = (page - 1) * limit;
+    const total = await this.orderModel.countDocuments().exec();
+    const allOrders = await this.orderModel.find()
+      .skip(skip)
+      .limit(limit);
+    if (allOrders.length === 0) {
       throw new NotFoundException(`No orders found`);
     }
-    if (userRole === 'admin') {
-      return orders;
-    } else {
-      throw new ForbiddenException('Admins only have admin permissions');
+
+    return {
+      message: "Success, Get All Books.",
+      results: allOrders.length,
+      metaData: {
+        currentPage: page,
+        numberOfPages: Math.ceil(total / limit),
+        limit
+      },
+      data: allOrders
+    };
+  };
+
+
+
+
+  getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
+    const page = paginationDTO.page;
+    const limit = paginationDTO.limit;
+    const skip = (page - 1) * limit;
+    const total = await this.orderModel.countDocuments().exec();
+    const allOrders = await this.orderModel.find()
+      .skip(skip)
+      .limit(limit);
+    if (allOrders.length === 0) {
+      throw new NotFoundException(`No orders found`);
     }
+
+    return {
+      message: "Success, Get All Books.",
+      results: allOrders.length,
+      metaData: {
+        currentPage: page,
+        numberOfPages: Math.ceil(total / limit),
+        limit
+      },
+      data: allOrders
+    };
   }
 }
