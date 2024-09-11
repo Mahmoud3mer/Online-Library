@@ -25,6 +25,15 @@ async function bootstrap() {
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
     next();
   });
+    //! تفعيل CORS
+  app.enableCors({
+    origin: 'http://localhost:4200', //! أو يمكنك تحديد نطاقات محددة للسماح بها
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
+
+  // app.setGlobalPrefix('api');
   await app.listen(3000);
 }
 bootstrap();

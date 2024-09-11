@@ -14,6 +14,20 @@ export class SignUpDTO {
   @MinLength(5)
   @MaxLength(30)
   name: string;
+  
+  @MinLength(3)
+  @MaxLength(15)
+  @NotContains(' ')
+    @IsOptional()
+  fName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(15)
+  @NotContains(' ')
+    @IsOptional()
+  lName: string;
 
   @IsString()
   @IsEmail()
@@ -53,4 +67,37 @@ export class SignInDTO {
   @IsString()
   @IsOptional()
   role: string;
+
+}
+
+
+export class UpdateUserDto {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(15)
+  @NotContains(' ')
+  fName: string;
+  
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(15)
+  @NotContains(' ')
+  lName: string;
+
+  @IsOptional()
+  @IsString()
+  @IsEmail()
+  @IsNotEmpty()
+  @NotContains(' ')
+  email: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(8)
+  password: string;
 }

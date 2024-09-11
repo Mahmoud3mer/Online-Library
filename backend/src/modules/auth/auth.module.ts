@@ -9,6 +9,9 @@ import { SigninService } from './signin/signin.service';
 import { JwtService } from '@nestjs/jwt';
 import { HttpModule } from '@nestjs/axios';
 
+import { UserSettingsController } from './user-settings/user-settings.controller';
+import { UserSettingsService } from './user-settings/user-settings.service';
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
@@ -30,7 +33,8 @@ import { HttpModule } from '@nestjs/axios';
     }),
     HttpModule,
   ],
-  controllers: [SignupController, SigninController],
-  providers: [SignupService, SigninService, JwtService],
+
+  controllers: [SignupController,SigninController,UserSettingsController],
+  providers: [SignupService,SigninService,JwtService,UserSettingsService],
 })
 export class AuthModule {}

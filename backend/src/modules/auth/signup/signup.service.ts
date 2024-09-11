@@ -62,7 +62,7 @@ export class SignupService {
     await this.mailerService.sendMail({
       to: body.email,
       subject: 'Email Verification',
-      html: emailHtml(body.name, verificationLink),
+      html: emailHtml((`${body.fName } ${body.lName}`), verificationLink),
     });
 
     return {

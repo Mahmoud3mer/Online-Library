@@ -27,9 +27,6 @@ export class BookDTO{
     @Length(10,500)
     description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    category: string;
 
     @IsNumber()
     @IsNotEmpty()
@@ -45,6 +42,10 @@ export class BookDTO{
     @IsNumber()
     @IsNotEmpty()
     pages: number;
+
+    @IsString()
+    @IsNotEmpty()
+    category: Types.ObjectId;
 
     @IsString()
     @IsNotEmpty()

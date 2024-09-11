@@ -8,7 +8,7 @@ import { FootbarComponent } from "./components/footbar/footbar.component";
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FootbarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'Client';

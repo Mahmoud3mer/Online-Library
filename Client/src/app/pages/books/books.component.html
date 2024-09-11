@@ -1,12 +1,12 @@
 <div style="background-color: #f9f9f9;" class="py-24 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2">
 
   <div class="">
-    <div class="grid xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
+    <div class="grid xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
 
 
-      <aside class="grid gap-7">
+      <aside class="grid gap-7 h-fit">
         <div class="search bg-white border-gray-100 border-2 rounded  p-7">
-          <h5 class="border-b pb-3 mb-6">Search Product</h5>
+          <h5 class="border-b pb-3 mb-6">Search Books</h5>
 
           <form class="max-w-md mx-auto ">
             <label for="default-search"
@@ -23,12 +23,9 @@
         </div>
         <div class="search bg-white border-gray-100 border-2 rounded  p-7">
           <h5 class="border-b pb-3 mb-6">All Categories</h5>
-          <p class="mb-3 text-gray-500">Category 1</p>
-          <p class="mb-3 text-gray-500">Category 2</p>
-          <p class="mb-3 text-gray-500">Category 3</p>
-          <p class="mb-3 text-gray-500">Category 4</p>
-          <p class="mb-3 text-gray-500">Category 5</p>
-          <p class="mb-3 text-gray-500">Category 6</p>
+          @for (item of categories; track $index) {
+            <p class="py-2 px-2 text-gray-500 cursor-pointer hover:bg-slate-700 hover:text-yellow-600" (click)="getBooksByCategory()">{{item.name}}</p>
+          }
 
         </div>
         <div class="search bg-white border-gray-100 border-2 rounded p-7">
@@ -84,14 +81,14 @@
         </div>
 
         <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          @for (item of loopTest; track $index) {
+          @for (item of allBooks; track $index) {
               <app-book-card
-                [bookTitle]="item.bookTitle"
-                [bookCoverImg]="item.bookCoverImg"
-                [bookCategory]="item.bookCategory"
-                [bookPrice]="item.bookPrice"
-                [authorName]="item.authorName"
-                [bookRating]="item.bookRating"
+                [bookTitle]="item.title"
+                [bookCoverImg]="item.coverImage"
+                [bookCategory]="item.category.name"
+                [bookPrice]="item.price"
+                [authorName]="item.author.name"
+                [bookRating]="item.rating"
               ></app-book-card>
 
           }

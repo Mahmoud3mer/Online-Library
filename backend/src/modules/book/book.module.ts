@@ -7,6 +7,9 @@ import { JwtService } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { AuthorModule } from '../author/author.module';
+import { CategoryModule } from '../category/category.module';
+import { ReviewModule } from '../review/review.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Book.name, schema: BookSchema }]),
@@ -20,7 +23,11 @@ import { extname } from 'path';
         callback(null, fileName);
       },
     }),
-  })],
+  }),
+AuthorModule,
+CategoryModule,
+ReviewModule
+],
   controllers: [BookController],
   providers: [BookService,JwtService]
 })
