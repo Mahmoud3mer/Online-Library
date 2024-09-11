@@ -17,7 +17,7 @@ export class AddBooksService {
   constructor(@Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
-  
+
   //! body from form data type because i uploade file
   addNewBook(body: FormData): Observable <any> {
     // ! send token to header
@@ -28,7 +28,7 @@ export class AddBooksService {
       }
     }
 
-    return this._httpClient.post(`${apiUrl}/book`, body ,{headers: this.headers});
+    return this._httpClient.post(`${apiUrl}/books`, body ,{headers: this.headers});
   }
 
 }

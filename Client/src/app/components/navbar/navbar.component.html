@@ -38,42 +38,307 @@
                             </li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="w-full lg:w-1/3 md:w-1/3">
-                    <div class="top-middle">
-                        <ul class="useful-links">
-                            <li><a routerLink="/home" routerLinkActive="text-blue-800">Home</a></li>
-                            <li><a routerLink="/about" routerLinkActive="text-blue-800">About Us</a></li>
-                            <li>
-                                <a routerLink="/contact" routerLinkActive="text-blue-800">Contact Us</a>
-                            </li>
-                            <li>
-                                <a routerLink="/books" routerLinkActive="text-blue-800">Books</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-
-                <div class="w-full lg:w-1/3 md:w-1/3">
-                    <div class="top-end">
-                        @if(isLogedIn == true){
-                            <div class="user flex items-center space-x-2">
-                                <i class="fa-regular fa-user"></i>
-                                <span>Hello</span>
-                            </div>
-                        }
-                        <ul class="user-login">
-                            @if(isLogedIn == false){
-                                <li><a routerLink="/signin" routerLinkActive="text-blue-800" >Sign In</a></li>
-                                <li><a routerLink="/signup" routerLinkActive="text-blue-800" >Register</a></li>
-                            }@else{
-                                <li><a routerLink="/signin" routerLinkActive="text-blue-800" (click)="logOut()">Log Out</a></li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Second Column -->
+        <div class="w-full lg:w-1/3 md:w-1/3">
+          <div class="top-middle">
+            <ul class="useful-links flex space-x-4">
+              <li>
+                <a routerLink="/home" routerLinkActive="text-blue-800">Home</a>
+              </li>
+              <li>
+                <a routerLink="/about" routerLinkActive="text-blue-800"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a routerLink="/contact" routerLinkActive="text-blue-800"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a routerLink="/books" routerLinkActive="text-blue-800"
+                  >Books</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Third Column -->
+        <div class="w-full lg:w-1/3 md:w-1/3">
+          <div class="top-end">
+            <ul class="user-login flex items-center space-x-2">
+              <li *ngIf="isLoggedIn">
+                <div class="relative">
+                  <button (click)="toggleDropdown()" class="flex items-center">
+                    <img
+                      class="w-10 h-10 rounded-full object-cover"
+                      src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+                      alt="User Avatar"
+                    />
+                  </button>
+                  <div *ngIf="isDropdownOpen" class="dropdown-content">
+                    <a routerLink="/settings" routerLinkActive="text-blue-800">
+                      <i class="fas fa-cog mr-2"></i> Settings
+                    </a>
+                    <a
+                      routerLink="/cart"
+                      routerLinkActive="text-blue-800"
+                      class="text-slate-800"
+                    >
+                      <i class="fas fa-shopping-cart mr-2"></i> My Cart
+                    </a>
+                    <a
+                      (click)="logout()"
+                      class="flex items-center p-2 text-black hover:text-blue-600 cursor-pointer"
+                    >
+                      <i class="fas fa-sign-out-alt me-2"></i> Log Out
+                    </a>
+                  </div>
+
+                </div>
+              </li>
+              <li *ngIf="!isLoggedIn">
+                <a routerLink="/signin" routerLinkActive="text-blue-800">
+                  <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                </a>
+              </li>
+              <li *ngIf="!isLoggedIn">
+                <a routerLink="/signup" routerLinkActive="text-blue-800">
+                  <i class="fas fa-user-plus mr-2"></i> Register
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Topbar -->
+  <!-- Start Header Middle -->
+
+  <div class="header-middle">
+    <div class="container mx-auto">
+      <div class="flex items-center">
+        <!-- Logo -->
+        <div class="lg:w-1/4 md:w-1/3 w-2/3">
+          <a class="navbar-brand" href="index.html"> Logo </a>
+        </div>
+
+        <!-- Search -->
+        <div class="lg:w-2/5 md:w-2/3 hidden md:block">
+          <div class="main-menu-search">
+            <div class="navbar-search flex items-center space-x-2">
+              <!-- Select dropdown -->
+              <div class="search-select">
+                <div class="select-position">
+                  <select id="select1">
+                    <option selected>All</option>
+                    <option value="1">option 01</option>
+                    <option value="2">option 02</option>
+                    <option value="3">option 03</option>
+                    <option value="4">option 04</option>
+                    <option value="5">option 05</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Search input -->
+              <div class="search-input flex-1">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <!-- Search button -->
+              <div class="search-btn">
+                <button
+                  class="p-2 bg-blue-500 text-white rounded-md focus:ring-2 focus:ring-blue-700"
+                >
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Hotline & Cart -->
+        <div
+          class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4"
+        >
+          <div class="nav-hotline flex items-center">
+            <div class="nav-hotline">
+              <i class="fa-solid fa-phone"></i>
+              <h3>
+                Hotline:
+                <span>(+100) 123 456 7890</span>
+              </h3>
+            </div>
+          </div>
+          <div class="navbar-cart flex items-center space-x-4">
+            <!-- Wishlist -->
+            <div class="wishlist">
+              <a href="javascript:void(0)">
+                <i class="fa-regular fa-heart"></i>
+                <span class="total-items">0</span>
+              </a>
+            </div>
+            <!-- Cart -->
+            <div class="cart-items relative">
+              <a href="javascript:void(0)" class="main-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="total-items">2</span>
+              </a>
+              <!-- Shopping Item -->
+              <div class="shopping-item">
+                <div class="dropdown-cart-header">
+                  <span>2 Items</span>
+                  <a href="cart.html">View Cart</a>
+                </div>
+                <ul class="shopping-list">
+                  <li>
+                    <a
+                      href="javascript:void(0)"
+                      class="remove"
+                      title="Remove this item"
+                      ><i class="fa-solid fa-xmark"></i
+                    ></a>
+                    <div class="cart-img-head">
+                      <a class="cart-img" href="product-details.html"
+                        ><img
+                          src="assets/images/header/cart-items/item1.jpg"
+                          alt="#"
+                      /></a>
+                    </div>
+
+                    <div class="content">
+                      <h4>
+                        <a href="product-details.html"> Apple Watch Series 6</a>
+                      </h4>
+                      <p class="quantity">
+                        1x - <span class="amount">$99.00</span>
+                      </p>
+
+    <div class="header-middle">
+        <div class="container mx-auto">
+            <div class="flex items-center">
+                <!-- Logo -->
+                <div class="lg:w-1/4 md:w-1/3 w-2/3">
+                    <a class="navbar-brand" href="index.html">
+                        Logo
+                    </a>
+                </div>
+
+                <div class="lg:w-2/5 md:w-2/3 hidden md:block">
+                    <div class="main-menu-search">
+                        <div class="navbar-search flex items-center space-x-2">
+                            <div class="search-select">
+                                <div class="select-position">
+                                    <select id="select1">
+                                        <option selected>All</option>
+                                        <option value="1">option 01</option>
+                                        <option value="2">option 02</option>
+                                        <option value="3">option 03</option>
+                                        <option value="4">option 04</option>
+                                        <option value="5">option 05</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="search-input flex-1">
+                                <input type="text" placeholder="Search" class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="search-btn">
+                                <button class="p-2 bg-blue-500 text-white rounded-md focus:ring-2 focus:ring-blue-700">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4">
+                    <div class="nav-hotline flex items-center">
+                        <div class="nav-hotline">
+                            <i class="fa-solid fa-phone"></i>
+                            <h3>Hotline:
+                                <span>(+100) 123 456 7890</span>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="navbar-cart flex items-center space-x-4">
+                        <div class="wishlist" (click)="goToWishlistPage()">
+                            <a href="javascript:void(0)">
+                                <i class="fa-regular fa-heart"></i>
+                                <span class="total-items">0</span>
+                            </a>
+                        </div>
+                        <div class="cart-items relative">
+                            <a href="javascript:void(0)" class="main-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="total-items">2</span>
+                            </a>
+                            <div class="shopping-item">
+                                <div class="dropdown-cart-header">
+                                    <span>2 Items</span>
+                                    <a routerLink="/cart">View Cart</a>
+                                </div>
+                                <!--! Carts -->
+                                <ul class="shopping-list">
+                                    @for (book of carts; track $index){
+                                        <li>
+                                            <a href="javascript:void(0)" class="remove" title="Remove this item" (click)="removeBookFromCart(book)"><i class="fa-solid fa-xmark"></i></a>
+                                            <div class="cart-img-head">
+                                                <a class="cart-img" href="product-details.html"><img
+                                                        [src]="book.image" alt="#"></a>
+                                            </div>
+                                            <div class="content">
+                                                <h4><a href="product-details.html">
+                                                        {{book.title}}</a></h4>
+                                                <p class="quantity">{{book.stock}}x - <span class="amount">${{book.price}}</span></p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+
+                                <div class="bottom">
+                                    <div class="total">
+                                        <span>Total</span>
+                                        <span class="total-amount">${{totalPrice}}</span>
+                                    </div>
+                                    <div class="button">
+                                        <a href="checkout.html" class="btn animate">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="bottom">
+                  <div class="total">
+                    <span>Total</span>
+                    <span class="total-amount">$134.00</span>
+                  </div>
+                  <div class="button">
+                    <a href="checkout.html" class="btn animate">Checkout</a>
+                  </div>
+                </div>
+              </div>
+              <!-- End Shopping Item -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div >
     </div>
 </header>

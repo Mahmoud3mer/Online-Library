@@ -19,4 +19,5 @@ export class reviewDTO {
     @IsDateString()
     @IsOptional()
     date: Date;
+
 }

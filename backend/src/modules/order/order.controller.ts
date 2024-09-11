@@ -8,12 +8,14 @@ import {
   Get,
   Req,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
 import { AuthGuard } from 'src/core/guards/auth.guard';
 import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
+import { PaginationDTO } from '../book/bookdto/pagination.dto';
 
 @Controller('orders')
 @UseGuards(AuthGuard)
@@ -52,10 +54,17 @@ export class OrderController {
     return this._orderService.getOrdersByUserId(userId);
   }
 
-  @Roles(Role.Admin)
+  @Roles(Role.User)
   @Get()
-  async getAllOrders(@Req() req: any) {
-    const userRole = req.user.role;
-    return this._orderService.getAllOrders(userRole);
+  async getAllOrders(@Req() req: any,@Query() paginationDTO : PaginationDTO) {
+    const userId = req.user.userId;
+    return this._orderService.getAllOrders(userId,paginationDTO);
+  }
+
+
+  @Roles(Role.Admin)
+  @Get('admin')
+  async getAllOrdersByAdmin(@Req() req: any,@Query() paginationDTO : PaginationDTO) {
+    return this._orderService.getAllOrdersByAdmin(paginationDTO);
   }
 }

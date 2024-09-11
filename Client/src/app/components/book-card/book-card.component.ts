@@ -22,4 +22,5 @@ export class BookCardComponent {
   goToDetails(bookId:number){
     this.router.navigate(["book-details",bookId])
   }
+
 }

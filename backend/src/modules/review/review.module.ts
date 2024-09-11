@@ -9,5 +9,6 @@ import { JwtService } from '@nestjs/jwt';
   imports: [MongooseModule.forFeature([{name: Review.name, schema: ReviewSchema }])],
   controllers: [ReviewController],
   providers: [ReviewService, JwtService],
+  exports: [ReviewService, MongooseModule],
 })
 export class ReviewModule {}

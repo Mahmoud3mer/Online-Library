@@ -3,7 +3,7 @@ import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from '../../util/apiUrl';
 import { isPlatformBrowser } from '@angular/common';
-import { BookInterface } from '../../interfaces/books';
+import { BookInterface } from '../../interfaces/books.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class BooksService {
     return this._httpClient.put(`${apiUrl}/book/${bookId}`, body ,{headers: this.headers});
   }
 
-  
+
   deleteTheBook(bookId: string): Observable<any>{
     if (this.isBrowser) {
       // this.token = localStorage.getItem('token');
@@ -49,7 +49,7 @@ export class BooksService {
         this.headers = this.headers.set('token', this.token);
       }
     }
-    return this._httpClient.put(`${apiUrl}/book/${bookId}`, {headers: this.headers});
+    return this._httpClient.put(`${apiUrl}/books/${bookId}`, {headers: this.headers});
   }
 
 }
