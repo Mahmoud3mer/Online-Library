@@ -7,15 +7,15 @@ export interface BookInterface {
     rating: number;
     pages: number;
     stock: number;
-    category: category;
-    author: author;
+    category: CategoryInterface;
+    author: AuthorInterface;
 }
 
-export interface category{
+export interface CategoryInterface{
   name: string,
   image: string
 }
-export interface author{
+export interface AuthorInterface{
   name: string,
   bio: string
 }

@@ -11,10 +11,7 @@ export class BooksCategoryService {
 
   constructor(private _httpClient : HttpClient) { }
 
-  getBooksByCategory(Category: string, page: number, limit: number) : Observable<any> {
-    return this._httpClient.get<any>(`${apiUrl}/books?page=${page}&limit=${limit}`).pipe(
-      map(res => res.data.filter((book: BookInterface) =>
-       book.category.name == Category))
-    )
+  getBooksByCategory(page: number, limit: number) : Observable<any> {
+    return this._httpClient.get<any>(`${apiUrl}/category?page=${page}&limit=${limit}`)
   }
 }

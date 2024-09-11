@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
-import { BookInterface } from '../../interfaces/books.interface';
+import { BookInterface, CategoryInterface } from '../../interfaces/books.interface';
 import { AllBooksStreamOfBooksService } from '../../services/books/all-books-stream-of-books.service';
 import { BooksCategoryService } from '../../services/books/books-category.service';
 
@@ -14,6 +14,7 @@ import { BooksCategoryService } from '../../services/books/books-category.servic
 export class BooksComponent implements OnInit {
 
   allBooks : Array<BookInterface> = [];
+  categories : Array<CategoryInterface> = [];
   page: number = 1;
   constructor(
     private _allBooksStreamOfBooksService: AllBooksStreamOfBooksService,
@@ -90,13 +91,14 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllBooks()
+    this.getBooksByCategory()
   }
 
   fetchAllBooks(){
     this._allBooksStreamOfBooksService.getStreamOfBooks(this.page,5).subscribe({
       next: (res) => {
         this.allBooks = res.data;
-        console.log(res);
+        // console.log(res);
 
       },
       error: (err) => {
@@ -110,21 +112,20 @@ export class BooksComponent implements OnInit {
     })
   }
 
-  category = "Cooking"
   getBooksByCategory(){
-    this._booksCategoryService.getBooksByCategory(this.category,this.page,5).subscribe({
+    this._booksCategoryService.getBooksByCategory(this.page,5).subscribe({
       next: (res) => {
-        this.allBooks = res;
-        console.log(res.data);
-        console.log(this.page);
-        console.log(this.category);
+        this.categories = res.data;
+        // console.log(res.data, "-----------------res.data");
+        // console.log(this.page);
+        // console.log(this.category);
 
       },
       error: (err)=> {
         console.log(err);
       },
       complete: () => {
-        console.log("Got Books By Category");
+        console.log("Got All Categories");
 
       }
     })

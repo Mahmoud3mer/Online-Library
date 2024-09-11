@@ -23,8 +23,8 @@
         </div>
         <div class="search bg-white border-gray-100 border-2 rounded  p-7">
           <h5 class="border-b pb-3 mb-6">All Categories</h5>
-          @for (item of allBooks; track $index) {
-            <p class="py-2 px-2 text-gray-500 cursor-pointer hover:bg-slate-700 hover:text-yellow-600" (click)="getBooksByCategory()">{{item.category}}</p>
+          @for (item of categories; track $index) {
+            <p class="py-2 px-2 text-gray-500 cursor-pointer hover:bg-slate-700 hover:text-yellow-600" (click)="getBooksByCategory()">{{item.name}}</p>
           }
 
         </div>
