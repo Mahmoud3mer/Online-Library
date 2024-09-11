@@ -1,59 +1,73 @@
 <app-sub-navbar></app-sub-navbar>
 
-<section class="py-24 2xl:py-44 bg-sky-50">
-  <div class="container px-4 mx-auto">
-    <h2 class="mb-14 xl:mb-24 text-5xl xl:text-10xl font-heading font-medium text-center">wishlist</h2>
+<div class="card bg-sky-100 px-5 py-10">
 
-
-          <div class="">
-            <div class="flex flex-wrap -mx-0">
-
-              <div class="w-full sm:w-1/2 xl:w-1/6 px-3">
-                <div class="xl:flex xl:items-center   mb-8 bg-pink-400 rounded-3xl">
-                  <a class="block mx-auto max-w-max" href="#">
-                    <img class="h-30 w-100 object-cover rounded-3xl" src="https://cdn.abjjad.com/pub/df2ed503-85c5-461c-ba16-91f2488aa09e-192X290.png" alt="">
-                  </a>
-                </div>
-                  <p class="mb-4 text-xl leading-8 font-heading font-medium hover:underline">Smartwatch Uistore Homme Watch 19</p>
-
-                <p class="text-xl text-blue-500 font-heading font-medium tracking-tighter">
-                  <span class="text-base pr-2">EG</span>
-                  <span>120.90</span>
-                </p>
-              </div>
-              <div class="w-full sm:w-1/2 xl:w-1/6 px-3">
-                <div class="xl:flex xl:items-center   mb-8 bg-pink-400 rounded-3xl">
-                  <a class="block mx-auto max-w-max" href="#">
-                    <img class="h-30 w-100 object-cover rounded-3xl" src="https://cdn.abjjad.com/pub/df2ed503-85c5-461c-ba16-91f2488aa09e-192X290.png" alt="">
-                  </a>
-                </div>
-                  <p class="mb-4 text-xl leading-8 font-heading font-medium hover:underline">Smartwatch Uistore Homme Watch 19</p>
-
-                <p class="text-xl text-blue-500 font-heading font-medium tracking-tighter">
-                  <span class="text-base pr-2">EG</span>
-                  <span>120.90</span>
-                </p>
-              </div>
-              <div class="w-full sm:w-1/2 xl:w-1/6 px-3">
-                <div class="xl:flex xl:items-center   mb-8 bg-pink-400 rounded-3xl">
-                  <a class="block mx-auto max-w-max" href="#">
-                    <img class="h-30 w-100 object-cover rounded-3xl" src="https://cdn.abjjad.com/pub/df2ed503-85c5-461c-ba16-91f2488aa09e-192X290.png" alt="">
-                  </a>
-                </div>
-                  <p class="mb-4 text-xl leading-8 font-heading font-medium hover:underline">Smartwatch Uistore Homme Watch 19</p>
-
-                <p class="text-xl text-blue-500 font-heading font-medium tracking-tighter">
-                  <span class="text-base pr-2">EG</span>
-                  <span>120.90</span>
-                </p>
-              </div>
-
-
-
-            </div>
-          </div>
-
+  <div class=" w-full shadow-custom p-10 bg-white   mx-auto   lg:w-2/3       rounded-lg">
+    <div class="pb-4 mb-2  flex justify-between border-b-2   border-gray-300">
+      <div>
+        <h4 class="font-bold text-xl">wish list</h4>
+      </div>
+      <div class="text-gray-500">{{ numOfWishlist }} items</div>
+    </div>
+    @if (wishlistBooks.length==0 && isLoading) {
+    loading ...............
+    }@else if (wishlistBooks.length==0 && !isLoading) {
+    <div class="text-center p-10 rounded-md ">
+      <div class="flex justify-center mb-6">
+        <img src="https://metro-website-images.s3.eu-west-1.amazonaws.com/plugins/user/images/emptycart.png"
+          alt="Empty Cart" class="w-40 h-40" />
+      </div>
+      <h2 class="text-3xl font-bold text-gray-700 mb-2">Your cart is empty!</h2>
+      <p class="text-lg text-gray-500 mb-6">Browse our categories and discover our best deals!</p>
+      <button (click)="navigatToProducts()"
+        class="bg-sky-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-300">
+        Start Shopping Now
+      </button>
     </div>
 
+    }@else {
+    @for (book of wishlistBooks; track $index) {
+    <div class=" border-b-2   border-gray-300 pb-4 pt-4 ">
+      <div class="flex items-center">
+        <div class="w-1/5">
+          <img class="w-full " [src]="book.image" />
+        </div>
 
-</section>
+        <div class="sm:w-1/3 w-2/3 ps-5 ">
+          <div class="pb-3">
+            <h1> <span class="font-semibold">Title:</span> {{ book.title }}</h1>
+            <p> <span class="font-semibold">Author: </span> author {{ book.author }}</p>
+            <p> <span class="font-semibold"> Category: </span>{{ book.category }}</p>
+
+
+          </div>
+
+          <p class="hidden md:block"><span class="font-semibold"> Desc: </span>{{ book.description }}</p>
+
+        </div>
+
+        <div class="w-1/6 text-center">{{ book.price }} EGP</div>
+
+        <div class="w-1/6 text-center">
+          <app-add-to-cart-btn [bookId]="book._id" />
+        </div>
+
+        <div class="w-1/6 flex justify-center">
+
+          <button (click)="openConfirmationDialog(book._id)"
+            class="flex items-center space-x-2   text-red-600 px-4 py-2 ">
+            <i class="fa-solid fa-trash text-2xl"></i>
+
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+    }
+  </div>
+
+</div>
+@if (showConfirmationDialog) {
+<app-confirmation-dialog (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
+
+}

@@ -4,32 +4,30 @@ import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { apiUrl } from '../../util/apiUrl';
 
-@Injectable({
-  providedIn: 'root',
-})
 
-export class GetCartService {
-  private myApi = `${apiUrl}/carts`;
-  private isBrowser: Boolean = false;
+@Injectable({
+  providedIn: 'root'
+})
+export class AddToWishListService {
+
+  private myApi = `${apiUrl}/wishlist/addBook`;
+  private isBrowser: boolean = false;
   private userToken = '';
-  constructor(private _httpClient: HttpClient,@Inject(PLATFORM_ID) platformId: object ) {
+  constructor(private _httpClient: HttpClient, @Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  getCart(): Observable<any> {
+  addToWishList(prodId:string): Observable<any> {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
       this.userToken = localStorage.getItem('token') || '';
-
       if (this.userToken) {
-        headers = headers.set('token',this.userToken);
+        headers = headers.set('token', this.userToken);
       }
     }
-
-    return this._httpClient.get<any>(this.myApi, { headers });
+    const body = { bookId:prodId };
+    return this._httpClient.post<any>(this.myApi,body, { headers });
   }
+
 }
-
-
-

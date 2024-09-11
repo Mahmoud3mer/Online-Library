@@ -1,3 +1,4 @@
+
 import { Controller, Get, Post, Delete, Body, Param, UseGuards, Patch, Query } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryDTO } from './dto/Category.DTO';
@@ -11,6 +12,7 @@ export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
     @Get()
+
     getAllCategories(@Query() paginationDTO: PaginationDTO) {
         return this.categoryService.getAllCategories(paginationDTO);
     }
@@ -27,6 +29,7 @@ export class CategoryController {
         const res = this.categoryService.addNewCategory(categoryDTO);
         return res;
     }
+
 
     @Patch(':id')
     @UseGuards(AuthGuard)

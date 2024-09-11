@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from 'src/core/schemas/category.schema';
 import { JwtService } from '@nestjs/jwt';
 
+
 @Module({
   imports: [MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }])],
   controllers: [CategoryController],
