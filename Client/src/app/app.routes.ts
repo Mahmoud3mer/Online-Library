@@ -34,8 +34,9 @@ export const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'book-details',
-    component: BookDetailsComponent,
+    path: 'book-details/:id',
+    component: BookDetailsComponent
+   
   },
   {
     path: 'books',

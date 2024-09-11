@@ -1436,8 +1436,9 @@ ol {
 }
 
 .header .topbar {
-  background-color: #081828;
-  padding: 18px 40px;
+    // background-color: #081828;
+    padding: 18px 40px;
+
 }
 
 @media (max-width: 767px) {
@@ -1451,17 +1452,19 @@ ol {
 }
 
 .header .topbar .top-left .menu-top-link .select-position select {
-  border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  position: relative;
-  border: none;
-  padding: 0 10px 0 0px;
-  color: #fff !important;
-  font-weight: 500;
-  font-size: 14px;
-  background-color: #081828 !important;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    border: none;
+    padding: 0 10px 0 0px;
+    margin-left: 5px;
+    color: #fff !important;
+    font-weight: 500;
+    font-size: 14px;
+    // background-color: #081828 !important;
+
 }
 
 .header .topbar .top-left .menu-top-link .select-position select:focus {

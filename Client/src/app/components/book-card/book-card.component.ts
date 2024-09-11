@@ -18,8 +18,9 @@ export class BookCardComponent {
   @Input() authorName : any = '';
 
   router = inject(Router);
-  goToDetails(){
-    this.router.navigate(["book-details"])
+
+  goToDetails(bookId:number){
+    this.router.navigate(["book-details",bookId])
   }
 
 }

@@ -1,4 +1,4 @@
-import { IsMongoId, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsMongoId, IsNumber, IsOptional, IsString } from "class-validator";
 
 
 export class reviewDTO {
@@ -10,9 +10,14 @@ export class reviewDTO {
     bookId: string;
     
     @IsNumber()
-    rating: number;
+    raiting: number;
 
     @IsString()
     @IsOptional()
     comment: string;
+
+    @IsDateString()
+    @IsOptional()
+    date: Date;
+
 }

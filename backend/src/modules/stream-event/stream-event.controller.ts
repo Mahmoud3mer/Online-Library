@@ -10,6 +10,7 @@ import { PaginationDTO } from '../book/bookdto/pagination.dto';
 export class StreamEventController {
   constructor(private readonly streamEventService: StreamEventService) { }
 
+
   @Roles(Role.Admin)
   @UseGuards(AuthGuard)
   @Post()

@@ -1,0 +1,122 @@
+[
+  {
+    "title": "The Quantum Paradox",
+    "price": 24.99,
+    "publishedDate": "2024-03-15T00:00:00.000Z",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp6GKYQQ7PUW3pJyMtrSNy9yKaDHOL8f3rZQ&s",
+    "description": "A mind-bending journey through the mysteries of quantum mechanics and its implications for our understanding of reality.",
+    "category": "Science",
+    "rating": 4.7,
+    "stock": 150,
+    "pages": 328,
+    "authorId": "60a3e5c59f7e8d2a8c9b4567"
+  },
+  {
+    "title": "Echoes of Eternity",
+    "price": 19.95,
+    "publishedDate": "2024-01-22T00:00:00.000Z",
+    "image": "https://www.creativeparamita.com/wp-content/uploads/2023/06/Echoes-of-Eternity.jpg",
+    "description": "A sweeping historical epic that spans generations, exploring themes of love, loss, and the enduring power of family bonds.",
+    "category": "Fiction",
+    "rating": 4.5,
+    "stock": 200,
+    "pages": 512,
+    "authorId": "60a3e5c59f7e8d2a8c9b4568"
+  },
+  {
+    "title": "The Silicon Revolution",
+    "price": 29.99,
+    "publishedDate": "2024-02-10T00:00:00.000Z",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1jdLSHdcKRLwr-GqHRZafdmLYe6OwJaejBQ&s",
+    "description": "An in-depth look at the history and future of computer technology, from the first transistors to quantum computing.",
+    "category": "Technology",
+    "rating": 4.8,
+    "stock": 100,
+    "pages": 416,
+    "authorId": "60a3e5c59f7e8d2a8c9b4569"
+  },
+  {
+    "title": "Culinary Journeys",
+    "price": 34.50,
+    "publishedDate": "2024-04-05T00:00:00.000Z",
+    "image": "https://cdn11.bigcommerce.com/s-1fdhnzvx71/products/288/images/869/chef-luca-ciano-lucas-culinary-journey__14650.1669728971.386.513.png?c=1",
+    "description": "A colorful exploration of global cuisines, featuring recipes and stories from master chefs around the world.",
+    "category": "Cooking",
+    "rating": 4.9,
+    "stock": 75,
+    "pages": 280,
+    "authorId": "60a3e5c59f7e8d2a8c9b4570"
+  },
+  {
+    "title": "The Mindful Entrepreneur",
+    "price": 22.99,
+    "publishedDate": "2024-03-01T00:00:00.000Z",
+    "image": "/images/books/mindful-entrepreneur-cover.jpg",
+    "description": "A guide to building a successful business while maintaining balance and personal well-being through mindfulness practices.",
+    "category": "Business",
+    "rating": 4.6,
+    "stock": 120,
+    "pages": 256,
+    "authorId": "60a3e5c59f7e8d2a8c9b4571"
+  },
+  {
+    "title": "Whispers in the Wind",
+    "price": 18.50,
+    "publishedDate": "2024-02-28T00:00:00.000Z",
+    "image": "/images/books/whispers-in-the-wind-cover.jpg",
+    "description": "A haunting collection of short stories that blur the lines between reality and the supernatural.",
+    "category": "Fiction",
+    "rating": 4.4,
+    "stock": 180,
+    "pages": 224,
+    "authorId": "60a3e5c59f7e8d2a8c9b4572"
+  },
+  {
+    "title": "The Art of Urban Sketching",
+    "price": 27.99,
+    "publishedDate": "2024-04-20T00:00:00.000Z",
+    "image": "/images/books/urban-sketching-cover.jpg",
+    "description": "A comprehensive guide to capturing the essence of city life through quick, expressive sketches.",
+    "category": "Art",
+    "rating": 4.7,
+    "stock": 90,
+    "pages": 192,
+    "authorId": "60a3e5c59f7e8d2a8c9b4573"
+  },
+  {
+    "title": "Beyond the Stars",
+    "price": 21.95,
+    "publishedDate": "2024-01-15T00:00:00.000Z",
+    "image": "/images/books/beyond-the-stars-cover.jpg",
+    "description": "A thrilling science fiction adventure that takes readers on a journey to the farthest reaches of the galaxy.",
+    "category": "Science Fiction",
+    "rating": 4.5,
+    "stock": 160,
+    "pages": 384,
+    "authorId": "60a3e5c59f7e8d2a8c9b4574"
+  },
+  {
+    "title": "The Green Revolution",
+    "price": 26.50,
+    "publishedDate": "2024-03-22T00:00:00.000Z",
+    "image": "/images/books/green-revolution-cover.jpg",
+    "description": "An inspiring look at innovative solutions to environmental challenges, featuring case studies from around the world.",
+    "category": "Environment",
+    "rating": 4.8,
+    "stock": 110,
+    "pages": 320,
+    "authorId": "60a3e5c59f7e8d2a8c9b4575"
+  },
+  {
+    "title": "The Language of Movement",
+    "price": 31.99,
+    "publishedDate": "2024-02-05T00:00:00.000Z",
+    "image": "/images/books/language-of-movement-cover.jpg",
+    "description": "A beautifully illustrated exploration of dance forms from different cultures, examining their historical and social contexts.",
+    "category": "Arts & Culture",
+    "rating": 4.6,
+    "stock": 85,
+    "pages": 240,
+    "authorId": "60a3e5c59f7e8d2a8c9b4576"
+  }
+]

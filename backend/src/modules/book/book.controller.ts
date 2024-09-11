@@ -10,13 +10,15 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { PaginationDTO } from './bookdto/pagination.dto';
 import { Role } from 'src/core/EnumRoles/role.enum';
 
+
 @Controller('books')
 export class BookController {
   constructor(private _bookService: BookService) { }
 
   @Post()
-  @Roles(Role.Admin) //! Rolles for guar (athorization)
   @UseGuards(AuthGuard)
+  @Roles(Role.Admin) //! Rolles for guar (athorization)
+
   @UseInterceptors(FileInterceptor('image')) //! pload file (image)
   addBook(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
     return this._bookService.addNewBook(body, file);
@@ -33,8 +35,9 @@ export class BookController {
   }
 
   @Put('/:id')
-  @Roles(Role.Admin)
   @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
+
   updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any) {
     const user = req.user;
     // return user
@@ -42,8 +45,8 @@ export class BookController {
   }
 
   @Delete('/:id')
-  @Roles(Role.Admin)
   @UseGuards(AuthGuard)
+  @Roles(Role.Admin)
   deleteBook(@Param('id') id: string) {
     return this._bookService.removeBook(id);
   }

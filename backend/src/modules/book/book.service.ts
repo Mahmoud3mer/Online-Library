@@ -92,11 +92,11 @@ export class BookService {
 
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
-            // Optional: Add populate if you want to return the updated book with full details
+
             const updateBook = await this.bookModel.findByIdAndUpdate(
                 { _id: bookId },
                 { $set: book },
-                { new: true } // Return the updated book
+                { new: true } 
             ).populate('author')
                 .populate('category');
 
