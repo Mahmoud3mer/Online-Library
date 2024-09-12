@@ -1,46 +1,9 @@
-<section class="relative bg-gray-50 overflow-hidden py-12">
-  <div class="relative z-10 flex flex-wrap -m-8">
-    <div class="w-full md:w-1/2 p-8">
-      <div class="container px-4 mx-auto">
-        <div class="flex flex-wrap">
-          <div class="w-full">
-            <div class="md:max-w-lg mx-auto pt-4 md:pb-32 text-center">
-              <div class="mb-6 inline-block" href="#">
-                <!-- Logo styling -->
-                <img
-                  src="./assets/images/logo/logo.png"
-                  alt="logoo"
-                  class="h-50 mx-auto"
-                />
-              </div>
-              <h2
-                class="mb-6 text-6xl md:text-7xl font-bold font-heading tracking-tight leading-tight text-gray-800"
-              >
-                Create an account & get started.
-              </h2>
-              <div class="flex items-center justify-center mb-6">
-                <hr class="w-1/3 border-gray-300" />
-                <span class="px-4 text-sm text-gray-600">Or</span>
-                <hr class="w-1/3 border-gray-300" />
-              </div>
-              <button
-                id="google-button"
-                class="w-full rounded-md flex items-center justify-center border border-gray-300 py-3 px-6 text-center text-sm font-semibold transition-all shadow-lg hover:shadow-2xl text-gray-700 hover:text-white hover:bg-gray-800 hover:border-gray-800 focus:text-white focus:bg-gray-800 focus:border-gray-800 active:border-gray-800 active:text-white active:bg-gray-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                <img
-                  src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
-                  alt="google"
-                  class="h-5 w-5 me-3"
-                />
-                Sign In With Google
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="w-full md:w-1/2 p-8">
-      <div class="p-4 py-16 flex flex-col justify-center bg-gray-100 h-full">
+<section class="relative bg-slate-700 overflow-hidden">
+  <div class="relative z-10 flex flex-wrap">
+
+    <div class="w-full md:w-1/2">
+      <div class="p-4 py-8 flex flex-col justify-evenly bg-gray-100 h-full">
+        <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold">Register</h1>
         <form [formGroup]="registerForm" class="md:max-w-lg mx-auto">
           <label class="block mb-4">
             <div
@@ -376,5 +339,41 @@
         </form>
       </div>
     </div>
+    <div class="w-full md:w-1/2 p-8">
+      <div class="container px-4 mx-auto">
+        <div class="flex flex-wrap">
+          <div class="w-full">
+            <div class="md:max-w-lg mx-auto  text-center">
+              <div class="mb-6 inline-block" href="#">
+                <!-- Logo styling -->
+                <img
+                  src="assets/images/Register.png"
+                  alt="logoo"
+                  class="h-50 mx-auto"
+                />
+              </div>
+         
+              <div class="flex items-center justify-center mb-6">
+                <hr class="w-1/3 border-gray-300" />
+                <span class="px-4 text-lg font-semibold text-gray-200">Or</span>
+                <hr class="w-1/3 border-gray-300" />
+              </div>
+              <button
+                id="google-button"
+                class="w-fit mx-auto rounded-md flex items-center justify-center border border-gray-300 p-3 text-center text-sm font-semibold transition-all shadow-lg hover:shadow-2xl text-gray-700 hover:text-white hover:bg-gray-800 hover:border-gray-800 focus:text-white focus:bg-gray-800 focus:border-gray-800 active:border-gray-800 active:text-white active:bg-gray-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              >
+                <img
+                  src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+                  alt="google"
+                  class="h-5 w-5 me-3"
+                />
+                Sign In With Google
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
