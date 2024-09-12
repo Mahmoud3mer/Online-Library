@@ -16,24 +16,29 @@ export class SigninService {
   async signin(info: SignInDTO) {
     console.log('Received data:', info);
 
+    const user = await this.userModel.findOne({ email: info.email });
 
-
-    const user = await this.userModel.findOne({ email: info.email })
-
-    if (!user)
-      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
 
     if (user.role !== 'admin' && user.role !== 'user')
       throw new HttpException('UnExpected Role!', HttpStatus.FORBIDDEN);
 
     if (user.isVerified !== true)
-      throw new HttpException('Please, Check your email verefication', HttpStatus.FORBIDDEN);
+      throw new HttpException(
+        'Please, Check your email verefication',
+        HttpStatus.FORBIDDEN,
+      );
 
-    if (user && await bcrypt.compare(info.password, user.password)) {
-
+    if (user && (await bcrypt.compare(info.password, user.password))) {
       const token = this._jwtService.sign(
-        {name: user.name fName: user.fName, lName: user.lName, email: user.email, role: user.role, userId: user._id },
-        { secret: "gaher" }
+        {
+          fName: user.fName,
+          lName: user.lName,
+          email: user.email,
+          role: user.role,
+          userId: user._id,
+        },
+        { secret: 'gaher' },
       );
 
       return { message: 'Welcome back', token: token };
@@ -44,5 +49,4 @@ export class SigninService {
       );
     }
   }
-
 }
