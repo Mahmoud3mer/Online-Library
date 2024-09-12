@@ -21,6 +21,8 @@ export class SignupService {
   ) {}
 
   async signup(body: SignUpDTO) {
+    console.log('jjjjjjjj');
+
     const existingUser = await this.userModel.findOne({ email: body.email });
     if (existingUser) {
       if (existingUser.isVerified) {
@@ -29,6 +31,8 @@ export class SignupService {
           HttpStatus.FORBIDDEN,
         );
       } else {
+        console.log('kkkkkkk');
+
         throw new HttpException(
           ' Please check your email to verify your account.',
           HttpStatus.FORBIDDEN,
@@ -62,7 +66,7 @@ export class SignupService {
     await this.mailerService.sendMail({
       to: body.email,
       subject: 'Email Verification',
-      html: emailHtml((`${body.fName } ${body.lName}`), verificationLink),
+      html: emailHtml(`${body.fName} ${body.lName}`, verificationLink),
     });
 
     return {
@@ -101,13 +105,20 @@ export class SignupService {
         ),
       );
 
-      const { sub: googleId, email, name } = response.data;
+      const {
+        sub: googleId,
+        email,
+        given_name: fName,
+        family_name: lName,
+      } = response.data;
+      console.log(response.data);
 
       let user = await this.userModel.findOne({ email });
 
       if (!user) {
         user = new this.userModel({
-          name,
+          fName,
+          lName,
           email,
           googleId,
           isVerified: true,

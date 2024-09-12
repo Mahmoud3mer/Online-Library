@@ -18,6 +18,7 @@ export class SignupController {
   @Post()
   async signup(@Body() body: SignUpDTO) {
     try {
+      console.log('up');
       return await this.signupService.signup(body);
     } catch (err) {
       throw new HttpException(

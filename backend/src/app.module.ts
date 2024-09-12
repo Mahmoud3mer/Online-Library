@@ -13,10 +13,9 @@ import { RecommendationModule } from './modules/recommendation/recommendation.mo
 import { CategoryModule } from './modules/category/category.module';
 import { AuthorModule } from './modules/author/author.module';
 
-
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/nest_iti'),
+    MongooseModule.forRoot('mongodb://localhost:27017/onlineLibrary'),
     BookModule,
     AuthModule,
     ReviewModule,
@@ -26,9 +25,9 @@ import { AuthorModule } from './modules/author/author.module';
     WishlistModule,
     RecommendationModule,
     CategoryModule,
-    AuthorModule
+    AuthorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
