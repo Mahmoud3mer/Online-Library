@@ -1,10 +1,12 @@
 import { Component, inject, Input, Output,  } from '@angular/core';
 import { Router } from '@angular/router';
+import { AddToCartBtnComponent } from "../add-to-cart-btn/add-to-cart-btn.component";
+import { AddToWishlistBtnComponent } from "../add-to-wishlist-btn/add-to-wishlist-btn.component";
 
 @Component({
   selector: 'app-book-card',
   standalone: true,
-  imports: [],
+  imports: [AddToCartBtnComponent, AddToWishlistBtnComponent],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss'
 })
