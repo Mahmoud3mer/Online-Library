@@ -1,5 +1,11 @@
 import { isPlatformBrowser } from "@angular/common";
-import { Component, Inject, inject, PLATFORM_ID } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  NgZone,
+  PLATFORM_ID,
+} from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { DarkModeService } from "../../services/dark-mode/dark-mode.service";
 import { NgClass, NgIf } from "@angular/common";
@@ -14,29 +20,23 @@ import { SubNavbarComponent } from "./sub-navbar/sub-navbar.component";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
   username: string = "";
   isDropdownOpen = false;
   isFadeIn = false;
   isFadeOut = false;
 
-  languages: string[] = [
-    "English",
-    "Español",
-    "Filipino",
-    "Français",
-    "العربية",
-    "हिन्दी",
-  ];
+  languages: string[] = ["English", "العربية"];
   token: string | null = "";
-  isLogedIn: boolean = true;
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
     private _darkModeService: DarkModeService,
-    private _authorizationService: AuthourizationService
+    private _authorizationService: AuthourizationService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
@@ -44,6 +44,12 @@ export class NavbarComponent {
         localStorage.getItem("darkMode") === "dark" ? true : false;
     }
     this.getToken();
+    this._authorizationService.loggedInUser.subscribe((res) => {
+      this.ngZone.run(() => {
+        this.isLoggedIn = !!res;
+        this.cdr.markForCheck();
+      });
+    });
   }
 
   toggleDropdown() {
@@ -52,9 +58,6 @@ export class NavbarComponent {
   getToken() {
     if (this.isBrowser) {
       this.token = localStorage.getItem("token");
-      if (this.token) {
-        this.isLogedIn = true;
-      }
     }
   }
 
@@ -65,7 +68,6 @@ export class NavbarComponent {
       this.isDarkMode = !this.isDarkMode;
       this.isFadeOut = false;
       this.isFadeIn = false;
-      void document.body.offsetWidth;
 
       this.isFadeIn = true;
     }, 400);
@@ -73,14 +75,14 @@ export class NavbarComponent {
     this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light");
   }
 
-  // Darkmode without animation
-  // toggleDarkMode() {
-  //   this.isDarkMode = !this.isDarkMode; // Toggle the dark mode state
-  //   localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light"); // Save to localStorage
-  //   this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light"); // Notify the dark mode service
-  // }
-
   logout() {
     this._authorizationService.logOut();
   }
 }
+
+// Darkmode without animation
+// toggleDarkMode() {
+//   this.isDarkMode = !this.isDarkMode; // Toggle the dark mode state
+//   localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light"); // Save to localStorage
+//   this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light"); // Notify the dark mode service
+// }
