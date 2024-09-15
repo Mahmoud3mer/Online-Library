@@ -16,11 +16,12 @@ export class BookCardComponent {
   @Input() bookRating : any = 0 ;
   @Input() bookCoverImg : any = '';
   @Input() authorName : any = '';
+  @Input() bookId : any = '';
 
   router = inject(Router);
 
-  goToDetails(bookId:number){
-    this.router.navigate(["book-details",bookId])
+  goToDetails(){
+    this.router.navigate(["book-details",this.bookId])
   }
 
 }

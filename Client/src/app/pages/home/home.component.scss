@@ -1010,15 +1010,21 @@ ol {
 }
 
 .section {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    // padding-top: 60px;
+    // padding-bottom: 60px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    padding-inline: 40px;
+    padding-block: 60px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .section {
         padding-top: 60px;
         padding-bottom: 60px;
+        display: flex;
+        justify-content: center;
     }
 }
 
@@ -1026,6 +1032,8 @@ ol {
     .section {
         padding-top: 50px;
         padding-bottom: 50px;
+        display: flex;
+        justify-content: center;
     }
 }
 

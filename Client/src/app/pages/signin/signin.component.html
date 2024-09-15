@@ -1,13 +1,13 @@
-<section class="relative bg-slate-700 overflow-hidden">
+<section class="relative bg-slate-700 dark:bg-[#081828] overflow-hidden">
   <div class="relative z-10 flex flex-wrap ">
     <div class="w-full md:w-1/2 p-8">
     <img src="assets/images/Login.png" alt="">
     </div>
-    <div class="w-full md:w-1/2 p-5 drop-shadow-2xl top-5 bg-gray-100">
+    <div class="w-full md:w-1/2 p-5 drop-shadow-2xl top-5 bg-gray-100 dark:bg-[#0e2134]">
       <div class="p-4 py-2 flex flex-col justify-evenly bg-blueGray-400 h-full">
-        <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold">Login</h1>
+        <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold dark:text-gray-400">Login</h1>
         <form
-          class="md:max-w-lg mx-auto"
+          class="md:max-w-lg mx-auto "
           [formGroup]="loginForm"
           (ngSubmit)="login()"
         >
@@ -30,12 +30,12 @@
             </p>
           </div>
           <label for="email" class="block mb-4">
-            <p class="mb-2 text-gray-900 font-semibold leading-normal">
+            <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
               Email Address *
             </p>
             <input
               formControlName="email"
-              class="px-4 py-3.5 w-full text-black-100 font-medium placeholder-gray-400 bg-white outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300
+              class="px-4 py-3.5 w-full text-black-100 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300
               {{
                 loginForm.get('email')?.touched &&
                 loginForm.get('email')?.invalid
@@ -52,7 +52,7 @@
                 loginForm.get('email')?.touched &&
                 loginForm.get('email')?.hasError('required')
               "
-              class="text-red-500 text-sm italic mt-1"
+              class="text-red-500 text-sm italic mt-1 dark:text-gray-400"
             >
               Enter your email.
             </p>
@@ -67,11 +67,11 @@
             </p>
           </label>
           <label class="block mb-5">
-            <p class="mb-2 text-gray-900 font-semibold leading-normal">
+            <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
               Password *
             </p>
             <input
-              class="px-4 py-3.5 w-full text-dark-100 font-medium placeholder-gray-400 bg-white outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300
+              class="px-4 py-3.5 w-full text-dark-100 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300
               {{
                 loginForm.get('password')?.touched &&
                 loginForm.get('password')?.invalid
@@ -105,7 +105,7 @@
                   value=""
                 />
                 <label
-                  class="ml-2 text-sm text-gray-900 font-medium"
+                  class="ml-2 text-sm text-gray-900 font-medium dark:text-gray-400"
                   for="default-checkbox"
                   >Remember Me</label
                 >
@@ -155,7 +155,7 @@
           <div class="flex flex-wrap justify-center -m-2">
             <div class="w-auto p-2">
               <button
-                class="flex items-center p-4 bg-white hover:bg-gray-50 border rounded-lg transition ease-in-out duration-200"
+                class="flex items-center p-4 bg-white dark:bg-gray-300 hover:bg-gray-50 border rounded-lg transition ease-in-out duration-200"
               >
                 <span class="font-semibold leading-normal"
                   >If You don't have account please sign up

@@ -22,11 +22,7 @@ export class NavbarComponent {
 
   languages: string[] = [
     "English",
-    "Español",
-    "Filipino",
-    "Français",
     "العربية",
-    "हिन्दी",
   ];
   token: string | null = "";
   isLogedIn: boolean = true;
