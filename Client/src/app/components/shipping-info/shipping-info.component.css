@@ -1,0 +1,61 @@
+/*======================================
+    Shipping Info CSS
+========================================*/
+.shipping-info {
+  padding: 50px 0;
+}
+
+.shipping-info ul {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.shipping-info li {
+  list-style: none;
+  float: left;
+  width: 25%;
+  padding: 30px 40px;
+  border: 1px solid #eee;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .shipping-info li {
+    width: 50%;
+  }
+}
+@media (max-width: 767px) {
+  .shipping-info li {
+    width: 100%;
+  }
+}
+.shipping-info li:hover {
+  background-color: #aaa7a7;
+}
+
+.shipping-info .media-icon {
+  margin-bottom: 15px;
+}
+
+.shipping-info .media-icon i {
+  color: #0167F3;
+  font-size: 35px;
+}
+
+.shipping-info .media-body {
+  padding-bottom: 0px;
+}
+
+.shipping-info .media-body h5 {
+  font-size: 15px;
+  margin: 0px;
+  font-weight: 600;
+}
+
+.shipping-info .media-body span {
+  font-size: 13px;
+  margin-top: 2px;
+  color: #777;
+}/*# sourceMappingURL=shipping-info.component.css.map */

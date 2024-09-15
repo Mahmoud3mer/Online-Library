@@ -25,8 +25,15 @@ export class BookController {
   }
 
   @Get()
-  getBooks(@Query() paginationDTO: PaginationDTO) {
-    return this._bookService.getAllBooks(paginationDTO);
+  getBooks(
+    @Query() paginationDTO: PaginationDTO,
+    @Query('category') category: string,
+    @Query('author') author: string,
+    @Query('title') title: string,
+    @Query('sortField') sortField: string,
+    @Query('sortOrder') sortOrder: string
+  ) {
+    return this._bookService.getAllBooks(paginationDTO, category, author, title, sortField, sortOrder);
   }
 
   @Get('/:id')

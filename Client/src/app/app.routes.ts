@@ -14,6 +14,7 @@ import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
 import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
 import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { RecommendationComponent } from './pages/recommendation/recommendation.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,10 @@ export const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent,
+  },
+  {
+    path: 'recommendation',
+    component: RecommendationComponent,
   },
   {
     path: 'signin',

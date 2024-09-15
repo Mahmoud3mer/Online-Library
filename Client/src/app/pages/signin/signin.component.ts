@@ -10,6 +10,7 @@ import {
 import { AuthourizationService } from '../../services/users/authourization.service';
 import { Router } from '@angular/router'; // Import Router
 import { CookieService } from 'ngx-cookie-service';
+import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
 
 // Default values shown
 
@@ -29,7 +30,8 @@ export class SigninComponent {
   constructor(
     private _authourizationService: AuthourizationService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private _getUserRecommendationService:GetUserRecommendationService
   ) {}
 
   // get email if in  cookies
@@ -69,7 +71,7 @@ export class SigninComponent {
           this.loginForm.reset();
           this._authourizationService.saveUserToken(res.token);
 
-          this.router.navigate(['/home']);
+          this.checkRecommendations();
         },
         error: (err) => {
           console.log(err);
@@ -79,4 +81,40 @@ export class SigninComponent {
       });
     }
   }
+
+
+
+
+
+
+
+  // recommendation
+  checkRecommendations(): void {
+    this._getUserRecommendationService.getRecommendation().subscribe({
+      next: (res) => {
+        if (res.message=="Recommendations retrieved successfully") {
+          this.router.navigate(['/home']);
+        } else {
+          this.router.navigate(['/recommendation']);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('Recommendations check complete');
+      }
+    });
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
