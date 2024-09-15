@@ -38,6 +38,12 @@ export class User extends Document {
 
   @Prop({ default: 'client' })
   loginMethod: string;
+
+  @Prop({ type: String, default: null })
+  resetToken?: string;
+
+  @Prop({ type: Date, default: null })
+  resetTokenExpiresAt?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

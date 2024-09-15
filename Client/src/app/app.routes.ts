@@ -1,80 +1,89 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { BooksComponent } from './pages/books/books.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { CheckOutComponent } from './pages/check-out/check-out.component';
-import { WishlistComponent } from './pages/wishlist/wishlist.component';
-import { SigninComponent } from './pages/signin/signin.component';
-import { SignupComponent } from './pages/signup/signup.component';
-import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
-import { BookDetailsComponent } from './pages/book-details/book-details.component';
-import { Err404Component } from './pages/err404/err404.component';
-import { AuthorsComponent } from './pages/authors/authors.component';
-import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
-import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { Routes } from "@angular/router";
+import { HomeComponent } from "./pages/home/home.component";
+import { AboutComponent } from "./pages/about/about.component";
+import { ContactComponent } from "./pages/contact/contact.component";
+import { BooksComponent } from "./pages/books/books.component";
+import { CartComponent } from "./pages/cart/cart.component";
+import { CheckOutComponent } from "./pages/check-out/check-out.component";
+import { WishlistComponent } from "./pages/wishlist/wishlist.component";
+import { SigninComponent } from "./pages/signin/signin.component";
+import { SignupComponent } from "./pages/signup/signup.component";
+import { UserSettingsComponent } from "./pages/user-settings/user-settings.component";
+import { BookDetailsComponent } from "./pages/book-details/book-details.component";
+import { Err404Component } from "./pages/err404/err404.component";
+import { AuthorsComponent } from "./pages/authors/authors.component";
+import { SignInSignUpComponent } from "./pages/sign-in-sign-up/sign-in-sign-up.component";
+import { EmailVerifiedComponent } from "./pages/email-Verified/email-verified/email-verified.component";
+import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full",
   },
   {
-    path: 'home',
+    path: "home",
     component: HomeComponent,
   },
   {
-    path: 'about',
+    path: "about",
     component: AboutComponent,
   },
   {
-    path: 'contact',
+    path: "contact",
     component: ContactComponent,
   },
   {
-    path: 'book-details/:id',
-    component: BookDetailsComponent
-   
+    path: "book-details/:id",
+    component: BookDetailsComponent,
   },
   {
-    path: 'books',
+    path: "books",
     component: BooksComponent,
   },
   {
-    path: 'check-out',
+    path: "check-out",
     component: CheckOutComponent,
   },
   {
-    path: 'cart',
+    path: "cart",
     component: CartComponent,
   },
   {
-    path: 'wishlist',
+    path: "wishlist",
     component: WishlistComponent,
   },
   {
-    path: 'signin',
+    path: "signin",
     component: SigninComponent,
   },
   {
-    path: 'signup',
+    path: "signup",
     component: SignupComponent,
   },
-  { path: 'verify-email', component: EmailVerifiedComponent },
+  { path: "verify-email", component: EmailVerifiedComponent },
   {
-    path: 'user-settings',
+    path: "user-settings",
     component: UserSettingsComponent,
   },
   {
-    path: 'authors',
+    path: "forgot-password",
+    component: ForgotPasswordComponent, // Add this route
+  },
+  {
+    path: "reset-password",
+    component: ResetPasswordComponent, // Add this route
+  },
+  {
+    path: "authors",
     component: AuthorsComponent,
   },
-  { path: 'auth', component: SignInSignUpComponent },
+  { path: "auth", component: SignInSignUpComponent },
 
   {
-    path: '**',
+    path: "**",
     component: Err404Component,
   },
 ];

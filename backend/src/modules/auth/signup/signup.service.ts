@@ -21,8 +21,6 @@ export class SignupService {
   ) {}
 
   async signup(body: SignUpDTO) {
-    console.log('jjjjjjjj');
-
     const existingUser = await this.userModel.findOne({ email: body.email });
     if (existingUser) {
       if (existingUser.isVerified) {

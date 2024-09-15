@@ -62,4 +62,16 @@ export class AuthourizationService {
       this.router.navigate(["/signin"]);
     }
   }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/signin/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    return this.httpClient.post(
+      `${apiUrl}/signin/reset-password`,
+      { password },
+      { params: { token } }
+    );
+  }
 }
