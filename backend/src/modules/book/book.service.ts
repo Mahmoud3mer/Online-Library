@@ -60,6 +60,7 @@ export class BookService {
         console.log('Query:', query);
         console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
 
+
         const total = await this.bookModel.countDocuments(query).exec();
 
         try {

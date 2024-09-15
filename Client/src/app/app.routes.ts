@@ -15,6 +15,7 @@ import { AuthorsComponent } from './pages/authors/authors.component';
 import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
 import { BooksGridListComponent } from './components/books-grid-list/books-grid-list.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
+import { RecommendationComponent } from './pages/recommendation/recommendation.component';
 
 export const routes: Routes = [
   {
@@ -69,6 +70,10 @@ export const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent,
+  },
+  {
+    path: 'recommendation',
+    component: RecommendationComponent,
   },
   {
     path: 'signin',

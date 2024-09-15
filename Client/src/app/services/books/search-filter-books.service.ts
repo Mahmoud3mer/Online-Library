@@ -45,6 +45,7 @@ export class SearchFilterBooksService {
 
   constructor(private _httpClient: HttpClient) { }
 
+
   getFilteredBooks(
     page: number, 
     limit: number,
@@ -75,5 +76,17 @@ export class SearchFilterBooksService {
     }
 
     return this._httpClient.get(`${apiUrl}/books`, { params });
+
+  ) : Observable<any>{
+    return this._httpClient.get(
+      `${apiUrl}/books?
+      page=${page}
+      &limit=${limit}
+      &category=${category}
+      &author=${author}
+      &title=${title}
+      &sortField=${sortFor}
+      &sortOrder=${sortBy}`
+    )
   }
 }

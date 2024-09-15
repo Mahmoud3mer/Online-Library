@@ -2,6 +2,7 @@ import {
     Injectable,
     NotFoundException,
     ConflictException,
+    UnauthorizedException,
   } from '@nestjs/common';
   import { InjectModel } from '@nestjs/mongoose';
   import { Model } from 'mongoose';
@@ -47,19 +48,20 @@ import {
    
     async getCartByUserId(userDTO: UserDTO) {
       const { userId } = userDTO;
-  
+
       // Find the cart and populate book details along with category and author
       let cart = await this.cartModel.findOne({ user: userId }).populate({
           path: 'books.book',
           model: 'Book',
           populate: [
-              { path: 'category', model: 'Category' }, // Populate category details
-              { path: 'author', model: 'Author' } // Populate author details
+
+              { path: 'category', model: 'Category' },  
+              { path: 'author', model: 'Author' }  
           ]
       });
   
       if (!cart) {
-          // If cart doesn't exist, create a new cart
+
           cart = new this.cartModel({
               user: userId,
               books: [],

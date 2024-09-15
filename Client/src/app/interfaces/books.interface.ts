@@ -20,8 +20,9 @@ export interface CategoryInterface {
   name: string,
   image: string
 }
-export interface AuthorInterface {
-  _id: string,
+
+export interface AuthorInterface{
+  _id:string,
   name: string,
   bio: string
 }

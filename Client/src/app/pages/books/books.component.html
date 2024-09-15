@@ -36,6 +36,7 @@
           }
 
 
+
         </div>
         <!-- <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Price Range</h5>
@@ -59,6 +60,7 @@
             {{author.name}}
           </p>
           }
+
         </div>
       </aside>
 
@@ -70,6 +72,7 @@
           <form (ngSubmit)="$event.preventDefault()" class="max-w-sm mx-3 flex items-center">
             <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
             <select (change)="onSortChange($event)" id="filter-select"
+
               class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200">
               <option value="popularity">Popularity</option>
               <option value="atoz">A-Z Order</option>
@@ -78,6 +81,7 @@
               <option value="highlow">High - Low Price</option>
             </select>
           </form>
+          
 
 
           <div>
@@ -104,8 +108,20 @@
       [totalPages]="numberOfPages"
       (pageChanged)="onPageChanged($event)">
     </app-pagination>
-    
 
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          @for (item of allBooks; track $index) {
+              <app-book-card
+                [bookTitle]="item.title"
+                [bookCoverImg]="item.coverImage"
+                [bookCategory]="item.category.name"
+                [bookPrice]="item.price"
+                [authorName]="item.author.name"
+                [bookRating]="item.averageRating"
+              ></app-book-card>
+
+          }
+        </div>
       </section>
 
 

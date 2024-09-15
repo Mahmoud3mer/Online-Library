@@ -6,6 +6,8 @@ import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-c
 import { DeleteBookFromWishlistServiece } from "../../services/wishlist/deleteFromWishlist.service";
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
+import { ToastService } from "../../services/Toast/toast.service";
+import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
 
 @Component({
   selector: "app-wishlist",
@@ -29,6 +31,8 @@ export class WishlistComponent implements OnInit {
   constructor(
     private _getWishlist: GetWishlistService,
     private _deletFromWishlist: DeleteBookFromWishlistServiece,
+    private _wishlistCount:WishListCountService,
+    private _toastService:ToastService,
     private router: Router
   ) {}
 
@@ -48,8 +52,12 @@ export class WishlistComponent implements OnInit {
         .deleteFromWihslist(this.bookIdToRemove)
         .subscribe({
           next: (res) => {
+            console.log(res.data.books);
+            
             this.wishlistBooks = res.data.books;
             this.numOfWishlist = this.wishlistBooks.length;
+            this._wishlistCount.updateNumOfWishItems(this.numOfWishlist)
+            this._toastService.showSuccess('Book removed from wishlist successfully!');
           },
           error: (err) => {
             console.error(err);

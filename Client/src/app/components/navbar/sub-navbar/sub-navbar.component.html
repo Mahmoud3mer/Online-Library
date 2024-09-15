@@ -23,25 +23,18 @@
                 </div>
               </div>
               <div class="search-input flex-1">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-300"
-                />
+                <input type="text" placeholder="Search"
+                  class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-300" />
               </div>
               <div class="search-btn">
-                <button
-                  class="p-2 bg-blue-500 dark:bg-blue-800 text-white rounded-md focus:ring-2 focus:ring-blue-700"
-                >
+                <button class="p-2 bg-blue-500 dark:bg-blue-800 text-white rounded-md focus:ring-2 focus:ring-blue-700">
                   <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4"
-        >
+        <div class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4">
           <div class="nav-hotline flex items-center">
             <div class="nav-hotline">
               <i class="fa-solid fa-phone text-[#081828] dark:text-white"></i>
@@ -52,29 +45,20 @@
             </div>
           </div>
           <div class="navbar-cart flex items-center space-x-4">
-            <div class="wishlist" (click)="goToWishlistPage()">
-              <a href="javascript:void(0)" class="text-[#555] dark:text-white">
+            <div class="wishlist">
+              <a routerLink="/wishlist" routerLinkActive="text-blue-800" class="main-btn text-[#555] dark:text-white">
                 <i class="fa-regular fa-heart"></i>
-                <span
-                  class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]"
-                  >0</span
-                >
+                <span class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]">{{numOfWishlistItems}}</span>
               </a>
             </div>
             <div class="cart-items relative">
-              <a
-                href="javascript:void(0)"
-                class="main-btn text-[#555] dark:text-white"
-              >
+              <a routerLink="/cart" routerLinkActive="text-blue-800" class="main-btn text-[#555] dark:text-white">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span
-                  class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]"
-                  >2</span
-                >
+                <span class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]">{{numOfCartItems}}</span>
               </a>
-              <div
-                class="shopping-item bg-white dark:bg-[#081828] dark:text-white"
-              >
+
+
+              <div class="shopping-item bg-white dark:bg-[#081828] dark:text-white">
                 <div class="dropdown-cart-header text-[#222] dark:text-white">
                   <span>{{ totalItems }} Items</span>
                   <a routerLink="/cart">View Cart</a>
@@ -83,17 +67,10 @@
                 <ul class="shopping-list">
                   @for (book of carts; track $index){
                   <li>
-                    <a
-                      href="javascript:void(0)"
-                      class="remove"
-                      title="Remove this item"
-                      (click)="removeBookFromCart(book)"
-                      ><i class="fa-solid fa-xmark"></i
-                    ></a>
+                    <a href="javascript:void(0)" class="remove" title="Remove this item"
+                      (click)="removeBookFromCart(book)"><i class="fa-solid fa-xmark"></i></a>
                     <div class="cart-img-head">
-                      <a class="cart-img" href="product-details.html"
-                        ><img [src]="book.image" alt="#"
-                      /></a>
+                      <a class="cart-img" href="product-details.html"><img [src]="book.image" alt="#" /></a>
                     </div>
                     <div class="content text-[#081828] dark:text-white">
                       <h4>

@@ -21,8 +21,9 @@ import { CartCountService } from '../../services/cart/CartCount.service';
   imports: [
     CommonModule,
     ConfirmationDialogComponent,
-    AddToWishlistBtnComponent,
-    AddToCartBtnComponent
+    // AddToWishlistBtnComponent,
+    AddToCartBtnComponent,
+    AddToWishlistBtnComponent
 ],
 })
 export class CartComponent implements OnInit {
@@ -64,8 +65,9 @@ export class CartComponent implements OnInit {
   
           },
           error: (err) => {
-            console.log(err);
-  
+
+            console.log("errororro",err);
+            this.isLoading=false;
           },
           complete: () => {
             console.log("get cart products");

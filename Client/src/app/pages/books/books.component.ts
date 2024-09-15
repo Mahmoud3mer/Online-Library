@@ -13,16 +13,19 @@ import { BooksListComponent } from "../../components/books-list/books-list.compo
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 
+
 @Component({
   selector: 'app-books',
   standalone: true,
   imports: [BookCardComponent, SubNavbarComponent, CommonModule, BooksGridListComponent, BooksListComponent, RouterLink, RouterLinkActive, PaginationComponent],
+
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
 
   metaData: any;
+
   allBooks: Array<BookInterface> = [];
   filteredBooks: Array<BookInterface> = [];
   categories: Array<CategoryInterface> = [];
@@ -42,6 +45,7 @@ export class BooksComponent implements OnInit {
   selecetedSort = '';
   currentView: string = 'grid';  // Default view
 
+  
   private searchSubject = new Subject<string>();
 
   constructor(
@@ -49,6 +53,7 @@ export class BooksComponent implements OnInit {
     private _authorService: AuthorService,
     private _searchFilterBooksService: SearchFilterBooksService,
     private route: ActivatedRoute, private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +65,7 @@ export class BooksComponent implements OnInit {
       this.currentView = url || 'grid';
     });
 
+
     this.loadBooks();
     this.getAllCategories();
     this.getAllAuthors();
@@ -70,6 +76,11 @@ export class BooksComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     const searchTerm = inputElement.value;
     this.searchSubject.next(searchTerm);
+
+  }
+  onFormSubmit(event: Event): void {
+    event.preventDefault();
+    this.loadBooks();
   }
   onFormSubmit(event: Event): void {
     event.preventDefault();
@@ -95,8 +106,7 @@ export class BooksComponent implements OnInit {
       this.allBooks = this.filteredBooks;
       this.numberOfPages = res.metaData?.numberOfPages || 1;
       this.page = res.metaData?.currentPage || this.page;
-        
-      },
+            },
       error: (err) => {
         console.error(err);
       }
@@ -112,6 +122,7 @@ export class BooksComponent implements OnInit {
     this.loadBooks();
   }
   
+
   getAllCategories(): void {
     this._categoryService.getAllCategory(this.page, 5).subscribe({
       next: (res) => {
