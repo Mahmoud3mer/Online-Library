@@ -1,0 +1,14 @@
+<div class="mt-8 grid grid-cols-1">
+    @for (item of allBooks; track $index) {
+    <app-books-card-for-list 
+      [bookId]="item._id" 
+      [bookTitle]="item.title" 
+      [bookCoverImg]="item.coverImage"
+      [bookCategory]="item.category.name" 
+      [bookPrice]="item.price" 
+      [authorName]="item.author.name"
+      [bookRating]="item.averageRating">
+    </app-books-card-for-list>
+
+    }
+  </div>

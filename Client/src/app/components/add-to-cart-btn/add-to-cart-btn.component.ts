@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AddToCartServie } from '../../services/cart/AddToCart.service';
+import { ToastService } from '../../services/Toast/toast.service';
 
 @Component({
   selector: 'app-add-to-cart-btn',
@@ -9,7 +10,10 @@ import { AddToCartServie } from '../../services/cart/AddToCart.service';
   styleUrl: './add-to-cart-btn.component.scss'
 })
 export class AddToCartBtnComponent {
-  constructor(private _addToCartService:AddToCartServie){}
+  constructor(
+    private _addToCartService:AddToCartServie,
+    private  _toastService: ToastService
+  ){}
   @Input() bookId: string = '';
 
 
@@ -18,6 +22,7 @@ export class AddToCartBtnComponent {
     {
       next: (res) => {
         console.log(res);
+        this._toastService.showSuccess(res.message);
 
         // const newCount = res.numOfCartItems;
         // this._cartCount.updateNumOfCartItems(newCount);

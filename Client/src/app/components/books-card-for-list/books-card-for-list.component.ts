@@ -1,16 +1,16 @@
-import { Component, inject, Input, OnChanges, SimpleChanges,  } from '@angular/core';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddToCartBtnComponent } from "../add-to-cart-btn/add-to-cart-btn.component";
 import { AddToWishlistBtnComponent } from "../add-to-wishlist-btn/add-to-wishlist-btn.component";
 
 @Component({
-  selector: 'app-book-card',
+  selector: 'app-books-card-for-list',
   standalone: true,
   imports: [AddToCartBtnComponent, AddToWishlistBtnComponent],
-  templateUrl: './book-card.component.html',
-  styleUrl: './book-card.component.scss'
+  templateUrl: './books-card-for-list.component.html',
+  styleUrl: './books-card-for-list.component.scss'
 })
-export class BookCardComponent implements OnChanges {
+export class BooksCardForListComponent implements OnChanges{
   @Input() bookId : string = '';
   @Input() bookTitle: string = '';
   @Input() bookCategory: string = '';

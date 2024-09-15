@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AddToWishListService } from '../../services/wishlist/addToWishlist.service';
+import { ToastService } from '../../services/Toast/toast.service';
 
 @Component({
   selector: 'app-add-to-wishlist-btn',
@@ -9,7 +10,11 @@ import { AddToWishListService } from '../../services/wishlist/addToWishlist.serv
   styleUrl: './add-to-wishlist-btn.component.scss'
 })
 export class AddToWishlistBtnComponent {
-  constructor(private _addToWishList:AddToWishListService){}
+  constructor(
+    private _addToWishList:AddToWishListService,
+    private  _toastService: ToastService
+
+  ){}
   @Input() bookId: string = '';
 
 
@@ -20,6 +25,7 @@ export class AddToWishlistBtnComponent {
     {
       next: (res) => {
         console.log(res);
+        this._toastService.showSuccess(res.message);
 
         // const newCount = res.numOfCartItems;
         // this._cartCount.updateNumOfCartItems(newCount);

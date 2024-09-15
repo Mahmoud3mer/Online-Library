@@ -1,0 +1,66 @@
+<div class="book-card grid grid-cols-1  md:grid-cols-8 mt-6 bg-white dark:bg-[#123656c8] rounded shadow-md">
+  <div class="p-2 md:col-span-3">
+      <div class="relative overflow-hidden bg-gray-50 dark:bg-[#123656] img-holder">
+        <div style="width: 80%; margin: auto;" class="py-4">
+          @if (bookCoverImg) {
+          <img class="block mx-auto lg:w-40 h-60 dark:text-white" [src]="bookCoverImg" [alt]="bookTitle">
+          }@else {
+            <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="bookTitle">
+          }
+        </div>
+  
+      </div>
+    </div>
+    <div class="md:col-span-5 my-auto">
+    <div class="book-content p-5 ">
+      @if (bookCategory) {
+      <p class="text-sm text-gray-500 dark:text-gray-300">{{bookCategory}}</p>
+      }
+      @if (bookTitle) {
+      <h5
+        class="text-gray-900 text-base font-bold truncate my-1 cursor-pointer hover:text-blue-600 dark:text-gray-400"
+        (click)="goToDetails(bookId)">
+        {{bookTitle}}</h5>
+      }
+      @if (authorName) {
+      <h6 class="text-gray-500 mb-1 text-sm dark:text-gray-300">{{authorName}}</h6>
+      }
+      @if (bookPrice) {
+      <p class="text-blue-600 font-semibold dark:text-blue-300"> <span class="text-xl">{{bookPrice}}</span> L.E</p>
+      }
+      @if (bookRating) {
+      <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+        <span>
+          @for (star of starArray; track $index) {
+          @if (star === 1) {
+          <i class="fa-solid fa-star text-yellow-500"></i>
+          }
+          @if (star === .5) {
+          <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+          }
+          @if (star === 0) {
+          <i class="fa-regular fa-star text-yellow-500"></i>
+          }
+          }
+  
+        </span>
+        <span> <span class="text-gray-700 dark:text-gray-300">{{bookRating}}</span> Reviews</span>
+      </p>
+      }
+    </div>
+    <div class="pb-3 px-1 w-fit ms-auto">
+      <div class="flex w-72 items-center">
+        <div (click)="goToDetails(bookId)" class="hover:scale-105 hover:transition cursor-pointer w-full p-2 mx-1 text-center bg-neutral-800 text-sm text-white font-semibold rounded shadow-md hover:bg-neutral-950 focus:outline-none  focus:ring-opacity-75">
+          More Details
+          <i class="fa-regular fa-eye text-lg"></i>
+        </div>
+        <div class="btn-animation">
+          <app-add-to-cart-btn [bookId]="bookId" class="p-2 mx-1 bg-zinc-200 text-sm text-black font-semibold rounded shadow-md hover:bg-zinc-900 hover:text-white focus:outline-none  focus:ring-opacity-75"></app-add-to-cart-btn>
+        </div>
+        <div class="btn-animation">
+          <app-add-to-wishlist-btn [bookId]="bookId" class="p-2 mx-1 bg-zinc-200 text-sm text-black font-semibold rounded shadow-md hover:bg-zinc-900 hover:text-white focus:outline-none  focus:ring-opacity-75"></app-add-to-wishlist-btn>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
