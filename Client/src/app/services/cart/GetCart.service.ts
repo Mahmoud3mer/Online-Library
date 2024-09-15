@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, JsonPipe } from '@angular/common';
 import { apiUrl } from '../../util/apiUrl';
 
 @Injectable({
@@ -11,21 +11,29 @@ import { apiUrl } from '../../util/apiUrl';
 export class GetCartService {
   private myApi = `${apiUrl}/carts`;
   private isBrowser: Boolean = false;
-  private userToken = '';
+  private userToken: string | null = null;
   constructor(private _httpClient: HttpClient,@Inject(PLATFORM_ID) platformId: object ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
+
+  
   getCart(): Observable<any> {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
-      this.userToken = localStorage.getItem('token') || '';
-
+  
+      const token = localStorage.getItem('token');
+      
+      
+      this.userToken = token ? JSON.parse(token) : null;
+        console.log(this.userToken);
+        
       if (this.userToken) {
-        headers = headers.set('token',this.userToken);
+        headers = headers.set('token', this.userToken);
       }
     }
+    
 
     return this._httpClient.get<any>(this.myApi, { headers });
   }

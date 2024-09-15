@@ -11,11 +11,11 @@
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Search Product</h5>
 
 
-          <form class="max-w-md mx-auto ">
+          <form (submit)="onFormSubmit($event)" class="max-w-md mx-auto ">
             <label for="default-search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
-              <input type="search" id="default-search"
+              <input (input)="onSearchInputChange($event)" type="search" id="default-search"
                 class="block w-full py-3 pe-8 ps-4 text-md text-gray-900 border border-gray-300 rounded dark:bg-[#081d31] dark:text-gray-300 focus:outline-none"
                 placeholder="Search Here ..." style="appearance: none;" />
               <button type="submit" class="text-gray-600 absolute end-1 bottom-2 text-sm p-2">
@@ -26,9 +26,15 @@
         </div>
         <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded  p-7">
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">All Categories</h5>
-        @for (item of categories; track $index) {
-            <p class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer " (click)="getBooksByCategory()">{{item.name}}</p>
-          }
+        @for (category of categories; track $index) {
+          <p
+          (click)="onCategoryFilter(category._id)"
+          [ngClass]="{'bg-gray-200 dark:bg-gray-700': selectedCategory === category._id}"
+          class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer"
+        >
+          {{category.name}}
+        </p>
+              }
 
 
         </div>
@@ -39,20 +45,23 @@
             <label for="labels-range-input" class="sr-only">Labels range</label>
             <input id="labels-range-input" type="range" value="1000" min="100" max="1500"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-            <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min ($100)</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min $100</span>
 
-            <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max ($1500)</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max $1500</span>
           </div>
 
         </div>
         <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Filter By Author</h5>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 1</p>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 2</p>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 3</p>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 4</p>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 5</p>
-          <p class="mb-3 text-gray-500 dark:text-gray-400">Author 6</p>
+          @for (author of authors; track $index) {
+          <p
+          (click)="onAuthorFilter(author._id)"
+          [ngClass]="{'bg-gray-200 dark:bg-gray-700': selectedAuthor === author._id}"
+          class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer"
+        >
+          {{author.name}}
+        </p>
+        }
         </div>
       </aside>
 
@@ -60,17 +69,19 @@
       <section class="xs:grid-cols-1 md:col-span-2 lg:col-span-3 ">
         <div class="flex bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-4 items-center justify-between">
 
-          <form class="max-w-sm mx-3 flex items-center">
+          <form (ngSubmit)="$event.preventDefault()" class="max-w-sm mx-3 flex items-center">
             <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
-            <select id="filter-select"
+            <select (change)="onSortChange($event)"
+              id="filter-select"
               class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200">
-              <option selected>Popularity</option>
-              <option value="aToz">A-Z Order</option>
-              <option value="zToa">Z-A Order</option>
-              <option value="lowToHigh">Low - High Price</option>
-              <option value="highToLow">High - Low Price</option>
+              <option value="popularity">Popularity</option>
+              <option value="atoz">A-Z Order</option>
+              <option value="ztoa">Z-A Order</option>
+              <option value="lowhigh">Low - High Price</option>
+              <option value="highlow">High - Low Price</option>
             </select>
           </form>
+          
 
           <div>
             <span class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer" style="background-color: #0167F3;">
@@ -92,7 +103,7 @@
                 [bookCategory]="item.category.name"
                 [bookPrice]="item.price"
                 [authorName]="item.author.name"
-                [bookRating]="item.rating"
+                [bookRating]="item.averageRating"
               ></app-book-card>
 
           }

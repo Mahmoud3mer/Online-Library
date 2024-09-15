@@ -6,7 +6,7 @@ import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
 import { AuthorDTO } from './dto/Author.DTO';
 
-@Controller('author')
+@Controller('authors')
 export class AuthorController {
   constructor(private readonly _authorService: AuthorService) {}
 

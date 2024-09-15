@@ -2,6 +2,7 @@ import {
     Injectable,
     NotFoundException,
     ConflictException,
+    UnauthorizedException,
   } from '@nestjs/common';
   import { InjectModel } from '@nestjs/mongoose';
   import { Model } from 'mongoose';
@@ -43,40 +44,50 @@ import {
         data: newCart,
       };
     }
-  
+ 
+   
     async getCartByUserId(userDTO: UserDTO) {
       const { userId } = userDTO;
-      const cart = await this.cartModel.findOne({ user: userId }).populate({
-        path: 'books.book',
-        model: 'Book',
+     
+      // Find the cart and populate book details along with category and author
+      let cart = await this.cartModel.findOne({ user: userId }).populate({
+          path: 'books.book',
+          model: 'Book',
+          populate: [
+              { path: 'category', model: 'Category' },  
+              { path: 'author', model: 'Author' }  
+          ]
       });
   
       if (!cart) {
-        throw new NotFoundException('Cart not found for this user.');
+          
+          cart = new this.cartModel({
+              user: userId,
+              books: [],
+              totalPrice: 0,
+              numOfCartItems: 0,
+          });
+  
+          await cart.save();  
       }
   
       return {
-        message: 'Cart retrieved successfully',
-        data: cart,
+          message: 'Cart retrieved successfully',
+          data: cart,
       };
-    }
+  }
   
-    async addToCart(cartDTO:CartDTO) {
     
+    async addToCart(cartDTO: CartDTO) {
       const { userId, bookId } = cartDTO;
-      // Check if the book exists
       const book = await this.bookModel.findById(bookId);
-       
-  
       if (!book) {
         throw new NotFoundException('Book not found');
       }
-  
-      // Find the cart for the user
+
       let cart = await this.cartModel.findOne({ user: userId });
-  
+    
       if (!cart) {
-        // If cart doesn't exist, create a new one
         cart = new this.cartModel({
           user: userId,
           books: [{ book: bookId, quantity: 1 }],
@@ -88,29 +99,42 @@ import {
         const existingBook = cart.books.find(
           (book) => book.book.toString() === bookId.toString()
         );
-  
+    
         if (existingBook) {
-          // If book exists, increase quantity
-          existingBook.quantity += 1;
+          // If the book is already in the cart, return a message without adding it again
+          return {
+            message: 'Book is already in the cart',
+            data: cart,
+          };
         } else {
-          // If book doesn't exist, add it to the cart
+          // If the book is not in the cart, add it to the cart
           cart.books.push({ book: bookId, quantity: 1 });
+          
+          // Update total price and number of items
+          cart.totalPrice += book.price;
+          cart.numOfCartItems += 1;
         }
-  
-        // Update total price and number of items
-        cart.totalPrice += book.price;
-        cart.numOfCartItems += 1;
       }
-  
+    
       // Save the updated cart
       await cart.save();
-      await cart.populate('books.book');
+      await cart.populate({
+        path: 'books.book',
+        model: 'Book',
+        populate: [
+            { path: 'category', model: 'Category' }, // Populate category details
+            { path: 'author', model: 'Author' } // Populate author details
+        ]
+    })
+    
       return {
         message: 'Book added to cart successfully',
         data: cart,
       };
     }
-  
+
+
+    
     async updateCartQuantity(updateDTO: UpdateDTO) {
    
       const { userId, bookId, quantity } = updateDTO;
@@ -136,8 +160,15 @@ import {
         existingBook.quantity = quantity;
       }
     
-       
-      await cart.populate('books.book');
+          await cart.populate({
+        path: 'books.book',
+        model: 'Book',
+        populate: [
+            { path: 'category', model: 'Category' }, // Populate category details
+            { path: 'author', model: 'Author' } // Populate author details
+        ]
+    })
+ 
      
       let totalPrice = 0;
       let numOfCartItems = 0;
@@ -184,9 +215,15 @@ import {
     
       
       cart.books.splice(existingBookIndex, 1);
-     
-      await cart.populate('books.book') 
-    
+   
+      await cart.populate({
+        path: 'books.book',
+        model: 'Book',
+        populate: [
+            { path: 'category', model: 'Category' }, // Populate category details
+            { path: 'author', model: 'Author' } // Populate author details
+        ]
+    })
        
       let totalPrice = 0;
       let numOfCartItems = 0;

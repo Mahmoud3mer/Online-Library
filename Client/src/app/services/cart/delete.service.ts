@@ -20,7 +20,12 @@ export class DeleteBookFromCartService {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
-      this.userToken = localStorage.getItem('token') || '';
+       
+      const token = localStorage.getItem('token');
+      
+      
+      this.userToken = token ? JSON.parse(token) : null;
+
       if (this.userToken) {
         headers = headers.set('token', this.userToken);
       }
