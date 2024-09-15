@@ -1,0 +1,11 @@
+button {
+    &.active {
+      background-color: #222; /* or your desired color */
+      color: white; /* or your desired text color */
+      pointer-events: none; /* disables clicking */
+    }
+  
+    &:disabled {
+      cursor: not-allowed; /* Show cursor as not-allowed for disabled buttons */
+    }
+  }

@@ -48,19 +48,20 @@ import {
    
     async getCartByUserId(userDTO: UserDTO) {
       const { userId } = userDTO;
-     
+
       // Find the cart and populate book details along with category and author
       let cart = await this.cartModel.findOne({ user: userId }).populate({
           path: 'books.book',
           model: 'Book',
           populate: [
+
               { path: 'category', model: 'Category' },  
               { path: 'author', model: 'Author' }  
           ]
       });
   
       if (!cart) {
-          
+
           cart = new this.cartModel({
               user: userId,
               books: [],

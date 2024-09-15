@@ -65,6 +65,7 @@ export class CartComponent implements OnInit {
   
           },
           error: (err) => {
+
             console.log("errororro",err);
             this.isLoading=false;
           },

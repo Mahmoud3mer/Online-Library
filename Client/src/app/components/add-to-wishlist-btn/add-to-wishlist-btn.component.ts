@@ -1,3 +1,4 @@
+
 import { Component, Inject, Input, OnInit, PLATFORM_ID } from "@angular/core";
 import { ToastService } from "../../services/Toast/toast.service";
 import { GetWishlistService } from "../../services/wishlist/getWishlist.service";
@@ -5,6 +6,7 @@ import { AddToWishListService } from "../../services/wishlist/addToWishlist.serv
 import { DeleteBookFromWishlistServiece } from "../../services/wishlist/deleteFromWishlist.service";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BookInterface } from "./../../interfaces/books.interface";
+
 @Component({
   standalone: true,
   selector: "app-add-to-wishlist-btn",
@@ -12,6 +14,7 @@ import { BookInterface } from "./../../interfaces/books.interface";
   styleUrls: ["./add-to-wishlist-btn.component.scss"],
   imports: [CommonModule],
 })
+
 export class AddToWishlistBtnComponent implements OnInit {
   @Input() bookId: string = "";
   isWishlisted: boolean = false;
@@ -29,6 +32,7 @@ export class AddToWishlistBtnComponent implements OnInit {
   ngOnInit(): void {
     this.checkIfWishlisted();
   }
+
 
   checkIfWishlisted(): void {
     if (this.isBrowser) {

@@ -4,6 +4,7 @@ import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navba
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReviewService } from '../../services/reviews/review.service';
+import { BookByIdService } from '../../services/books/book-by-id.service';
 
 @Component({
   selector: 'app-book-details',
@@ -15,7 +16,7 @@ import { ReviewService } from '../../services/reviews/review.service';
 
 export class BookDetailsComponent implements OnInit ,DoCheck {
   quantity: number = 0;
-  bookId: number | undefined;
+  bookId: string | null = '';
   reviews: any = []
   reviewData: any = {}
 
@@ -25,11 +26,16 @@ export class BookDetailsComponent implements OnInit ,DoCheck {
     userId: new FormControl('66d73d8f3434d1cf9a985c4d'),
     bookId: new FormControl('66d7359b85c5b10f2c17bbdf'),
   })
-  constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService) {
+  constructor(
+    private route: ActivatedRoute ,
+    private _httpClient: HttpClient,
+    private _reviewService:ReviewService,
+    private _bookByIdService: BookByIdService
+  ) {
   }
 
   ngOnInit(): void {
-    this.bookId = Number(this.route.snapshot.paramMap.get('id'));
+    this.bookId = this.route.snapshot.paramMap.get('id');
     // ! Call api to get book by id
     console.log(this.bookId);
     
@@ -123,4 +129,5 @@ export class BookDetailsComponent implements OnInit ,DoCheck {
   //   })
   // }
 
+  
 }

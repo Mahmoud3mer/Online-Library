@@ -58,6 +58,8 @@ export class BookService {
             sort[sortField.trim()] = sortOrder.trim() === 'asc' ? 1 : -1;
         }
         console.log('Query:', query);
+        console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
+
 
         const total = await this.bookModel.countDocuments(query).exec();
 
@@ -79,7 +81,7 @@ export class BookService {
                 .exec();
 
             return {
-                message: "Success, Get All Books.",
+                message: "Success, Got Books.",
                 results: books.length,
                 metaData: {
                     currentPage: page,

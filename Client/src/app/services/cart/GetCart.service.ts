@@ -22,11 +22,12 @@ export class GetCartService {
     let headers = new HttpHeaders();
 
     if (this.isBrowser) {
-  
+
       const token = localStorage.getItem('token');
       
       
       this.userToken = token ? JSON.parse(token) : null;
+
         console.log(this.userToken);
         
       if (this.userToken) {

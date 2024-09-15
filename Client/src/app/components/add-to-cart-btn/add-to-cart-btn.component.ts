@@ -1,3 +1,4 @@
+
 import { Component, Inject, Input, PLATFORM_ID } from "@angular/core";
 import { AddToCartServie } from "../../services/cart/AddToCart.service";
 import { ToastService } from "../../services/Toast/toast.service";
@@ -12,6 +13,7 @@ import { isPlatformBrowser } from "@angular/common";
   styleUrl: "./add-to-cart-btn.component.scss",
 })
 export class AddToCartBtnComponent {
+
   private isBrowser: boolean = false;
 
   message: string = "";
@@ -39,6 +41,7 @@ export class AddToCartBtnComponent {
     this._addToCartService.addToCart(bookId).subscribe({
       next: (res) => {
         console.log(res);
+
         if (res.message === "Book is already in the cart") {
           this.message = "This book is already in your cart.";
           this._toastService.showError(this.message);
