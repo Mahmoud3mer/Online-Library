@@ -80,7 +80,7 @@ export class BooksComponent implements OnInit {
 
   loadBooks(): void {
     this._searchFilterBooksService.getFilteredBooks(
-      this.page , 
+      this.page, 
       this.booksLimit,
       this.filteredCategory.trim(),
       this.filteredAuthor.trim(),

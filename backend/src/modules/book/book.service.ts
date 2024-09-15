@@ -80,7 +80,7 @@ export class BookService {
                 .exec();
 
             return {
-                message: "Success, Get All Books.",
+                message: "Success, Got Books.",
                 results: books.length,
                 metaData: {
                     currentPage: page,
