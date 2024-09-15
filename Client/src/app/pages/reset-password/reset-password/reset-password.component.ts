@@ -17,8 +17,8 @@ export class ResetPasswordComponent implements OnInit {
   resetMessage: string = "";
   isLoading: boolean = false;
   token: string | null = null;
-  passwordVisible = false;
-  confirmPasswordVisible = false;
+  passwordVisible = true;
+  confirmPasswordVisible = true;
 
   constructor(
     private _authourizationService: AuthourizationService,

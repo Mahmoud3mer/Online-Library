@@ -59,6 +59,17 @@
               >
                 First Name is required.
               </p>
+              <p
+                *ngIf="
+                  registerForm.get('fName')?.touched &&
+                  registerForm.get('fName')?.hasError('pattern')
+                "
+                class="text-red-500 text-sm italic mt-1"
+              >
+                -must be 3-15 letters<br />
+                -don't have spaces<br />
+                -don't have special characters.
+              </p>
             </label>
             <label class="flex-1">
               <p class="mb-2 text-gray-900 font-semibold leading-normal">
@@ -88,6 +99,17 @@
                 class="text-red-500 text-sm italic mt-1"
               >
                 Last Name is required.
+              </p>
+              <p
+                *ngIf="
+                  registerForm.get('lName')?.touched &&
+                  registerForm.get('lName')?.hasError('pattern')
+                "
+                class="text-red-500 text-sm italic mt-1"
+              >
+                -must be 3-15 letters<br />
+                -don't have spaces<br />
+                -don't have special characters.
               </p>
             </label>
           </div>

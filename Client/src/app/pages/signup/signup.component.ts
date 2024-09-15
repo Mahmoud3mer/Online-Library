@@ -128,11 +128,11 @@ export class SignupComponent implements OnInit {
     {
       fName: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-Z]+$"),
+        Validators.pattern("^[a-zA-Z]{3,15}$"),
       ]),
       lName: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-Z]+$"),
+        Validators.pattern("^[a-zA-Z]{3,15}$"),
       ]),
       email: new FormControl("", [Validators.required, Validators.email]),
       phone: new FormControl("", [
