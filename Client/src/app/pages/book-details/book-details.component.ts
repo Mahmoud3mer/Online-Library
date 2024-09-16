@@ -7,6 +7,13 @@ import { ReviewService } from '../../services/reviews/review.service';
 import { BooksService } from '../../services/books/Books.service';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { jwtDecode } from "jwt-decode";
+
+interface DecodedToken {
+  userId: string; // أو اسم الحقل الذي يحتوي على الـ userId
+  // يمكنك إضافة حقول أخرى حسب الحاجة
+}
+
 @Component({
   selector: 'app-book-details',
   standalone: true,
@@ -19,6 +26,8 @@ export class BookDetailsComponent implements OnInit {
   quantity: number = 0;
   book: any = {};
   bookId: any= "";
+  userId: string = "";
+  token : string | null = ""
   reviewsPagination: any = [];
   AllReviews: any = [];
   reviewFromDB: any = {};
@@ -45,12 +54,16 @@ export class BookDetailsComponent implements OnInit {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
+
+
   constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
     // console.log(this.reviewForm.value);
     this.isBrowser = isPlatformBrowser(platformId);
+    this.getUserIdFromTken()
     if (this.isBrowser) {
       this.isLoggedIn = localStorage.getItem('token')? true: false;
     }
+    // console.log("userid from db" ,this.reviewFromDB)
   }
 
   ngOnInit(): void {
@@ -84,6 +97,20 @@ export class BookDetailsComponent implements OnInit {
     this.addReviewInDb()
     this.reviewForm.reset()
   } 
+
+  // ! get userId from token
+    getUserIdFromTken(){
+  if (this.isBrowser) {
+    this.token = localStorage.getItem('token');
+        if (this.token) {
+      const decodedToken = jwtDecode<DecodedToken>(this.token);
+      this.userId = decodedToken.userId
+      // console.log(this.userId);
+      // console.log("userid from token" ,this.userId)
+    }
+  }
+  }
+
 
   // !Book
   getBookFromDb(){
@@ -146,13 +173,14 @@ export class BookDetailsComponent implements OnInit {
         console.log(res.addedReview[0])
         this.reviewsPagination.push(res.addedReview[0]);
         // this.reviewForm.reset();
-        this.getReviewsFromDb()
       },
       error: (err) => {
         console.log(err)
       },
       complete: () => {
         console.log("Add review completed")
+        this.getReviewsFromDb()
+        this.getAllReviewsFromDb()
       }
     })
   }
@@ -161,7 +189,7 @@ export class BookDetailsComponent implements OnInit {
     this._reviewService.updateReview(reviewId, this.reviewForm.value).subscribe({
       next: (res) => {
         console.log(res)
-        this.getReviewsFromDb()
+        // this.getReviewsFromDb()
       },
       error: (err) => {
         console.log(err)
@@ -169,6 +197,7 @@ export class BookDetailsComponent implements OnInit {
       complete: () => {
         console.log("Update review completed")
         this.getReviewsFromDb()
+        this.getAllReviewsFromDb()
       }
     })
   }
@@ -178,7 +207,6 @@ export class BookDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res)
         console.log(res.message)
-        this.getReviewsFromDb()
       },
       error: (err) => {
         console.log(err)
@@ -187,6 +215,8 @@ export class BookDetailsComponent implements OnInit {
       complete: () => {
         console.log("Delete review completed")
         this.showConfirmationDialog = false;
+        this.getAllReviewsFromDb()
+        this.getReviewsFromDb()
       }
     })
   }
@@ -242,10 +272,8 @@ export class BookDetailsComponent implements OnInit {
 
   sendUpdatingReview(){
     this.updateReviewInDb(this.reviewID)
-    this.reviewForm.reset();
     this.isUpdaiting = false
-    // !reset data after send update
-    this.reviewForm.reset()
+    this.reviewForm.reset();
   }
 
   calcLengthComment(){

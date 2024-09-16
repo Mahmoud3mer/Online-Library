@@ -14,6 +14,9 @@ import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
 import { SignInSignUpComponent } from './pages/sign-in-sign-up/sign-in-sign-up.component';
 import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { AccountSettingComponent } from './components/account-setting/account-setting.component';
+import { NotificationSettingComponent } from './components/notification-setting/notification-setting.component';
+import { PreferencesSettingComponent } from './components/preferences-setting/preferences-setting.component';
 
 export const routes: Routes = [
   {
@@ -36,7 +39,7 @@ export const routes: Routes = [
   {
     path: 'book-details/:id',
     component: BookDetailsComponent
-   
+
   },
   {
     path: 'books',
@@ -65,7 +68,12 @@ export const routes: Routes = [
   { path: 'verify-email', component: EmailVerifiedComponent },
   {
     path: 'user-settings',
-    component: UserSettingsComponent,
+    component: UserSettingsComponent, children: [
+      {path: '' , redirectTo: 'account' , pathMatch: 'full'},
+      {path: 'account' , component: AccountSettingComponent},
+      {path: 'notification' , component: NotificationSettingComponent},
+      {path: 'preferences' , component: PreferencesSettingComponent},
+    ]
   },
   {
     path: 'authors',

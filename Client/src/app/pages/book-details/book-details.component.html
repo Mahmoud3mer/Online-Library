@@ -19,7 +19,7 @@
                 <i class="fas fa-star text-yellow-500 me-1"></i>
                 <i class="fas fa-star text-yellow-500"></i>
                 <span class="px-2 text-xl font-semibold dark:text-white">{{bookRating.toFixed(1)}}</span>
-                <span class="text-xs text-gray-500 mx-2">{{reviewsRatingsNumber.toFixed(1)}} <span>raitings</span></span>
+                <span class="text-xs text-gray-500 mx-2">{{reviewsRatingsNumber.toFixed(0)}} <span>raitings</span></span>
                 <span class="text-xs text-gray-500">{{reviewsLength}} <span>reviews</span></span>
             </div>
             <div class="my-6 dark:text-white">
@@ -53,11 +53,15 @@
             @for(review of reviewsPagination ; track $index){
                 <div class="border-2 p-3 rounded-xl dark:border-gray-400 relative">
                 @if(showDropdown[review._id]){
-                    <div class="dark:bg-slate-400 bg-slate-200 p-2 w-fit rounded-md text-center absolute top-4 right-10">
-                        <ul>
-                            <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2" (click)="updateReview(review._id)">Edit</li>
-                            <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2" (click)="openConfirmationDialog(review._id)">Delete</li>
-                        </ul>
+                    <div class="dark:bg-slate-400 bg-slate-200 p-2 px-4 w-fit rounded-md text-center absolute top-4 right-10">
+                        @if(userId === review.userId._id){
+                            <ul>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mb-1 bg-slate-300" (click)="updateReview(review._id)">Edit</li><hr>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mt-1 bg-slate-300" (click)="openConfirmationDialog(review._id)">Delete</li>
+                            </ul>
+                        }@else{
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        }
                     </div>
                 }
                 @if(showDropdown[review._id]){
