@@ -28,6 +28,16 @@ export class SignupComponent implements OnInit {
   isLoading: boolean = false;
   router = inject(Router);
   isBrowser: boolean;
+  isLoggedIn: boolean = false;
+  hide: boolean = true;
+  hideConfirm: boolean = true;
+  toggleVisibility(): void {
+    this.hide = !this.hide;
+  }
+
+  toggleConfirmVisibility(): void {
+    this.hideConfirm = !this.hideConfirm;
+  }
 
   constructor(
     private _authourizationService: AuthourizationService,
@@ -73,7 +83,7 @@ export class SignupComponent implements OnInit {
   private initializeGoogleSignIn(): void {
     if (typeof google !== "undefined" && google.accounts) {
       google.accounts.id.initialize({
-        client_id: googleClientId, // Replace with your actual client ID
+        client_id: googleClientId,
         callback: this.handleCredentialResponse.bind(this),
       });
 
@@ -96,32 +106,33 @@ export class SignupComponent implements OnInit {
   handleCredentialResponse(response: any): void {
     console.log("Encoded JWT ID token: " + response.credential);
 
-    this._authourizationService.saveUserToken(response.credential);
     this._authourizationService
       .verifyGoogleToken(response.credential)
       .subscribe({
         next: (res) => {
-          // all user data
-
           console.log("Login successful", res);
+          this._authourizationService.saveUserToken(
+            response.credential,
+            res.username
+          );
           this.router.navigate(["/home"]);
-          // this.isLoggedIn(true);
         },
         error: (err) => {
           console.error("Login failed", err);
         },
       });
   }
+
   /*----------Registration Form ----------- */
   registerForm: FormGroup = new FormGroup(
     {
       fName: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-Z]+$"),
+        Validators.pattern("^[a-zA-Z]{3,15}$"),
       ]),
       lName: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[a-zA-Z]+$"),
+        Validators.pattern("^[a-zA-Z]{3,15}$"),
       ]),
       email: new FormControl("", [Validators.required, Validators.email]),
       phone: new FormControl("", [

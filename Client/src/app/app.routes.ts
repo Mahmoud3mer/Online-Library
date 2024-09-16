@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -16,32 +17,33 @@ import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/em
 import { BooksGridListComponent } from './components/books-grid-list/books-grid-list.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { RecommendationComponent } from './pages/recommendation/recommendation.component';
+import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full",
   },
   {
-    path: 'home',
+    path: "home",
     component: HomeComponent,
   },
   {
-    path: 'about',
+    path: "about",
     component: AboutComponent,
   },
   {
-    path: 'contact',
+    path: "contact",
     component: ContactComponent,
   },
   {
-    path: 'book-details/:id',
-    component: BookDetailsComponent
-   
+    path: "book-details/:id",
+    component: BookDetailsComponent,
   },
   {
-    path: 'books',
+    path: "books",
     component: BooksComponent,
     children: [
       {
@@ -60,15 +62,15 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'check-out',
+    path: "check-out",
     component: CheckOutComponent,
   },
   {
-    path: 'cart',
+    path: "cart",
     component: CartComponent,
   },
   {
-    path: 'wishlist',
+    path: "wishlist",
     component: WishlistComponent,
   },
   {
@@ -80,21 +82,28 @@ export const routes: Routes = [
     component: SigninComponent,
   },
   {
-    path: 'signup',
+    path: "signup",
     component: SignupComponent,
   },
-  { path: 'verify-email', component: EmailVerifiedComponent },
+  { path: "verify-email", component: EmailVerifiedComponent },
   {
-    path: 'user-settings',
+    path: "user-settings",
     component: UserSettingsComponent,
   },
   {
-    path: 'authors',
+    path: "forgot-password",
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: "reset-password",
+    component: ResetPasswordComponent,
+  },
+  {
+    path: "authors",
     component: AuthorsComponent,
   },
-
   {
-    path: '**',
+    path: "**",
     component: Err404Component,
   },
 ];

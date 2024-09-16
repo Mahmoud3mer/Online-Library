@@ -49,6 +49,13 @@ export class SignUpDTO {
   @IsOptional()
   verificationToken: string;
   isVerified: boolean;
+
+  @IsString()
+  @IsOptional()
+  resetToken?: string;
+
+  @IsOptional()
+  resetTokenExpiresAt?: Date;
 }
 
 export class SignInDTO {
