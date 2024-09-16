@@ -1,6 +1,6 @@
 import {
   Body, Controller, Delete, Get, Param,
-  Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors
+  Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors,
 } from '@nestjs/common';
 // import { BookDTO } from './bookdto/book.dto';
 import { BookService } from './book.service';
@@ -58,4 +58,15 @@ export class BookController {
     return this._bookService.removeBook(id);
   }
 
+
+  @Get('recommendations')
+  async getBooksByRecommendation(
+    @Query() paginationDTO: PaginationDTO,
+    @Query('categories') categories: string,
+  ) {
+    // Split the categories string into an array by commas
+    // const categoryArray = categories ? categories.split(',') : [];
+
+    return await this._bookService.getBooksByRecommendation(paginationDTO, categories);
+  }
 }

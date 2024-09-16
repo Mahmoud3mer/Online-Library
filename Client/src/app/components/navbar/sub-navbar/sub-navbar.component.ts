@@ -66,4 +66,8 @@ export class SubNavbarComponent implements OnInit{
     this.carts = this.carts.filter(item => item !== itemToRemove);
     this.calcTotalPrice();
   }
+
+
+
+  
 }

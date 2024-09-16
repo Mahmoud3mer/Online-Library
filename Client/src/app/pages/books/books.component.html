@@ -109,19 +109,7 @@
       (pageChanged)="onPageChanged($event)">
     </app-pagination>
 
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          @for (item of allBooks; track $index) {
-              <app-book-card
-                [bookTitle]="item.title"
-                [bookCoverImg]="item.coverImage"
-                [bookCategory]="item.category.name"
-                [bookPrice]="item.price"
-                [authorName]="item.author.name"
-                [bookRating]="item.averageRating"
-              ></app-book-card>
 
-          }
-        </div>
       </section>
 
 

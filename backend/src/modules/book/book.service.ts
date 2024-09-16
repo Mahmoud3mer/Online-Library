@@ -39,7 +39,7 @@ export class BookService {
         const skip = (page - 1) * limit;
 
         const query: any = {};
-        
+
         if (category && category.trim() !== '') {
             query['category'] = category.trim();
         }
@@ -94,6 +94,7 @@ export class BookService {
             return { message: "Error fetching the books.", Error: error.message };
         }
     }
+
 
 
     getOneBook = async (id: string) => {
@@ -153,4 +154,54 @@ export class BookService {
         }
 
     }
+
+
+    getBooksByRecommendation = async (
+        paginationDTO: PaginationDTO,
+        categories: string,
+    ) => {
+        const page = Math.max(1, paginationDTO.page || 1); // Ensure page is at least 1
+        const limit = Math.max(1, paginationDTO.limit || 10); // Default limit if not provided
+        const skip = (page - 1) * limit;
+
+        const query: any = {};
+
+        // Filter books by categories using $in to match any of the given categories
+        if (categories && categories.length > 0) {
+            query['category'] =  categories ;
+        }
+
+        console.log('Query:', query);
+        console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
+
+        // Get the total count of books for pagination purposes
+        const total = await this.bookModel.countDocuments(query).exec();
+
+        try {
+            // Fetch books with pagination and populate references
+            const books = await this.bookModel
+                .find(query)
+                .limit(limit)
+                .skip(skip)
+                .populate('author')
+                .populate('category')
+                .exec();
+
+            return {
+                message: "Success, Got Recommended Books.",
+                results: books.length,
+                metaData: {
+                    currentPage: page,
+                    numberOfPages: Math.ceil(total / limit),
+                    totalResults: total, // Include total count for clarity
+                    limit
+                },
+                data: books
+            };
+        } catch (error) {
+            console.error('Error fetching books:', error);
+            return { message: "Error fetching the recommended books.", error: error.message };
+        }
+    }
+
 }

@@ -19,6 +19,7 @@ import { BooksListComponent } from './components/books-list/books-list.component
 import { RecommendationComponent } from './pages/recommendation/recommendation.component';
 import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
+import { StreamEventComponent } from './pages/stream-event/stream-event.component';
 
 export const routes: Routes = [
   {
@@ -53,11 +54,11 @@ export const routes: Routes = [
       },
       {
         path: 'grid',
-        component: BooksGridListComponent, 
+        component: BooksGridListComponent,
       },
       {
         path: 'list',
-        component: BooksListComponent, 
+        component: BooksListComponent,
       }
     ]
   },
@@ -85,7 +86,10 @@ export const routes: Routes = [
     path: "signup",
     component: SignupComponent,
   },
-  { path: "verify-email", component: EmailVerifiedComponent },
+  {
+    path: "verify-email",
+    component: EmailVerifiedComponent
+  },
   {
     path: "user-settings",
     component: UserSettingsComponent,
@@ -101,6 +105,10 @@ export const routes: Routes = [
   {
     path: "authors",
     component: AuthorsComponent,
+  },
+  {
+    path: "streaming",
+    component: StreamEventComponent,
   },
   {
     path: "**",
