@@ -19,6 +19,20 @@ export class BookCardComponent implements OnChanges {
   @Input() authorName: string = '';
   @Input() bookRating: number = 0;
 
+// <<<<<<< User-Settings1
+//   @Input() bookTitle : any = '';
+//   @Input() bookCategory : any = '';
+//   @Input() bookPrice : any = '';
+//   @Input() bookRating : any = 0 ;
+//   @Input() bookCoverImg : any = '';
+//   @Input() authorName : any = '';
+//   @Input() bookId : any = '';
+
+  router = inject(Router);
+
+  goToDetails(){
+    this.router.navigate(["book-details",this.bookId])
+// =======
   starArray: number[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,6 +57,7 @@ export class BookCardComponent implements OnChanges {
 
   goToDetails(bookId:string){
     this.router.navigate(["book-details",bookId])
+// >>>>>>> master
   }
 
 }

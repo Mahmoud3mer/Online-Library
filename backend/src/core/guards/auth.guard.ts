@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
         userId: decoded.userId,
         userName: `${decoded.fName} ${decoded.lName}`,
       };
-
+      
       // Check roles if specified
       const roles = this.reflector.get<string[]>('roles', context.getHandler());
 

@@ -21,14 +21,14 @@ export class BooksService {
 
   getAllBooks(): Observable <any> {
     // ! send token to header
-    return this._httpClient.get(`assets/data.json`);
+    return this._httpClient.get(`${apiUrl}/books`);
   }
 
   getSinglBook(bookId: string): Observable<any>{
     if (this.isBrowser) {
       this.headers = this.headers.set('token', this.token);
     }
-    return this._httpClient.get(`${apiUrl}/book/${bookId}`,{headers: this.headers});
+    return this._httpClient.get(`${apiUrl}/books/${bookId}`,{headers: this.headers});
   }
 
   updateTheBook(bookId: string , body: any): Observable<any>{
@@ -38,7 +38,7 @@ export class BooksService {
         this.headers = this.headers.set('token', this.token);
       }
     }
-    return this._httpClient.put(`${apiUrl}/book/${bookId}`, body ,{headers: this.headers});
+    return this._httpClient.put(`${apiUrl}/books/${bookId}`, body ,{headers: this.headers});
   }
 
 

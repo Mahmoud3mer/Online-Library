@@ -65,8 +65,8 @@ export class HomeComponent {
   getBooks(){
     this._booksService.getAllBooks().subscribe({
       next: (res) => {
-        // console.log(res);
-        this.allBooks = res
+        console.log(res.data);
+        this.allBooks = res.data
       },
       error: (err) => {
         console.log("Error: " + err);

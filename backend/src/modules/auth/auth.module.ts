@@ -11,6 +11,9 @@ import { HttpModule } from '@nestjs/axios';
 
 import { UserSettingsController } from './user-settings/user-settings.controller';
 import { UserSettingsService } from './user-settings/user-settings.service';
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Module({
   imports: [

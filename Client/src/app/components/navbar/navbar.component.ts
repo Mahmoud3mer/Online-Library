@@ -26,7 +26,11 @@ export class NavbarComponent {
   isFadeIn = false;
   isFadeOut = false;
 
-  languages: string[] = ["English", "العربية"];
+  languages: string[] = [
+    "English",
+    "العربية",
+  ];
+
   token: string | null = "";
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
