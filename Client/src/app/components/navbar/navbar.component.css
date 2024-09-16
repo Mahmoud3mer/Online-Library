@@ -1,0 +1,44 @@
+/*======================================
+    Variables
+========================================*/
+/*======================================
+    Normalize CSS
+========================================*/
+/* Add this to your stylesheet */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.transition-mode {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+.dark-mode {
+  background-color: #0a0a0a;
+  color: white;
+}
+
+.light-mode {
+  background-color: #7a838c;
+  color: black;
+}/*# sourceMappingURL=navbar.component.css.map */

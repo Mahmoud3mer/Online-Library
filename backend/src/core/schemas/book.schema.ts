@@ -3,7 +3,7 @@ import mongoose, { Types } from "mongoose";
 
 @Schema({ timestamps: false, versionKey: false })
 export class Book {
-    @Prop({ required: true })
+    @Prop({ required: true, index: 1 })
     title: string;
 
     @Prop({ required: true })
@@ -18,7 +18,7 @@ export class Book {
     @Prop({ required: true })
     description: string;
 
-  
+
 
     @Prop({ required: true })
     averageRating: number;
@@ -32,10 +32,10 @@ export class Book {
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }] })
     reviews: Types.ObjectId[];
 
-    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "Category" })
+    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "Category", index: 1 })
     category: Types.ObjectId;
 
-    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Author' })
+    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Author', index: 1 })
     author: Types.ObjectId;
 }
 

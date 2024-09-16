@@ -6,10 +6,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
-} from "@angular/forms";
-import { AuthourizationService } from "../../services/users/authourization.service";
-import { Router } from "@angular/router"; // Import Router
-import { CookieService } from "ngx-cookie-service";
+} from '@angular/forms';
+import { AuthourizationService } from '../../services/users/authourization.service';
+import { Router } from '@angular/router'; // Import Router
+import { CookieService } from 'ngx-cookie-service';
+import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
 
 // Default values shown
 
@@ -30,7 +31,8 @@ export class SigninComponent {
     private _authourizationService: AuthourizationService,
     private router: Router,
     private cookieService: CookieService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _getUserRecommendationService:GetUserRecommendationService
   ) {}
 
   // get email if in  cookies
@@ -95,6 +97,7 @@ export class SigninComponent {
           this._authourizationService.saveUserToken(res.token);
 
           this.router.navigate(["/home"]);
+          this.checkRecommendations();
         },
         error: (err) => {
           console.log(err);
@@ -104,4 +107,40 @@ export class SigninComponent {
       });
     }
   }
+
+
+
+
+
+
+
+  // recommendation
+  checkRecommendations(): void {
+    this._getUserRecommendationService.getRecommendation().subscribe({
+      next: (res) => {
+        if (res.message=="Recommendations retrieved successfully") {
+          this.router.navigate(['/home']);
+        } else {
+          this.router.navigate(['/recommendation']);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('Recommendations check complete');
+      }
+    });
+  }
+
 }
+
+
+
+
+
+
+
+
+
+

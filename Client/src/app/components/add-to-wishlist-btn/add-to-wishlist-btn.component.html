@@ -1,7 +1,7 @@
 
-
-
-
-<button (click)="addToWishlist(bookId)">
-  <i class="fa-solid fa-heart"></i>
+<button (click)="toggleWishlist()">
+  <i
+    class="fa-solid fa-heart"
+    [ngClass]="{ 'text-red-500': isWishlisted }"
+  ></i>
 </button>

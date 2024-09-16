@@ -26,18 +26,51 @@ export class BookService {
     }
 
     // ! All Books and Pagination
-    getAllBooks = async (paginationDTO: PaginationDTO) => {
+    getAllBooks = async (
+        paginationDTO: PaginationDTO,
+        category: string,
+        author: string,
+        title: string,
+        sortField: string,
+        sortOrder: string
+    ) => {
         const page = paginationDTO.page;
         const limit = paginationDTO.limit;
         const skip = (page - 1) * limit;
-        const total = await this.bookModel.countDocuments().exec();
+
+        const query: any = {};
+        
+        if (category && category.trim() !== '') {
+            query['category'] = category.trim();
+        }
+
+        if (author && author.trim() !== '') {
+            query['author'] = author.trim();
+        }
+
+        if (title && title.trim() !== '') {
+            query['title'] = { $regex: title.trim(), $options: 'i' };
+        }
+
+        const sort: any = {};
+
+        if (sortField && sortField.trim() && sortOrder && sortOrder.trim()) {
+            sort[sortField.trim()] = sortOrder.trim() === 'asc' ? 1 : -1;
+        }
+        console.log('Query:', query);
+        console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
+
+
+        const total = await this.bookModel.countDocuments(query).exec();
+
         try {
             const books = await this.bookModel
-                .find()
+                .find(query)
+                .sort(sort)
                 .limit(limit)
                 .skip(skip)
-                .populate('author', 'name _id email role')
-                .populate('category', 'name image')
+                .populate('author')
+                .populate('category')
                 .populate({
                     path: 'reviews',
                     populate: {
@@ -45,20 +78,23 @@ export class BookService {
                         select: 'name'
                     }
                 })
+                .exec();
 
-            return { 
-                message: "Success, Get All Books.",
+            return {
+                message: "Success, Got Books.",
                 results: books.length,
                 metaData: {
                     currentPage: page,
                     numberOfPages: Math.ceil(total / limit),
                     limit
                 },
-                data: books };
+                data: books
+            };
         } catch (error) {
             return { message: "Error fetching the books.", Error: error.message };
         }
     }
+
 
     getOneBook = async (id: string) => {
         try {
@@ -96,7 +132,7 @@ export class BookService {
             const updateBook = await this.bookModel.findByIdAndUpdate(
                 { _id: bookId },
                 { $set: book },
-                { new: true } 
+                { new: true }
             ).populate('author')
                 .populate('category');
 

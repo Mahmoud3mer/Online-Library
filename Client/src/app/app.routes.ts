@@ -1,19 +1,22 @@
-import { Routes } from "@angular/router";
-import { HomeComponent } from "./pages/home/home.component";
-import { AboutComponent } from "./pages/about/about.component";
-import { ContactComponent } from "./pages/contact/contact.component";
-import { BooksComponent } from "./pages/books/books.component";
-import { CartComponent } from "./pages/cart/cart.component";
-import { CheckOutComponent } from "./pages/check-out/check-out.component";
-import { WishlistComponent } from "./pages/wishlist/wishlist.component";
-import { SigninComponent } from "./pages/signin/signin.component";
-import { SignupComponent } from "./pages/signup/signup.component";
-import { UserSettingsComponent } from "./pages/user-settings/user-settings.component";
-import { BookDetailsComponent } from "./pages/book-details/book-details.component";
-import { Err404Component } from "./pages/err404/err404.component";
-import { AuthorsComponent } from "./pages/authors/authors.component";
-import { SignInSignUpComponent } from "./pages/sign-in-sign-up/sign-in-sign-up.component";
-import { EmailVerifiedComponent } from "./pages/email-Verified/email-verified/email-verified.component";
+
+import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { BooksComponent } from './pages/books/books.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { UserSettingsComponent } from './pages/user-settings/user-settings.component';
+import { BookDetailsComponent } from './pages/book-details/book-details.component';
+import { Err404Component } from './pages/err404/err404.component';
+import { AuthorsComponent } from './pages/authors/authors.component';
+import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { BooksGridListComponent } from './components/books-grid-list/books-grid-list.component';
+import { BooksListComponent } from './components/books-list/books-list.component';
+import { RecommendationComponent } from './pages/recommendation/recommendation.component';
 import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
 
@@ -42,6 +45,21 @@ export const routes: Routes = [
   {
     path: "books",
     component: BooksComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'grid',
+        pathMatch: 'full',
+      },
+      {
+        path: 'grid',
+        component: BooksGridListComponent, 
+      },
+      {
+        path: 'list',
+        component: BooksListComponent, 
+      }
+    ]
   },
   {
     path: "check-out",
@@ -56,7 +74,11 @@ export const routes: Routes = [
     component: WishlistComponent,
   },
   {
-    path: "signin",
+    path: 'recommendation',
+    component: RecommendationComponent,
+  },
+  {
+    path: 'signin',
     component: SigninComponent,
   },
   {
@@ -70,18 +92,16 @@ export const routes: Routes = [
   },
   {
     path: "forgot-password",
-    component: ForgotPasswordComponent, // Add this route
+    component: ForgotPasswordComponent,
   },
   {
     path: "reset-password",
-    component: ResetPasswordComponent, // Add this route
+    component: ResetPasswordComponent,
   },
   {
     path: "authors",
     component: AuthorsComponent,
   },
-  { path: "auth", component: SignInSignUpComponent },
-
   {
     path: "**",
     component: Err404Component,
