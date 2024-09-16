@@ -1,0 +1,18 @@
+/* Animation for selected cards */
+@keyframes scale-up {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply animation to selected cards */
+.scale-up {
+    animation: scale-up 1s ease-in-out;
+    animation-iteration-count: infinite;
+}

@@ -43,7 +43,10 @@ export class RecommendationService {
         .findOne({ user: userId })
     
     if (!recommendation) {  
-        throw new NotFoundException('No recommendations found for this user');
+      return {
+        message: 'No recommendations found for this user',
+        data: null
+    };
     }
     await recommendation.populate('recommendedCategories');
 
@@ -51,15 +54,16 @@ export class RecommendationService {
         message: 'Recommendations retrieved successfully',
         data: recommendation,
     };
- 
+    
     } 
 
+    
     async addToRecommendation(addRecommendationDTO: RecommendationDTO) {
         const { userId, category } = addRecommendationDTO;
         
         const categoryExists = await this.categoryModel.findById(category);
         if (!categoryExists) {
-            throw new NotFoundException('Category not found');
+            throw new NotFoundException('recommendation not found');
         }
     
         const userRecommendation = await this.recommendationModel.findOne({ user: userId });

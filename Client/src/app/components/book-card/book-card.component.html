@@ -4,15 +4,11 @@
       <div style="width: 80%; margin: auto;" class="py-4">
         @if (bookCoverImg) {
         <img class="block mx-auto lg:w-40 h-60 dark:text-white" [src]="bookCoverImg" [alt]="bookTitle">
+        }@else {
+          <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="bookTitle">
         }
       </div>
-      <div class="absolute add-to-cart-btn-holder w-40">
-        <button
-          class="block mx-auto py-2 px-3 bg-blue-500 text-sm text-white font-semibold rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75">
-          <i class="fa-solid fa-cart-shopping me-1"></i>
-          Add To Cart
-        </button>
-      </div>
+
     </div>
   </div>
   <div class="book-content p-5">
@@ -22,6 +18,8 @@
     @if (bookTitle) {
     <h5
       class="text-gray-900 text-base font-bold  my-1 h-12 text-ellipsis overflow-hidden cursor-pointer hover:text-blue-600 dark:text-gray-400" (click)="goToDetails()">
+      class="text-gray-900 text-base font-bold truncate my-1 cursor-pointer hover:text-blue-600 dark:text-gray-400"
+      (click)="goToDetails(bookId)">
       {{bookTitle}}</h5>
     }
     @if (authorName) {
@@ -33,14 +31,35 @@
     @if (bookRating) {
     <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
       <span>
-        <i class="fas fa-star text-yellow-500"></i>
-        <i class="fas fa-star text-yellow-500"></i>
-        <i class="fas fa-star text-yellow-500"></i>
-        <i class="fas fa-star text-yellow-500"></i>
-        <i class="fas fa-star text-yellow-500"></i>
+        @for (star of starArray; track $index) {
+        @if (star === 1) {
+        <i class="fa-solid fa-star text-yellow-500"></i>
+        }
+        @if (star === .5) {
+        <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+        }
+        @if (star === 0) {
+        <i class="fa-regular fa-star text-yellow-500"></i>
+        }
+        }
+
       </span>
       <span> <span class="text-gray-700 dark:text-gray-300">{{bookRating}}</span> Reviews</span>
     </p>
     }
+  </div>
+  <div class="pb-3 px-1 w-full">
+    <div class="flex w-full items-center">
+      <div (click)="goToDetails(bookId)" class="hover:scale-105 hover:transition cursor-pointer w-full p-2 mx-1 text-center bg-neutral-800 text-sm text-white font-semibold rounded shadow-md hover:bg-neutral-950 focus:outline-none  focus:ring-opacity-75">
+        More Details
+        <i class="fa-regular fa-eye text-lg"></i>
+      </div>
+      <div class="btn-animation">
+        <app-add-to-cart-btn [bookId]="bookId" class="p-2 mx-1 bg-zinc-200 text-sm text-black font-semibold rounded shadow-md hover:bg-zinc-900 hover:text-white focus:outline-none  focus:ring-opacity-75"></app-add-to-cart-btn>
+      </div>
+      <div class="btn-animation">
+        <app-add-to-wishlist-btn [bookId]="bookId" class="p-2 mx-1 bg-zinc-200 text-sm text-black font-semibold rounded shadow-md hover:bg-zinc-900 hover:text-white focus:outline-none  focus:ring-opacity-75"></app-add-to-wishlist-btn>
+      </div>
+    </div>
   </div>
 </div>

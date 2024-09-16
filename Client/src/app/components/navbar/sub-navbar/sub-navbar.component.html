@@ -1,123 +1,125 @@
-<header class="header navbar-area">
-  <div class="header-middle dark:bg-[#1a1a1a]">
-    <div class="container mx-auto">
-      <div class="flex items-center">
-        <!-- Logo -->
-        <div class="lg:w-1/4 md:w-1/3 w-2/3">
-          <a class="navbar-brand" href="index.html"> Logo </a>
-        </div>
-
-        <div class="lg:w-2/5 md:w-2/3 hidden md:block">
-          <div class="main-menu-search">
-            <div class="navbar-search flex items-center space-x-2">
-              <div class="search-select bg-white dark:bg-slate-300">
-                <div class="select-position">
-                  <select id="select1">
-                    <option selected>All</option>
-                    <option value="1">option 01</option>
-                    <option value="2">option 02</option>
-                    <option value="3">option 03</option>
-                    <option value="4">option 04</option>
-                    <option value="5">option 05</option>
-                  </select>
-                </div>
-              </div>
-              <div class="search-input flex-1">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  class="w-full p-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-300"
-                />
-              </div>
-              <div class="search-btn">
-                <button
-                  class="p-2 bg-blue-500 dark:bg-blue-800 text-white rounded-md focus:ring-2 focus:ring-blue-700"
-                >
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="lg:w-1/3 md:w-1/3 w-1/3 flex justify-end items-center space-x-4"
+<!-- Navbar -->
+<header class="header navbar-area bg-white shadow-md sticky top-0 z-40">
+  <div class="header-middle py-2">
+    <div class="container mx-auto px-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="lg:w-1/4 md:w-1/3 w-2/3">
+        <a
+          class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight"
+          href="index.html"
         >
-          <div class="nav-hotline flex items-center">
-            <div class="nav-hotline">
-              <i class="fa-solid fa-phone text-[#081828] dark:text-white"></i>
-              <h3 class="text-[#081828] dark:text-white">
-                Hotline:
-                <span>(+100) 123 456 7890</span>
-              </h3>
-            </div>
-          </div>
-          <div class="navbar-cart flex items-center space-x-4">
-            <div class="wishlist" (click)="goToWishlistPage()">
-              <a href="javascript:void(0)" class="text-[#555] dark:text-white">
-                <i class="fa-regular fa-heart"></i>
-                <span
-                  class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]"
-                  >0</span
-                >
-              </a>
-            </div>
-            <div class="cart-items relative">
-              <a
-                href="javascript:void(0)"
-                class="main-btn text-[#555] dark:text-white"
-              >
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span
-                  class="total-items bg-[#081828] text-white dark:bg-white dark:text-[#081828]"
-                  >2</span
-                >
-              </a>
-              <div
-                class="shopping-item bg-white dark:bg-[#081828] dark:text-white"
-              >
-                <div class="dropdown-cart-header text-[#222] dark:text-white">
-                  <span>{{ totalItems }} Items</span>
-                  <a routerLink="/cart">View Cart</a>
-                </div>
-                <!--! Carts -->
-                <ul class="shopping-list">
-                  @for (book of carts; track $index){
-                  <li>
-                    <a
-                      href="javascript:void(0)"
-                      class="remove"
-                      title="Remove this item"
-                      (click)="removeBookFromCart(book)"
-                      ><i class="fa-solid fa-xmark"></i
-                    ></a>
-                    <div class="cart-img-head">
-                      <a class="cart-img" href="product-details.html"
-                        ><img [src]="book.image" alt="#"
-                      /></a>
-                    </div>
-                    <div class="content text-[#081828] dark:text-white">
-                      <h4>
-                        <a href="product-details.html"> {{ book.title }}</a>
-                      </h4>
-                      <p class="quantity text-[#081828] dark:text-white">
-                        {{ book.stock }}x -
-                        <span class="amount">${{ book.price }}</span>
-                      </p>
-                    </div>
-                  </li>
-                  }
-                </ul>
+          Logo
+        </a>
+      </div>
 
-                <div class="bottom text-[#555] dark:text-white">
-                  <div class="total">
-                    <span>Total</span>
-                    <span class="total-amount">${{ totalPrice }}</span>
-                  </div>
-                  <div class="button">
-                    <a href="checkout.html" class="btn animate">Checkout</a>
-                  </div>
+      <div
+        class="lg:w-2/5 md:w-2/3 hidden md:flex items-center space-x-4 bg-[#eee] rounded px-4 py-2 shadow-lg"
+      >
+        <div class="search-select bg-gray-100 rounded-full">
+          <select
+            id="select1"
+            class="bg-transparent border border-gray-300 rounded-full px-4 py-2 text-gray-800 focus:ring-2 focus:ring-gray-300"
+          >
+            <option selected value="title">Book Title</option>
+            <option value="author">Author</option>
+          </select>
+        </div>
+        <div class="search-input flex-1">
+          <input
+            type="text"
+            placeholder="Search"
+            class="w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-300 bg-gray-100 placeholder-gray-500"
+          />
+        </div>
+        <div class="search-btn">
+          <button
+            class="px-2 py-1 bg-neutral-700 text-white rounded-full hover:bg-neutral-800 focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Wishlist and Cart Items Positioned to the Right -->
+      <div
+        class="lg:w-1/3 md:w-1/3 w-1/3 flex items-center justify-end space-x-4 me-10"
+      >
+        <!-- Wishlist -->
+        <div class="wishlist">
+          <a
+            href="javascript:void(0)"
+            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+          >
+            <i class="fa-regular fa-heart text-xl"></i>
+            <span
+              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
+              >{{ numOfWishlistItems }}</span
+            >
+          </a>
+        </div>
+        <!-- Cart Items -->
+        <div class="cart-items relative ml-4 group">
+          <a
+            href="javascript:void(0)"
+            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+          >
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <span
+              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
+              >{{ numOfCartItems }}</span
+            >
+          </a>
+          <div
+            class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+          >
+            <div
+              class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
+            >
+              <span>{{ totalItems }} Items</span>
+              <a routerLink="/cart">View Cart</a>
+            </div>
+            <ul class="shopping-list px-4 py-2 space-y-0">
+              <!-- Example item, repeat with server-side rendering -->
+              @for (book of carts; track $index) {
+              <li class="flex items-center border-b border-gray-300 py-2">
+                <a
+                  href="javascript:void(0)"
+                  class="remove text-gray-500 hover:text-gray-900"
+                  title="Remove this item"
+                  (click)="removeBookFromCart(book)"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </a>
+                <div class="cart-img-head ml-2">
+                  <a class="cart-img" href="product-details.html">
+                    <img
+                      [src]="book.image"
+                      alt="Product Image"
+                      class="w-16 h-16 object-cover rounded-md"
+                    />
+                  </a>
                 </div>
-              </div>
+                <ul class="content ml-3">
+                  <h4>
+                    <a href="product-details.html" class="hover:underline">{{
+                      book.title
+                    }}</a>
+                  </h4>
+                  <p class="quantity text-gray-600 text-sm">
+                    {{ book.stock }}x -
+                    <span class="amount font-medium">${{ book.price }}</span>
+                  </p>
+                </ul>
+              </li>
+              }
+            </ul>
+
+            <div class="button">
+              <a
+                href="checkout.html"
+                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-full px-4 py-2 text-center block transition duration-150 ease-in-out"
+                >Checkout</a
+              >
             </div>
           </div>
         </div>

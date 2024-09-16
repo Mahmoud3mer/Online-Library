@@ -1,68 +1,250 @@
 import { Component, OnInit } from '@angular/core';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
-import { BookInterface, CategoryInterface } from '../../interfaces/books.interface';
+import { AuthorInterface, BookInterface, CategoryInterface } from '../../interfaces/books.interface';
 import { AllBooksStreamOfBooksService } from '../../services/books/all-books-stream-of-books.service';
-import { BooksCategoryService } from '../../services/books/books-category.service';
+import { CategoryService } from '../../services/category/category.service';
+import { SearchFilterBooksService } from '../../services/books/search-filter-books.service';
+import { AuthorService } from '../../services/author/author.service';
+import { debounceTime, Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { BooksGridListComponent } from "../../components/books-grid-list/books-grid-list.component";
+import { BooksListComponent } from "../../components/books-list/books-list.component";
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { PaginationComponent } from "../../components/pagination/pagination.component";
+
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [BookCardComponent,SubNavbarComponent],
+  imports: [BookCardComponent, SubNavbarComponent, CommonModule, BooksGridListComponent, BooksListComponent, RouterLink, RouterLinkActive, PaginationComponent],
+
   templateUrl: './books.component.html',
-  styleUrl: './books.component.scss'
+  styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
 
-  allBooks : Array<BookInterface> = [];
-  categories : Array<CategoryInterface> = [];
-  page: number = 1;
-  constructor(
-    private _allBooksStreamOfBooksService: AllBooksStreamOfBooksService,
-    private _booksCategoryService: BooksCategoryService
-  ) {}
+  metaData: any;
 
+  allBooks: Array<BookInterface> = [];
+  filteredBooks: Array<BookInterface> = [];
+  categories: Array<CategoryInterface> = [];
+  authors: Array<AuthorInterface> = [];
+  page: number = 1;
+  booksLimit: number = 3;
+  filteredCategory: string = '';
+  selectedCategory: string = '';
+
+  filteredAuthor: string = '';
+  selectedAuthor: string = ''
+
+  searchedTitle: string = '';
+
+  sortFor: string = '';
+  sortBy: string =''
+  selecetedSort = '';
+  currentView: string = 'grid';  // Default view
+
+  
+  private searchSubject = new Subject<string>();
+
+  constructor(
+    private _categoryService: CategoryService,
+    private _authorService: AuthorService,
+    private _searchFilterBooksService: SearchFilterBooksService,
+    private route: ActivatedRoute, private router: Router
+
+  ) { }
 
   ngOnInit(): void {
-    this.fetchAllBooks()
-    this.getBooksByCategory()
+    this.searchSubject.pipe(debounceTime(300)).subscribe(searchTerm => {
+      this.onSearchFilter(searchTerm);
+    });
+    this.router.events.subscribe(() => {
+      const url = this.route.firstChild?.snapshot.url.map(segment => segment.path).join('');
+      this.currentView = url || 'grid';
+    });
+
+
+    this.loadBooks();
+    this.getAllCategories();
+    this.getAllAuthors();
   }
 
-  fetchAllBooks(){
-    this._allBooksStreamOfBooksService.getStreamOfBooks(this.page,5).subscribe({
+  onSearchInputChange(event: Event): void {
+    event.preventDefault()
+    const inputElement = event.target as HTMLInputElement;
+    const searchTerm = inputElement.value;
+    this.searchSubject.next(searchTerm);
+
+  }
+  onFormSubmit(event: Event): void {
+    event.preventDefault();
+    this.loadBooks();
+  }
+
+
+  numberOfPages!: number;
+
+  loadBooks(): void {
+    this._searchFilterBooksService.getFilteredBooks(
+      this.page, 
+      this.booksLimit,
+      this.filteredCategory.trim(),
+      this.filteredAuthor.trim(),
+      this.searchedTitle.trim(),
+      this.sortFor.trim(),
+      this.sortBy.trim()
+    ).subscribe({
       next: (res) => {
-        this.allBooks = res.data;
-        // console.log(res);
+        console.log('API Response for page:', this.page, res);
 
-      },
+      this.filteredBooks = res.data;
+      this.allBooks = this.filteredBooks;
+      this.numberOfPages = res.metaData?.numberOfPages || 1;
+      this.page = res.metaData?.currentPage || this.page;
+            },
       error: (err) => {
-        console.log("Error" , err);
-
-      },
-      complete: () => {
-        console.log("Got All Books From <<<< Books Page >>>>");
-
+        console.error(err);
       }
-    })
+    });
   }
 
-  getBooksByCategory(){
-    this._booksCategoryService.getBooksByCategory(this.page,5).subscribe({
+  onPageChanged(newPage: number): void {
+    console.log('Page changed to:', newPage);
+    console.log('num of pages:', this.numberOfPages
+
+    );
+    this.page = newPage;
+    this.loadBooks();
+  }
+  
+
+  getAllCategories(): void {
+    this._categoryService.getAllCategory(this.page, 5).subscribe({
       next: (res) => {
         this.categories = res.data;
-        // console.log(res.data, "-----------------res.data");
-        // console.log(this.page);
-        // console.log(this.category);
-
       },
-      error: (err)=> {
-        console.log(err);
+      error: (err) => {
+        console.error(err);
       },
       complete: () => {
-        console.log("Got All Categories");
-
+        console.log('Got All Categories');
       }
-    })
+    });
   }
 
+  getAllAuthors(): void {
+    this._authorService.getAllAuthors(this.page, 5).subscribe({
+      next: (res) => {
+        this.authors = res.data;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        console.log('Got All Authors');
+      }
+    });
+  }
+
+  onFilterSelect(categoryId: string = '', authorId: string = '', searchByTitle: string = ''): void {
+    if (categoryId)
+      this.filteredCategory = categoryId;
+    if (authorId)
+      this.filteredAuthor = authorId;
+    if (searchByTitle)
+      this.searchedTitle = searchByTitle;
+
+    this.page = 1;
+    this.loadBooks();
+  }
+
+  onCategoryFilter(categoryId: string): void {
+    if (this.filteredCategory === categoryId) {
+      this.filteredCategory = '';
+      this.selectedCategory = '';
+    } else {
+      this.filteredCategory = categoryId;
+      this.selectedCategory = categoryId;
+    }
+
+    this.loadBooks();
+  }
+
+
+  onAuthorFilter(authorId: string): void {
+    if (this.filteredAuthor === authorId) {
+      this.selectedAuthor = '';
+      this.filteredAuthor = '';
+    } else {
+      this.selectedAuthor = authorId;
+      this.filteredAuthor = authorId;
+    }
+    this.loadBooks();
+  }
+
+  onSearchFilter(searchByTitle: string): void {
+    if (searchByTitle.trim() === '') {
+
+      this.searchedTitle = ''
+    } else {
+      this.searchedTitle = searchByTitle;
+    }
+    console.log("this trun from search");
+    console.log(this.searchedTitle);
+
+    this.loadBooks();
+  }
+
+  sortByPopularity() {
+    this.sortFor = 'averageRating'
+    this.sortBy = 'asc'
+    this.loadBooks()
+  }
+  sortByAtoZ() {
+    this.sortFor = 'title'
+    this.sortBy = 'asc'
+    this.loadBooks()
+
+  }
+  sortByZtoA() {
+    this.sortFor = 'title'
+    this.sortBy = 'desc'
+    this.loadBooks()
+
+  }
+  sortByLowToHigh() {
+    this.sortFor = 'price'
+    this.sortBy = 'asc'
+    this.loadBooks()
+
+  }
+  sortByHighToLow() {
+    this.sortFor = 'price'
+    this.sortBy = 'desc'
+    this.loadBooks()
+
+  }
+
+  onSortChange(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    switch (selectedValue) {
+      case 'popularity':
+        this.sortByPopularity();
+        break;
+      case 'atoz':
+        this.sortByAtoZ();
+        break;
+      case 'ztoa':
+        this.sortByZtoA();
+        break;
+      case 'lowhigh':
+        this.sortByLowToHigh();
+        break;
+      case 'highlow':
+        this.sortByHighToLow();
+        break;
+    }
+  }
 }

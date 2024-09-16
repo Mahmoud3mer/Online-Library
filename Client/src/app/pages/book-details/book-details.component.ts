@@ -8,11 +8,13 @@ import { BooksService } from '../../services/books/Books.service';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { jwtDecode } from "jwt-decode";
+import { BookByIdService } from '../../services/books/book-by-id.service';
 
 interface DecodedToken {
   userId: string; // أو اسم الحقل الذي يحتوي على الـ userId
   // يمكنك إضافة حقول أخرى حسب الحاجة
 }
+
 
 @Component({
   selector: 'app-book-details',
@@ -49,6 +51,7 @@ export class BookDetailsComponent implements OnInit {
   isUpdaiting: boolean = false;
   @ViewChild('commentInput') commentInput!: ElementRef;
 
+
   reviewForm: FormGroup = new FormGroup({
     comment: new FormControl(null,[Validators.required, Validators.maxLength(500),Validators.minLength(1)]),
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
@@ -64,6 +67,7 @@ export class BookDetailsComponent implements OnInit {
       this.isLoggedIn = localStorage.getItem('token')? true: false;
     }
     // console.log("userid from db" ,this.reviewFromDB)
+
   }
 
   ngOnInit(): void {
@@ -74,6 +78,7 @@ export class BookDetailsComponent implements OnInit {
     // this.reviewsLength = this.reviews.length
     // this.reviewsRatingsNumber = this.reviews.reduce((total:any, element: any) => {return total + element.rating;}, 0)
     // this.bookRating = this.reviewsRatingsNumber / this.reviews.length;
+
   }
 
 
@@ -295,4 +300,6 @@ export class BookDetailsComponent implements OnInit {
     this.showConfirmationDialog = false;
   }
 
+}
+  
 }

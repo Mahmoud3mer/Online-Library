@@ -1,15 +1,32 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { CartCountService } from '../../../services/cart/CartCount.service';
+import { WishListCountService } from '../../../services/wishlist/wish-list-count.service';
 
 @Component({
   selector: 'app-sub-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink,RouterLinkActive],
   templateUrl: './sub-navbar.component.html',
   styleUrl: './sub-navbar.component.scss'
 })
-export class SubNavbarComponent {
-  router = inject(Router)
+export class SubNavbarComponent implements OnInit{
+  numOfCartItems: number = 0;  
+  numOfWishlistItems:number=0;
+  constructor(private _cartCountService:CartCountService,private _wishlistCount:WishListCountService){
+    this.calcTotalPrice()
+    
+  }
+
+  ngOnInit(): void { 
+    this._cartCountService.cartCount$.subscribe(count => {
+      this.numOfCartItems = count;
+    });
+    this._wishlistCount.wishlistCount$.subscribe(count=>{
+       this.numOfWishlistItems=count;
+    })
+  }
+
   carts: any[] = [
     {
       title: "Apple Watch Series 6",
@@ -28,13 +45,9 @@ export class SubNavbarComponent {
   totalPrice: number = 0;
   totalItems: number = 0;
 
-  constructor(){
-    this.calcTotalPrice()
-  }
 
-  goToWishlistPage(){
-    this.router.navigate(["/wishlist"])
-  }
+
+ 
 
   calcTotalPrice(){
     this.totalPrice = 0;
@@ -53,4 +66,8 @@ export class SubNavbarComponent {
     this.carts = this.carts.filter(item => item !== itemToRemove);
     this.calcTotalPrice();
   }
+
+
+
+  
 }

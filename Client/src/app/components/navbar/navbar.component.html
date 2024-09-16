@@ -1,3 +1,4 @@
+<!-- <<<<<<< User-Settings1
 <!-- <header class="header navbar-area">
   <div class="topbar bg-[#081828] dark:bg-[#0a0a0a]">
     <div class="container mx-auto">
@@ -131,16 +132,20 @@
     'fade-out': isFadeOut
   }"
 >
+<!-- <<<<<<< User-Settings1
   <div class="topbar bg-[#081828] dark:bg-[#0a0a0a] py-2">
+======= -->
+  <div class="topbar bg-[#eee] dark:bg-[#0a0a0a]">
+<!-- >>>>>>> master -->
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap items-center justify-between">
         <!-- First Column -->
         <div class="w-full lg:w-1/3 md:w-1/3 flex items-center">
-          <ul class="flex space-x-4">
+          <ul class="flex">
             <li>
               <select
                 id="select5"
-                class="bg-[#081828] dark:bg-[#0a0a0a] text-white p-2 rounded"
+                class="bg-[#f9f9f9] dark:bg-[#0a0a0a] dark:border-white dark:dark:text-white p-2 rounded"
               >
                 @for (item of languages; track item){
                 <option value="0">{{ item }}</option>
@@ -149,7 +154,7 @@
             </li>
             <li>
               <button
-                class="flex items-center bg-[#081828] dark:bg-[#0a0a0a] text-white p-2 rounded"
+                class="flex items-center dark:bg-[#0a0a0a] dark:dark:text-white p-3 rounded"
                 (click)="toggleDarkMode()"
               >
                 <i class="fa-solid fa-sun text-xl" *ngIf="!isDarkMode"></i>
@@ -161,12 +166,12 @@
 
         <!-- Second Column -->
         <div class="w-full lg:w-1/3 md:w-1/3 flex justify-center">
-          <ul class="flex space-x-6">
+          <ul class="flex">
             <li>
               <a
                 routerLink="/home"
-                routerLinkActive="text-blue-800"
-                class="text-white"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-4 py-4 grid items-center justify-center transition-colors duration-300"
               >
                 Home
               </a>
@@ -174,8 +179,8 @@
             <li>
               <a
                 routerLink="/about"
-                routerLinkActive="text-blue-800"
-                class="text-white"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
               >
                 About Us
               </a>
@@ -183,8 +188,8 @@
             <li>
               <a
                 routerLink="/contact"
-                routerLinkActive="text-blue-800"
-                class="text-white"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
               >
                 Contact Us
               </a>
@@ -192,8 +197,8 @@
             <li>
               <a
                 routerLink="/books"
-                routerLinkActive="text-blue-800"
-                class="text-white"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
               >
                 Books
               </a>
@@ -205,7 +210,8 @@
         <div class="w-full lg:w-1/3 md:w-1/3 flex items-center justify-end">
           <ul class="flex items-center space-x-4">
             <li *ngIf="isLoggedIn">
-              <div class="relative">
+              <!-- User Dropdown -->
+              <div class="relative z-50 me-4">
                 <button (click)="toggleDropdown()" class="flex items-center">
                   <img
                     class="w-10 h-10 rounded-full object-cover"
@@ -215,25 +221,25 @@
                 </button>
                 <div
                   *ngIf="isDropdownOpen"
-                  class="dropdown-content absolute right-0 mt-2 bg-white dark:bg-gray-800 text-black dark:text-white shadow-lg rounded-lg p-2"
+                  class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 text-black dark:dark:text-white rounded-lg shadow-lg p-2 z-50"
                 >
                   <a
                     routerLink="/settings"
-                    routerLinkActive="text-blue-800"
-                    class="block p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                    routerLinkActive="text-blue-800 bg-blue-700"
+                    class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
                   >
                     <i class="fas fa-cog mr-2"></i> Settings
                   </a>
                   <a
                     routerLink="/cart"
-                    routerLinkActive="text-blue-800"
-                    class="block p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                    routerLinkActive="text-blue-800 bg-blue-100"
+                    class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
                   >
                     <i class="fas fa-shopping-cart mr-2"></i> My Cart
                   </a>
                   <a
                     (click)="logout()"
-                    class="block p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer"
+                    class="block p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
                   >
                     <i class="fas fa-sign-out-alt mr-2"></i> Log Out
                   </a>
@@ -243,8 +249,8 @@
             <li *ngIf="!isLoggedIn">
               <a
                 routerLink="/signin"
-                routerLinkActive="text-blue-800"
-                class="text-white mr-2"
+                routerLinkActive="text-blue-400 bg-blue-700"
+                class="dark:text-white px-3 py-2 rounded transition-colors duration-300"
               >
                 <i class="fas fa-sign-in-alt mr-1"></i> Login
               </a>
@@ -252,8 +258,8 @@
             <li *ngIf="!isLoggedIn">
               <a
                 routerLink="/signup"
-                routerLinkActive="text-blue-800"
-                class="text-white"
+                routerLinkActive=" bg-blue-700"
+                class="dark:text-white px-3 py-2 rounded transition-colors duration-300"
               >
                 <i class="fas fa-user-plus mr-1"></i> Register
               </a>
