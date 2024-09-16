@@ -82,10 +82,7 @@ export class BooksComponent implements OnInit {
     event.preventDefault();
     this.loadBooks();
   }
-  onFormSubmit(event: Event): void {
-    event.preventDefault();
-    this.loadBooks();
-  }
+
 
   numberOfPages!: number;
 
