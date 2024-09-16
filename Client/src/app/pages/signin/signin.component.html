@@ -4,7 +4,7 @@
     <div class="w-full md:w-1/2 p-8">
       <img src="assets/images/Login.png" alt="" />
     </div>
-    <div class="w-full md:w-1/2 p-5 drop-shadow-2xl top-5 bg-gray-100 dark:bg-[#0e2134]">
+    <div class="w-full md:w-1/2 p-5 drop-shadow-2xl top-5 bg-[#f9f9f9] dark:bg-[#0e2134]">
       <div class="p-4 py-2 flex flex-col justify-evenly bg-blueGray-400 h-full">
         <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold dark:text-gray-400">
           Login
@@ -88,23 +88,7 @@
               placeholder="********"
               formControlName="password"
             />
-<!--  ======= -->
-            <div class="relative">
-              <input
-                class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white outline-none border rounded-lg focus:ring focus:ring-indigo-300
-                  {{
-                  loginForm.get('password')?.touched &&
-                  loginForm.get('password')?.invalid
-                    ? 'border-red-500'
-                    : 'border-gray-300'
-                }}"
-                type="password"
-                id="signInInput1-2"
-                placeholder="********"
-                formControlName="password"
-              />
-            </div>
-<!--  master  -->
+
             <p
               *ngIf="
                 loginForm.get('password')?.touched &&
@@ -179,8 +163,8 @@
                 class="flex items-center p-4 bg-white dark:bg-gray-300 hover:bg-gray-50 border rounded-lg transition ease-in-out duration-200"
               >
                 <span class="font-semibold leading-normal"
-                  >If You don't have account please sign up
-                  <a href="signup" class="underline text-blue-600"> here</a>
+                  >If You don't have account please, 
+                  <a routerLink="/signup" class="underline text-red-600"> Sign up Now</a>
                 </span>
               </button>
             </div>

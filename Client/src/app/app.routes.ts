@@ -89,11 +89,13 @@ export const routes: Routes = [
   },
   {
     path: 'user-settings',
-    component: UserSettingsComponent, 
-      children: [
-        {path: '' , redirectTo: 'account' , pathMatch: 'full'},
-        {path: 'account' , component: AccountSettingComponent},
-     ]
+    component: UserSettingsComponent,
+    children: [
+      { path: '', redirectTo: 'account', pathMatch: 'full' },
+      { path: 'account', component: AccountSettingComponent },
+    ]
+  },
+  {
     path: "verify-email",
     component: EmailVerifiedComponent
   },

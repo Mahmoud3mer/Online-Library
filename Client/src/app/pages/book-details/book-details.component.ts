@@ -7,8 +7,8 @@ import { ReviewService } from '../../services/reviews/review.service';
 import { BooksService } from '../../services/books/Books.service';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { jwtDecode } from "jwt-decode";
 import { BookByIdService } from '../../services/books/book-by-id.service';
+import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
   userId: string; // أو اسم الحقل الذي يحتوي على الـ userId
@@ -302,4 +302,3 @@ export class BookDetailsComponent implements OnInit {
 
 }
   
-}
