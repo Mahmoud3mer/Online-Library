@@ -6,6 +6,7 @@ import { AddToWishListService } from "../../services/wishlist/addToWishlist.serv
 import { DeleteBookFromWishlistServiece } from "../../services/wishlist/deleteFromWishlist.service";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BookInterface } from "./../../interfaces/books.interface";
+import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
 
 @Component({
   standalone: true,
@@ -24,6 +25,7 @@ export class AddToWishlistBtnComponent implements OnInit {
     private _getWishlistService: GetWishlistService,
     private _addToWishListService: AddToWishListService,
     private _deleteFromWishlistService: DeleteBookFromWishlistServiece,
+    private _numOfWishlist:WishListCountService,
     private _toastService: ToastService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -73,8 +75,11 @@ export class AddToWishlistBtnComponent implements OnInit {
         });
     } else {
       this._addToWishListService.addToWishList(this.bookId).subscribe({
-        next: () => {
+        next: (res) => {
+          console.log(res);
+          
           this.isWishlisted = true;
+          // this._numOfWishlist.updateNumOfWishItems()
           this._toastService.showSuccess("Added to wishlist.");
         },
         error: (err) => console.log(err),

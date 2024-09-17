@@ -4,6 +4,7 @@ import { ToastService } from '../../services/Toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category/category.service';
+import { CategoryInterface } from '../../interfaces/books.interface';
 
 @Component({
   selector: 'app-recommendation',
@@ -13,7 +14,7 @@ import { CategoryService } from '../../services/category/category.service';
   imports:[CommonModule]
 })
 export class RecommendationComponent implements OnInit {
-  categories: any[] = [];
+  categories: CategoryInterface[] = [];
   selectedCategories: string[] = []; // Track selected category IDs
   page: number = 1;
   constructor(
@@ -27,7 +28,7 @@ export class RecommendationComponent implements OnInit {
     this.getAllCategories();
   }
   getAllCategories(): void {
-    this._categoryService.getAllCategory(this.page, 5).subscribe({
+    this._categoryService.getAllCategory(this.page, 10).subscribe({
       next: (res) => {
         this.categories = res.data;
       },

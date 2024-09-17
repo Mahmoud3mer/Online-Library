@@ -38,7 +38,7 @@ export class HomeComponent {
   private isBrowser: boolean = false;
   book!: BookInterface ;
   page: number = 1;
-  limit: number = 10;
+  limit: number = 60;
       // ! for test (المحتوى هييي من اليوسر ك براميتر)
   // body = {
   //   title: "JS",
