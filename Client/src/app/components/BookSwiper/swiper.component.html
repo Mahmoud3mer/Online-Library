@@ -5,9 +5,10 @@
     speed="200" 
     [breakpoints] = "breakpoints"
 >
-    <!-- @for (book of Books; track $index) {
+      @for (book of Books; track $index) {
         <swiper-slide>
             <app-book-card
+                    [bookId]="book._id"
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.image"
                     [bookCategory]="book.category"
@@ -15,7 +16,7 @@
                     [bookRating]="book.raiting"
                     ></app-book-card>
         </swiper-slide>
-    } -->
+    }  
 
     <!-- <swiper-slide>
         <app-book-card
