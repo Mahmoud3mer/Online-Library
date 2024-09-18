@@ -14,11 +14,16 @@ export class Cart {
   books: { book: mongoose.Types.ObjectId | Book, quantity: number }[];
 
   @Prop({ type: Number, default: 0 })
-  totalPrice: number;
+  subtotal: number; 
 
   @Prop({ type: Number, default: 0 })
   numOfCartItems: number;
 
+  @Prop({ type: Number, default: 0 })
+  shippingCost: number;
+
+  @Prop({ type: Number, default: 0 })
+  totalOrder: number; 
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

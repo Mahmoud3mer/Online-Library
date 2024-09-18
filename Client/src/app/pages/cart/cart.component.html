@@ -1,28 +1,11 @@
+<app-sub-navbar></app-sub-navbar>
 <section class="py-20 bg-sky-100">
   <div class="lg:w-11/12 mx-auto px-4">
     <div >
       <div class="flex flex-wrap   ">
         <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white  shadow-custom rounded-lg px-4 py-12">
       <h2 class=" text-4xl font-bold font-heading pb-4">Your cart</h2>
-
-          <!-- @if (cartBooks.length!=0) {
-            <div class="lg:flex w-full text-center">
-              <div class="w-full lg:w-3/6 ">
-                <h4 class="mb-6 font-bold font-heading text-gray-500">title</h4>
-              </div>
-              <div class="w-full lg:w-1/6">
-                <h4 class="mb-6 font-bold  font-heading text-gray-500">Price</h4>
-              </div>
-              <div class="w-full lg:w-1/6 text-center">
-                <h4 class="mb-6 font-bold font-heading text-gray-500">Quantity</h4>
-              </div>
-              <div class="w-full lg:w-1/6 text-right">
-                <h4 class="mb-6 font-bold font-heading text-gray-500 text-center">delete</h4>
-              </div>
-            </div>
-          } -->
-
-
+      
           <div class="mb-12 py-6 border-t border-b border-gray-200">
             @if (cartBooks.length==0 && isLoading) {
             loading ...............
@@ -145,17 +128,14 @@
             <h2 class="mb-6 text-4xl font-bold font-heading text-white">Cart totals</h2>
             <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
               <span class="text-blue-50">Subtotal</span>
-              <span class="text-xl font-bold font-heading text-white">$89.67</span>
+              <span class="text-xl font-bold font-heading text-white">{{subtotal}}</span>
             </div>
-            <h4 class="mb-2 text-xl font-bold font-heading text-white">Shipping</h4>
             <div class="flex mb-2 justify-between items-center">
-              <span class="text-blue-50">Next day</span>
-              <span class="text-xl font-bold font-heading text-white">$11.00</span>
+              <h4 class="mb-2 text-xl font-bold font-heading text-white">Shipping</h4>
+         
+              <span class="text-xl font-bold font-heading text-white">{{shippingCost}}</span>
             </div>
-            <div class="flex mb-10 justify-between items-center">
-              <span class="text-blue-50">Shipping to United States</span>
-              <span class="text-xl font-bold font-heading text-white">-</span>
-            </div>
+            
             <div class="flex mb-10 justify-between items-center">
               <span class="text-xl font-bold font-heading text-white">Order total</span>
               <span class="text-xl font-bold font-heading text-white">{{roundedPrice()}}</span>

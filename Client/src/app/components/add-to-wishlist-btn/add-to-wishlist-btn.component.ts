@@ -67,8 +67,10 @@ export class AddToWishlistBtnComponent implements OnInit {
       this._deleteFromWishlistService
         .deleteFromWihslist(this.bookId)
         .subscribe({
-          next: () => {
+          next: (res) => {
             this.isWishlisted = false;
+          this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
+
             this._toastService.showSuccess("Removed from wishlist.");
           },
           error: (err) => console.log(err),
@@ -77,9 +79,8 @@ export class AddToWishlistBtnComponent implements OnInit {
       this._addToWishListService.addToWishList(this.bookId).subscribe({
         next: (res) => {
           console.log(res);
-          
           this.isWishlisted = true;
-          // this._numOfWishlist.updateNumOfWishItems()
+          this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
           this._toastService.showSuccess("Added to wishlist.");
         },
         error: (err) => console.log(err),

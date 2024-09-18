@@ -9,6 +9,8 @@ import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/
 import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 import { ToastService } from '../../services/Toast/toast.service';
 import { CartCountService } from '../../services/cart/CartCount.service';
+import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
+import { CartBooksService } from '../../services/cart/cart-books.service';
 
 
 
@@ -21,15 +23,17 @@ import { CartCountService } from '../../services/cart/CartCount.service';
   imports: [
     CommonModule,
     ConfirmationDialogComponent,
-    // AddToWishlistBtnComponent,
     AddToCartBtnComponent,
-    AddToWishlistBtnComponent
+    AddToWishlistBtnComponent,
+    SubNavbarComponent
 ],
 })
 export class CartComponent implements OnInit {
   cartBooks:any[] = []
-  numOfCartItems:number=0
-  totalPrice:number=0;
+  numOfCartItems:number=0;
+  subtotal:number=0;
+  shippingCost:number=0;
+  totalOrder:number=0;
   showConfirmationDialog = false;
   bookIdToRemove: string =''
   isLoading:boolean=true;
@@ -37,6 +41,7 @@ export class CartComponent implements OnInit {
     private _deleteBookFromCart:DeleteBookFromCartService,
     private _toastService:ToastService,
     private _cartCount:CartCountService,
+    private _cartBooksService: CartBooksService,
     private router:Router) { }
 
   ngOnInit(): void {
@@ -44,7 +49,7 @@ export class CartComponent implements OnInit {
   }
 
     roundedPrice(): number {
-    return Math.round(this.totalPrice);
+    return Math.round(this.totalOrder);
   }
 
     // Fetch items from CartService
@@ -53,15 +58,11 @@ export class CartComponent implements OnInit {
         {
           next: (res) => {
             this.cartBooks=res.data.books;
-            this.totalPrice=res.data.totalPrice
-            console.log(res);
-
+            this.subtotal=res.data.subtotal;
+            this.shippingCost=res.data.shippingCost;
+            this.totalOrder=res.data.totalOrder;
             this.numOfCartItems=res.data.numOfCartItems;
             console.log(this.cartBooks);
-  
-  
-            // this._cartCount.updateNumOfCartItems(this.numOfCartItems);
-  
   
           },
           error: (err) => {
@@ -88,8 +89,11 @@ export class CartComponent implements OnInit {
       this._deleteBookFromCart.deleteBookFormCart(this.bookIdToRemove).subscribe({
         next: (res) => {
           this.cartBooks = res.data.books;
-          this.totalPrice = res.data.totalPrice;
-          this._cartCount.updateNumOfCartItems(res.data.numOfCartItems)
+          this.subtotal=res.data.subtotal;
+          this.shippingCost=res.data.shippingCost;
+          this.totalOrder=res.data.totalOrder;
+          this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
+             this._cartBooksService.updateCartBooks(res.data.books);
           this._toastService.showSuccess('Book removed from cart successfully!');
         },
         error: (err) => {
@@ -117,7 +121,9 @@ export class CartComponent implements OnInit {
         console.log(res);
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems)
         this.cartBooks= res.data.books
-        this.totalPrice=res.data.totalPrice
+        this.subtotal=res.data.subtotal;
+        this.shippingCost=res.data.shippingCost;
+        this.totalOrder=res.data.totalOrder;
 
       },
       error: (err) => {
