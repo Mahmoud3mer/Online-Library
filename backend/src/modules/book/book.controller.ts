@@ -1,7 +1,6 @@
 import {
   Body, Controller, Delete, Get, Param,
   Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors,
-  ValidationPipe
 } from '@nestjs/common';
 // import { BookDTO } from './bookdto/book.dto';
 import { BookService } from './book.service';

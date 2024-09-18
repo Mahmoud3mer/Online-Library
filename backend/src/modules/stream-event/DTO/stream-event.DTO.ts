@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty, IsOptional, IsDate } from 'class-validator';
-import { Date, Types } from 'mongoose';
+import { IsString, IsNotEmpty, IsOptional, IsDateString } from 'class-validator';
+import { Date } from 'mongoose';
 
 export class StreamEventDTO {
   @IsString()
@@ -11,14 +11,15 @@ export class StreamEventDTO {
   description: string;
 
   @IsString()
-  @IsNotEmpty()
-  authorId: Types.ObjectId;
+  @IsOptional()
+  author: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   streamUrlCode: string;
-
-  @IsDate()
+  
+  @IsDateString()
+  @IsOptional()
   eventDate: Date;
 }
 
