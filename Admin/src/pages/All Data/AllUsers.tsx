@@ -1,5 +1,5 @@
 import React from 'react'
-import TableTwo from '../../components/TableTwo'
+import TableTwo from '../../components/BooksTable'
 
 const AllUsers = () => {
 
