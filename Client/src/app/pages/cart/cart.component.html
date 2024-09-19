@@ -4,7 +4,16 @@
     <div >
       <div class="flex flex-wrap   ">
         <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white  shadow-custom rounded-lg px-4 py-12">
-      <h2 class=" text-4xl font-bold font-heading pb-4">Your cart</h2>
+
+          <div class="flex justify-between items-center">
+            <h2 class="text-4xl font-bold font-heading pb-4">Your cart</h2>
+          @if (cartBooks.length!=0) {
+            <button (click)="openClearCartConfirmation()" class="btn bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
+              Clear Cart
+            </button> 
+          }
+          </div>
+          
       
           <div class="mb-12 py-6 border-t border-b border-gray-200">
             @if (cartBooks.length==0 && isLoading) {
@@ -97,7 +106,6 @@
 
               </div>
               <div class="w-auto   md:w-3 lg:w-2/12 px-4 ">
-                 
                 <button (click)="openConfirmationDialog(item.book._id)"
                   class="flex items-center space-x-2   text-red-600 px-4 py-2 ">
                   <i class="fa-solid fa-trash text-2xl"></i>
@@ -160,6 +168,7 @@
 
 
 @if (showConfirmationDialog) {
-<app-confirmation-dialog (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
-
+<app-confirmation-dialog [message]="confirmMsg" [confirmText]="confirmText" (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
 }
+
+ 
