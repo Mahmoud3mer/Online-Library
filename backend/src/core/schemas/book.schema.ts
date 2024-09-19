@@ -18,8 +18,6 @@ export class Book {
     @Prop({ required: true })
     description: string;
 
-
-
     @Prop({ required: true })
     averageRating: number;
 

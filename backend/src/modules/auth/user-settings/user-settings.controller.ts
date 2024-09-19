@@ -67,7 +67,7 @@ export class UserSettingsController {
   async getAllUsers(@Query() paginationDTO: PaginationDTO) {
     return this._userSettingsService.getAllUsers(paginationDTO)
   }
-
+// base/user-setting/admin/users
 
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)

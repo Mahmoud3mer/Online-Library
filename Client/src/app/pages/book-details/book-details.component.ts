@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID ,OnChanges, SimpleChanges} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +25,7 @@ interface DecodedToken {
   styleUrl: './book-details.component.scss'
 }) 
 
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit , OnChanges {
   quantity: number = 0;
   book: any = {};
   bookId: any= "";
@@ -59,7 +59,13 @@ export class BookDetailsComponent implements OnInit {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
+  starArray: number[] = [];
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['bookRating']) {
+      this.updateStarArray();
+    }
+  }
 
   constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
     // console.log(this.reviewForm.value);
@@ -322,5 +328,19 @@ export class BookDetailsComponent implements OnInit {
     this.showConfirmationDialog = false;
   }
 
+
+
+
+  updateStarArray(): void {
+    const fullStars = Math.floor(this.bookRating);
+    const halfStar = this.bookRating % 1 !== 0;
+
+    this.starArray = Array(fullStars).fill(1);
+    if (halfStar) {
+      this.starArray.push(0.5);
+    }
+    const emptyStars = 5 - this.starArray.length;
+    this.starArray.push(...Array(emptyStars).fill(0));
+  }
 }
   
