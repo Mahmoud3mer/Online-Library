@@ -14,6 +14,7 @@ import { BookDetailsComponent } from './pages/book-details/book-details.componen
 import { Err404Component } from './pages/err404/err404.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
 import { EmailVerifiedComponent } from './pages/email-Verified/email-verified/email-verified.component';
+import { AccountSettingComponent } from './components/account-setting/account-setting.component';
 import { BooksGridListComponent } from './components/books-grid-list/books-grid-list.component';
 import { BooksListComponent } from './components/books-list/books-list.component';
 import { RecommendationComponent } from './pages/recommendation/recommendation.component';
@@ -40,8 +41,8 @@ export const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: "book-details/:id",
-    component: BookDetailsComponent,
+    path: 'book-details/:id',
+    component: BookDetailsComponent
   },
   {
     path: "books",
@@ -87,13 +88,18 @@ export const routes: Routes = [
     component: SignupComponent,
   },
   {
+    path: 'user-settings',
+    component: UserSettingsComponent,
+    children: [
+      { path: '', redirectTo: 'account', pathMatch: 'full' },
+      { path: 'account', component: AccountSettingComponent },
+    ]
+  },
+  {
     path: "verify-email",
     component: EmailVerifiedComponent
   },
-  {
-    path: "user-settings",
-    component: UserSettingsComponent,
-  },
+
   {
     path: "forgot-password",
     component: ForgotPasswordComponent,

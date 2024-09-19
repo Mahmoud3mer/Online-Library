@@ -1,10 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserSettingsService } from './user-settings.service';
 import { UpdateUserDto } from '../dto/auth.dto';
 import { AuthGuard } from 'src/core/guards/auth.guard';
 import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
 import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('user-settings')
 export class UserSettingsController {
@@ -20,9 +23,23 @@ export class UserSettingsController {
   @UseGuards(AuthGuard) 
   @Roles(Role.User) 
   @Patch('profile')
-  async updateProfile(@Req() req: any, @Body() updateUserDto: UpdateUserDto) {
+  // @UseInterceptors(FileInterceptor('profilePic'))
+  @UseInterceptors(
+    FileInterceptor('profilePic', {
+      storage: diskStorage({
+        destination: './uploads/profileImages',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, `${uniqueSuffix}${extname(file.originalname)}`);
+        }
+      })
+    })
+  )
+  async updateProfile(@Req() req: any, @Body() body: any , @UploadedFile() file: Express.Multer.File) {
+    // console.log('file:', file);
+    // console.log('body:', body);
     const userId = req.user.userId; 
-    return this._userSettingsService.updateUserProfile(userId, updateUserDto);
+    return this._userSettingsService.updateUserProfile(userId, body , file);
   }
 
   @UseGuards(AuthGuard) 
@@ -47,8 +64,9 @@ export class UserSettingsController {
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
   @Patch('admin/users/:id') 
-  async updateUserProfile(@Param('id') userId: string, @Body() updateUserDto: UpdateUserDto) {
-    return this._userSettingsService.updateUserProfile(userId, updateUserDto);
+  @UseInterceptors(FileInterceptor('profileImage'))
+  async updateUserProfile(@Param('id') userId: string, @Body() updateUserDto: UpdateUserDto,@UploadedFile() file: Express.Multer.File) {
+    return this._userSettingsService.updateUserProfile(userId, updateUserDto ,file);
   }
 
   @UseGuards(AuthGuard) 

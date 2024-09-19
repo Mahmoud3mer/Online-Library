@@ -2,15 +2,16 @@ import { IsDateString, IsMongoId, IsNumber, IsOptional, IsString } from "class-v
 
 
 export class reviewDTO {
-
     @IsMongoId()
+    @IsOptional()
     userId: string;
 
     @IsMongoId()
+    @IsOptional()
     bookId: string;
     
     @IsNumber()
-    raiting: number;
+    rating: number;
 
     @IsString()
     @IsOptional()

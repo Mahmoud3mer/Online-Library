@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthourizationService } from '../../services/users/authourization.service';
-import { Router } from '@angular/router'; // Import Router
+import { Router, RouterLink, RouterOutlet } from '@angular/router'; // Import Router
 import { CookieService } from 'ngx-cookie-service';
 import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
@@ -22,7 +22,7 @@ import { CartBooksService } from "../../services/cart/cart-books.service";
 @Component({
   selector: "app-signin",
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass,RouterOutlet ,RouterLink],
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.scss"],
   providers: [CookieService],
