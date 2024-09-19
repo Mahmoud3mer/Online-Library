@@ -137,21 +137,21 @@
 ======= -->
   <div class="topbar bg-[#eee] dark:bg-[#0a0a0a]">
 <!-- >>>>>>> master -->
-    <div class="container mx-auto px-4">
-      <div class="flex flex-wrap items-center justify-between">
+    <div class="container mx-auto px-4 py-1">
+      <div class="flex flex-wrap items-center justify-center gap-y-3">
         <!-- First Column -->
-        <div class="w-full lg:w-1/3 md:w-1/3 flex items-center">
+        <div class="w-full lg:w-[25%] md:w-[25%] flex items-center justify-center md:justify-normal">
           <ul class="flex">
             <li>
               <select
                 id="select5"
-                class="bg-[#f9f9f9] dark:bg-[#0a0a0a] dark:border-white dark:dark:text-white p-2 rounded"
+                class="bg-[#eee] dark:bg-[#0a0a0a] dark:border-white dark:dark:text-white p-2 rounded outline-none"
               >
                 @for (item of languages; track item){
                 <option value="0">{{ item }}</option>
                 }
               </select>
-            </li>
+            </li> 
             <li>
               <button
                 class="flex items-center dark:bg-[#0a0a0a] dark:dark:text-white p-3 rounded"
@@ -165,13 +165,13 @@
         </div>
 
         <!-- Second Column -->
-        <div class="w-full lg:w-1/3 md:w-1/3 flex justify-center">
+        <div class="w-full lg:w-[50%] md:w-[50%] flex justify-center">
           <ul class="flex">
             <li>
               <a
                 routerLink="/home"
-                routerLinkActive="curved-div"
-                class="dark:text-white tracking-wider px-4 py-4 grid items-center justify-center transition-colors duration-300"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid items-center justify-center transition-colors duration-300"
               >
                 Home
               </a>
@@ -179,8 +179,8 @@
             <li>
               <a
                 routerLink="/about"
-                routerLinkActive="curved-div"
-                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
               >
                 About Us
               </a>
@@ -188,8 +188,8 @@
             <li>
               <a
                 routerLink="/contact"
-                routerLinkActive="curved-div"
-                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
               >
                 Contact Us
               </a>
@@ -197,8 +197,8 @@
             <li>
               <a
                 routerLink="/books"
-                routerLinkActive="curved-div"
-                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
               >
                 Books
               </a>
@@ -207,24 +207,33 @@
         </div>
 
         <!-- Third Column -->
-        <div class="w-full lg:w-1/3 md:w-1/3 flex items-center justify-end">
+        <div class="w-full lg:w-[25%] md:w-[25%] flex items-center justify-center md:justify-end"> 
           <ul class="flex items-center space-x-4">
             <li *ngIf="isLoggedIn">
               <!-- User Dropdown -->
               <div class="relative z-50 me-4">
                 <button (click)="toggleDropdown()" class="flex items-center">
-                  <img
+                  @if(profileImage){
+                    <img
                     class="w-10 h-10 rounded-full object-cover"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
+                    [src]="profileImage"
                     alt="User Avatar"
                   />
+                  }@else{
+                    <img
+                    class="w-10 h-10 rounded-full object-cover"
+                    src="../../../assets/images/blank-profile-picture.webp"
+                    alt="User Avatar"
+                  />
+                  }
+
                 </button>
                 <div
                   *ngIf="isDropdownOpen"
                   class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 text-black dark:dark:text-white rounded-lg shadow-lg p-2 z-50"
                 >
                   <a
-                    routerLink="/settings"
+                    routerLink="/user-settings"
                     routerLinkActive="text-blue-800 bg-blue-700"
                     class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
                   >

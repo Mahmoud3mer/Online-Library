@@ -3,7 +3,7 @@
   <div class="header-middle py-2">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <!-- Logo -->
-      <div class="lg:w-1/4 md:w-1/3 w-2/3">
+      <div class="lg:w-1/4 md:w-1/4 w-1/2">
         <a
           class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight"
           href="index.html"
@@ -13,12 +13,12 @@
       </div>
 
       <div
-        class="lg:w-2/5 md:w-2/3 hidden md:flex items-center space-x-4 bg-[#eee] rounded px-4 py-2 shadow-lg"
+        class="lg:w-1/2 md:w-1/2 hidden md:flex items-center space-x-4 bg-white rounded px-4 py-2"
       >
-        <div class="search-select bg-gray-100 rounded-full">
+        <div class="search-select bg-white">
           <select
             id="select1"
-            class="bg-transparent border border-gray-300 rounded-full px-4 py-2 text-gray-800 focus:ring-2 focus:ring-gray-300"
+            class="bg-transparent border border-gray-300 outline-none rounded-lg px-4 py-2 text-gray-800 focus:ring-2 focus:ring-gray-300"
           >
             <option selected value="title">Book Title</option>
             <option value="author">Author</option>
@@ -28,12 +28,12 @@
           <input
             type="text"
             placeholder="Search"
-            class="w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-300 bg-gray-100 placeholder-gray-500"
+            class="w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 bg-white placeholder-gray-500"
           />
         </div>
         <div class="search-btn">
           <button
-            class="px-2 py-1 bg-neutral-700 text-white rounded-full hover:bg-neutral-800 focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out"
+            class="px-2 py-1 bg-neutral-500 text-white rounded-full hover:bg-neutral-400 focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out"
           >
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -42,30 +42,29 @@
 
       <!-- Wishlist and Cart Items Positioned to the Right -->
       <div
-        class="lg:w-1/3 md:w-1/3 w-1/3 flex items-center justify-end space-x-4 me-10"
+        class="lg:w-1/4 md:w-1/4 w-1/2 flex items-center justify-end space-x-4 me-10 gap-x-5"
       >
         <!-- Wishlist -->
-        <div class="wishlist">
+        <div class="wishlist relative">
           <a
             href="javascript:void(0)"
-            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+            class="text-gray-500 hover:text-gray-400 flex items-center space-x-1"
           >
-            <i class="fa-regular fa-heart text-xl"></i>
+            <i class="fa-regular fa-heart text-2xl"></i>
             <span
-              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
-              >{{ numOfWishlistItems }}</span
-            >
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-15px] right-[-20px]"
+              >{{ numOfWishlistItems }}</span>
           </a>
         </div>
         <!-- Cart Items -->
-        <div class="cart-items relative ml-4 group">
+        <div class="cart-items relative ml-4 group relative">
           <a
             href="javascript:void(0)"
-            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+            class="text-gray-500 hover:text-gray-400 flex items-center space-x-1"
           >
-            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <i class="fa-solid fa-cart-shopping text-2xl"></i>
             <span
-              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-15px] right-[-20px]"
               >{{ numOfCartItems }}</span
             >
           </a>
@@ -117,7 +116,7 @@
             <div class="button">
               <a
                 href="checkout.html"
-                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-full px-4 py-2 text-center block transition duration-150 ease-in-out"
+                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
                 >Checkout</a
               >
             </div>
