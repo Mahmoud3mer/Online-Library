@@ -9,6 +9,7 @@ import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { BookByIdService } from '../../services/books/book-by-id.service';
 import { jwtDecode } from "jwt-decode";
+import { ReviewInterface } from '../../interfaces/review.interface';
 
 interface DecodedToken {
   userId: string; // أو اسم الحقل الذي يحتوي على الـ userId
@@ -47,6 +48,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   isLoggedIn: boolean = false;
 
   commentLength: number = 0
+  starArray: number[] = [];
 
   isUpdaiting: boolean = false;
   @ViewChild('commentInput') commentInput!: ElementRef;
@@ -57,7 +59,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
-  starArray: number[] = [];
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['bookRating']) {
@@ -81,12 +83,24 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     this.getAllReviewsFromDb()
     this.getBookFromDb()
     this.getReviewsFromDb()
+    this.updateStarArray()
     // this.reviewsLength = this.reviews.length
     // this.reviewsRatingsNumber = this.reviews.reduce((total:any, element: any) => {return total + element.rating;}, 0)
     // this.bookRating = this.reviewsRatingsNumber / this.reviews.length;
 
   }
 
+  updateStarArray(): void {
+    const fullStars = Math.floor(this.bookRating);
+    const halfStar = this.bookRating % 1 !== 0;
+
+    this.starArray = Array(fullStars).fill(1);
+    if (halfStar) {
+      this.starArray.push(0.5);
+    }
+    const emptyStars = 5 - this.starArray.length;
+    this.starArray.push(...Array(emptyStars).fill(0));
+  }
 
   decreaseBooks(){
     if (this.quantity < 1) {
@@ -106,6 +120,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
   sendReview(){
     this.addReviewInDb()
+    this.updateStarArray()
     this.reviewForm.reset()
   } 
 
@@ -178,7 +193,13 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
 
   addReviewInDb(){
-    this._reviewService.addReview(this.reviewForm.value).subscribe({
+    const reviewData: ReviewInterface = {
+      bookId: this.reviewForm.get('bookId')?.value,
+      rating: this.reviewForm.get('rating')?.value,
+      comment: this.reviewForm.get('comment')?.value
+    };
+
+    this._reviewService.addReview(reviewData).subscribe({
       next: (res) => {
         // console.log(this.reviewForm.value)
         console.log(res.addedReview[0])
@@ -283,6 +304,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
   sendUpdatingReview(){
     this.updateReviewInDb(this.reviewID)
+    this.updateStarArray()
     this.isUpdaiting = false
     this.reviewForm.reset();
   }
@@ -309,16 +331,16 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
 
 
-  updateStarArray(): void {
-    const fullStars = Math.floor(this.bookRating);
-    const halfStar = this.bookRating % 1 !== 0;
+  // updateStarArray(): void {
+  //   const fullStars = Math.floor(this.bookRating);
+  //   const halfStar = this.bookRating % 1 !== 0;
 
-    this.starArray = Array(fullStars).fill(1);
-    if (halfStar) {
-      this.starArray.push(0.5);
-    }
-    const emptyStars = 5 - this.starArray.length;
-    this.starArray.push(...Array(emptyStars).fill(0));
-  }
+  //   this.starArray = Array(fullStars).fill(1);
+  //   if (halfStar) {
+  //     this.starArray.push(0.5);
+  //   }
+  //   const emptyStars = 5 - this.starArray.length;
+  //   this.starArray.push(...Array(emptyStars).fill(0));
+  // }
 }
   

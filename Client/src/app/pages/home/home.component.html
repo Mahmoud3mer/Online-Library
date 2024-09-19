@@ -9,8 +9,7 @@
         <div class="container mx-auto">
             <div class="text-center section-title">
                 <h2 class="text-3xl font-semibold dark:text-white">Books</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">There are many variations of passages of Lorem Ipsum available, but the
-                    majority have suffered alteration in some form.</p>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">Explore our vast collection of books across various genres. Whether you're into fiction, non-fiction, self-help, or academic titles, our library has something for every reader.</p>
             </div>
             <div>
                 <app-swiper [Books]="allBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
@@ -42,9 +41,54 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
+                <h2 class="text-3xl font-semibold dark:text-white">Top Rating Books</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.</p>
+            </div>
+            <div>
+                <app-swiper [Books]="topRatingBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white dark:bg-[#081d31]">
+    <div class="trending-product section">
+        <div class="container mx-auto">
+            <div class="text-center section-title">
+                <h2 class="text-3xl font-semibold dark:text-white">New Books</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">Stay up to date with the latest arrivals in the literary world. Explore newly published books across various genres, offering fresh narratives and perspectives for your reading pleasure.</p>
+            </div>
+            <div>
+                <app-swiper [Books]="newBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Categories -->
+<section class="dark:bg-[#081d31]">
+    <div class="trending-product section">
+        <div class="container mx-auto">
+            <div class="text-center section-title">
+                <h2 class="text-3xl font-semibold dark:text-white">Categories</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">Dive into a world of knowledge with our categorized collection of books. Whether you're looking for adventure, romance, or science, our categories make it easy to find exactly what you're looking for.</p>
+            </div>
+
+            <div class="">
+                    <app-category-slider [categories]="categories" ngSkipHydration></app-category-slider>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="dark:bg-[#081d31]">
+    <div class="trending-product section">
+        <div class="container mx-auto">
+            <div class="text-center section-title">
                 <h2 class="text-3xl font-semibold dark:text-white">Authors Spotlight</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">There are many variations of passages of Lorem Ipsum available, but the
-                    majority have suffered alteration in some form.</p>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">Get to know the brilliant minds behind your favorite books in our Authors Spotlight. Discover the stories, achievements, and works of the most influential authors in the literary world.</p>
             </div>
             <div>
                 <app-author-swiper [authors] = "authors" ngSkipHydration></app-author-swiper>
@@ -53,27 +97,13 @@
     </div>
 </section>
 
-
-<section class="bg-white dark:bg-[#081d31]">
-    <div class="trending-product section">
-        <div class="container mx-auto">
-            <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">Trending/Best Sellers</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">There are many variations of passages of Lorem Ipsum available, but the
-                    majority have suffered alteration in some form.</p>
-            </div>
-            <div>
-                <app-swiper [Books]="allBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
-            </div>
-        </div>
-    </div>
-</section>
-
 </div>
 
+@if (isLoggedIn === false) {
+    <app-call-section></app-call-section>
+}
 
-<app-call-section></app-call-section>
 
-<app-banner-section></app-banner-section>
+<!-- <app-banner-section></app-banner-section> -->
 
 <app-shipping-info></app-shipping-info>
