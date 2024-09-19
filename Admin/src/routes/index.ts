@@ -1,7 +1,4 @@
 import { lazy } from 'react';
-import AllBooks from '../pages/All Data/AllBooks';
-import AllUsers from '../pages/All Data/AllUsers';
-import AllOrders from '../pages/All Data/AllOrders';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -9,6 +6,7 @@ const FormElements = lazy(() => import('../pages/Form/FormElements'));
 const BookForm = lazy(() => import('../pages/Form/BookForm'));
 const AuthorForm = lazy(() => import('../pages/Form/AuthorForm'));
 const CategoryForm = lazy(() => import('../pages/Form/CategoryForm'));
+const UserForm = lazy(() => import('../pages/Form/UserFrom'));
 const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
@@ -49,6 +47,11 @@ const coreRoutes = [
     path: '/forms/category-form',
     title: 'Category Form',
     component: CategoryForm,
+  },
+  {
+    path: '/forms/user-form',
+    title: 'User Form',
+    component: UserForm,
   },
   {
     path: '/forms/form-layout',
