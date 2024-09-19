@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://localhost:4200',  
+    origin: ['http://localhost:4200','http://localhost:5173'],  
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization, token',  
 
@@ -19,7 +19,7 @@ async function bootstrap() {
   });
     //! تفعيل CORS
   app.enableCors({
-    origin: 'http://localhost:4200', //! أو يمكنك تحديد نطاقات محددة للسماح بها
+    origin: ['http://localhost:4200','http://localhost:5173'], //! أو يمكنك تحديد نطاقات محددة للسماح بها
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

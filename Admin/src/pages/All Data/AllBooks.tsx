@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import TableTwo from '../../components/TableTwo'
+import axios from 'axios';
+import { apiUrl } from '../../utils/apiUrl';
 
 
 const AllBooks = () => {
     const [books,setBooks] = useState([]);
 
-    // useEffect()
+    const page = 1;
+    const limit = 5;
+    useEffect(() => {
+        axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
+        .then((res) => {
+            setBooks(res.data.data)
+            console.log(res.data);
+            
+        })
+        .catch((err) => {
+            console.log("Error",err);
+        })
+    },[])
 
 
     const handleMoreDetails = () => {
@@ -47,17 +61,19 @@ const AllBooks = () => {
                     <p className="font-medium">Profit</p>
                 </div>
             </div>
-               <TableTwo
-               image="https://example.com/image.jpg"
-               colOne="Book Title"
-               colTwo="Author Name"
-               colThree="Published Year"
-               colFour="Category"
-               colFive="Price"
+            {books && books.map((book) => (
+               <TableTwo key={book._id}
+               image={book.coverImage}
+               colOne={book.title}
+               colTwo={book.category.name}
+               colThree={book.author.name}
+               colFour={book.price}
+               colFive={book.stock}
                moreDetails={handleMoreDetails}
                Edit={handleEdit}
                Delete={handleDelete}
              />
+            ))}
             
         </div>
     )
