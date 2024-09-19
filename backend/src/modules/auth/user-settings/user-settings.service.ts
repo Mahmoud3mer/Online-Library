@@ -2,11 +2,13 @@ import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestj
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
-import { UpdateUserDto } from '../dto/auth.dto';
 import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
 import emailHtml from '../mails/confirmPass';
+import * as fs from 'fs';
+import * as path from 'path';
+
 @Injectable()
 export class UserSettingsService {
 
@@ -41,45 +43,88 @@ export class UserSettingsService {
     return { message: "User Founded", user };
   }
 
-  async updateUserProfile(userId: string, body: any , file: Express.Multer.File) {
-    // const profileImagePath = file ? `/uploads/profileImages/${file.filename}` : null;
-    if (file) {
-      body.profilePic = `/uploads/profileImages/${file.filename}`;
-    }
 
-    // ! Hash pass
-    const user = await this.userModel.findOne({email: body.email})
+  async updateUserProfile(userId: string, body: any , file: Express.Multer.File) {
+    const user = await this.userModel.findOne({_id: userId})
 
     if (!user) {
-      throw new HttpException('Email not found!',HttpStatus.BAD_REQUEST);
+      throw new HttpException('User not found!',HttpStatus.BAD_REQUEST);
     }
 
-    // if (!(await bcrypt.compare((body.currentPassword).toString(), user.password))) {
-    //   throw new HttpException('Password is incorrect',HttpStatus.BAD_REQUEST);
+    // if (user.profilePic) {
+    //   const oldImagePath = path.join(__dirname, '..', '..', 'uploads', 'profileImages', user.profilePic);
+    //   if (fs.existsSync(oldImagePath)) {
+    //     fs.unlinkSync(oldImagePath); // حذف الملف
+    //   }
     // }
-
-    // const hashedPassword = await bcrypt.hash((body.newPassword).toString(), 10);
-    // body.password = hashedPassword;
-    // console.log(body.password);
-    
-    if (body.currentPassword && body.newPassword) {
-
-      if (!(await bcrypt.compare(body.currentPassword.toString(), user.password))) {
-        throw new HttpException('Password is incorrect', HttpStatus.BAD_REQUEST);
+  
+      if (file) {
+        body.profilePic = `http://localhost:3000/uploads/profileImages/${file.filename}`;
       }
 
-      const hashedPassword = await bcrypt.hash(body.newPassword.toString(), 10);
-      body.password = hashedPassword;
+    if (Array.isArray(body.fName)) {
+      body.fName = body.fName[body.fName.length - 1]; // Git last array element
     }
 
+    if (Array.isArray(body.lName)) {
+      body.lName = body.lName[body.lName.length - 1];
+    }
+
+    if (Array.isArray(body.email)) {
+      body.email = body.email[body.email.length - 1];
+    }
+
+    if (Array.isArray(body.phone)) {
+      body.phone = body.phone[body.phone.length - 1];
+    }
 
     const updatedUser = await this.userModel.findByIdAndUpdate(userId, body, { new: true });
     if (!updatedUser) throw new NotFoundException('User not found');
 
     await this.mailerService.sendMail({
-      to: body.email,
+      to: user.email,
+      subject: 'Infrmation Update Confirmation',
+      html: emailHtml('Your general information has been successfully updated.'),
+      context: {
+        name: `${user.fName} ${user.lName}`,
+      },
+    });
+
+    return { message: 'Profile updated successfully' , updatedUser};
+  }
+
+
+  async updateUserPassword(userId: string, body: any) {
+    // ! Hash pass
+    const user = await this.userModel.findOne({_id: userId})
+    console.log(user);
+    console.log(body);
+    
+    if (!user) {
+      throw new HttpException('User not found!',HttpStatus.BAD_REQUEST);
+    }
+    
+    if (body.currentPassword && body.newPassword) {
+      if (!(await bcrypt.compare(body.currentPassword, user.password))) {
+        throw new HttpException('Current password is incorrect', HttpStatus.BAD_REQUEST);
+      }
+
+      const hashedPassword = await bcrypt.hash(body.newPassword, 10);
+      body.password = hashedPassword;
+    }
+
+
+    const updatedUser = await this.userModel.findByIdAndUpdate(userId, body, { new: true });
+
+    if (!updatedUser) throw new NotFoundException('User not found');
+
+    await this.mailerService.sendMail({
+      to: user.email,
       subject: 'Password Update Confirmation',
-      html: emailHtml(`${body.fName} ${body.lName}`),
+      html: emailHtml('Your password has been successfully updated.'),
+      context: {
+        name: `${user.fName} ${user.lName}`,
+      },
     });
 
     return { message: 'Profile updated successfully' , updatedUser};

@@ -21,6 +21,7 @@ import { RecommendationComponent } from './pages/recommendation/recommendation.c
 import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
 import { StreamEventComponent } from './pages/stream-event/stream-event.component';
+import { SecuritySettingComponent } from './components/security-setting/security-setting.component';
 
 export const routes: Routes = [
   {
@@ -93,6 +94,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'account', pathMatch: 'full' },
       { path: 'account', component: AccountSettingComponent },
+      { path: 'security', component: SecuritySettingComponent },
     ]
   },
   {

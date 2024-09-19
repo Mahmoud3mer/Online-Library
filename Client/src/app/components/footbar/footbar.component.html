@@ -2,7 +2,7 @@
 <!-- bg-[#081828] dark:bg-[#0a0a0a] -->
 <footer class="footer bg-[#081828] dark:bg-[#0a0a0a]">
   <!-- ! Start Footer Top -->
-  <div class="footer-top px-20">
+  <div class="footer-top px-10 py-5">
     <div class="mx-auto">
       <div class="inner-content flex flex-wrap gap-y-3 justify-center">
         <div class="basis-full md:basis-1/3">
@@ -15,12 +15,12 @@
             <h4
               class="text-xl font-semibold mb-4 text-white basis-full lg:basis-1/2"
             >
-              Subscribe to our Newsletter
+              Subscribe to our website
               <span class="block text-sm text-gray-500"
-                >Get all the latest information, Sales, and Offers.</span
+                >Explore the world of books with our online library. Find your next favorite book today!.</span
               >
             </h4>
-            <div class="newsletter-form-head basis-full lg:basis-1/2">
+            <div class="newsletter-form-head basis-full lg:basis-1/2 mb-2">
               <form
                 action="#"
                 method="get"
@@ -34,7 +34,7 @@
                 />
                 <div class="button">
                   <button
-                    class="bg-blue-700 py-3 px-3 hover:bg-white hover:text-black duration-300 text-white rounded-md w-full"
+                    class="bg-blue-700 p-2 hover:bg-white hover:text-black duration-300 text-white rounded-md w-full"
                   >
                     Subscribe<span class="dir-part"></span>
                   </button>
@@ -48,7 +48,7 @@
   </div>
   <!--! End Footer Top -->
   <!--! Start Footer Middle -->
-  <div class="py-10 px-20">
+  <div class="px-20 flex justify-center">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-center">
         <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5">
@@ -73,46 +73,90 @@
           </div>
           <!-- End Single Widget -->
         </div>
-        <div class="lg:w-1/4 md:w-1/2 w-full px-7">
-          <!-- Single Widget -->
-          <div class="single-footer our-app">
-            <h3 class="text-lg font-semibold mb-4">Our Mobile App</h3>
-            <ul class="app-btn">
-              <li class="w-[50%] lg:w-[100%] mx-auto md:mx-0">
-                <a href="javascript:void(0)" class="flex items-center mb-2">
-                  <i class="fab fa-apple text-xl mr-2"></i>
-                  <div>
-                    <span>Download on the</span>
-                    <span>App Store</span>
-                  </div>
-                </a>
-              </li>
-              <li class="w-[50%] lg:w-[100%] mx-auto md:mx-0">
-                <a href="javascript:void(0)" class="flex items-center">
-                  <i class="fab fa-google-play text-xl mr-2"></i>
-                  <div>
-                    <span>Download on the</span>
-                    <span>Google Play</span>
-                  </div>
-                </a>
-              </li>
-            </ul>
+
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
+          <div class="single-footer f-link px-5">
+            <h3 class="font-semibold mb-4">We Accept</h3>
+            <!-- <ul class="text-sm text-gray-400"> -->
+              <ul class="text-sm text-gray-400">
+                <li>
+                  <i class="fa-brands fa-cc-paypal text-5xl hover:text-blue-600 hover:translate-x-1 duration-200 cursor-pointer"></i>
+                </li>
+                <li>
+                  <i class="fa-brands fa-cc-visa text-5xl hover:text-blue-600 hover:translate-x-1 duration-200 cursor-pointer"></i>
+                </li>
+              </ul>
           </div>
           <!-- End Single Widget -->
         </div>
+
         <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
-          <!-- Single Widget -->
           <div class="single-footer f-link px-5">
-            <h3 class="text-lg font-semibold mb-4">Information</h3>
+            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+            <!-- <ul class="text-sm text-gray-400"> -->
+              <ul class="text-sm text-gray-400">
+                <li>
+                  <a
+                    href="https://www.facebook.com/Andalosia.Book.Store?mibextid=ZbWKwL"
+                    [target]="'_blank'"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-facebook-f"></i
+                  ><span class="ms-2">facebook</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-twitter"></i
+                  ><span class="ms-2">twitter</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-instagram"></i
+                  ><span class="ms-2">instagram</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-google"></i
+                  ><span class="ms-2">google</span></a>
+                </li>
+              </ul>
+          </div>
+          <!-- End Single Widget -->
+        </div>
+
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
+          <div class="single-footer f-link px-5">
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
             <ul class="text-sm text-gray-400">
               <li>
                 <a
+                  routerLink="/home"
+                  class="hover:cursor-pointer"
+                  routerLinkActive="text-blue-800"
+                  >Home</a>
+              </li>
+                <li>
+                  <a
+                  routerLink="/home"
+                  class="hover:cursor-pointer"
+                  routerLinkActive="text-blue-800"
+                  >Books</a
+                >
+                </li>
+                <li>
+                  <a
                   routerLink="/about"
                   class="hover:cursor-pointer"
                   routerLinkActive="text-blue-800"
                   >About Us</a
                 >
-              </li>
+                </li>
+
               <li>
                 <a
                   routerLink="/contact"
@@ -122,7 +166,7 @@
                 >
               </li>
               <li>
-                <a href="javascript:void(0)" class="hover:cursor-pointer"
+                <!-- <a href="javascript:void(0)" class="hover:cursor-pointer"
                   >Downloads</a
                 >
               </li>
@@ -134,14 +178,13 @@
               <li>
                 <a href="javascript:void(0)" class="hover:cursor-pointer"
                   >FAQs Page</a
-                >
+                > -->
               </li>
             </ul>
           </div>
           <!-- End Single Widget -->
         </div>
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-6">
-          <!-- Single Widget -->
+        <!-- <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-6">
           <div class="single-footer f-link">
             <h3 class="text-lg font-semibold mb-4">Shop Departments</h3>
             <ul class="text-sm text-gray-400">
@@ -152,8 +195,7 @@
               <li><a href="javascript:void(0)">Headphones</a></li>
             </ul>
           </div>
-          <!-- End Single Widget -->
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -164,7 +206,7 @@
       <div
         class="flex flex-wrap justify-center items-center gap-y-5 text-center inner-content"
       >
-        <div
+        <!-- <div
           class="text-sm basis-[100%] lg:basis-1/3 flex-row md:flex-col flex-wrap justify-center gap-y-3"
         >
           <span class="mr-2 text-white">We Accept:</span>
@@ -173,19 +215,12 @@
             alt="#"
             class="inline-block"
           />
+        </div> -->
+
+        <div class="text-gray-400 py-4 text-center">
+          <p>&copy; 2024 Online Library. All rights reserved.</p>
         </div>
-        <div class="text-sm text-white basis-[100%] lg:basis-1/3">
-          <p>
-            Designed and Developed by
-            <a
-              href="https://graygrids.com/"
-              rel="nofollow"
-              target="_blank"
-              class="hover:underline"
-              >GrayGrids</a>
-          </p>
-        </div>
-        <div class="text-sm basis-[100%] lg:basis-1/3">
+        <!-- <div class="text-sm basis-[100%] lg:basis-1/3">
           <ul class="flex space-x-4 justify-center">
             <li><span class="text-white">Follow Us On:</span></li>
             <li>
@@ -217,7 +252,7 @@
               ></a>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

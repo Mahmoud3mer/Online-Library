@@ -1,21 +1,11 @@
 .footer {
-    // background-color: #081828;
     position: relative;
-    /* Single Footer */
-    /* End Single Footer */
 }
 
 .footer .footer-top .inner-content {
-    padding: 60px 0;
+    // padding: 30px 0;
     border-bottom: 1px solid #ffffff26;
 }
-
-// @media only screen and (min-width: 768px) and (max-width: 991px) {
-//     .footer .footer-top .inner-content {
-//         padding: 50px 0;
-//         text-align: center;
-//     }
-// }
 
 @media (max-width: 767px) {
     .footer .footer-top .inner-content {
@@ -27,18 +17,6 @@
 .footer .footer-top .footer-logo a img {
     width: 200px;
 }
-
-// @media only screen and (min-width: 768px) and (max-width: 991px) {
-//     .footer .footer-top .footer-logo a img {
-//         width: 190px;
-//     }
-// }
-
-// @media (max-width: 767px) {
-//     .footer .footer-top .footer-logo a img {
-//         width: 180px;
-//     }
-// }
 
 @media (max-width: 767px) {
     .footer .footer-top .footer-newsletter {
@@ -101,10 +79,10 @@
 }
 
 .footer .footer-top .footer-newsletter .newsletter-form input {
-    height: 50px;
+    height: 45px;
     background-color: rgba(255, 255, 255, 0.308);
     border-radius: 4px;
-    width: 300px;
+    width: 250px;
     display: inline-block;
     border: none;
     padding: 0px 20px;
@@ -381,7 +359,7 @@
 
 .footer .footer-bottom .inner-content {
     border-top: 1px solid #ffffff26;
-    padding: 30px 0;
+    // padding: 30px 0;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px),

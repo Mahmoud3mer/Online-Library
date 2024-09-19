@@ -7,6 +7,9 @@ export class Author {
     name: string;
 
     @Prop({required: true})
+    image: string;
+
+    @Prop({required: true})
     bio: string;
 
 }
