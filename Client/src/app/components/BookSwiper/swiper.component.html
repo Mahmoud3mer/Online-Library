@@ -1,6 +1,7 @@
 
 <swiper-container 
     loop="true"
+    autoplay-delay="1500"
     navigation="true" 
     speed="100"
     [breakpoints] = "breakpoints"
@@ -10,7 +11,7 @@
             <app-book-card
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.coverImage"
-                    [bookCategory]="book.category"
+                    [bookCategory]="book.category.name"
                     [bookPrice]="book.price"
                     [bookRating]="book.averageRating"
                     [bookId]="book._id"

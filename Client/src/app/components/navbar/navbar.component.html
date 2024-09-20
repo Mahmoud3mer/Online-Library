@@ -123,7 +123,8 @@
   </div>
 </header>
 -->
-<header
+
+<!-- <header
   class="header navbar-area transition-mode"
   [ngClass]="{
     'dark-mode': isDarkMode,
@@ -132,14 +133,10 @@
     'fade-out': isFadeOut
   }"
 >
-<!-- <<<<<<< User-Settings1
-  <div class="topbar bg-[#081828] dark:bg-[#0a0a0a] py-2">
-======= -->
   <div class="topbar bg-[#eee] dark:bg-[#0a0a0a]">
-<!-- >>>>>>> master -->
+
     <div class="container mx-auto px-4 py-1">
       <div class="flex flex-wrap items-center justify-center gap-y-3">
-        <!-- First Column -->
         <div class="w-full lg:w-[25%] md:w-[25%] flex items-center justify-center md:justify-normal">
           <ul class="flex">
             <li>
@@ -164,7 +161,6 @@
           </ul>
         </div>
 
-        <!-- Second Column -->
         <div class="w-full lg:w-[50%] md:w-[50%] flex justify-center">
           <ul class="flex">
             <li>
@@ -206,11 +202,9 @@
           </ul>
         </div>
 
-        <!-- Third Column -->
         <div class="w-full lg:w-[25%] md:w-[25%] flex items-center justify-center md:justify-end"> 
           <ul class="flex items-center space-x-4">
             <li *ngIf="isLoggedIn">
-              <!-- User Dropdown -->
               <div class="relative z-50 me-4">
                 <button (click)="toggleDropdown()" class="flex items-center">
                   @if(profileImage){
@@ -278,4 +272,161 @@
       </div>
     </div>
   </div>
+</header> -->
+
+
+
+<header
+  class="header navbar-area transition-mode"
+  [ngClass]="{
+    'dark-mode': isDarkMode,
+    'light-mode': !isDarkMode,
+    'fade-in': isFadeIn,
+    'fade-out': isFadeOut
+  }"
+>
+  <div class="topbar bg-[#eee] dark:bg-[#0a0a0a]">
+    <div class="container mx-auto px-4 py-1">
+      <div class="flex items-center flex-wrap md:flex-nowrap justify-between gap-y-3">
+        <!-- First Column (Language & Dark Mode Toggle) -->
+        <div class="flex items-center space-x-4  order-2 md:order-none">
+          <ul class="flex">
+            <li>
+              <select
+                id="select5"
+                class="bg-[#eee] dark:bg-[#0a0a0a] dark:border-white dark:dark:text-white p-2 rounded outline-none"
+              >
+                @for (item of languages; track item){
+                <option value="0">{{ item }}</option>
+                }
+              </select>
+            </li>
+            <li>
+              <button
+                class="flex items-center dark:bg-[#0a0a0a] dark:dark:text-white p-3 rounded"
+                (click)="toggleDarkMode()"
+              >
+                <i class="fa-solid fa-sun text-xl" *ngIf="!isDarkMode"></i>
+                <i class="fa-solid fa-moon text-xl" *ngIf="isDarkMode"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Burger Icon for Mobile -->
+        <div class="md:hidden order-3 md:order-none">
+          <button (click)="toggleMobileMenu()" class="p-3 focus:outline-none">
+            <i class="fas fa-bars text-3xl dark:text-white"></i>
+          </button>
+        </div>
+
+        <!-- Links (Hidden on small screens) -->
+        <div
+          class="hidden md:flex justify-center items-center w-full order-3 md:order-none"
+          [ngClass]="{ 'block': isMobileMenuOpen, 'hidden': !isMobileMenuOpen }"
+        >
+          <ul class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
+            <li>
+              <a
+                routerLink="/home"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid items-center justify-center transition-colors duration-300"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                routerLink="/about"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
+              >
+                About Us
+              </a>
+            </li>
+            <li>
+              <a
+                routerLink="/contact"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
+              >
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a
+                routerLink="/books"
+                routerLinkActive="bg-blue-600 text-white rounded-md"
+                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
+              >
+                Books
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Third Column (User Profile and Login/Register) -->
+        <div class="flex items-center space-x-4 order-1 md:order-none">
+          <ul class="flex items-center space-x-4">
+            <li *ngIf="isLoggedIn">
+              <!-- User Dropdown -->
+              <div class="relative z-50">
+                <button (click)="toggleDropdown()" class="flex items-center">
+                  <img
+                    class="md:w-12 w-10 h-10 rounded-full object-cover"
+                    [src]="profileImage || '../../../assets/images/blank-profile-picture.webp'"
+                    alt="User Avatar"
+                  />
+                </button>
+                <div
+                  *ngIf="isDropdownOpen"
+                  class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 text-black dark:dark:text-white rounded-lg shadow-lg p-2 z-50"
+                >
+                  <a
+                    routerLink="/user-settings"
+                    routerLinkActive="text-blue-800 bg-blue-700"
+                    class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                  >
+                    <i class="fas fa-cog mr-2"></i> Settings
+                  </a>
+                  <a
+                    routerLink="/cart"
+                    routerLinkActive="text-blue-800 bg-blue-100"
+                    class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                  >
+                    <i class="fas fa-shopping-cart mr-2"></i> My Cart
+                  </a>
+                  <a
+                    (click)="logout()"
+                    class="block p-2 rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                  >
+                    <i class="fas fa-sign-out-alt mr-2"></i> Log Out
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li *ngIf="!isLoggedIn">
+              <a
+                routerLink="/signin"
+                routerLinkActive="text-dark bg-[#f9f9f9] dark:text-white dark:bg-[#0e2134]"
+                class="dark:text-white px-4 py-5 transition-colors duration-300"
+              >
+                <i class="fas fa-sign-in-alt mr-1"></i> Login
+              </a>
+            </li>
+            <li *ngIf="!isLoggedIn">
+              <a
+                routerLink="/signup"
+                routerLinkActive="text-white bg-slate-700 dark:bg-[#081828]"
+                class="dark:text-white px-3 py-5 rounded transition-colors duration-300"
+              >
+                <i class="fas fa-user-plus mr-1"></i> Register
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
+

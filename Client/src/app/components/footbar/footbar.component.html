@@ -2,7 +2,7 @@
 <!-- bg-[#081828] dark:bg-[#0a0a0a] -->
 <footer class="footer bg-[#081828] dark:bg-[#0a0a0a]">
   <!-- ! Start Footer Top -->
-  <div class="footer-top px-10 py-5">
+  <!-- <div class="footer-top px-10 py-5">
     <div class="mx-auto">
       <div class="inner-content flex flex-wrap gap-y-3 justify-center">
         <div class="basis-full md:basis-1/3">
@@ -45,12 +45,19 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--! End Footer Top -->
   <!--! Start Footer Middle -->
   <div class="px-20 flex justify-center">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-center">
+
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5 flex justify-center lg:justify-normal items-center">
+          <div>
+            <a href="index.html" class="text-white text-2xl"> Logo </a>
+          </div>
+        </div>
+
         <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5">
           <!-- Single Widget -->
           <div class="single-footer f-contact text-white">
@@ -67,17 +74,16 @@
             </ul>
             <p class="text-sm mt-2">
               <a href="mailto:support@shopgrids.com" class="hover:underline"
-                >supportshopgrids.com</a
+                >{{"support@shopgrids.com"}}</a
               >
             </p>
           </div>
           <!-- End Single Widget -->
         </div>
 
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
+        <!-- <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
           <div class="single-footer f-link px-5">
             <h3 class="font-semibold mb-4">We Accept</h3>
-            <!-- <ul class="text-sm text-gray-400"> -->
               <ul class="text-sm text-gray-400">
                 <li>
                   <i class="fa-brands fa-cc-paypal text-5xl hover:text-blue-600 hover:translate-x-1 duration-200 cursor-pointer"></i>
@@ -87,47 +93,7 @@
                 </li>
               </ul>
           </div>
-          <!-- End Single Widget -->
-        </div>
-
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
-          <div class="single-footer f-link px-5">
-            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
-            <!-- <ul class="text-sm text-gray-400"> -->
-              <ul class="text-sm text-gray-400">
-                <li>
-                  <a
-                    href="https://www.facebook.com/Andalosia.Book.Store?mibextid=ZbWKwL"
-                    [target]="'_blank'"
-                    class="text-gray-400 hover:text-white"
-                    ><i class="fab fa-facebook-f"></i
-                  ><span class="ms-2">facebook</span></a>
-                </li>
-                <li>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
-                    ><i class="fab fa-twitter"></i
-                  ><span class="ms-2">twitter</span></a>
-                </li>
-                <li>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
-                    ><i class="fab fa-instagram"></i
-                  ><span class="ms-2">instagram</span></a>
-                </li>
-                <li>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
-                    ><i class="fab fa-google"></i
-                  ><span class="ms-2">google</span></a>
-                </li>
-              </ul>
-          </div>
-          <!-- End Single Widget -->
-        </div>
+        </div> -->
 
         <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
           <div class="single-footer f-link px-5">
@@ -166,36 +132,48 @@
                 >
               </li>
               <li>
-                <!-- <a href="javascript:void(0)" class="hover:cursor-pointer"
-                  >Downloads</a
-                >
-              </li>
-              <li>
-                <a href="javascript:void(0)" class="hover:cursor-pointer"
-                  >Sitemap</a
-                >
-              </li>
-              <li>
-                <a href="javascript:void(0)" class="hover:cursor-pointer"
-                  >FAQs Page</a
-                > -->
               </li>
             </ul>
           </div>
-          <!-- End Single Widget -->
         </div>
-        <!-- <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-6">
-          <div class="single-footer f-link">
-            <h3 class="text-lg font-semibold mb-4">Shop Departments</h3>
-            <ul class="text-sm text-gray-400">
-              <li><a routerLink="/books">Books</a></li>
-              <li><a href="javascript:void(0)">Smartphones & Tablets</a></li>
-              <li><a href="javascript:void(0)">TV, Video & Audio</a></li>
-              <li><a href="javascript:void(0)">Cameras, Photo & Video</a></li>
-              <li><a href="javascript:void(0)">Headphones</a></li>
-            </ul>
+
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
+          <div class="single-footer f-link px-5">
+            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+              <ul class="text-sm text-gray-400">
+                <li>
+                  <a
+                    href="https://www.facebook.com/Andalosia.Book.Store?mibextid=ZbWKwL"
+                    [target]="'_blank'"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-facebook-f"></i
+                  ><span class="ms-2">facebook</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-twitter"></i
+                  ><span class="ms-2">twitter</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-instagram"></i
+                  ><span class="ms-2">instagram</span></a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="text-gray-400 hover:text-white"
+                    ><i class="fab fa-google"></i
+                  ><span class="ms-2">google</span></a>
+                </li>
+              </ul>
           </div>
-        </div> -->
+        </div>
+
       </div>
     </div>
   </div>
@@ -206,53 +184,10 @@
       <div
         class="flex flex-wrap justify-center items-center gap-y-5 text-center inner-content"
       >
-        <!-- <div
-          class="text-sm basis-[100%] lg:basis-1/3 flex-row md:flex-col flex-wrap justify-center gap-y-3"
-        >
-          <span class="mr-2 text-white">We Accept:</span>
-          <img
-            src="assets/images/footer/credit-cards-footer.png"
-            alt="#"
-            class="inline-block"
-          />
-        </div> -->
 
         <div class="text-gray-400 py-4 text-center">
           <p>&copy; 2024 Online Library. All rights reserved.</p>
         </div>
-        <!-- <div class="text-sm basis-[100%] lg:basis-1/3">
-          <ul class="flex space-x-4 justify-center">
-            <li><span class="text-white">Follow Us On:</span></li>
-            <li>
-              <a
-                href="javascript:void(0)"
-                class="text-gray-400 hover:text-white"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="javascript:void(0)"
-                class="text-gray-400 hover:text-white"
-                ><i class="fab fa-twitter"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="javascript:void(0)"
-                class="text-gray-400 hover:text-white"
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="javascript:void(0)"
-                class="text-gray-400 hover:text-white"
-                ><i class="fab fa-google"></i
-              ></a>
-            </li>
-          </ul>
-        </div> -->
       </div>
     </div>
   </div>
