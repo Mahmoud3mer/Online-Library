@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GetAllCategService } from '../../services/recommendation/get-all-categ.service';
 import { CreateRecommendationService } from '../../services/recommendation/create-recommendation.service'; // Updated service name
 import { ToastService } from '../../services/Toast/toast.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../services/category/category.service';
+import { CategoryInterface } from '../../interfaces/books.interface';
 
 @Component({
   selector: 'app-recommendation',
@@ -13,34 +14,46 @@ import { Router } from '@angular/router';
   imports:[CommonModule]
 })
 export class RecommendationComponent implements OnInit {
-  categories: any[] = [];
+  categories: CategoryInterface[] = [];
   selectedCategories: string[] = []; // Track selected category IDs
-
+  page: number = 1;
   constructor(
-    private _getCateg: GetAllCategService,
+    private _categoryService:CategoryService,
     private _recommendationService: CreateRecommendationService , 
     private _toast:ToastService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getAllCategories();
   }
-
-  getCategories(): void {
-    this._getCateg.getCategories().subscribe({
+  getAllCategories(): void {
+    this._categoryService.getAllCategory(this.page, 10).subscribe({
       next: (res) => {
-        console.log(res.data);
         this.categories = res.data;
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-        console.log('Categories fetched successfully');
+        console.log('Got All Categories');
       }
     });
   }
+  // getCategories(): void {
+  //   this._getCateg.getCategories().subscribe({
+  //     next: (res) => {
+  //       console.log(res.data);
+  //       this.categories = res.data;
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //     },
+  //     complete: () => {
+  //       console.log('Categories fetched successfully');
+  //     }
+  //   });
+  // }
 
   toggleCategorySelection(categoryId: string): void {
     const index = this.selectedCategories.indexOf(categoryId);

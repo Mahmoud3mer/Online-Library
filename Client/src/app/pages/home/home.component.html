@@ -18,6 +18,25 @@
     </div>
 </section>
 
+@if (recommendationBooks.length>0) {
+    <section class="bg-white dark:bg-[#081d31]">
+        <div class="trending-product section">
+            <div class="container mx-auto">
+                <div class="text-center section-title">
+                    <h2 class="text-3xl font-semibold dark:text-white">Recommended Books</h2>
+                    <p class="text-gray-600 mt-2 dark:text-gray-400">There are many variations of passages of Lorem Ipsum available, but the
+                        majority have suffered alteration in some form.</p>
+                </div>
+                <div>
+                    <app-swiper [Books]="recommendationBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+<!-- AUTHOR -->
 <section class="bg-white dark:bg-[#081d31]">
     <div class="trending-product section">
         <div class="container mx-auto">

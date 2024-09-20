@@ -59,7 +59,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
-  // starArray: number[] = [];
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['bookRating']) {

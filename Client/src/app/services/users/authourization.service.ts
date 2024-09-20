@@ -58,6 +58,9 @@ export class AuthourizationService {
     if (this.isBrowser) {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      localStorage.removeItem("numOfCartItems");
+      localStorage.removeItem("wishListCount");
+      localStorage.removeItem("cartBooks");
       this.loggedInUser.next("");
       this.router.navigate(["/signin"]);
     }
