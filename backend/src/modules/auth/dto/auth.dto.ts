@@ -102,8 +102,4 @@ export class UpdateUserDto {
   @MinLength(3)
   @MaxLength(8)
   password: string;
-
-  @IsOptional()
-  @IsString()
-  profilePic: string;
 }

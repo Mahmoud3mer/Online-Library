@@ -12,6 +12,7 @@ type UserTableProps = {
   email?: string;
   role?: string;
   phone?: string;
+ 
   moreDetails?: () => void;
   Edit?: () => void;
   Delete?: () => void;
@@ -24,6 +25,7 @@ const UserTable: React.FC<UserTableProps> = ({
   email,
   role,
   phone,
+ 
   moreDetails,
   Edit,
   Delete,
@@ -43,64 +45,57 @@ const UserTable: React.FC<UserTableProps> = ({
       console.log('Cancelled');
       setIsModalOpen(false);
     };
-  return (
-    <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
-      {image && (
-        <div className="col-span-1 flex items-center">
-          <div className="flex flex-col   sm:flex-row sm:items-center">
-              <div className=" w-15 rounded-md">
-                <img src={image} className="w-100" alt="Product" />
+  return (<>
+    <div className="grid grid-cols-6 border-t  border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
+    
+    <div className="col-span-3 flex items-center">
+              <div className="grid grid-cols-4 gap-4 sm:flex-row sm:items-center">
+                <div className="h-17 w-full rounded-md">
+                  <img src={image} alt={fName} className="h-full" />
+                </div>
+                <p className="col-span-3 text-sm text-black dark:text-white text-ellipsis overflow-hidden max-h-10 self-center pe-4">{fName+" "+lName}</p>
               </div>
-          </div>
-        </div>
-      )}
+            </div>
+    
 
-      {fName && (
-        <div className="col-span-1 hidden items-center sm:flex">
-            <p className="text-sm text-black dark:text-white">{fName}</p>
-        </div>
-      )}
-      {lName && (
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="text-sm text-black dark:text-white">{lName}</p>
-        </div>
-      )}
+      
+            <div className="col-span-1 hidden items-center sm:flex">
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{role}</p>
+            </div>
+    
+  
+ 
+            <div className="col-span-3 hidden items-center sm:flex">
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{email}</p>
+            </div>
+       
 
-      {email && (
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="text-sm text-black dark:text-white">{email}</p>
-        </div>
-      )}
+      
 
-      {role && (
-        <div className="col-span-1 flex items-center">
-          <p className="text-sm text-black dark:text-white">{role}</p>
-        </div>
-      )}
-
-      {phone && (
+      
         <div className="col-span-2 flex items-center">
-          <p className="text-sm text-black dark:text-white">{phone}</p>
+          <p className="text-sm text-black dark:text-white truncate overflow-hidden">{phone}</p>
         </div>
-      )}
+      
 
       <div className="col-span-1 flex items-center justify-between">
-        {moreDetails && (
+
           <span className="hover:cursor-pointer hover:bg-sky-600" onClick={moreDetails}>
             <FaEye size={20} className="hover:!text-blue-500" />
           </span>
-        )}
-        {Edit && (
+        
           <span className="hover:cursor-pointer hover:bg-sky-600" onClick={Edit}>
             <MdOutlineEditOff size={20} />
           </span>
-        )}
-        {Delete && (
+        
+        
           <span className="hover:cursor-pointer hover:bg-sky-600"   onClick={() => setIsModalOpen(true)}>
             <MdDeleteForever size={20} />
           </span>
-        )}
+      
       </div>
+      
+
 
 
       <ConfirmationModal
@@ -111,6 +106,9 @@ const UserTable: React.FC<UserTableProps> = ({
       />
 
     </div>
+
+      
+  </>
   );
 };
 
