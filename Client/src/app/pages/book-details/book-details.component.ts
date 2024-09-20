@@ -90,17 +90,17 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
   }
 
-  updateStarArray(): void {
-    const fullStars = Math.floor(this.bookRating);
-    const halfStar = this.bookRating % 1 !== 0;
+  // updateStarArray(): void {
+  //   const fullStars = Math.floor(this.bookRating);
+  //   const halfStar = this.bookRating % 1 !== 0;
 
-    this.starArray = Array(fullStars).fill(1);
-    if (halfStar) {
-      this.starArray.push(0.5);
-    }
-    const emptyStars = 5 - this.starArray.length;
-    this.starArray.push(...Array(emptyStars).fill(0));
-  }
+  //   this.starArray = Array(fullStars).fill(1);
+  //   if (halfStar) {
+  //     this.starArray.push(0.5);
+  //   }
+  //   const emptyStars = 5 - this.starArray.length;
+  //   this.starArray.push(...Array(emptyStars).fill(0));
+  // }
 
   decreaseBooks(){
     if (this.quantity < 1) {
@@ -331,16 +331,16 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
 
 
-  // updateStarArray(): void {
-  //   const fullStars = Math.floor(this.bookRating);
-  //   const halfStar = this.bookRating % 1 !== 0;
+  updateStarArray(): void {
+    const fullStars = Math.floor(this.bookRating);
+    const halfStar = this.bookRating % 1 !== 0;
 
-  //   this.starArray = Array(fullStars).fill(1);
-  //   if (halfStar) {
-  //     this.starArray.push(0.5);
-  //   }
-  //   const emptyStars = 5 - this.starArray.length;
-  //   this.starArray.push(...Array(emptyStars).fill(0));
-  // }
+    this.starArray = Array(fullStars).fill(1);
+    if (halfStar) {
+      this.starArray.push(0.5);
+    }
+    const emptyStars = 5 - this.starArray.length;
+    this.starArray.push(...Array(emptyStars).fill(0));
+  }
 }
   
