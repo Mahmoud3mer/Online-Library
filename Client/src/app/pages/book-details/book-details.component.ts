@@ -59,7 +59,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
-  starArray: number[] = [];
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['bookRating']) {
@@ -331,16 +331,16 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
 
 
-  updateStarArray(): void {
-    const fullStars = Math.floor(this.bookRating);
-    const halfStar = this.bookRating % 1 !== 0;
+  // updateStarArray(): void {
+  //   const fullStars = Math.floor(this.bookRating);
+  //   const halfStar = this.bookRating % 1 !== 0;
 
-    this.starArray = Array(fullStars).fill(1);
-    if (halfStar) {
-      this.starArray.push(0.5);
-    }
-    const emptyStars = 5 - this.starArray.length;
-    this.starArray.push(...Array(emptyStars).fill(0));
-  }
+  //   this.starArray = Array(fullStars).fill(1);
+  //   if (halfStar) {
+  //     this.starArray.push(0.5);
+  //   }
+  //   const emptyStars = 5 - this.starArray.length;
+  //   this.starArray.push(...Array(emptyStars).fill(0));
+  // }
 }
   

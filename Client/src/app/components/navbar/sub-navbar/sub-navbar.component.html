@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<header class="header navbar-area bg-white shadow-md sticky top-0 z-40">
+<header class="header navbar-area bg-white shadow-md sticky top-0 z-40 ">
   <div class="header-middle py-2">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <!-- Logo -->
@@ -45,83 +45,84 @@
         class="lg:w-1/4 md:w-1/4 w-1/2 flex items-center justify-end space-x-4 me-10 gap-x-5"
       >
         <!-- Wishlist -->
-        <div class="wishlist relative">
-          <a
-
-          routerLink="/wishlist"
-            class="text-gray-500 hover:text-gray-900 flex items-center space-x-1"
+        <div class="mr-4">
+          <a routerLink="/wishlist"
+            class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
           >
-            <i class="fa-regular fa-heart text-2xl"></i>
+            <i class="fa-regular fa-heart text-xl "></i>
             <span
-              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-15px] right-[-20px]"
-              >{{ numOfWishlistItems }}</span>
+              class="absolute -top-4 left-2 bg-gray-800 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs shadow-md"
+              >{{ numOfWishlistItems }}</span
+            >
           </a>
         </div>
         <!-- Cart Items -->
-        <div class="cart-items relative ml-4 group relative">
+        <div class="relative ml-4 group">
           <a
-          routerLink="/cart"
-            class="text-gray-500 hover:text-gray-900 flex items-center space-x-1"
+            routerLink="/cart"
+            class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
           >
             <i class="fa-solid fa-cart-shopping text-2xl"></i>
             <span
-              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-15px] right-[-20px]"
+              class="absolute -top-4 left-2 bg-gray-800 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs shadow-md"
               >{{ numOfCartItems }}</span
             >
           </a>
+         @if (cartBooks.length!=0) {
           <div
-            class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+          class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+        >
+          <div
+            class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
           >
-            <div
-              class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
-            >
-              <span>{{ totalItems }} Items</span>
-              <a routerLink="/cart">View Cart</a>
-            </div>
-            <ul class="shopping-list px-4 py-2 space-y-0">
-              <!-- Example item, repeat with server-side rendering -->
-              @for (book of carts; track $index) {
-              <li class="flex items-center border-b border-gray-300 py-2">
-                <a
-                  href="javascript:void(0)"
-                  class="remove text-gray-500 hover:text-gray-900"
-                  title="Remove this item"
-                  (click)="removeBookFromCart(book)"
-                >
-                  <i class="fa-solid fa-xmark"></i>
-                </a>
-                <div class="cart-img-head ml-2">
-                  <a class="cart-img" href="product-details.html">
-                    <img
-                      [src]="book.image"
-                      alt="Product Image"
-                      class="w-16 h-16 object-cover rounded-md"
-                    />
-                  </a>
-                </div>
-                <ul class="content ml-3">
-                  <h4>
-                    <a href="product-details.html" class="hover:underline">{{
-                      book.title
-                    }}</a>
-                  </h4>
-                  <p class="quantity text-gray-600 text-sm">
-                    {{ book.stock }}x -
-                    <span class="amount font-medium">${{ book.price }}</span>
-                  </p>
-                </ul>
-              </li>
-              }
-            </ul>
-
-            <div class="button">
-              <a
-                href="checkout.html"
-                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
-                >Checkout</a
-              >
-            </div>
+            <span>{{ numOfCartItems }} Items</span>
+            <a routerLink="/cart">View Cart</a>
           </div>
+          <ul class="shopping-list px-4 py-2 space-y-0">
+            <!-- Example item, repeat with server-side rendering -->
+            @for (item of cartBooks; track $index) {
+            <li class="flex items-center border-b border-gray-300 py-2">
+              <!-- <a
+                href="javascript:void(0)"
+                class="remove text-gray-500 hover:text-gray-900"
+                title="Remove this item"
+               
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </a> -->
+              <div class="cart-img-head ml-2 ">
+                <a class="cart-img">
+                  <img
+                    [src]="item.book.coverImage"
+                    alt="Product Image"
+                    class="w-16 h-16 object-cover rounded-md"
+                  />
+                </a>
+              </div>
+              <ul class="content ml-3">
+                <h4>
+                  <a href="product-details.html" class="hover:underline">{{
+                    item.book.title
+                  }}</a>
+                </h4>
+                <p class=" text-gray-600 text-sm">
+                 
+                  <span class="amount font-medium">${{ item.book.price }}</span>
+                </p>
+              </ul>
+            </li>
+            }
+          </ul>
+
+          <div class="button">
+            <a
+              href="checkout.html"
+              class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-full px-4 py-2 text-center block transition duration-150 ease-in-out"
+              >Checkout</a
+            >
+          </div>
+        </div>
+         }
         </div>
       </div>
     </div>

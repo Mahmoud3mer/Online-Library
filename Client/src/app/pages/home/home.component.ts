@@ -10,12 +10,21 @@ import { SwiperComponent } from '../../components/BookSwiper/swiper.component';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { HttpClient } from '@angular/common/http';
 import { DarkModeService } from '../../services/dark-mode/dark-mode.service';
+ 
+import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
+import { BooksByCategoriesService } from '../../services/recommendation/books-by-categories.service';
+ 
+ 
+ 
+ 
+ 
 import { SearchFilterBooksService } from '../../services/books/search-filter-books.service';
 import { CategoryService } from '../../services/category/category.service';
 import { AuthorService } from '../../services/author/author.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthorSwiperComponent } from '../../components/author-swiper/author-swiper.component';
 import { CategorySliderComponent } from '../../components/category-slider/category-slider.component';
+ 
 
 @Component({
   selector: 'app-home',
@@ -36,6 +45,12 @@ import { CategorySliderComponent } from '../../components/category-slider/catego
 
 export class HomeComponent {
   allBooks: BookInterface[] = [];
+ 
+  recommendationBooks:BookInterface[]=[];
+ 
+  page: number = 1;
+  limit: number = 60;
+ 
   topRatingBooks :  BookInterface[] = [];
   newBooks :  BookInterface[] = [];
   book!: BookInterface ;
@@ -49,6 +64,7 @@ export class HomeComponent {
   isBrowser: boolean = false;
   token: string | null = ''
 
+ 
       // ! for test (المحتوى هييي من اليوسر ك براميتر)
   // body = {
   //   title: "JS",
@@ -70,7 +86,12 @@ export class HomeComponent {
   // ! Test add book (in form data)
   // selectedFile: File | null = null;  // لتخزين الملف المختار
 
+ 
+
+
   constructor(
+    private _getUserRecommendation:GetUserRecommendationService,
+    private _getBooksByCateg:BooksByCategoriesService, 
     private _booksService: BooksService , 
     private _httpClient: HttpClient, 
     private _darkModeService: DarkModeService, 
@@ -83,8 +104,9 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.getBooks()
+    this.checkTokenAndFetchBooks();
     this.getAuthors()
+    this.getBooks();
     this.getTopRatingBooks()
     this.getNewBooks()
     this.getCategories()
@@ -97,7 +119,59 @@ export class HomeComponent {
         this.isLoggedIn = false
       }
     }
+
   }
+  
+  checkTokenAndFetchBooks(): void {
+    if(this.isBrowser){
+        const token = localStorage.getItem('token');
+    
+    if (token) {
+      // If a token exists, fetch recommendations
+      this.checkForRecommendations();
+    } 
+    }
+  
+  }
+
+  checkForRecommendations(): void {
+    this._getUserRecommendation.getRecommendation().subscribe({
+      next: (res) => {
+        if (res.data && res.data.recommendedCategories.length > 0) {
+          // Map the category IDs and join them into a comma-separated string
+          console.log(res.data.recommendedCategories);
+          
+          const categoryIds = res.data.recommendedCategories.map((category: CategoryInterface) => category._id).join(',');
+          console.log(categoryIds);
+          
+          this.getBooksByRecommendation(categoryIds); // Pass comma-separated category IDs
+        } 
+      },
+      error: (err) => {
+        console.log('Error fetching user recommendations:', err);
+        
+      }
+    });
+  }
+
+  getBooksByRecommendation(categoryIds: string): void {
+    this._getBooksByCateg.getBooksByRecommendation(this.page, this.limit, categoryIds).subscribe({
+      next: (res) => {
+        this.recommendationBooks = res.data; // Set books based on recommendations
+        console.log(res.data);
+        
+      },
+      error: (err) => {
+        console.log('Error fetching books by recommendation:', err);
+      }
+    });
+  }
+
+
+
+
+
+
 
   getBooks(){
     this._booksService.getAllBooks().subscribe({

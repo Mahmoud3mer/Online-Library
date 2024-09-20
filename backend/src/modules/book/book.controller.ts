@@ -24,6 +24,17 @@ export class BookController {
     return this._bookService.addNewBook(body, file);
   }
 
+   @Get('recommendations')
+  async getBooksByRecommendation(
+    @Query() paginationDTO: PaginationDTO,
+    @Query('categories') categories: string,
+  ) {
+    // Split the categories string into an array by commas
+    const categoryArray = categories ? categories.split(',').map(cat => cat.trim()) : [];
+    
+    return await this._bookService.getBooksByRecommendation(paginationDTO, categoryArray);
+  }
+
   @Get()
   getBooks(
     @Query() paginationDTO: PaginationDTO,
@@ -59,14 +70,5 @@ export class BookController {
   }
 
 
-  @Get('recommendations')
-  async getBooksByRecommendation(
-    @Query() paginationDTO: PaginationDTO,
-    @Query('categories') categories: string,
-  ) {
-    // Split the categories string into an array by commas
-    // const categoryArray = categories ? categories.split(',') : [];
 
-    return await this._bookService.getBooksByRecommendation(paginationDTO, categories);
-  }
 }

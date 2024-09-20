@@ -2,7 +2,6 @@ import {
     Injectable,
     NotFoundException,
     ConflictException,
-    UnauthorizedException,
   } from '@nestjs/common';
   import { InjectModel } from '@nestjs/mongoose';
   import { Model } from 'mongoose';
@@ -20,6 +19,13 @@ import {
       @InjectModel(Cart.name) private cartModel: Model<Cart>,
       @InjectModel(Book.name) private bookModel: Model<Book>,
     ) {}
+
+    calculateShipping(subtotal: number): number {
+      return subtotal < 500 ? 80 : 120;
+    }
+    calculateTotalOrder(subtotal: number, shippingCost: number): number {
+      return subtotal + shippingCost;
+    }
   
     async createCart(userDTO: UserDTO) {
       const { userId } = userDTO;
@@ -33,8 +39,9 @@ import {
       const newCart = new this.cartModel({
         user: userId,
         books: [],
-        totalPrice: 0,
+        subtotal: 0,
         numOfCartItems: 0,
+        totalOrder: 0,
       });
   
       await newCart.save();
@@ -44,8 +51,7 @@ import {
         data: newCart,
       };
     }
- 
-   
+    
     async getCartByUserId(userDTO: UserDTO) {
       const { userId } = userDTO;
 
@@ -65,13 +71,18 @@ import {
           cart = new this.cartModel({
               user: userId,
               books: [],
-              totalPrice: 0,
+              subtotal: 0,
               numOfCartItems: 0,
+              shippingCost:0,
+              totalOrder: 0,
           });
   
-          await cart.save();  
+       
+      }else{
+        cart.shippingCost = this.calculateShipping(cart.subtotal);
+        cart.totalOrder = this.calculateTotalOrder(cart.subtotal, cart.shippingCost);
       }
-  
+     await cart.save();  
       return {
           message: 'Cart retrieved successfully',
           data: cart,
@@ -92,8 +103,10 @@ import {
         cart = new this.cartModel({
           user: userId,
           books: [{ book: bookId, quantity: 1 }],
-          totalPrice: book.price,
+          subtotal: book.price,
           numOfCartItems: 1,
+          shippingCost: this.calculateShipping(book.price), 
+          totalOrder: this.calculateTotalOrder(book.price, this.calculateShipping(book.price))
         });
       } else {
         // Check if the book already exists in the cart
@@ -112,8 +125,10 @@ import {
           cart.books.push({ book: bookId, quantity: 1 });
           
           // Update total price and number of items
-          cart.totalPrice += book.price;
+          cart.subtotal += book.price;
           cart.numOfCartItems += 1;
+          cart.shippingCost = this.calculateShipping(cart.subtotal);
+          cart.totalOrder = this.calculateTotalOrder(cart.subtotal, cart.shippingCost);
         }
       }
     
@@ -137,7 +152,7 @@ import {
 
     
     async updateCartQuantity(updateDTO: UpdateDTO) {
-   
+    
       const { userId, bookId, quantity } = updateDTO;
         
       const cart = await this.cartModel.findOne({ user: userId });
@@ -147,7 +162,6 @@ import {
     
       const existingBook = cart.books.find(
         (book) => book.book.toString() === bookId.toString()
-   
       );
       if (!existingBook) {
         throw new NotFoundException('Book not found in cart');
@@ -171,20 +185,21 @@ import {
     })
  
      
-      let totalPrice = 0;
+      let subtotal = 0;
       let numOfCartItems = 0;
     
      
     for (const cartBook of cart.books) {
       const populatedBook = cartBook.book as Book; // Type assertion
-      totalPrice += populatedBook.price * cartBook.quantity;
+      subtotal += populatedBook.price * cartBook.quantity;
       numOfCartItems += cartBook.quantity;
     }
   
     
-      cart.totalPrice = totalPrice;
+      cart.subtotal = subtotal;
       cart.numOfCartItems = numOfCartItems;
-    
+      cart.shippingCost = this.calculateShipping(subtotal);
+      cart.totalOrder = this.calculateTotalOrder(subtotal, cart.shippingCost);
       await cart.save();
     
       return {
@@ -226,19 +241,20 @@ import {
         ]
     })
        
-      let totalPrice = 0;
+      let subtotal = 0;
       let numOfCartItems = 0;
     
       for (const item of cart.books) {
         const book = item.book as Book;  
-        totalPrice += book.price * item.quantity;
+        subtotal += book.price * item.quantity;
         numOfCartItems += item.quantity;
       }
     
       // Update the cart with the new totals
-      cart.totalPrice = totalPrice;
+      cart.subtotal = subtotal;
       cart.numOfCartItems = numOfCartItems;
-    
+      cart.shippingCost = this.calculateShipping(subtotal);
+      cart.totalOrder = this.calculateTotalOrder(subtotal, cart.shippingCost);
       // Save the updated cart
       await cart.save();
     
@@ -262,10 +278,10 @@ import {
   
       
       cart.books = [];
-      cart.totalPrice = 0;
+      cart.subtotal = 0;
       cart.numOfCartItems = 0;
-  
-      
+      cart.shippingCost = 0; 
+      cart.totalOrder = 0;
       await cart.save();
   
       return {

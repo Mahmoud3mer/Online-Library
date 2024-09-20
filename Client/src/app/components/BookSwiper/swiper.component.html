@@ -8,6 +8,7 @@
     @for (book of Books; track $index) {
         <swiper-slide>
             <app-book-card
+                    [bookId]="book._id"
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.coverImage"
                     [bookCategory]="book.category"
