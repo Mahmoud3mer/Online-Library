@@ -20,13 +20,13 @@ import { PaginationDTO } from '../book/bookdto/pagination.dto';
 @Controller('orders')
 @UseGuards(AuthGuard)
 export class OrderController {
-  constructor(private readonly _orderService: OrderService) { }
+  constructor(private readonly _orderService: OrderService) {}
 
   @Roles(Role.User)
   @Post()
-  createOrder(@Body() createOrderDto: any, @Req() req: any) {
+  async createOrder(@Body() createOrderDto: any, @Req() req: any) {
     const userId = req.user.userId;
-    return this._orderService.createOrder(createOrderDto, userId);
+    return await this._orderService.createOrder(createOrderDto, userId);
   }
 
   @Roles(Role.User)
@@ -56,15 +56,17 @@ export class OrderController {
 
   @Roles(Role.User)
   @Get()
-  async getAllOrders(@Req() req: any,@Query() paginationDTO : PaginationDTO) {
+  async getAllOrders(@Req() req: any, @Query() paginationDTO: PaginationDTO) {
     const userId = req.user.userId;
-    return this._orderService.getAllOrders(userId,paginationDTO);
+    return this._orderService.getAllOrders(userId, paginationDTO);
   }
-
 
   @Roles(Role.Admin)
   @Get('admin')
-  async getAllOrdersByAdmin(@Req() req: any,@Query() paginationDTO : PaginationDTO) {
+  async getAllOrdersByAdmin(
+    @Req() req: any,
+    @Query() paginationDTO: PaginationDTO,
+  ) {
     return this._orderService.getAllOrdersByAdmin(paginationDTO);
   }
 }

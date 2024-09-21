@@ -1,29 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { BookCardComponent } from '../../components/book-card/book-card.component';
-import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
-import { AuthorInterface, BookInterface, CategoryInterface } from '../../interfaces/books.interface';
-import { AllBooksStreamOfBooksService } from '../../services/books/all-books-stream-of-books.service';
-import { CategoryService } from '../../services/category/category.service';
-import { SearchFilterBooksService } from '../../services/books/search-filter-books.service';
-import { AuthorService } from '../../services/author/author.service';
-import { debounceTime, Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { BookCardComponent } from "../../components/book-card/book-card.component";
+import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
+import {
+  AuthorInterface,
+  BookInterface,
+  CategoryInterface,
+} from "../../interfaces/books.interface";
+import { AllBooksStreamOfBooksService } from "../../services/books/all-books-stream-of-books.service";
+import { CategoryService } from "../../services/category/category.service";
+import { SearchFilterBooksService } from "../../services/books/search-filter-books.service";
+import { AuthorService } from "../../services/author/author.service";
+import { debounceTime, Subject } from "rxjs";
+import { CommonModule } from "@angular/common";
 import { BooksGridListComponent } from "../../components/books-grid-list/books-grid-list.component";
 import { BooksListComponent } from "../../components/books-list/books-list.component";
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from "@angular/router";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 
-
 @Component({
-  selector: 'app-books',
+  selector: "app-books",
   standalone: true,
-  imports: [BookCardComponent, SubNavbarComponent, CommonModule, BooksGridListComponent, BooksListComponent, RouterLink, RouterLinkActive, PaginationComponent],
+  imports: [
+    BookCardComponent,
+    SubNavbarComponent,
+    CommonModule,
+    BooksGridListComponent,
+    BooksListComponent,
+    RouterLink,
+    RouterLinkActive,
+    PaginationComponent,
+  ],
 
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.scss']
+  templateUrl: "./books.component.html",
+  styleUrls: ["./books.component.scss"],
 })
 export class BooksComponent implements OnInit {
-
   metaData: any;
 
   allBooks: Array<BookInterface> = [];
@@ -31,40 +47,40 @@ export class BooksComponent implements OnInit {
   categories: Array<CategoryInterface> = [];
   authors: Array<AuthorInterface> = [];
   page: number = 1;
-  booksLimit: number = 3;
-  filteredCategory: string = '';
-  selectedCategory: string = '';
+  booksLimit: number = 10;
+  filteredCategory: string = "";
+  selectedCategory: string = "";
 
-  filteredAuthor: string = '';
-  selectedAuthor: string = ''
+  filteredAuthor: string = "";
+  selectedAuthor: string = "";
 
-  searchedTitle: string = '';
+  searchedTitle: string = "";
 
-  sortFor: string = '';
-  sortBy: string =''
-  selecetedSort = '';
-  currentView: string = 'grid';  // Default view
+  sortFor: string = "";
+  sortBy: string = "";
+  selecetedSort = "";
+  currentView: string = "grid"; // Default view
 
-  
   private searchSubject = new Subject<string>();
 
   constructor(
     private _categoryService: CategoryService,
     private _authorService: AuthorService,
     private _searchFilterBooksService: SearchFilterBooksService,
-    private route: ActivatedRoute, private router: Router
-
-  ) { }
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.searchSubject.pipe(debounceTime(300)).subscribe(searchTerm => {
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchTerm) => {
       this.onSearchFilter(searchTerm);
     });
     this.router.events.subscribe(() => {
-      const url = this.route.firstChild?.snapshot.url.map(segment => segment.path).join('');
-      this.currentView = url || 'grid';
+      const url = this.route.firstChild?.snapshot.url
+        .map((segment) => segment.path)
+        .join("");
+      this.currentView = url || "grid";
     });
-
 
     this.loadBooks();
     this.getAllCategories();
@@ -72,53 +88,50 @@ export class BooksComponent implements OnInit {
   }
 
   onSearchInputChange(event: Event): void {
-    event.preventDefault()
+    event.preventDefault();
     const inputElement = event.target as HTMLInputElement;
     const searchTerm = inputElement.value;
     this.searchSubject.next(searchTerm);
-
   }
   onFormSubmit(event: Event): void {
     event.preventDefault();
     this.loadBooks();
   }
 
-
   numberOfPages!: number;
 
   loadBooks(): void {
-    this._searchFilterBooksService.getFilteredBooks(
-      this.page, 
-      this.booksLimit,
-      this.filteredCategory.trim(),
-      this.filteredAuthor.trim(),
-      this.searchedTitle.trim(),
-      this.sortFor.trim(),
-      this.sortBy.trim()
-    ).subscribe({
-      next: (res) => {
-        console.log('API Response for page:', this.page, res);
+    this._searchFilterBooksService
+      .getFilteredBooks(
+        this.page,
+        this.booksLimit,
+        this.filteredCategory.trim(),
+        this.filteredAuthor.trim(),
+        this.searchedTitle.trim(),
+        this.sortFor.trim(),
+        this.sortBy.trim()
+      )
+      .subscribe({
+        next: (res) => {
+          console.log("API Response for page:", this.page, res);
 
-      this.filteredBooks = res.data;
-      this.allBooks = this.filteredBooks;
-      this.numberOfPages = res.metaData?.numberOfPages || 1;
-      this.page = res.metaData?.currentPage || this.page;
-            },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+          this.filteredBooks = res.data;
+          this.allBooks = this.filteredBooks;
+          this.numberOfPages = res.metaData?.numberOfPages || 1;
+          this.page = res.metaData?.currentPage || this.page;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 
   onPageChanged(newPage: number): void {
-    console.log('Page changed to:', newPage);
-    console.log('num of pages:', this.numberOfPages
-
-    );
+    console.log("Page changed to:", newPage);
+    console.log("num of pages:", this.numberOfPages);
     this.page = newPage;
     this.loadBooks();
   }
-  
 
   getAllCategories(): void {
     this._categoryService.getAllCategory(this.page, 5).subscribe({
@@ -129,8 +142,8 @@ export class BooksComponent implements OnInit {
         console.error(err);
       },
       complete: () => {
-        console.log('Got All Categories');
-      }
+        console.log("Got All Categories");
+      },
     });
   }
 
@@ -143,18 +156,19 @@ export class BooksComponent implements OnInit {
         console.error(err);
       },
       complete: () => {
-        console.log('Got All Authors');
-      }
+        console.log("Got All Authors");
+      },
     });
   }
 
-  onFilterSelect(categoryId: string = '', authorId: string = '', searchByTitle: string = ''): void {
-    if (categoryId)
-      this.filteredCategory = categoryId;
-    if (authorId)
-      this.filteredAuthor = authorId;
-    if (searchByTitle)
-      this.searchedTitle = searchByTitle;
+  onFilterSelect(
+    categoryId: string = "",
+    authorId: string = "",
+    searchByTitle: string = ""
+  ): void {
+    if (categoryId) this.filteredCategory = categoryId;
+    if (authorId) this.filteredAuthor = authorId;
+    if (searchByTitle) this.searchedTitle = searchByTitle;
 
     this.page = 1;
     this.loadBooks();
@@ -162,8 +176,8 @@ export class BooksComponent implements OnInit {
 
   onCategoryFilter(categoryId: string): void {
     if (this.filteredCategory === categoryId) {
-      this.filteredCategory = '';
-      this.selectedCategory = '';
+      this.filteredCategory = "";
+      this.selectedCategory = "";
     } else {
       this.filteredCategory = categoryId;
       this.selectedCategory = categoryId;
@@ -172,11 +186,10 @@ export class BooksComponent implements OnInit {
     this.loadBooks();
   }
 
-
   onAuthorFilter(authorId: string): void {
     if (this.filteredAuthor === authorId) {
-      this.selectedAuthor = '';
-      this.filteredAuthor = '';
+      this.selectedAuthor = "";
+      this.filteredAuthor = "";
     } else {
       this.selectedAuthor = authorId;
       this.filteredAuthor = authorId;
@@ -185,9 +198,8 @@ export class BooksComponent implements OnInit {
   }
 
   onSearchFilter(searchByTitle: string): void {
-    if (searchByTitle.trim() === '') {
-
-      this.searchedTitle = ''
+    if (searchByTitle.trim() === "") {
+      this.searchedTitle = "";
     } else {
       this.searchedTitle = searchByTitle;
     }
@@ -198,51 +210,47 @@ export class BooksComponent implements OnInit {
   }
 
   sortByPopularity() {
-    this.sortFor = 'averageRating'
-    this.sortBy = 'asc'
-    this.loadBooks()
+    this.sortFor = "averageRating";
+    this.sortBy = "asc";
+    this.loadBooks();
   }
   sortByAtoZ() {
-    this.sortFor = 'title'
-    this.sortBy = 'asc'
-    this.loadBooks()
-
+    this.sortFor = "title";
+    this.sortBy = "asc";
+    this.loadBooks();
   }
   sortByZtoA() {
-    this.sortFor = 'title'
-    this.sortBy = 'desc'
-    this.loadBooks()
-
+    this.sortFor = "title";
+    this.sortBy = "desc";
+    this.loadBooks();
   }
   sortByLowToHigh() {
-    this.sortFor = 'price'
-    this.sortBy = 'asc'
-    this.loadBooks()
-
+    this.sortFor = "price";
+    this.sortBy = "asc";
+    this.loadBooks();
   }
   sortByHighToLow() {
-    this.sortFor = 'price'
-    this.sortBy = 'desc'
-    this.loadBooks()
-
+    this.sortFor = "price";
+    this.sortBy = "desc";
+    this.loadBooks();
   }
 
   onSortChange(event: Event): void {
     const selectedValue = (event.target as HTMLSelectElement).value;
     switch (selectedValue) {
-      case 'popularity':
+      case "popularity":
         this.sortByPopularity();
         break;
-      case 'atoz':
+      case "atoz":
         this.sortByAtoZ();
         break;
-      case 'ztoa':
+      case "ztoa":
         this.sortByZtoA();
         break;
-      case 'lowhigh':
+      case "lowhigh":
         this.sortByLowToHigh();
         break;
-      case 'highlow':
+      case "highlow":
         this.sortByHighToLow();
         break;
     }
