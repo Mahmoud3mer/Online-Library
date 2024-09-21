@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { CartCountService } from '../../../services/cart/CartCount.service';
 import { WishListCountService } from '../../../services/wishlist/wish-list-count.service';
-
 @Component({
   selector: 'app-sub-navbar',
   standalone: true,
@@ -23,7 +22,7 @@ export class SubNavbarComponent implements OnInit{
       this.numOfCartItems = count;
     });
     this._wishlistCount.wishlistCount$.subscribe(count=>{
-       this.numOfWishlistItems=count;
+        this.numOfWishlistItems=count;
     })
   }
 
@@ -47,7 +46,6 @@ export class SubNavbarComponent implements OnInit{
 
 
 
- 
 
   calcTotalPrice(){
     this.totalPrice = 0;

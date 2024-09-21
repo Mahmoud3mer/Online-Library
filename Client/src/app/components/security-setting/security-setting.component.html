@@ -1,15 +1,15 @@
 <div class="p-2 md:p-4">
     <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
-        <h2 class="pl-6 text-2xl font-bold sm:text-xl">Password information</h2>
+        <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">Password information</h2>
 
         <div class="grid max-w-2xl mx-auto">
             <form [formGroup]="passwordInfoForm">
                 <div class="items-center sm:mt-14 text-[#202142]">
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Current password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Current password</label>
                         <input type="password" id="current-password" name="current-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="currentPassword"
                             required>
@@ -20,9 +20,9 @@
 
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">New password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">New password</label>
                         <input type="password" id="new-password" name="new-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="newPassword"
                             required>
@@ -38,9 +38,9 @@
 
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Confirm password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Confirm password</label>
                         <input type="password" id="confirm-password" name="confirm-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="confirmPassword"
                             required>

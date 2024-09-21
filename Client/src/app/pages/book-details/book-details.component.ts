@@ -9,6 +9,7 @@ import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { jwtDecode } from "jwt-decode";
 import { ReviewInterface } from '../../interfaces/review.interface';
+import { StarsLoopComponent } from '../../components/stars-loop/stars-loop.component';
 
 interface DecodedToken {
   userId: string;
@@ -16,7 +17,7 @@ interface DecodedToken {
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent],
+  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss'
 }) 
@@ -73,10 +74,15 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     this.getBookFromDb()
     this.getReviewsFromDb()
     this.updateStarArray()
+
   }
 
 ngOnChanges(changes: SimpleChanges): void {
   this.updateStarArray()
+  
+  if (changes['bookRating']) {
+    this.updateStarArray();
+  }
 }
 
 
@@ -98,6 +104,7 @@ ngOnChanges(changes: SimpleChanges): void {
     }else{
       this.quantity -= 1;
     }
+    
     
   }
 
@@ -197,6 +204,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this._reviewService.addReview(reviewData).subscribe({
       next: (res) => {
         // console.log(this.reviewForm.value)
+        
         console.log(res.addedReview[0])
         this.reviewsPagination.push(res.addedReview[0]);
         // this.reviewForm.reset();
@@ -309,6 +317,8 @@ ngOnChanges(changes: SimpleChanges): void {
     this.updateStarArray()
     this.isUpdaiting = false
     this.reviewForm.reset();
+    // console.log(this.reviewForm.value);
+    
   }
 
   calcLengthComment(){
