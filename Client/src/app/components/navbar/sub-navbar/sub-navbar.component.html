@@ -1,19 +1,21 @@
 <!-- Navbar -->
 <header class="header navbar-area bg-white shadow-md sticky top-0 z-40 ">
   <div class="header-middle py-2">
-    <div class="container mx-auto px-4 flex items-center justify-between">
+    <div class="container mx-auto px-4 flex items-center justify-between flex-wrap md:flex-nowrap gap-y-2">
       <!-- Logo -->
-      <div class="lg:w-1/4 md:w-1/4 w-1/2">
+
+      <div class="w-1/2 md:w-1/4 order-1">
         <a
           class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight"
-          href="index.html"
+          routerLink="/home"
         >
-          Logo
+          <img src="../../../../assets/images/logo/photo_2024-09-21_15-02-33.jpg" class="h-20 w-48" alt="">
         </a>
       </div>
 
       <div
-        class="lg:w-1/2 md:w-1/2 hidden md:flex items-center space-x-4 bg-white rounded px-4 py-2"
+
+        class="w-full md:w-1/2 order-3 md:order-2 flex items-center space-x-4 bg-white rounded px-4 py-2"
       >
         <div class="search-select bg-white">
           <select
@@ -42,29 +44,31 @@
 
       <!-- Wishlist and Cart Items Positioned to the Right -->
       <div
-        class="lg:w-1/4 md:w-1/4 w-1/2 flex items-center justify-end space-x-4 me-10 gap-x-5"
+
+        class="w-1/2 md:w-1/4 flex items-center justify-end space-x-4 gap-x-5 order-2 md:order-3"
       >
         <!-- Wishlist -->
-        <div class="mr-4">
-          <a routerLink="/wishlist"
-            class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
+        <div class="wishlist relative">
+          <a
+          routerLink="/wishlist"
+            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+
           >
-            <i class="fa-regular fa-heart text-xl "></i>
+            <i class="fa-regular fa-heart text-2xl"></i>
             <span
-              class="absolute -top-4 left-2 bg-gray-800 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs shadow-md"
-              >{{ numOfWishlistItems }}</span
-            >
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
+              >{{ numOfWishlistItems }}</span>
           </a>
         </div>
         <!-- Cart Items -->
-        <div class="relative ml-4 group">
+        <div class="cart-items relative ml-4 group relative">
           <a
             routerLink="/cart"
             class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
           >
             <i class="fa-solid fa-cart-shopping text-2xl"></i>
             <span
-              class="absolute -top-4 left-2 bg-gray-800 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs shadow-md"
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
               >{{ numOfCartItems }}</span
             >
           </a>
@@ -82,14 +86,7 @@
             <!-- Example item, repeat with server-side rendering -->
             @for (item of cartBooks; track $index) {
             <li class="flex items-center border-b border-gray-300 py-2">
-              <!-- <a
-                href="javascript:void(0)"
-                class="remove text-gray-500 hover:text-gray-900"
-                title="Remove this item"
-               
-              >
-                <i class="fa-solid fa-xmark"></i>
-              </a> -->
+          
               <div class="cart-img-head ml-2 ">
                 <a class="cart-img">
                   <img
@@ -113,13 +110,13 @@
             </li>
             }
           </ul>
-
-          <div class="button">
-            <a
-              href="checkout.html"
-              class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-full px-4 py-2 text-center block transition duration-150 ease-in-out"
-              >Checkout</a
-            >
+            <div class="button">
+              <a
+                href="checkout.html"
+                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
+                >View Cart</a
+              >
+            </div>
           </div>
         </div>
          }

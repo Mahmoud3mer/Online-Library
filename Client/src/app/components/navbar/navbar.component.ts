@@ -38,6 +38,8 @@ export class NavbarComponent implements OnInit {
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
 
+  isMobileMenuOpen: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
     private _darkModeService: DarkModeService,
@@ -112,7 +114,14 @@ export class NavbarComponent implements OnInit {
   logout() {
     this._authorizationService.logOut();
   }
+
+  toggleMobileMenu() {
+  this.isMobileMenuOpen = !this.isMobileMenuOpen;
 }
+}
+
+
+
 
 // Darkmode without animation
 // toggleDarkMode() {

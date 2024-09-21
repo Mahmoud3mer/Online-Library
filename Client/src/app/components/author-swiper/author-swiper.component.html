@@ -3,9 +3,16 @@
     speed="100"
     autoplay-delay="2000" 
     class="w-full h-full"
-    effect="coverflow" grab-cursor="true" centered-slides="true"
-    coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
-    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" pagination="true"
+    effect="coverflow" 
+    grab-cursor="true" 
+    [centeredSlides]="true"
+    loop="true"
+    coverflow-effect-rotate="50" 
+    coverflow-effect-stretch="0" 
+    coverflow-effect-depth="100"
+    coverflow-effect-modifier="1" 
+    coverflow-effect-slide-shadows="true" 
+    pagination="true"
     
 >
     @for (author of authors; track author.id) {

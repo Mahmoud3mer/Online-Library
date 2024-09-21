@@ -92,11 +92,7 @@
                     </div>
                 </div>
                 <div class="mb-2">
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
+                    <app-stars-loop [rating]="review.rating"></app-stars-loop>
                 </div>
                 <p class="mb-3 text-gray-500">"{{review.comment}}"</p>
             </div>
@@ -125,13 +121,7 @@
     @if(isLoggedIn){
         <div  class="px-5 py-6">
             <h3 class="text-xl font-semibold mb-5 dark:text-white underline">Add Your Review</h3>
-                <!-- <div class="mb-2 text-xl">
-                    <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                    <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                    <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                    <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                    <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer"></i>
-                </div> -->
+        
             <form action="" [formGroup]="reviewForm">
                 <textarea 
                     name="review" 
@@ -163,12 +153,3 @@
     <app-confirmation-dialog   (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
 }
 
-<!-- 
-<div class="rating">
-    <input type="radio" name="rating-1" class="mask mask-star" />
-    <input type="radio" name="rating-1" class="mask mask-star" checked="checked" />
-    <input type="radio" name="rating-1" class="mask mask-star" />
-    <input type="radio" name="rating-1" class="mask mask-star" />
-    <input type="radio" name="rating-1" class="mask mask-star" />
-</div>
- -->

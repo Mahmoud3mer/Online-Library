@@ -9,22 +9,16 @@ import { BookInterface, CategoryInterface } from '../../interfaces/books.interfa
 import { SwiperComponent } from '../../components/BookSwiper/swiper.component';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { HttpClient } from '@angular/common/http';
-import { DarkModeService } from '../../services/dark-mode/dark-mode.service';
- 
+import { DarkModeService } from '../../services/dark-mode/dark-mode.service'; 
 import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
 import { BooksByCategoriesService } from '../../services/recommendation/books-by-categories.service';
- 
- 
- 
- 
- 
 import { SearchFilterBooksService } from '../../services/books/search-filter-books.service';
 import { CategoryService } from '../../services/category/category.service';
 import { AuthorService } from '../../services/author/author.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthorSwiperComponent } from '../../components/author-swiper/author-swiper.component';
 import { CategorySliderComponent } from '../../components/category-slider/category-slider.component';
- 
+
 
 @Component({
   selector: 'app-home',
@@ -49,8 +43,8 @@ export class HomeComponent {
   recommendationBooks:BookInterface[]=[];
  
   page: number = 1;
-  limit: number = 60;
- 
+  limit: number = 6;
+
   topRatingBooks :  BookInterface[] = [];
   newBooks :  BookInterface[] = [];
   book!: BookInterface ;
@@ -59,38 +53,17 @@ export class HomeComponent {
   categories: CategoryInterface[] = [];
   authors: any = []
 
+
+
+
   // To hide call section logged in
   isLoggedIn: boolean = false;
   isBrowser: boolean = false;
   token: string | null = ''
 
- 
-      // ! for test (المحتوى هييي من اليوسر ك براميتر)
-  // body = {
-  //   title: "JS",
-  //   price: 250,
-  //   publishedDate: new Date(),
-  //   image: "../../../assets/images/download.jfif",
-  //   description: "llllllllllllllllllllllll",
-  //   category: "any",
-  //   rating: 3.5,
-  //   pages: 350,
-  //   authorId: "66d62249018d3485209bbcdf",
-  //   stock: 25,
-  // };
-
-  // For swiper
-
-
-
-  // ! Test add book (in form data)
-  // selectedFile: File | null = null;  // لتخزين الملف المختار
-
- 
-
 
   constructor(
-    private _getUserRecommendation:GetUserRecommendationService,
+      private _getUserRecommendation:GetUserRecommendationService,
     private _getBooksByCateg:BooksByCategoriesService, 
     private _booksService: BooksService , 
     private _httpClient: HttpClient, 
@@ -107,6 +80,7 @@ export class HomeComponent {
     this.checkTokenAndFetchBooks();
     this.getAuthors()
     this.getBooks();
+
     this.getTopRatingBooks()
     this.getNewBooks()
     this.getCategories()
@@ -165,6 +139,7 @@ export class HomeComponent {
         console.log('Error fetching books by recommendation:', err);
       }
     });
+
   }
 
 
@@ -260,53 +235,9 @@ export class HomeComponent {
             console.log("Get authors completed.");
           }
     })
-    // this._httpClient.get(`assets/author.json`).subscribe({
-    //   next: (res) => {
-    //     // console.log(res);
-    //     this.authors = res
-    //   },
-    //   error: (err) => {
-    //     console.log("Error: " + err);
-    //   },
-    //   complete: () =>{
-    //     console.log("Get books completed.");
-    //   }
-    // })
+  
   }
 
 
-  // ! Test add book (in form data)
-  // onFileSelected(event: any) {
-  //   this.selectedFile = event.target.files[0];  // تخزين الملف المختار
-  // }
-
-
-  // addMyBook(){
-  //   this.addBook()
-  // }
-
-  // addBook(){
-  //   const formData = new FormData();
-  //   // إضافة بيانات الكتاب إلى الـ formData
-  //   Object.keys(this.body).forEach(key => {
-  //     formData.append(key, (this.body as any)[key]);
-  //   });
-  //   // إضافة الصورة إذا كانت موجودة
-  //   if (this.selectedFile) {
-  //     formData.append('image', this.selectedFile, this.selectedFile.name);
-  //   }
-
-  //   this._addBooksService.addNewBook(formData).subscribe({
-  //     next: (res) => {
-  //       console.log(res.data);
-  //       this.allBooks = res.data
-  //     },
-  //     error: (err) => {
-  //       console.log("Error: " + err);
-  //     },
-  //     complete: () =>{
-  //       console.log("Added book completed.");
-  //     }
-  //   })
-  // }
+  
 }

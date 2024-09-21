@@ -1,12 +1,21 @@
 
-<swiper-container class="mySwiper" loop="true" autoplay-delay="1500" pagination="true" pagination-clickable="true" space-between="30" effect="fade">
+<swiper-container class="mySwiper" 
+    loop="true"
+    autoplay-delay="1000"
+    speed="150"
+    pagination="true"
+    pagination-clickable="true"
+    [breakpoints] = "breakpoints"
+    >
     @for (categorie of categories; track $index) {
         <swiper-slide class="relative">
             <img src="../../../assets/images/hero/6920933.jpg" class="w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black opacity-30"></div>
-            <p class="absolute text-white text-3xl hover:text-blue-500 font-semibold bottom-10 left-1/2 translate-x-[-50%] z-10">
+
+            <p class="absolute text-white text-2xl hover:text-blue-500 font-semibold bottom-10 left-1/2 translate-x-[-50%] z-10">
                 {{ categorie.name }}
             </p>
         </swiper-slide>
     }
+
 </swiper-container>

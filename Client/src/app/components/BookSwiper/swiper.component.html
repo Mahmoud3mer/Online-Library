@@ -1,9 +1,19 @@
 
 <swiper-container 
     loop="true"
+    autoplay-delay="2000"
     navigation="true" 
-    speed="100"
+    speed="1000"
     [breakpoints] = "breakpoints"
+    effect="coverflow" 
+    grab-cursor="true" 
+    centered-slides="true"
+    coverflow-effect-rotate="0" 
+    coverflow-effect-stretch="80" 
+    coverflow-effect-depth="200"
+    coverflow-effect-modifier="1" 
+    coverflow-effect-slide-shadows="true"
+    slides-preview="auto"
 >
     @for (book of Books; track $index) {
         <swiper-slide>
@@ -11,7 +21,7 @@
                     [bookId]="book._id"
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.coverImage"
-                    [bookCategory]="book.category"
+                    [bookCategory]="book.category.name"
                     [bookPrice]="book.price"
                     [bookRating]="book.averageRating"
                     [bookId]="book._id"
@@ -19,4 +29,6 @@
         </swiper-slide>
     }
 
+
 </swiper-container>
+
