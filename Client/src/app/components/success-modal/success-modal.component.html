@@ -1,0 +1,28 @@
+<div
+  *ngIf="isVisible"
+  class="fixed inset-0 flex items-center justify-center z-50"
+>
+  <div
+    class="overlay fixed inset-0 bg-black opacity-50"
+    (click)="closeModal()"
+  ></div>
+  <div
+    class="modal-box bg-white rounded-lg shadow-lg p-8 relative max-w-md mx-auto"
+  >
+    <!-- Adjusted max width and padding -->
+    <i class="fa-regular fa-circle-check text-green-500 text-6xl"></i>
+    <!-- Increased icon size -->
+    <h2 class="text-2xl font-bold mt-4">Completed</h2>
+    <!-- Increased title size -->
+    <h3 class="mt-2 text-lg">Payment completed successfully!</h3>
+    <!-- Increased text size -->
+    <div class="mt-4">
+      <button
+        class="close-btn bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition"
+        (click)="closeModal()"
+      >
+        Ok, Close
+      </button>
+    </div>
+  </div>
+</div>

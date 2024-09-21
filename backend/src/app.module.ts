@@ -12,6 +12,7 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { RecommendationModule } from './modules/recommendation/recommendation.module';
 import { CategoryModule } from './modules/category/category.module';
 import { AuthorModule } from './modules/author/author.module';
+import { PaymentBackendModule } from './modules/payment-backend/payment-backend.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -28,6 +29,7 @@ import { join } from 'path';
     RecommendationModule,
     CategoryModule,
     AuthorModule,
+    PaymentBackendModule
 
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'), // هذا هو مجلد "uploads"

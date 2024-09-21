@@ -1,16 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export class OrderItem {
+  @Prop({ required: true })
+  title: string;
+
+  @Prop({ required: true })
+  author: string;
+
+  @Prop({ required: true })
+  coverImage: string;
+
+  @Prop({ required: true })
+  quantity: number;
+
+  @Prop({ required: true })
+  price: number;
+}
+
 // Define the schema
 @Schema({ versionKey: false })
 export class Order {
-  @Prop({ required: true })
-  shippingAddress: string;
-
   @Prop({ unique: true })
   orderId: string;
 
   @Prop({ required: true })
-  bookId: string;
+  shippingAddress: string;
 
   @Prop({ required: true })
   userId: string;
@@ -19,19 +33,13 @@ export class Order {
   orderDate: string;
 
   @Prop({ required: true })
-  totalAmount: number;
+  totalPrice: number;
 
   @Prop({ enum: ['Pending', 'Completed', 'Failed'], required: true })
   paymentStatus: 'Pending' | 'Completed' | 'Failed';
+
+  @Prop({ type: [OrderItem], required: true })
+  items: OrderItem[];
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
-
-// Pre-save  to generate unique order ID and order date when a new order is created
-OrderSchema.pre('save', function (next) {
-  if (this.isNew) {
-    this.orderId = this._id.toString();
-    this.orderDate = new Date().toLocaleString();
-  }
-  next();
-});

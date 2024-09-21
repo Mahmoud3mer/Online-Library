@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate {
           HttpStatus.FORBIDDEN,
         );
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // Catch any errors during token verification
       throw new HttpException(

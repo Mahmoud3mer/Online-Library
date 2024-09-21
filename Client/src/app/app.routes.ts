@@ -22,6 +22,8 @@ import { ForgotPasswordComponent } from "./pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from "./pages/reset-password/reset-password/reset-password.component";
 import { StreamEventComponent } from './pages/stream-event/stream-event.component';
 import { SecuritySettingComponent } from './components/security-setting/security-setting.component';
+import { PaymentComponent } from "./pages/payment/payment.component";
+
 
 export const routes: Routes = [
   {
@@ -42,19 +44,24 @@ export const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'book-details/:id',
-    component: BookDetailsComponent
+    path: "payment",
+    component: PaymentComponent,
+  },
+  {
+    path: "book-details/:id",
+    component: BookDetailsComponent,
   },
   {
     path: "books",
     component: BooksComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'grid',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "grid",
+        pathMatch: "full",
       },
       {
+
         path: 'grid',
         component: BooksGridListComponent,
       },
@@ -77,11 +84,11 @@ export const routes: Routes = [
     component: WishlistComponent,
   },
   {
-    path: 'recommendation',
+    path: "recommendation",
     component: RecommendationComponent,
   },
   {
-    path: 'signin',
+    path: "signin",
     component: SigninComponent,
   },
   {

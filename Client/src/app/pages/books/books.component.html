@@ -1,42 +1,56 @@
 <app-sub-navbar></app-sub-navbar>
 
-<div class="bg-[#f9f9f9] dark:bg-[#081d31] py-24 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2">
-
+<div
+  class="bg-[#f9f9f9] dark:bg-[#081d31] py-24 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2"
+>
   <div class="">
     <div class="grid xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-
-
       <aside class="grid gap-7 h-fit">
-        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded  p-7">
+        <div
+          class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
+        >
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Search Product</h5>
 
-
-          <form (submit)="onFormSubmit($event)" class="max-w-md mx-auto ">
-            <label for="default-search"
-              class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <form (submit)="onFormSubmit($event)" class="max-w-md mx-auto">
+            <label
+              for="default-search"
+              class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              >Search</label
+            >
             <div class="relative">
-              <input (input)="onSearchInputChange($event)" type="search" id="default-search"
+              <input
+                (input)="onSearchInputChange($event)"
+                type="search"
+                id="default-search"
                 class="block w-full py-3 pe-8 ps-4 text-md text-gray-900 border border-gray-300 rounded dark:bg-[#081d31] dark:text-gray-300 focus:outline-none"
-                placeholder="Search Here ..." style="appearance: none;" />
-              <button type="submit" class="text-gray-600 absolute end-1 bottom-2 text-sm p-2">
+                placeholder="Search Here ..."
+                style="appearance: none"
+              />
+              <button
+                type="submit"
+                class="text-gray-600 absolute end-1 bottom-2 text-sm p-2"
+              >
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
           </form>
         </div>
 
-        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded  p-7">
+        <div
+          class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
+        >
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">All Categories</h5>
           @for (category of categories; track $index) {
-          <p (click)="onCategoryFilter(category._id)"
-            [ngClass]="{'bg-gray-200 dark:bg-gray-700': selectedCategory === category._id}"
-            class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer">
-            {{category.name}}
+          <p
+            (click)="onCategoryFilter(category._id)"
+            [ngClass]="{
+              'bg-gray-200 dark:bg-gray-700': selectedCategory === category._id
+            }"
+            class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer"
+          >
+            {{ category.name }}
           </p>
           }
-
-
-
         </div>
         <!-- <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Price Range</h5>
@@ -51,29 +65,40 @@
           </div>
 
         </div> -->
-        <div class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7">
-          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Filter By Author</h5>
+        <div
+          class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
+        >
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">
+            Filter By Author
+          </h5>
           @for (author of authors; track $index) {
-          <p (click)="onAuthorFilter(author._id)"
-            [ngClass]="{'bg-gray-200 dark:bg-gray-700': selectedAuthor === author._id}"
-            class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer">
-            {{author.name}}
+          <p
+            (click)="onAuthorFilter(author._id)"
+            [ngClass]="{
+              'bg-gray-200 dark:bg-gray-700': selectedAuthor === author._id
+            }"
+            class="py-2 px-2 mb-3 text-gray-500 dark:text-gray-400 cursor-pointer"
+          >
+            {{ author.name }}
           </p>
           }
-
         </div>
       </aside>
 
-
-      <section class="xs:grid-cols-1 md:col-span-2 lg:col-span-3 ">
+      <section class="xs:grid-cols-1 md:col-span-2 lg:col-span-3">
         <div
-          class="flex bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-4 items-center justify-between">
-
-          <form (ngSubmit)="$event.preventDefault()" class="max-w-sm mx-3 flex items-center">
+          class="flex bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-4 items-center justify-between"
+        >
+          <form
+            (ngSubmit)="$event.preventDefault()"
+            class="max-w-sm mx-3 flex items-center"
+          >
             <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
-            <select (change)="onSortChange($event)" id="filter-select"
-
-              class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200">
+            <select
+              (change)="onSortChange($event)"
+              id="filter-select"
+              class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200"
+            >
               <option value="popularity">Popularity</option>
               <option value="atoz">A-Z Order</option>
               <option value="ztoa">Z-A Order</option>
@@ -81,27 +106,29 @@
               <option value="highlow">High - Low Price</option>
             </select>
           </form>
-          
-
 
           <div>
-            <a routerLink="grid" routerLinkActive="bg-blue-500 text-white border-none"
-              class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer">
+            <a
+              routerLink="grid"
+              routerLinkActive="bg-blue-500 text-white border-none"
+              class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer"
+            >
               <i class="fa-solid fa-grip dark:text-gray-300"></i>
             </a>
-            <a routerLink="list" routerLinkActive="bg-blue-500 text-white border-none"
-              class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer">
+            <a
+              routerLink="list"
+              routerLinkActive="bg-blue-500 text-white border-none"
+              class="py-1 px-2 me-2 border rounded border-gray-300 cursor-pointer"
+            >
               <i class="fa-solid fa-list dark:text-gray-300"></i>
             </a>
           </div>
-
-
         </div>
         @if(currentView === 'grid'){
         <app-books-grid-list [allBooks]="allBooks"></app-books-grid-list>
-        }
-        @if(currentView === 'list'){
+        } @if(currentView === 'list'){
         <app-books-list [allBooks]="allBooks"></app-books-list>
+
       }
       <app-pagination
       [currentPage]="page"
@@ -111,9 +138,6 @@
 
 
       </section>
-
-
     </div>
   </div>
-
 </div>

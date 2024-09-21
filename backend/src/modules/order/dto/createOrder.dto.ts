@@ -1,21 +1,48 @@
-import { IsString, IsNumber, IsDate, IsEnum } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsString,
+  IsNumber,
+  IsDate,
+  IsEnum,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 
 export class CreateOrderDto {
   @IsString()
   shippingAddress: string;
 
   @IsString()
-  bookId: string;
-
-  @IsString()
   userId: string;
 
   @IsNumber()
-  totalAmount: number;
+  totalPrice: number;
 
   @IsDate()
   orderDate: Date;
 
-  @IsEnum(['Pending', 'Completed', 'Failed'])
-  paymentStatus: 'Pending' | 'Completed' | 'Failed';
+  @IsEnum(['PENDING', 'APPROVED', 'DENIED'])
+  paymentStatus: 'PENDING' | 'APPROVED' | 'DENIED';
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => OrderItemDto)
+  items: OrderItemDto[];
+}
+
+class OrderItemDto {
+  @IsString()
+  title: string;
+
+  @IsString()
+  author: string;
+
+  @IsString()
+  coverImage: string;
+
+  @IsNumber()
+  quantity: number;
+
+  @IsNumber()
+  price: number;
 }
