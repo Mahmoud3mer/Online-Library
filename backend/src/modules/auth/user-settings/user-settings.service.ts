@@ -15,12 +15,17 @@ export class UserSettingsService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>, private readonly mailerService: MailerService) { }
 
 
-  async getAllUsers(paginationDTO: PaginationDTO) {
+  async getAllUsers(paginationDTO: PaginationDTO, name: string) {
     const page = paginationDTO.page;
     const limit = paginationDTO.limit;
     const skip = (page - 1) * limit;
+    const query ={};
+    if (name && name.trim() !== '') {
+      query['name'] = { $regex: name.trim(), $options: 'i' };
+  }
     const total = await this.userModel.countDocuments().exec();
-    const allUsers = await this.userModel.find()
+    const allUsers = await this.userModel
+      .find(query)
       .limit(limit)
       .skip(skip)
     return {
