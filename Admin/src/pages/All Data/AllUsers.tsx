@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserTable from '../../components/UserTable';
 import { UserInterface } from '../../interfaces/UserInterface';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../../components/Pagination';
 
 
 
@@ -31,7 +32,7 @@ const AllUsers = () => {
             const response = await axios.get(`${apiUrl}/user-settings/admin/users?page=${page}&limit=${limit}`, {
                 headers: { token },
             });
-           
+    
             setnumberOfPages(response.data.metaData.numberOfPages)
             setUsers(response.data.data);
         } catch (err) {
@@ -39,6 +40,10 @@ const AllUsers = () => {
         }
     };
 
+    
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+    };
 
 
     const handleMoreDetails = (user: UserInterface) => {
@@ -95,8 +100,9 @@ const AllUsers = () => {
 
 
 
-            {users && users.map((user) => (
-                <UserTable key={user._id}
+            {users && users.map((user,index) => (
+             <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
+                <UserTable  
                     image={user.profilePic}
                     fName={user.fName}
                     lName={user.lName}
@@ -107,6 +113,7 @@ const AllUsers = () => {
                     Edit={() => handleEdit(user)}
                     Delete={() => handleDelete(user._id)}
                 />
+                </div>
             ))}
 
 
@@ -145,26 +152,11 @@ const AllUsers = () => {
         )}
 
         {/* Pagingation */}
-        <div className="flex justify-center items-center space-x-4 mt-4">
-            <button
-                onClick={() => setPage(page - 1)}
-                disabled={page === 1}
-                className="btn btn-outline btn-primary disabled:opacity-50"
-            >
-                Previous
-            </button>
-
-            <span className="font-medium text-lg">Page {page}</span>
-
-            <button
-                onClick={() => setPage(page + 1)}
-                disabled={page>=numberOfPages}
-                className="btn btn-outline btn-primary"
-            >
-                Next
-            </button>
+        <div className='py-3 flex justify-center'>
+            <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
         </div>
 
+    
     </>
 
     )
