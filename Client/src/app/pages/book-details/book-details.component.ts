@@ -59,6 +59,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   })
 
 
+
   constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.bookId = this.route.snapshot.paramMap.get('id')
@@ -75,6 +76,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     this.getReviewsFromDb()
     this.updateStarArray()
 
+
   }
 
 ngOnChanges(changes: SimpleChanges): void {
@@ -84,6 +86,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.updateStarArray();
   }
 }
+
 
 
   decreaseBooks(){

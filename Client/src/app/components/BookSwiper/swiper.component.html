@@ -18,6 +18,7 @@
     @for (book of Books; track $index) {
         <swiper-slide>
             <app-book-card
+                    [bookId]="book._id"
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.coverImage"
                     [bookCategory]="book.category.name"
@@ -28,20 +29,6 @@
         </swiper-slide>
     }
 
+
 </swiper-container>
 
-<!-- 
-    [breakpoints]="breakpoints"
-    speed="1000"
-    autoplay-delay="2000" 
-    class="w-full h-full"
-    effect="coverflow" 
-    grab-cursor="true" 
-    centered-slides="true"
-    coverflow-effect-rotate="0" 
-    coverflow-effect-stretch="80" 
-    coverflow-effect-depth="200"
-    coverflow-effect-modifier="1" 
-    coverflow-effect-slide-shadows="true" 
-    pagination="true"
--->
