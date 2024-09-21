@@ -1,6 +1,7 @@
 import {
   Body, Controller, Delete, Get, Param,
-  Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors,
+  Patch,
+  Post, Query, Req, UploadedFile, UseGuards, UseInterceptors,
 } from '@nestjs/common';
 // import { BookDTO } from './bookdto/book.dto';
 import { BookService } from './book.service';
@@ -52,7 +53,7 @@ export class BookController {
     return this._bookService.getOneBook(id);
   }
 
-  @Put('/:id')
+  @Patch('/:id')
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
 

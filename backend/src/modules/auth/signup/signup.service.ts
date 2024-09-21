@@ -41,11 +41,6 @@ export class SignupService {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
 
-    if (!body.role) {
-      body.role = 'user';
-    } else if (!['user', 'admin', 'author'].includes(body.role)) {
-      throw new HttpException('Invalid role', HttpStatus.BAD_REQUEST);
-    }
 
     const { token: verificationToken, expiresAt: verificationTokenExpiresAt } =
       generateEmailToken();

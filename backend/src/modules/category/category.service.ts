@@ -9,7 +9,7 @@ import { PaginationDTO } from '../book/bookdto/pagination.dto';
 
 @Injectable()
 export class CategoryService {
-    constructor(@InjectModel(Category.name) private readonly CategoryModel: Model<Category>) {}
+    constructor(@InjectModel(Category.name) private readonly CategoryModel: Model<Category>) { }
 
     addNewCategory = async (body: CategoryDTO) => {
         try {
@@ -20,11 +20,18 @@ export class CategoryService {
         }
     };
 
-    getAllCategories = async (paginationDTO: PaginationDTO) => {
+    getAllCategories = async (paginationDTO: PaginationDTO, name: string) => {
         const { page, limit } = paginationDTO;
         const skip = (page - 1) * limit;
+        const query: any = {};
+        if (name && name.trim() !== '') {
+            query['name'] = { $regex: name.trim(), $options: 'i' };
+        }
         const total = await this.CategoryModel.countDocuments().exec();
-        const allCategories = await this.CategoryModel.find().limit(limit).skip(skip);
+        const allCategories = await this.CategoryModel
+            .find(query)
+            .limit(limit)
+            .skip(skip);
         return {
             message: 'Success, Got All Categories',
             results: allCategories.length,

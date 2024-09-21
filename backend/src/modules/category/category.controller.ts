@@ -13,8 +13,8 @@ export class CategoryController {
 
     @Get()
 
-    getAllCategories(@Query() paginationDTO: PaginationDTO) {
-        return this.categoryService.getAllCategories(paginationDTO);
+    getAllCategories(@Query() paginationDTO: PaginationDTO,@Query('name') name: string) {
+        return this.categoryService.getAllCategories(paginationDTO,name);
     }
 
     @Get(':id')
