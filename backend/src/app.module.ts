@@ -29,8 +29,8 @@ import { join } from 'path';
     RecommendationModule,
     CategoryModule,
     AuthorModule,
-    PaymentBackendModule
-
+    PaymentBackendModule,
+  
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'), // هذا هو مجلد "uploads"
       serveRoot: '/uploads/', // المسار الذي يتم تقديم الملفات من خلاله

@@ -24,7 +24,7 @@ const AutoCompleteSearch = <T,>({
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get(`${apiUrl}/${UrlWantToFetch}`);
+                const { data } = await axios.get(`${apiUrl}/${UrlWantToFetch}?${searched}=${searchedValue}`);
                 setDataResults(data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
