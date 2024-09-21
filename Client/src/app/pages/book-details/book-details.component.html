@@ -3,21 +3,30 @@
 <div class="dark:bg-[#081d31]">
     <div class="flex gap-20 py-5 flex-col md:flex-row justify-center items-center px-5">
         <div class="basis-1/3">
-            <img src="../../../assets/images/hero/6920933.jpg" class="rounded-3xl h-96 w-full shadow-lg hover:scale-105 hover:border-2 cursor-pointer" alt="">
+            <img [src]="book.coverImage" class="rounded-3xl h-96 w-full shadow-lg hover:scale-105 hover:border-2 cursor-pointer" alt="">
         </div>
         <div class="basis-2/3">
             <h1 class="text-4xl font-bold mb-3 dark:text-white">{{book.title}}</h1>
-            <p class="mb-3 font-semibold dark:text-white">by <span class="text-blue-500">Mahmoud Amer</span> <span class="font-normal ms-2 text-xs text-gray-400">Author</span></p>
+            <p class="mb-3 font-semibold dark:text-white">by <span class="text-blue-500">{{book.author.name}}</span> <span class="font-normal ms-2 text-xs text-gray-400">Author</span></p>
             <div class="flex gap-5">
                 <p class="text-xl font-semibold mb-3 dark:text-white">${{book.price.toFixed(2)}}</p>
                 <p class="text-xl font-semibold mb-3 line-through text-gray-400">$725.00</p>
             </div>
             <div class="mb-3">
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500"></i>
+
+                <span>
+                    @for (star of starArray; track $index) {
+                    @if (star === 1) {
+                    <i class="fa-solid fa-star text-yellow-500"></i>
+                    }
+                    @if (star === .5) {
+                    <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                    }
+                    @if (star === 0) {
+                    <i class="fa-regular fa-star text-yellow-500"></i>
+                    }
+                    }
+                </span>
                 <span class="px-2 text-xl font-semibold dark:text-white">{{bookRating.toFixed(1)}}</span>
                 <span class="text-xs text-gray-500 mx-2">{{reviewsRatingsNumber.toFixed(0)}} <span>raitings</span></span>
                 <span class="text-xs text-gray-500">{{reviewsLength}} <span>reviews</span></span>
@@ -78,11 +87,7 @@
                     </div>
                 </div>
                 <div class="mb-2">
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500 me-2"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
+                    <app-stars-loop [rating]="review.rating"></app-stars-loop>
                 </div>
                 <p class="mb-3 text-gray-500">"{{review.comment}}"</p>
             </div>

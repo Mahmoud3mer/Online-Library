@@ -57,7 +57,7 @@ updateAuthor = async (authorId: string, author: AuthorDTO) => {
         throw new HttpException('Error updating the author', HttpStatus.BAD_REQUEST);
     }
 };
-
+ 
 deleteAuthor = async (authorId: string) => {
     try {
         const author = await this.authorModel.findByIdAndDelete(authorId);

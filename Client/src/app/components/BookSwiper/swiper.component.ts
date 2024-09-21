@@ -11,10 +11,10 @@ import { NgForOf } from '@angular/common';
 })
 export class SwiperComponent {
   breakpoints = {
-    640: { slidesPerView: 2, spaceBetween: 20 },
-    768: { slidesPerView: 3, spaceBetween: 30 },
-    1024: { slidesPerView: 4, spaceBetween: 40 },
-    1280: { slidesPerView: 5, spaceBetween: 50 }
+    640: { slidesPerView: 2 },
+    768: { slidesPerView: 2.5},
+    1024: { slidesPerView: 3 },
+    1280: { slidesPerView: 3.5 }
   };
   
 

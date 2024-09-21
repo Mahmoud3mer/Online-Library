@@ -4,6 +4,7 @@ import {
   Component,
   Inject,
   NgZone,
+  OnInit,
   PLATFORM_ID,
 } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
@@ -11,6 +12,7 @@ import { DarkModeService } from "../../services/dark-mode/dark-mode.service";
 import { NgClass, NgIf } from "@angular/common";
 import { AuthourizationService } from "../../services/users/authourization.service";
 import { SubNavbarComponent } from "./sub-navbar/sub-navbar.component";
+import { UserSettingsService } from "../../services/user-settings/user-settings.service";
 
 @Component({
   selector: "app-navbar",
@@ -19,12 +21,13 @@ import { SubNavbarComponent } from "./sub-navbar/sub-navbar.component";
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   username: string = "";
   isDropdownOpen = false;
   isFadeIn = false;
   isFadeOut = false;
+  profileImage: string = '';
 
   languages: string[] = [
     "English",
@@ -35,12 +38,15 @@ export class NavbarComponent {
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
 
+  isMobileMenuOpen: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
     private _darkModeService: DarkModeService,
     private _authorizationService: AuthourizationService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private _userSettingsService: UserSettingsService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
@@ -54,6 +60,32 @@ export class NavbarComponent {
         this.cdr.markForCheck();
       });
     });
+
+    _userSettingsService.profileImage.subscribe(res => {
+      this.profileImage = res
+      console.log(res , "from navbar");
+      
+    })
+  }
+
+  ngOnInit(): void {
+    this.getProfilePicure()
+  }
+  // !get profile image when render navbar
+  getProfilePicure(){
+    this._userSettingsService.getUser().subscribe({
+      next: (res) => {
+        this.profileImage = res.user.profilePic
+        // console.log(this.profileImage);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log("Update Profile Completed");
+      }
+    })
   }
 
   toggleDropdown() {
@@ -82,7 +114,14 @@ export class NavbarComponent {
   logout() {
     this._authorizationService.logOut();
   }
+
+  toggleMobileMenu() {
+  this.isMobileMenuOpen = !this.isMobileMenuOpen;
 }
+}
+
+
+
 
 // Darkmode without animation
 // toggleDarkMode() {

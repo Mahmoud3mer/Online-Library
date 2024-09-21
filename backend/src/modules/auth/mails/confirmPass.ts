@@ -1,4 +1,4 @@
-export default function emailHtml(body: string) {
+export default function emailHtml(message: string) {
     return `
         <!DOCTYPE html>
   <html>
@@ -25,7 +25,7 @@ export default function emailHtml(body: string) {
   <body>
     <div class="container">
         <h3>Hello,</h3>
-        <p>Your password has been successfully updated.</p>
+        <p>${message}</p>
     </div>
   </body>
   </html>

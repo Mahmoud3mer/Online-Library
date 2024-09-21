@@ -1,33 +1,47 @@
 
 <swiper-container 
     loop="true"
+    autoplay-delay="2000"
     navigation="true" 
-    speed="200" 
+    speed="1000"
     [breakpoints] = "breakpoints"
+    effect="coverflow" 
+    grab-cursor="true" 
+    centered-slides="true"
+    coverflow-effect-rotate="0" 
+    coverflow-effect-stretch="80" 
+    coverflow-effect-depth="200"
+    coverflow-effect-modifier="1" 
+    coverflow-effect-slide-shadows="true"
+    slides-preview="auto"
 >
-    <!-- @for (book of Books; track $index) {
+    @for (book of Books; track $index) {
         <swiper-slide>
             <app-book-card
                     [bookTitle]="book.title"
-                    [bookCoverImg]="book.image"
-                    [bookCategory]="book.category"
+                    [bookCoverImg]="book.coverImage"
+                    [bookCategory]="book.category.name"
                     [bookPrice]="book.price"
-                    [bookRating]="book.rating"
+                    [bookRating]="book.averageRating"
                     [bookId]="book._id"
                     ></app-book-card>
         </swiper-slide>
-    } -->
-
-    <!-- <swiper-slide>
-        <app-book-card
-                [bookTitle]="Books[0].title"
-                [bookCoverImg]="Books[0].image"
-                [bookCategory]="Books[0].category"
-                [bookPrice]="Books[0].price"
-                [bookRating]="Books[0].raiting"
-                ></app-book-card>
-    </swiper-slide> -->
-
-
+    }
 
 </swiper-container>
+
+<!-- 
+    [breakpoints]="breakpoints"
+    speed="1000"
+    autoplay-delay="2000" 
+    class="w-full h-full"
+    effect="coverflow" 
+    grab-cursor="true" 
+    centered-slides="true"
+    coverflow-effect-rotate="0" 
+    coverflow-effect-stretch="80" 
+    coverflow-effect-depth="200"
+    coverflow-effect-modifier="1" 
+    coverflow-effect-slide-shadows="true" 
+    pagination="true"
+-->

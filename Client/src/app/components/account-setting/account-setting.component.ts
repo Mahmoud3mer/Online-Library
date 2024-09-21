@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup , ReactiveFormsModule, Validato
 import { UserSettingsService } from '../../services/user-settings/user-settings.service';
 import { ConfirmationUpdateSettingsComponent } from '../confirmation-update-settings/confirmation-update-settings.component';
 import { Router } from '@angular/router';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-account-setting',
@@ -19,14 +19,16 @@ export class AccountSettingComponent {
   token: string | null = '';
   isBrowser: boolean = false;
   profilePicture: string = '';
+  profilePictureFromDB: string = '';
   selectedFileImage: File | null = null
   formData: FormData = new FormData();
 
   // Message from database
   successMessage: string = '';
-  errorMessagePassword: string = '';
+  errorMessage: string = '';
 
   showConfirmationDialog:boolean = false
+  isLoading: boolean = false;
 
   router = inject(Router);
 
@@ -35,14 +37,6 @@ export class AccountSettingComponent {
     lName: new FormControl('',[Validators.required, Validators.pattern("^[a-zA-Z]+$"),Validators.minLength(3)]),
     email: new FormControl('',[Validators.required , Validators.email]),
     phone: new FormControl('',[Validators.required , Validators.pattern("^01\\d{9}$")]),
-    currentPassword: new FormControl('',[Validators.required]),
-    newPassword: new FormControl('',[Validators.required,Validators.pattern(
-      "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?:.*[!@#$%^&*()_+\\-=\\[\\]{};:'\",.<>?/\\|`~])?.{8,}$"
-    ),]),
-    confirmPassword: new FormControl('',[Validators.required]),
-  },
-  {
-    validators: [this.match("newPassword", "confirmPassword")],
   }
 )
 
@@ -51,34 +45,13 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
   this.getPrfile()
 }
 
-// Password-Repassword matching Fn
-match(controlName: string, checkControlName: string): ValidatorFn {
-  return (controls: AbstractControl) => {
-    const control = controls.get(controlName);
-    const checkControl = controls.get(checkControlName);
-
-    if (checkControl?.errors && !checkControl.errors["matching"]) {
-      return null;
-    }
-
-    if (control?.value !== checkControl?.value) {
-      controls.get(checkControlName)?.setErrors({ matching: true });
-      return { matching: true };
-    } else {
-      return null;
-    }
-  };
-}
-
-
   onProfilePictureChange(event: any){
+    this.profilePictureFromDB = ''
     const file = event.target.files[0];
     if (file) {
       this.selectedFileImage = file;
 
       const reader = new FileReader();
-      // this.uploadProfilePicture(file);
-
       reader.onload = (e: any) => {
         const imageUrl = e.target.result;
         // console.log('Image URL:', imageUrl);
@@ -87,10 +60,6 @@ match(controlName: string, checkControlName: string): ValidatorFn {
       };
       reader.readAsDataURL(file);
     }
-  }
-
-  uploadProfilePicture(){
-
   }
 
 
@@ -105,7 +74,9 @@ match(controlName: string, checkControlName: string): ValidatorFn {
           phone: res.user.phone ,
         })
         // !profile picture
-        this.profilePicture = res.user.profilePic
+        this.profilePictureFromDB = res.user.profilePic
+
+        this._userSettingsService.saveProfileImage(this.profilePictureFromDB)
       },
       error: (err) => {
         console.log(err);
@@ -128,6 +99,8 @@ match(controlName: string, checkControlName: string): ValidatorFn {
   
     if (this.selectedFileImage) {
       this.formData.append('profilePic',this.selectedFileImage , this.selectedFileImage.name);
+    }else if(!this.profilePictureFromDB){
+      this.formData.append('profilePic','');
     }
 
     // تحقق من محتويات formData قبل الإرسال (لأغراض الفحص)
@@ -135,66 +108,61 @@ match(controlName: string, checkControlName: string): ValidatorFn {
     //   console.log(`${key}: ${value}`);
     // });
 
-    
     this._userSettingsService.updateUser(this.formData).subscribe({
       next: (res) => {
         console.log(res);
-        this.successMessage = res.message
-        // console.log(this.successMessage);
-        this.openConfirmationDialog();
+        this.isLoading = false;
+        console.log("form dataaaaa success:", this.formData)
+        this._userSettingsService.saveProfileImage(this.profilePictureFromDB)
+        this.alertWithSuccess(res.message)
         
       },
       error: (err) => {
         console.log(err);
-        this.errorMessagePassword = err.error.message
-        // console.log(this.errorMessagePassword);
-        this.openConfirmationDialog();
+        this.isLoading = false;
+        console.log("form dataaaaa error:", this.formData)
+        this.alertWithError(err.error.message)
       },
       complete: () => {
         console.log("Update Profile Completed");
-        this.errorMessagePassword = '';
+        this.isLoading = false;
+        this.getPrfile()
       }
     })
   }
 
   deleteProfilePicture(){
     this.profilePicture = ''
+    this.profilePictureFromDB = ''
     this.selectedFileImage = null
   }
 
 
   saveSettings(){
+    
     if (this.settingsForm.valid == false) {
       this.settingsForm.markAllAsTouched()
     }
     else{
+      this.isLoading = true;
       this.updateUserProfile();
+      this.getPrfile()
     }
-    
     console.log(this.settingsForm);
   }
 
 
-  //confirmation //
-  openConfirmationDialog(): void {
-    // this.showConfirmationDialog = true;
-    if (this.successMessage) {
-      this.showConfirmationDialog = true;
-    } else if (this.errorMessagePassword) {
-      this.showConfirmationDialog = true;
-    }else{
-      this.showConfirmationDialog = false;
-    }
+  // ! Sweet Alert
+  alertWithSuccess(message: string){
+    Swal.fire('Thank you...', `${message}!`, 'success')
   }
 
-  handleConfirm(): void {
-    if (this.isBrowser) {
-      localStorage.removeItem('token'); //logout
-      this.router.navigate(['/signin'])
-    }
+  alertWithError(message: string){
+    Swal.fire({
+      icon: "error",
+      title: "Error...",
+      text: `${message}!`,
+    });
   }
 
-  handleCancel(){
-    this.showConfirmationDialog = false;
-  }
 }

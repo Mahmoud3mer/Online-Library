@@ -3,6 +3,7 @@ import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from '../../util/apiUrl';
 import { isPlatformBrowser } from '@angular/common';
+import { ReviewInterface } from '../../interfaces/review.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class ReviewService {
     return this._httpClient.get(`${apiUrl}/review/${reviewId}`);
   }
 
-  addReview(body: any): Observable <any> {
+  addReview(body: ReviewInterface): Observable <any> {
     return this._httpClient.post(`${apiUrl}/review`, body , {headers: this.headers});
   }
 
