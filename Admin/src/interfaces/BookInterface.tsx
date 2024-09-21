@@ -4,7 +4,7 @@ export interface BookInterface {
   _id: string;
   title: string;
   price: number;
-  publishedDate: Date;
+  publishedDate: Date | undefined;
   coverImage: string;
   description: string;
   averageRating: number;
@@ -21,8 +21,9 @@ export interface CategoryInterface {
   image: string
 }
 
-export interface AuthorInterface{
+export interface AuthorInterface {
   _id:string,
   name: string,
+  image: string,
   bio: string
 }

@@ -5,15 +5,20 @@ import { useEffect, useState } from "react";
 import { BookInterface } from "../interfaces/BookInterface";
 import axios from "axios";
 import { apiUrl } from "../utils/apiUrl";
+import ConfirmationModal from "./ConfirmationModal";
 
 
 
 
 const BooksTable = () => {
   const [books, setBooks] = useState<Array<BookInterface>>([]);
-
-  const page = 1;
+  const [detailedBook, setDetailedBook] = useState<Partial<BookInterface>>({});
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
+  const [page, setPage] = useState(1);
   const limit = 5;
+
+const getToken = () => localStorage.getItem('token')
   useEffect(() => {
     axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
       .then((res) => {
@@ -24,9 +29,8 @@ const BooksTable = () => {
       .catch((err) => {
         console.log("Error", err);
       })
-  }, [page])
+  }, [page,books.length])
 
-  const [detailedBook, setDetailedBook] = useState<BookInterface>({});
 
   const handleMoreDetails = (bookId: string) => {
     axios.get(`${apiUrl}/books/${bookId}`)
@@ -43,9 +47,31 @@ const BooksTable = () => {
     console.log(BookId);
   };
 
-  const handleDelete = (BookId: string) => {
-    console.log(BookId);
+  const handleDelete = async (bookId: string) => {
+    try {
+      const token = getToken();
+      await axios.delete(
+        `http://localhost:3000/books/${bookId}`, 
+        { headers: { token: token || "" } } // Ensure token is passed as a string
+      );
+      setBooks(books.filter(book => book._id !== bookId));
+    } catch (error) {
+      console.error('Error deleting book:', error);
+    }
   };
+
+  const handleConfirmDelete = () => {
+    if (selectedBookId) {
+      handleDelete(selectedBookId);  // Proceed with deletion after confirmation
+      setIsDeleteModalOpen(false);   // Close the modal
+    }
+  };
+
+  const openDeleteModal = (bookId: string) => {
+    setSelectedBookId(bookId);  // Store the book ID to be deleted
+    setIsDeleteModalOpen(true); // Open the delete confirmation modal
+  };
+
   return (
     <>
       {books && books.map((book, index) => (
@@ -84,7 +110,7 @@ const BooksTable = () => {
               <span className="hover:cursor-pointer hover:text-meta-8" onClick={() => handleEdit(book._id)}>
                 <MdOutlineEditOff size={20} />
               </span>
-              <span className="hover:cursor-pointer hover:text-danger" onClick={() => handleDelete(book._id)}>
+              <span className="hover:cursor-pointer hover:text-danger" onClick={() => openDeleteModal(book._id)}>
                 <MdDeleteForever size={20} />
               </span>
             </div>
@@ -118,7 +144,12 @@ const BooksTable = () => {
             </div>
           </dialog>
 
-
+          <ConfirmationModal
+            isOpen={isDeleteModalOpen}
+            message="Are you sure you want to delete this book?"
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setIsDeleteModalOpen(false)}
+          />
         </div>
       ))}
     </>

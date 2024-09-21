@@ -12,13 +12,13 @@ export class Book {
     @Prop({ required: true })
     publishedDate: Date;
 
-    @Prop()
+    @Prop({required: true, default: ""})
     coverImage: string;
 
     @Prop({ required: true })
     description: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true, default: 0 })
     averageRating: number;
 
     @Prop({ required: true })

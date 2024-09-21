@@ -24,5 +24,6 @@ export interface CategoryInterface {
 export interface AuthorInterface{
   _id:string,
   name: string,
+  image: string,
   bio: string
 }

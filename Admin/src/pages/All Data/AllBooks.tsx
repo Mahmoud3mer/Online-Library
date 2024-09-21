@@ -32,6 +32,7 @@ const AllBooks = () => {
                     <p className="font-medium">Actions</p>
                 </div>
             </div>
+            
             <BooksTable />
             
         </div>

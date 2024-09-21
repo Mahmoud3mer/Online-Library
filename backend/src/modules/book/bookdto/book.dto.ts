@@ -13,14 +13,13 @@ export class BookDTO{
     price: number;
     
     @IsDateString()
-    // @IsNotEmpty()
+    @IsNotEmpty()
     @IsOptional()
     publishedDate: Date;
 
     @IsString()
-    @IsNotEmpty()
     @IsUrl()
-    image: string;
+    coverImage: string;
 
     @IsString()
     @IsNotEmpty()
@@ -29,10 +28,9 @@ export class BookDTO{
 
 
     @IsNumber()
-    @IsNotEmpty()
     @Min(0)
     @Max(5)
-    rating: number;
+    averageRating: number;
 
     @IsNumber()
     @IsNotEmpty()

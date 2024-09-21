@@ -19,7 +19,7 @@ export class BookService {
 
     addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
         // console.log(file);
-        book.image = file.path;
+        book.coverImage = file.path;
         book.publishedDate = new Date()
         await this.bookModel.insertMany(book);
         return { message: "Success, Book Added.", data: book };

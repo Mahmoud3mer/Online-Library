@@ -34,7 +34,7 @@ const coreRoutes = [
     component: FormElements,
   },
   {
-    path: '/forms/book-form',
+    path: '/forms/book-form/:id?',
     title: 'Book Form',
     component: BookForm,
   },
