@@ -1,17 +1,23 @@
 <div class="p-2 md:p-4">
     <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
-        <h2 class="pl-6 text-2xl font-bold sm:text-xl">Account Settings</h2>
+        <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">General information</h2>
 
         <div class="grid max-w-2xl mx-auto mt-8">
             <div class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
 
                 <div class="flex-col relative">
-                    @if(profilePicture){
+                    @if(profilePicture && !profilePictureFromDB){
                         <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
                             [src]="profilePicture"
                             alt="Bordered avatar"
                         >
-                    }@else {
+                    }@else if (profilePictureFromDB) {
+                        <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
+                            [src]="profilePictureFromDB"
+                            alt="Bordered avatar"
+                        >
+                    }
+                    @else {
                         <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
                             src="../../../assets/images/blank-profile-picture.webp"
                             alt="Bordered avatar"
@@ -34,7 +40,7 @@
                         Change picture
                     </button> -->
                     <button type="button"
-                        class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 "
+                        class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white dark:bg-gray-300 rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 "
                             (click)="deleteProfilePicture()"
                         >
                         Delete picture
@@ -48,10 +54,10 @@
                         class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
                         <div class="w-full">
                             <label for="first_name"
-                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Your
+                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
                                 first name</label>
                             <input type="text" id="first_name"
-                                class="bg-indigo-50 border outline-none outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
                                 placeholder="Your first name" 
                                 required
                                 formControlName="fName"
@@ -67,10 +73,10 @@
 
                         <div class="w-full">
                             <label for="last_name"
-                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Your
+                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
                                 last name</label>
                             <input type="text" id="last_name"
-                                class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                                 placeholder="Your last name" 
                                 formControlName="lName"
                                 required>
@@ -87,13 +93,15 @@
 
                     <div class="mb-2 sm:mb-6">
                         <label for="email"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Your
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
                             email</label>
                         <input type="email" id="email"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="your.email@mail.com" 
                             formControlName="email"
-                            required>
+                            required
+                            [disabled]="true"
+                            >
                             @if(settingsForm.get('email')?.hasError('required') && settingsForm.get('email')?.touched){
                                 <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Email is required!</p>
                             }@else if(settingsForm.get('email')?.hasError('email') && settingsForm.get('email')?.touched){
@@ -103,10 +111,10 @@
 
                     <div class="mb-2 sm:mb-6">
                         <label for="email"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Your
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
                             Phone Number</label>
                         <input type="number" id="phone-number" name="phone-number"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="e.g. +(12)3456 789" 
                             formControlName="phone"
                             required>
@@ -117,74 +125,21 @@
                             }
                     </div>
 
-                    <!-- <div class="mb-2 sm:mb-6">
-                        <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Profession</label>
-                        <input type="text" id="profession"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="your profession" required>
-                    </div> -->
-
-                    <div class="mb-2 sm:mb-6">
-                        <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Current password</label>
-                        <input type="password" id="current-password" name="current-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="********" 
-                            formControlName="currentPassword"
-                            required>
-                            @if(settingsForm.get('currentPassword')?.hasError('required') && settingsForm.get('currentPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Current password is required!</p>
-                            }
-                    </div>
-
-                    <div class="mb-2 sm:mb-6">
-                        <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">New password</label>
-                        <input type="password" id="new-password" name="new-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="********" 
-                            formControlName="newPassword"
-                            required>
-                            @if(settingsForm.get('newPassword')?.hasError('required') && settingsForm.get('newPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">New password is required!</p>
-                            }@else if(settingsForm.get('newPassword')?.hasError('pattern') && settingsForm.get('newPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
-                                    Must contain at least<br />
-                                    -one capital character, a number<br />
-                                    -Use 8 characters or more for your password</p>
-                            }
-                    </div>
-
-                    <div class="mb-2 sm:mb-6">
-                        <label for="profession"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Confirm password</label>
-                        <input type="password" id="confirm-password" name="confirm-password"
-                            class="bg-indigo-50 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="********" 
-                            formControlName="confirmPassword"
-                            required>
-                            @if(settingsForm.get('confirmPassword')?.hasError('required') && settingsForm.get('confirmPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Confirm password is required!</p>
-                            }@else if(settingsForm.get('confirmPassword')?.hasError('matching') && settingsForm.get('confirmPassword')?.touched) {
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Those passwords didn’t match. Try again!</p>
-                            }
-                    </div>
-
-                    <!-- <div class="mb-6">
-                        <label for="message"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Bio</label>
-                        <textarea id="message" rows="4"
-                            class="block p-2.5 w-full text-sm text-indigo-900 bg-indigo-50 rounded-lg border border-indigo-300 focus:ring-indigo-500 focus:border-indigo-500 "
-                            placeholder="Write your bio here..."></textarea>
-                    </div> -->
-
                     <div class="flex justify-end">
                         <button 
                             type="submit"
                             class="text-white bg-blue-400  hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                             (click)="saveSettings()"
-                            >Save</button>
+                            >
+                            @if (isLoading) {
+                                <div class="flex justify-center items-center">
+                                    <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-white mr-2"></div>
+                                    Save...
+                                </div>
+                            }@else if (!isLoading) {
+                                Save
+                            }
+                        </button>
                     </div>
 
                 </div>
@@ -193,8 +148,3 @@
         </div>
     </div>
 </div>
-
-
-@if (showConfirmationDialog) {
-    <app-confirmation-update-settings (confirm)="handleConfirm()" (cancel)="handleCancel()" [successedMessage]="successMessage" [errorMessagePassword]="errorMessagePassword"></app-confirmation-update-settings>
-}

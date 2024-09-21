@@ -23,7 +23,6 @@ export class UserSettingsController {
   @UseGuards(AuthGuard) 
   @Roles(Role.User) 
   @Patch('profile')
-  // @UseInterceptors(FileInterceptor('profilePic'))
   @UseInterceptors(
     FileInterceptor('profilePic', {
       storage: diskStorage({
@@ -40,6 +39,15 @@ export class UserSettingsController {
     // console.log('body:', body);
     const userId = req.user.userId; 
     return this._userSettingsService.updateUserProfile(userId, body , file);
+  }
+
+
+  @UseGuards(AuthGuard) 
+  @Roles(Role.User) 
+  @Patch('password')
+  async updateProfilePassword(@Req() req: any, @Body() body: any) {
+    const userId = req.user.userId; 
+    return this._userSettingsService.updateUserPassword(userId, body);
   }
 
   @UseGuards(AuthGuard) 

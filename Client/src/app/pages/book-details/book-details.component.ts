@@ -7,19 +7,17 @@ import { ReviewService } from '../../services/reviews/review.service';
 import { BooksService } from '../../services/books/Books.service';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { BookByIdService } from '../../services/books/book-by-id.service';
 import { jwtDecode } from "jwt-decode";
+import { ReviewInterface } from '../../interfaces/review.interface';
+import { StarsLoopComponent } from '../../components/stars-loop/stars-loop.component';
 
 interface DecodedToken {
-  userId: string; // أو اسم الحقل الذي يحتوي على الـ userId
-  // يمكنك إضافة حقول أخرى حسب الحاجة
+  userId: string;
 }
-
-
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent],
+  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss'
 }) 
@@ -38,7 +36,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   bookRating: number = 0
   page: number = 1;
   limit: number = 10;
-  showDropdown: { [key: string]: boolean } = {}; // حالة لكل مراجعة للتحكم في ظهور القائمة المنسدلة
+  showDropdown: { [key: string]: boolean } = {};
   showConfirmationDialog:boolean = false
   bookIdToRemove :string = ''
   reviewID: string = ''
@@ -47,8 +45,10 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   isLoggedIn: boolean = false;
 
   commentLength: number = 0
+  starArray: number[] = [];
 
   isUpdaiting: boolean = false;
+
   @ViewChild('commentInput') commentInput!: ElementRef;
 
 
@@ -57,23 +57,15 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     rating: new FormControl(null,[Validators.required, Validators.min(1),Validators.max(5)]),
     bookId: new FormControl(this.route.snapshot.paramMap.get('id')), //book id from route(url)
   })
-  starArray: number[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['bookRating']) {
-      this.updateStarArray();
-    }
-  }
 
   constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
-    // console.log(this.reviewForm.value);
     this.isBrowser = isPlatformBrowser(platformId);
-    this.getUserIdFromTken()
+    this.bookId = this.route.snapshot.paramMap.get('id')
+    this.getUserIdFromToken()
     if (this.isBrowser) {
       this.isLoggedIn = localStorage.getItem('token')? true: false;
     }
-    // console.log("userid from db" ,this.reviewFromDB)
-
   }
 
   ngOnInit(): void {
@@ -81,11 +73,17 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     this.getAllReviewsFromDb()
     this.getBookFromDb()
     this.getReviewsFromDb()
-    // this.reviewsLength = this.reviews.length
-    // this.reviewsRatingsNumber = this.reviews.reduce((total:any, element: any) => {return total + element.rating;}, 0)
-    // this.bookRating = this.reviewsRatingsNumber / this.reviews.length;
+    this.updateStarArray()
 
   }
+
+ngOnChanges(changes: SimpleChanges): void {
+  this.updateStarArray()
+  
+  if (changes['bookRating']) {
+    this.updateStarArray();
+  }
+}
 
 
   decreaseBooks(){
@@ -94,6 +92,7 @@ export class BookDetailsComponent implements OnInit , OnChanges {
     }else{
       this.quantity -= 1;
     }
+    
     
   }
 
@@ -106,12 +105,13 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
   sendReview(){
     this.addReviewInDb()
+    this.updateStarArray()
     this.reviewForm.reset()
   } 
 
   // ! get userId from token
-    getUserIdFromTken(){
-  if (this.isBrowser) {
+    getUserIdFromToken(){
+    if (this.isBrowser) {
     this.token = localStorage.getItem('token');
         if (this.token) {
       const decodedToken = jwtDecode<DecodedToken>(this.token);
@@ -146,7 +146,12 @@ export class BookDetailsComponent implements OnInit , OnChanges {
         this.AllReviews = res.data
         this.reviewsLength = this.AllReviews.length
         this.reviewsRatingsNumber = this.AllReviews.reduce((total:number, element: any) => {return total + element.rating;}, 0)
-        this.bookRating = this.reviewsRatingsNumber / this.reviewsLength;
+        if (this.reviewsRatingsNumber == 0) {
+          this.bookRating = 0;
+        }
+        else{
+          this.bookRating = this.reviewsRatingsNumber / this.reviewsLength;
+        }
       },
       error: (err) => {
         console.log(err)
@@ -178,9 +183,16 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
 
   addReviewInDb(){
-    this._reviewService.addReview(this.reviewForm.value).subscribe({
+    const reviewData: ReviewInterface = {
+      bookId: this.bookId,
+      rating: this.reviewForm.get('rating')?.value,
+      comment: this.reviewForm.get('comment')?.value
+    };
+
+    this._reviewService.addReview(reviewData).subscribe({
       next: (res) => {
         // console.log(this.reviewForm.value)
+        
         console.log(res.addedReview[0])
         this.reviewsPagination.push(res.addedReview[0]);
         // this.reviewForm.reset();
@@ -197,18 +209,26 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   }
 
   updateReviewInDb(reviewId: string){
-    this._reviewService.updateReview(reviewId, this.reviewForm.value).subscribe({
+    const reviewData: ReviewInterface = {
+      bookId: this.bookId,
+      rating: this.reviewForm.get('rating')?.value,
+      comment: this.reviewForm.get('comment')?.value
+    };
+
+    this._reviewService.updateReview(reviewId, reviewData).subscribe({
       next: (res) => {
         console.log(res)
         // this.getReviewsFromDb()
+        this.getReviewsFromDb()
+        this.getAllReviewsFromDb()
       },
       error: (err) => {
         console.log(err)
       },
       complete: () => {
         console.log("Update review completed")
-        this.getReviewsFromDb()
-        this.getAllReviewsFromDb()
+        // this.getReviewsFromDb()
+        // this.getAllReviewsFromDb()
       }
     })
   }
@@ -233,7 +253,6 @@ export class BookDetailsComponent implements OnInit , OnChanges {
   }
 
   loadMoreReviews(){
-    // this.page += 1;
     this.limit += 10;
     this.getReviewsFromDb();
     console.log(this.AllReviews.length);
@@ -283,8 +302,11 @@ export class BookDetailsComponent implements OnInit , OnChanges {
 
   sendUpdatingReview(){
     this.updateReviewInDb(this.reviewID)
+    this.updateStarArray()
     this.isUpdaiting = false
     this.reviewForm.reset();
+    // console.log(this.reviewForm.value);
+    
   }
 
   calcLengthComment(){

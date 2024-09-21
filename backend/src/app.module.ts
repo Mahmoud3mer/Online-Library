@@ -12,6 +12,8 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { RecommendationModule } from './modules/recommendation/recommendation.module';
 import { CategoryModule } from './modules/category/category.module';
 import { AuthorModule } from './modules/author/author.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -26,6 +28,11 @@ import { AuthorModule } from './modules/author/author.module';
     RecommendationModule,
     CategoryModule,
     AuthorModule,
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // هذا هو مجلد "uploads"
+      serveRoot: '/uploads/', // المسار الذي يتم تقديم الملفات من خلاله
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

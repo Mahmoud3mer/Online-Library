@@ -12,14 +12,12 @@ export class ReviewService {
     constructor(@InjectModel(Review.name) private ReviewModel: Model<Review>) { }
 
     addReview = async (userId: string, body: reviewDTO) => {
-        try {
+
             body.date = new Date();
             body.userId = userId
             const addedReview = await this.ReviewModel.insertMany(body);
             return { message: "Added Review", addedReview };
-        } catch (error) {
-            throw new Error('Error adding review');
-        }
+
     }
 
     getAllReviews = async (paginationDto: PaginationDTO , bookID: string) => {
