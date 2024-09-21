@@ -16,15 +16,16 @@ export class ReviewController {
   @Post()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async addReview(@Body() body: reviewDTO, @Req() req : any) {
-
     const userId = req.user.userId
+    // console.log(userId);
+    
     const res = await this._reviewService.addReview(userId,body);
     return res;
   }
 
-  @Get()
-  async getAllreviews(@Query() paginationDto : PaginationDTO) {
-    const res = await this._reviewService.getAllReviews(paginationDto)
+  @Get("book/:bookID")
+  async getAllreviews(@Query() paginationDto : PaginationDTO , @Param('bookID') bookID : string) {
+    const res = await this._reviewService.getAllReviews(paginationDto , bookID)
     return res;
   }
 

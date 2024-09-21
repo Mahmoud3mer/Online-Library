@@ -1,6 +1,7 @@
 import {
   Body, Controller, Delete, Get, Param,
-  Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors
+  Patch,
+  Post, Query, Req, UploadedFile, UseGuards, UseInterceptors,
 } from '@nestjs/common';
 // import { BookDTO } from './bookdto/book.dto';
 import { BookService } from './book.service';
@@ -24,6 +25,17 @@ export class BookController {
     return this._bookService.addNewBook(body, file);
   }
 
+   @Get('recommendations')
+  async getBooksByRecommendation(
+    @Query() paginationDTO: PaginationDTO,
+    @Query('categories') categories: string,
+  ) {
+    // Split the categories string into an array by commas
+    const categoryArray = categories ? categories.split(',').map(cat => cat.trim()) : [];
+    
+    return await this._bookService.getBooksByRecommendation(paginationDTO, categoryArray);
+  }
+
   @Get()
   getBooks(
     @Query() paginationDTO: PaginationDTO,
@@ -41,7 +53,7 @@ export class BookController {
     return this._bookService.getOneBook(id);
   }
 
-  @Put('/:id')
+  @Patch('/:id')
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
 
@@ -57,5 +69,7 @@ export class BookController {
   deleteBook(@Param('id') id: string) {
     return this._bookService.removeBook(id);
   }
+
+
 
 }

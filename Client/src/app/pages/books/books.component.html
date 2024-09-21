@@ -128,13 +128,15 @@
         <app-books-grid-list [allBooks]="allBooks"></app-books-grid-list>
         } @if(currentView === 'list'){
         <app-books-list [allBooks]="allBooks"></app-books-list>
-        }
-        <app-pagination
-          [currentPage]="page"
-          [totalPages]="numberOfPages"
-          (pageChanged)="onPageChanged($event)"
-        >
-        </app-pagination>
+
+      }
+      <app-pagination
+      [currentPage]="page"
+      [totalPages]="numberOfPages"
+      (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+
+
       </section>
     </div>
   </div>

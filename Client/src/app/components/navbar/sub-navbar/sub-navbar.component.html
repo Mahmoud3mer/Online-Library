@@ -1,43 +1,41 @@
 <!-- Navbar -->
-<header class="header navbar-area bg-white shadow-md sticky top-0 z-40">
+<header class="header navbar-area bg-white shadow-md sticky top-0 z-40 ">
   <div class="header-middle py-2">
-    <div class="container mx-auto px-4 flex items-center justify-between">
+    <div class="container mx-auto px-4 flex items-center justify-between flex-wrap md:flex-nowrap gap-y-2">
       <!-- Logo -->
-      <div class="lg:w-1/4 md:w-1/3 w-2/3">
+
+      <div class="w-1/2 md:w-1/4 order-1">
         <a
           class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight"
-          href="index.html"
+          routerLink="/home"
         >
-          Logo
+          <img src="../../../../assets/images/logo/photo_2024-09-21_15-02-33.jpg" class="h-20 w-48" alt="">
         </a>
       </div>
 
       <div
-        class="lg:w-2/5 md:w-2/3 hidden md:flex items-center space-x-4 bg-gray-100 rounded-full px-4 py-2 shadow-lg"
+
+        class="w-full md:w-1/2 order-3 md:order-2 flex items-center space-x-4 bg-white rounded px-4 py-2"
       >
-        <div class="search-select bg-gray-100 rounded-full">
+        <div class="search-select bg-white">
           <select
             id="select1"
-            class="bg-transparent border border-gray-300 rounded-full px-4 py-2 text-gray-800 focus:ring-2 focus:ring-blue-500"
+            class="bg-transparent border border-gray-300 outline-none rounded-lg px-4 py-2 text-gray-800 focus:ring-2 focus:ring-gray-300"
           >
-            <option selected>All</option>
-            <option value="1">Option 01</option>
-            <option value="2">Option 02</option>
-            <option value="3">Option 03</option>
-            <option value="4">Option 04</option>
-            <option value="5">Option 05</option>
+            <option selected value="title">Book Title</option>
+            <option value="author">Author</option>
           </select>
         </div>
         <div class="search-input flex-1">
           <input
             type="text"
             placeholder="Search"
-            class="w-full p-2 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100 placeholder-gray-500"
+            class="w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 bg-white placeholder-gray-500"
           />
         </div>
         <div class="search-btn">
           <button
-            class="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out"
+            class="px-2 py-1 bg-neutral-500 text-white rounded-full hover:bg-neutral-400 focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out"
           >
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -46,86 +44,82 @@
 
       <!-- Wishlist and Cart Items Positioned to the Right -->
       <div
-        class="lg:w-1/3 md:w-1/3 w-1/3 flex items-center justify-end space-x-4 me-10"
+
+        class="w-1/2 md:w-1/4 flex items-center justify-end space-x-4 gap-x-5 order-2 md:order-3"
       >
         <!-- Wishlist -->
-        <div class="wishlist">
+        <div class="wishlist relative">
           <a
-            href="javascript:void(0)"
+          routerLink="/wishlist"
             class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+
           >
-            <i class="fa-regular fa-heart text-xl"></i>
+            <i class="fa-regular fa-heart text-2xl"></i>
             <span
-              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
-              >{{ numOfWishlistItems }}</span
-            >
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
+              >{{ numOfWishlistItems }}</span>
           </a>
         </div>
         <!-- Cart Items -->
-        <div class="cart-items relative ml-4 group">
+        <div class="cart-items relative ml-4 group relative">
           <a
-            href="javascript:void(0)"
-            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+            routerLink="/cart"
+            class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
           >
-            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            <i class="fa-solid fa-cart-shopping text-2xl"></i>
             <span
-              class="total-items bg-gray-800 text-white rounded-full text-xs px-2 py-1"
+              class="total-items bg-gray-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
               >{{ numOfCartItems }}</span
             >
           </a>
+         @if (cartBooks.length!=0) {
           <div
-            class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+          class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+        >
+          <div
+            class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
           >
-            <div
-              class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
-            >
-              <span>{{ totalItems }} Items</span>
-              <a routerLink="/cart">View Cart</a>
-            </div>
-            <ul class="shopping-list px-4 py-2 space-y-0">
-              <!-- Example item, repeat with server-side rendering -->
-              @for (book of carts; track $index) {
-              <li class="flex items-center border-b border-gray-300 py-2">
-                <a
-                  href="javascript:void(0)"
-                  class="remove text-gray-500 hover:text-gray-900"
-                  title="Remove this item"
-                  (click)="removeBookFromCart(book)"
-                >
-                  <i class="fa-solid fa-xmark"></i>
+            <span>{{ numOfCartItems }} Items</span>
+            <a routerLink="/cart">View Cart</a>
+          </div>
+          <ul class="shopping-list px-4 py-2 space-y-0">
+            <!-- Example item, repeat with server-side rendering -->
+            @for (item of cartBooks; track $index) {
+            <li class="flex items-center border-b border-gray-300 py-2">
+          
+              <div class="cart-img-head ml-2 ">
+                <a class="cart-img">
+                  <img
+                    [src]="item.book.coverImage"
+                    alt="Product Image"
+                    class="w-16 h-16 object-cover rounded-md"
+                  />
                 </a>
-                <div class="cart-img-head ml-2">
-                  <a class="cart-img" href="product-details.html">
-                    <img
-                      [src]="book.image"
-                      alt="Product Image"
-                      class="w-16 h-16 object-cover rounded-md"
-                    />
-                  </a>
-                </div>
-                <ul class="content ml-3">
-                  <h4>
-                    <a href="product-details.html" class="hover:underline">{{
-                      book.title
-                    }}</a>
-                  </h4>
-                  <p class="quantity text-gray-600 text-sm">
-                    {{ book.stock }}x -
-                    <span class="amount font-medium">${{ book.price }}</span>
-                  </p>
-                </ul>
-              </li>
-              }
-            </ul>
-
+              </div>
+              <ul class="content ml-3">
+                <h4>
+                  <a href="product-details.html" class="hover:underline">{{
+                    item.book.title
+                  }}</a>
+                </h4>
+                <p class=" text-gray-600 text-sm">
+                 
+                  <span class="amount font-medium">${{ item.book.price }}</span>
+                </p>
+              </ul>
+            </li>
+            }
+          </ul>
             <div class="button">
               <a
                 href="checkout.html"
-                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-full px-4 py-2 text-center block transition duration-150 ease-in-out"
-                >Checkout</a
+                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
+                >View Cart</a
               >
             </div>
           </div>
+        </div>
+         }
         </div>
       </div>
     </div>

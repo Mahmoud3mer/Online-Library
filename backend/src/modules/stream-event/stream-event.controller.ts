@@ -19,8 +19,11 @@ export class StreamEventController {
   }
 
   @Get()
-  findAll(@Query() paginationDTO: PaginationDTO) {
-    return this.streamEventService.getAllStreams(paginationDTO);
+  findAll(
+    @Query() paginationDTO: PaginationDTO,
+    @Query('streamTitle') streamTitle: string
+  ) {
+    return this.streamEventService.getAllStreams(paginationDTO, streamTitle);
   }
 
   @Get(':id')

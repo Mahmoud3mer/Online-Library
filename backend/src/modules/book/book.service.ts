@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Book } from 'src/core/schemas/book.schema';
 import { BookDTO } from './bookdto/book.dto';
 import { PaginationDTO } from './bookdto/pagination.dto';
@@ -19,7 +19,7 @@ export class BookService {
 
     addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
         // console.log(file);
-        book.image = file.path;
+        book.coverImage = file.path;
         book.publishedDate = new Date()
         await this.bookModel.insertMany(book);
         return { message: "Success, Book Added.", data: book };
@@ -39,7 +39,7 @@ export class BookService {
         const skip = (page - 1) * limit;
 
         const query: any = {};
-        
+
         if (category && category.trim() !== '') {
             query['category'] = category.trim();
         }
@@ -94,6 +94,7 @@ export class BookService {
             return { message: "Error fetching the books.", Error: error.message };
         }
     }
+
 
 
     getOneBook = async (id: string) => {
@@ -153,4 +154,56 @@ export class BookService {
         }
 
     }
+
+
+    async getBooksByRecommendation(
+        paginationDTO: PaginationDTO,
+        categories: string[],
+      ) {
+        const page = Math.max(1, paginationDTO.page || 1); // Ensure page is at least 1
+        const limit = Math.max(1, paginationDTO.limit || 10); // Default limit if not provided
+        const skip = (page - 1) * limit;
+    
+        const query: any = {};
+    
+        // Convert category strings to ObjectId and use them in the query
+        if (categories && categories.length > 0) {
+          const categoryObjectIds = categories.map(id => new Types.ObjectId(id)); // Convert to ObjectId
+          query['category'] = { $in: categoryObjectIds };
+        }
+    
+        console.log('Query:', query);
+        console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
+    
+        // Get the total count of books for pagination purposes
+        const total = await this.bookModel.countDocuments(query).exec();
+    
+        try {
+          // Fetch books with pagination and populate references
+          const books = await this.bookModel
+            .find(query)
+            .limit(limit)
+            .skip(skip)
+            .populate('author')
+            .populate('category')
+            .exec();
+    
+          return {
+            message: "Success, Got Recommended Books.",
+            results: books.length,
+            metaData: {
+              currentPage: page,
+              numberOfPages: Math.ceil(total / limit),
+              totalResults: total, // Include total count for clarity
+              limit
+            },
+            data: books
+          };
+        } catch (error) {
+          console.error('Error fetching books:', error);
+          return { message: "Error fetching the recommended books.", error: error.message };
+        }
+      }
+
+      
 }

@@ -1,13 +1,6 @@
-import { BookInterface } from "./books.interface";
-import { UserInterface } from "./user.interface";
-
 
 export interface ReviewInterface {
-
-    user: UserInterface,
-    book: BookInterface,
+    bookId: string,
     rating: number,
     comment: string,
-    date: Date,
-
 }

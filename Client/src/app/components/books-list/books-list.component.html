@@ -1,5 +1,5 @@
 <div class="mt-8 grid grid-cols-1">
-    @for (item of allBooks; track $index) {
+    @for (item of allBooks; track item._id) {
     <app-books-card-for-list 
       [bookId]="item._id" 
       [bookTitle]="item.title" 

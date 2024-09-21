@@ -3,35 +3,53 @@
 <div class="dark:bg-[#081d31]">
     <div class="flex gap-20 py-5 flex-col md:flex-row justify-center items-center px-5">
         <div class="basis-1/3">
-            <img src="../../../assets/images/hero/6920933.jpg" class="rounded-3xl h-96 w-full shadow-lg hover:scale-105 hover:border-2 cursor-pointer" alt="">
+            <img [src]="book.coverImage" class="rounded-3xl h-96 w-full shadow-lg hover:scale-105 hover:border-2 cursor-pointer" alt="">
+
         </div>
         <div class="basis-2/3">
-            <h1 class="text-4xl font-bold mb-3 dark:text-white">Book Name</h1>
-            <p class="mb-3 font-semibold dark:text-white">by <span class="text-blue-500">Mahmoud Amer</span> <span class="font-normal ms-2 text-xs text-gray-400">Author</span></p>
+            <h1 class="text-4xl font-bold mb-3 dark:text-white">{{book.title}}</h1>
+            <p class="mb-3 font-semibold dark:text-white">by <span class="text-blue-500">{{book.author.name}}</span> <span class="font-normal ms-2 text-xs text-gray-400">Author</span></p>
             <div class="flex gap-5">
-                <p class="text-xl font-semibold mb-3 dark:text-white">$656.00</p>
+                <p class="text-xl font-semibold mb-3 dark:text-white">${{book.price.toFixed(2)}}</p>
                 <p class="text-xl font-semibold mb-3 line-through text-gray-400">$725.00</p>
             </div>
             <div class="mb-3">
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500 me-1"></i>
-                <i class="fas fa-star text-yellow-500"></i>
-                <span class="px-2 text-xl font-semibold dark:text-white">4.8</span>
-                <span class="text-xs text-gray-500 mx-2">665 <span>raitings</span></span>
-                <span class="text-xs text-gray-500">125 <span>reviews</span></span>
+
+                <span>
+                    @for (star of starArray; track $index) {
+                    @if (star === 1) {
+                    <i class="fa-solid fa-star text-yellow-500"></i>
+                    }
+                    @if (star === .5) {
+                    <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                    }
+                    @if (star === 0) {
+                    <i class="fa-regular fa-star text-yellow-500"></i>
+                    }
+                    }
+                </span>
+                <span class="px-2 text-xl font-semibold dark:text-white">{{bookRating.toFixed(1)}}</span>
+
+            
+
+                <span class="px-2 text-xl font-semibold dark:text-white">{{book.averageRating.toFixed(1)}}</span>
+                <span class="text-xs text-gray-500 mx-2">{{reviewsRatingsNumber.toFixed(0)}} <span>raitings</span></span>
+                <span class="text-xs text-gray-500">{{reviewsLength}} <span>reviews</span></span>
             </div>
             <div class="my-6 dark:text-white">
-                <p>Discription Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa eum impedit magni laboriosam ad tempore perspiciatis inventore ab, sint dignissimos facilis dolore eos, adipisci, ullam voluptate consequatur laudantium numquam quibusdam?</p>
+                <p>{{book.description}}</p>
             </div>
-            <p class="text-gray-500 text-sm mb-3">267 Pages</p>
-            <p class="text-gray-500 text-sm">First published Febraury 23,2023</p>
+            <p class="text-gray-500 text-sm mb-3">{{book.pages}} Pages</p>
+            <p class="text-gray-500 text-sm mb-3">quantity {{book.stock}}</p>
+            <p class="text-gray-500 text-sm">First published {{book.publishedDate.slice(0,10)}}</p>
+            @if(quantity == book.stock){
+                <p class="text-red-500 text-sm mt-3">quantity is only {{book.stock}}!</p>
+            }
             <div class="flex gap-4 mt-10 flex-col md:flex-row">
                 <div class="border-2 md:w-fit px-3 py-3 text-center w-full flex justify-between items-center dark:text-white">
                     <i class="fa-solid fa-minus cursor-pointer" (click)="decreaseBooks()"></i>
                     <span class="px-8">{{quantity}}</span>
-                    <i class="fa-solid fa-plus cursor-pointer" (click)="increaseBooks()"></i>
+                    <i class="fa-solid fa-plus cursor-pointer" (click)="increaseBooks(book.stock)"></i>
                 </div>
                 <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">Add To Cart <i class="fa-solid fa-cart-shopping me-1"></i></button>
                 <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">Add To Favorite <i class="fa-regular fa-heart"></i></button>
@@ -41,53 +59,97 @@
 
 
     <!--! Reviews  -->
-    <div class="px-5 my-10">
-        <h1 class="text-2xl font-semibold mb-6 dark:text-white">All Reviews <span class="text-sm text-gray-500">450</span></h1>
+    <div class="px-5 py-10">
+        <h1 class="text-2xl font-semibold mb-6 dark:text-white">All Reviews (<span class="text-lg text-gray-500">{{reviewsLength}}</span>)</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            @for(review of reviews ; track $index){
-                <div class="border-2 p-3 rounded-xl">
-                    <div class="flex mb-2">
-                        <img src="../../../assets/images/facebook.png" class="w-12 h-12 rounded-full" alt="">
-                        <div>
-                            <!-- <h3 class="text-xl font-semibold">{{sliceName(review.name)}}.</h3> -->
-                            <p class="text-gray-500 text-sm">{{review.date.slice(0,10)}}</p>
-                        </div>
+            @for(review of reviewsPagination ; track $index){
+                <div class="border-2 p-3 rounded-xl dark:border-gray-400 relative">
+                @if(showDropdown[review._id]){
+                    <div class="dark:bg-slate-400 bg-slate-200 p-2 px-4 w-fit rounded-md text-center absolute top-4 right-10">
+                        @if(userId === review.userId._id){
+                            <ul>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mb-1 bg-slate-300" (click)="updateReview(review._id)">Edit</li><hr>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mt-1 bg-slate-300" (click)="openConfirmationDialog(review._id)">Delete</li>
+                            </ul>
+                        }@else{
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        }
                     </div>
-                    <div class="mb-2">
-                        <i class="fas fa-star text-yellow-500 me-2"></i>
-                        <i class="fas fa-star text-yellow-500 me-2"></i>
-                        <i class="fas fa-star text-yellow-500 me-2"></i>
-                        <i class="fas fa-star text-yellow-500 me-2"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
+                }
+                @if(showDropdown[review._id]){
+                    <i class="fa-solid fa-xmark absolute top-4 right-4 text-lg cursor-pointer hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-600" (click)="toggleDropdown(review._id)"></i>
+                }@else{
+                    <i class="fa-solid fa-ellipsis absolute top-4 right-4 text-lg cursor-pointer hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-600" (click)="toggleDropdown(review._id)"></i>
+                }
+                
+                <div class="flex mb-2 gap-2">
+                    <p class="rounded-full bg-blue-500 h-10 w-10 flex justify-center items-center">{{review.userId.fName[0] + review.userId.lName[0]}}</p>
+                    <div>
+                        <h3 class="text-xl font-semibold dark:text-gray-400 font-semibold">{{review.userId.fName}} {{review.userId.lName[0]}}.</h3>
+                        <p class="text-gray-500 text-sm">{{review.date.slice(0,10)}}</p>
                     </div>
-                    <p class="mb-3 text-gray-500">"{{review.comment}}?"</p>
                 </div>
+                <div class="mb-2">
+                    <app-stars-loop [rating]="review.rating"></app-stars-loop>
+                </div>
+                <p class="mb-3 text-gray-500">"{{review.comment}}"</p>
+            </div>
             }
+            
             
         </div>
         <div class="text-center my-8">
-            <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">Load More Reviews</button>
+            <button 
+                class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300" 
+                (click)="loadMoreReviews()"
+                [disabled]="AllReviews.length == reviewsPagination.length"
+                [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''"
+                >Load More Reviews</button>
+            @if(reviewsPagination.length > 10){
+                <button 
+                class="bg-white ms-2 px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300" 
+                (click)="showLessReviews()"
+                >Show Less</button>
+            }
         </div>
     </div>
 
 
     <!--! Add review -->
-    <div  class="px-5 py-6">
-        <h3 class="text-xl font-semibold mb-5 dark:text-white">Add Your Review</h3>
-            <div class="mb-2 text-xl">
-                <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer me-2"></i>
-                <i class="fas fa-star text-black hover:text-yellow-500 cursor-pointer"></i>
-            </div>
-        <form action="" [formGroup]="reviewForm">
-            <textarea name="review" placeholder="Add Comment..." class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 my-3 dark:bg-slate-300 dark:text-slate-700" rows="2" maxlength="500" formControlName="comment"></textarea>
-            <input type="number" name="raiting" placeholder="Raiting (1-5)" min="1" max="5" class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 mb-3 dark:bg-slate-300 dark:text-slate-700" formControlName="raiting">
-            <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendReview()">Send Review</button>
-        </form>
-    </div>
+    @if(isLoggedIn){
+        <div  class="px-5 py-6">
+            <h3 class="text-xl font-semibold mb-5 dark:text-white underline">Add Your Review</h3>
+        
+            <form action="" [formGroup]="reviewForm">
+                <textarea 
+                    name="review" 
+                    placeholder="Add Comment..." 
+                    class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 mt-3 dark:bg-slate-300 dark:text-slate-700" 
+                    rows="2" 
+                    maxlength="500" 
+                    formControlName="comment"
+                    #commentInput
+                    (keyup)="calcLengthComment()"
+                    [disabled]="commentLength >= 500"
+                    ></textarea>
+                    <span class="text-xs text-gray-500" [ngClass]="commentLength >= 500? 'text-red-600' : ''">(500/{{commentLength}})</span>
+                <input type="number" name="raiting" placeholder="Raiting (1-5)" min="1" max="5" class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 my-3 dark:bg-slate-300 dark:text-slate-700" formControlName="rating">
+                @if(isUpdaiting){
+                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendUpdatingReview()">Update Review</button>
+                }@else{
+                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendReview()">Send Review</button>
+                }
+            </form>
+        </div>
+    }
+
 
 </div>
+
+
+@if (showConfirmationDialog) {
+    <app-confirmation-dialog   (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
+}
+

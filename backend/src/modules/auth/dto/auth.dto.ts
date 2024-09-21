@@ -36,9 +36,7 @@ export class SignUpDTO {
   @MinLength(8)
   password: string;
 
-  @IsString()
-  @IsOptional()
-  role: string;
+
 
   @IsString()
   @IsNotEmpty()
@@ -68,9 +66,7 @@ export class SignInDTO {
   @IsString()
   password: string;
 
-  @IsString()
-  @IsOptional()
-  role: string;
+
 }
 
 export class UpdateUserDto {

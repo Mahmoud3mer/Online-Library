@@ -12,32 +12,34 @@ export class ReviewService {
     constructor(@InjectModel(Review.name) private ReviewModel: Model<Review>) { }
 
     addReview = async (userId: string, body: reviewDTO) => {
-        try {
-            const addedReview = await this.ReviewModel.create({ ...body, userId });
+
+            body.date = new Date();
+            body.userId = userId
+            const addedReview = await this.ReviewModel.insertMany(body);
             return { message: "Added Review", addedReview };
-        } catch (error) {
-            throw new Error('Error adding review');
-        }
+
     }
 
-    getAllReviews = async (paginationDto: PaginationDTO) => {
-        const page = paginationDto.page || 1;
-        const limit = paginationDto.limit || 10;
+    getAllReviews = async (paginationDto: PaginationDTO , bookID: string) => {
+        const page = paginationDto.page;
+        const limit = paginationDto.limit;
         const skip = (page - 1) * limit;
         try {
             const total = await this.ReviewModel.countDocuments().exec();
-            const allReviews = await this.ReviewModel.find()
+            const allReviews = await this.ReviewModel.find({ bookId: bookID })
+            const allReviewsLength = allReviews.length
+            const paginationReviews = await this.ReviewModel.find({ bookId: bookID }).populate('userId','fName lName')
                 .skip(skip)
                 .limit(limit);
             return {
                 message: "Success, Get All reviews.",
-                results: allReviews.length,
+                results: paginationReviews.length,
                 metaData: {
                     currentPage: page,
                     numberOfPages: Math.ceil(total / limit),
                     limit
                 },
-                data: allReviews
+                data: paginationReviews
             };
         } catch (error) {
             throw new Error('Error fetching reviews');
@@ -55,7 +57,7 @@ export class ReviewService {
 
     updateReview = async (id: string, body: any, userId: any) => {
         try {
-            const updatedReview = await this.ReviewModel.findByIdAndUpdate(id, body, { new: true });
+            const updatedReview = await this.ReviewModel.findOneAndUpdate({_id: id , userId: userId}, body, { new: true });
             return { message: "Updated Review", updatedReview };
         } catch (error) {
             throw new Error('Error updating review');
@@ -64,8 +66,11 @@ export class ReviewService {
 
     deleteReview = async (id: string, userId: any) => {
         try {
-            const reviewById = await this.ReviewModel.findByIdAndDelete(id);
-            return { message: "Deleted Review", reviewById };
+            const reviewById = await this.ReviewModel.findOneAndDelete({_id: id , userId: userId});
+            if (!reviewById) {
+                return { message: "You do not have permission to delete it" };
+            }
+            return { message: "Deleted Review Successed.", reviewById };
         } catch (error) {
             throw new Error('Error deleting review');
         }

@@ -8,16 +8,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthourizationService } from '../../services/users/authourization.service';
-import { Router } from '@angular/router'; // Import Router
+import { Router, RouterLink, RouterOutlet } from '@angular/router'; // Import Router
 import { CookieService } from 'ngx-cookie-service';
 import { GetUserRecommendationService } from '../../services/recommendation/get-user-recommendation.service';
+import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
+import { GetWishlistService } from "../../services/wishlist/getWishlist.service";
+import { GetCartService } from "../../services/cart/GetCart.service";
+import { CartCountService } from "../../services/cart/CartCount.service";
+import { CartBooksService } from "../../services/cart/cart-books.service";
 
 // Default values shown
 
 @Component({
   selector: "app-signin",
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass,RouterOutlet ,RouterLink],
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.scss"],
   providers: [CookieService],
@@ -32,7 +37,12 @@ export class SigninComponent {
     private router: Router,
     private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private _getUserRecommendationService:GetUserRecommendationService
+    private _getUserRecommendationService:GetUserRecommendationService,
+    private _numOfWishlist:WishListCountService,
+    private _getWishlist:GetWishlistService,
+    private _getCartService:GetCartService,
+    private _cartCountService:CartCountService,
+    private _cartBooksService: CartBooksService
   ) {}
 
   // get email if in  cookies
@@ -95,9 +105,9 @@ export class SigninComponent {
           this.isLoading = false;
           this.loginForm.reset();
           this._authourizationService.saveUserToken(res.token);
-
-          this.router.navigate(["/home"]);
           this.checkRecommendations();
+          this.getWishList();
+          this.getCart();
         },
         error: (err) => {
           console.log(err);
@@ -110,9 +120,40 @@ export class SigninComponent {
 
 
 
+  //get wishlist for updating num of wishlist items
 
+  getWishList() {
+    console.log("get");
 
+    this._getWishlist.getWishlist().subscribe({
+      next: (res) => {
+        this._numOfWishlist.updateNumOfWishItems(res.data.books.length);
+      },
+      error: (err) => {
+        console.log(err, "err get wish list prodcuts");
+      },
+      complete: () => {
+        console.log("get wish list  books >> login");
+      },
+    });
+  }
 
+  getCart() {
+    this._getCartService.getCart().subscribe({
+      next: (res) => {
+        this._cartCountService.updateNumOfCartItems(res.data.numOfCartItems); // Update cart count
+
+        this._cartBooksService.updateCartBooks(res.data.books); // Update cart books
+      },
+      error: (err) => {
+        console.log("Error getting cart in login:", err);
+      },
+      complete: () => {
+        console.log("Cart fetched successfully in login");
+      },
+    });
+  }
+ 
 
   // recommendation
   checkRecommendations(): void {

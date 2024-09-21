@@ -13,9 +13,9 @@ export class AuthorSwiperComponent {
   @Input() authors: any;
 
   breakpoints = {
-    640: { slidesPerView: 1},
-    768: { slidesPerView: 2},
-    1024: { slidesPerView: 3},
-    1280: { slidesPerView: 4}
+    640: { slidesPerView: 1,spaceBetween: 15},
+    768: { slidesPerView: 2, spaceBetween: 15},
+    1024: { slidesPerView:2, spaceBetween: 15},
+    1280: { slidesPerView: 3, spaceBetween: 15}
   };
 }
