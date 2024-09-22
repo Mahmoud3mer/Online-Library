@@ -43,7 +43,7 @@ export class AddToCartBtnComponent {
     this._addToCartService.addToCart(bookId).subscribe({
       next: (res) => {
         console.log(res);
-        if(document.dir==='ltr'){
+        if(localStorage.getItem('lang')==='en'){
         if (res.message === "Book is already in the cart") {
           this.message = "This book is already in your cart.";
           this._toastService.showError(this.message);
@@ -54,7 +54,7 @@ export class AddToCartBtnComponent {
           this._cartBooksService.updateCartBooks(res.data.books);
         }
       }
-      else if(document.dir==='rtl'){
+      else if(localStorage.getItem('lang')==='ar'){
         if (res.message === "Book is already in the cart") {
           this.message = "هذا الكتاب موجود بالفعل";
           

@@ -71,7 +71,7 @@ export class AddToWishlistBtnComponent implements OnInit {
             this.isWishlisted = false;
           this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
 
-          if(document.dir==='ltr'){
+          if(localStorage.getItem('lang')==='en'){
             this._toastService.showSuccess("Removed from wishlist.");
           }
           else{
@@ -87,7 +87,7 @@ export class AddToWishlistBtnComponent implements OnInit {
           console.log(res);
           this.isWishlisted = true;
           this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
-          if(document.dir==='ltr'){
+          if(localStorage.getItem('lang')==='en'){
             this._toastService.showSuccess("Added to wishlist.");
           }
         else{

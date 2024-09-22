@@ -9,7 +9,7 @@
         <div
           class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
         >
-          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">3 mb-6 dark:text-gray-300">{{"books.Search Product"|translate}}</h5>
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">{{"books.Search Product"|translate}}</h5>
 
           <form (submit)="onFormSubmit($event)" class="max-w-md mx-auto">
             <label
@@ -93,7 +93,7 @@
             (ngSubmit)="$event.preventDefault()"
             class="max-w-sm mx-3 flex items-center"
           >
-            <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
+            <span class="text-gray-500 me-4 dark:text-gray-300">{{"books.Sort by:"|translate}}</span>
             <select
               (change)="onSortChange($event)"
               id="filter-select"
