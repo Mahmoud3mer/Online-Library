@@ -6,6 +6,7 @@ import { BookInterface } from "../interfaces/BookInterface";
 import axios from "axios";
 import { apiUrl } from "../utils/apiUrl";
 import ConfirmationModal from "./ConfirmationModal";
+import Pagination from "./Pagination";
 
 
 
@@ -16,12 +17,14 @@ const BooksTable = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
   const [page, setPage] = useState(1);
-  const limit = 5;
+  const [numberOfPages, setnumberOfPages] = useState(0)
+  const limit = 1;
 
 const getToken = () => localStorage.getItem('token')
   useEffect(() => {
     axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
       .then((res) => {
+        setnumberOfPages(res.data.metaData.numberOfPages)
         setBooks(res.data.data)
         // console.log(res.data);
 
@@ -30,6 +33,11 @@ const getToken = () => localStorage.getItem('token')
         console.log("Error", err);
       })
   }, [page,books.length])
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+};
+
 
 
   const handleMoreDetails = (bookId: string) => {
@@ -152,6 +160,11 @@ const getToken = () => localStorage.getItem('token')
           />
         </div>
       ))}
+
+              {/* Pagingation */}
+              <div className='py-3 flex justify-center'>
+            <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
+        </div>
     </>
   )
 }
