@@ -12,7 +12,7 @@ import {
 } from "@angular/forms";
 import { AuthourizationService } from "../../services/users/authourization.service";
 import { Router, RouterOutlet } from "@angular/router";
-import { googleClientId } from "../../util/apiUrl";
+import { environment } from "../../../environments/environment";
 
 declare var google: any;
 @Component({
@@ -23,6 +23,7 @@ declare var google: any;
   styleUrl: "./signup.component.scss",
 })
 export class SignupComponent implements OnInit {
+  googleClientId = environment.googleClientId;
   successRegMsg: string = "";
   errRegMsg: string = "";
   isLoading: boolean = false;
@@ -83,7 +84,7 @@ export class SignupComponent implements OnInit {
   private initializeGoogleSignIn(): void {
     if (typeof google !== "undefined" && google.accounts) {
       google.accounts.id.initialize({
-        client_id: googleClientId,
+        client_id: this.googleClientId,
         callback: this.handleCredentialResponse.bind(this),
       });
 

@@ -1,0 +1,110 @@
+<section class="py-12 bg-coolGray-800">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <h1
+      class="font-heading text-purple-800 text-center text-4xl font-bold mb-12"
+    >
+      Order History
+    </h1>
+
+    <ng-container *ngIf="orders.length > 0">
+      <div
+        *ngFor="let order of orders"
+        class="bg-white rounded-xl shadow-md mb-6 p-6"
+      >
+        <div class="border-b border-gray-100 mb-4">
+          <div
+            class="mb-4 inline-block py-1 px-3 rounded-xl bg-orange-100 uppercase text-orange-500 text-xs font-bold tracking-widest"
+          >
+            pending
+          </div>
+          <div
+            class="flex flex-col md:flex-row items-center justify-between mb-4"
+          >
+            <h2 class="font-heading text-rhino-800 text-2xl font-semibold">
+              ID number: {{ order.orderId }}
+            </h2>
+            <div class="flex gap-2 mt-2 md:mt-0">
+              <button
+                (click)="toggleInvoiceModal(order)"
+                class="py-2 px-4 text-purple-500 border border-gray-200 rounded-sm text-center text-sm font-medium shadow-md hover:bg-purple-500 hover:text-white transition duration-200"
+              >
+                Your invoice
+              </button>
+              <a
+                class="py-2 px-4 bg-purple-500 rounded-sm text-center text-sm text-white font-medium hover:bg-purple-600 transition duration-200"
+                href="#"
+                >Track order</a
+              >
+            </div>
+          </div>
+          <div class="flex flex-col md:flex-row gap-6 mb-2">
+            <p class="text-rhino-400 text-sm">
+              <span class="font-semibold">Order Date:</span
+              ><span class="text-rhino-700 ml-2">{{ order.orderDate }}</span>
+            </p>
+            <p class="text-rhino-400 text-sm">
+              <span class="font-semibold">Shipping Address:</span
+              ><span class="text-rhino-700 ml-2">{{
+                order.shippingAddress
+              }}</span>
+            </p>
+            <p class="text-rhino-400 text-sm">
+              <span class="font-semibold">Total Price:</span
+              ><span class="text-green-800 font-semibold ml-2"
+                >${{ order.totalPrice }}</span
+              >
+            </p>
+          </div>
+        </div>
+
+        <div
+          *ngFor="let item of order.items"
+          class="flex items-center border-b border-gray-100 mb-4 pb-4"
+        >
+          <div
+            class="bg-gray-100 w-20 h-20 flex items-center justify-center mr-4"
+          >
+            <img
+              [src]="item.coverImage"
+              alt="{{ item.title }}"
+              class="max-w-full h-auto"
+            />
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-rhino-800 font-semibold">{{ item.title }}</h2>
+            <p class="text-rhino-500 font-semibold">
+              ${{ item.price.toFixed(2) }}
+            </p>
+            <div class="flex items-center gap-3">
+              <p class="text-rhino-300 text-sm">
+                Author: {{ item.author.name }}
+              </p>
+              <div class="w-px h-3 bg-rhino-200"></div>
+              <p class="text-rhino-300 text-sm">Qty: {{ item.quantity }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div
+      *ngIf="orders.length === 0"
+      class="bg-white rounded-xl shadow-md p-6 text-center"
+    >
+      <h2 class="text-rhino-800 text-3xl font-bold">You didn’t order yet.</h2>
+      <img
+        src="assets/images/noOrdersPlaced.jpg"
+        alt="No Orders"
+        class="mt-4 max-w-[300px] md:max-w-[600px] h-auto mx-auto"
+      />
+    </div>
+
+    <app-invoice-modal
+      [isVisible]="showInvoiceModal"
+      [orderData]="selectedOrder"
+      (close)="showInvoiceModal = false"
+    ></app-invoice-modal>
+  </div>
+</section>
+
+<!-- "mb-4 inline-block py-1 px-3 rounded-xl bg-green-100 uppercase text-green-500 text-xs font-bold tracking-widest" -->
