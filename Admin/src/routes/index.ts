@@ -39,12 +39,12 @@ const coreRoutes = [
     component: BookForm,
   },
   {
-    path: '/forms/author-form',
+    path: '/forms/author-form/:id?',
     title: 'Author Form',
     component: AuthorForm,
   },
   {
-    path: '/forms/category-form',
+    path: '/forms/category-form/:id?',
     title: 'Category Form',
     component: CategoryForm,
   },

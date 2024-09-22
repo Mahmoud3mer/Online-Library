@@ -81,7 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
         onClick={handlePrevious}
         disabled={currentPage === 1}
       >
-        <MdKeyboardDoubleArrowLeft color='black' size={20}/>
+        <MdKeyboardDoubleArrowLeft color='gray' size={20}/>
       </button>
 
       {/* Pagination Numbers */}
@@ -93,7 +93,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPage
         onClick={handleNext}
         disabled={currentPage === totalPages}
       >
-        <MdKeyboardDoubleArrowRight color='black' size={20}/>
+        <MdKeyboardDoubleArrowRight color='gray' size={20}/>
         </button>
     </div>
   );
