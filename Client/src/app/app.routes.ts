@@ -5,7 +5,6 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { BooksComponent } from './pages/books/books.component';
 import { CartComponent } from './pages/cart/cart.component';
-import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -71,10 +70,7 @@ export const routes: Routes = [
       }
     ]
   },
-  {
-    path: "check-out",
-    component: CheckOutComponent,
-  },
+  
   {
     path: "cart",
     component: CartComponent,
