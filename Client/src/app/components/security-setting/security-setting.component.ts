@@ -5,11 +5,13 @@ import { UserSettingsService } from '../../services/user-settings/user-settings.
 import { ConfirmationUpdateSettingsComponent } from '../confirmation-update-settings/confirmation-update-settings.component';
 import { Router } from '@angular/router';
 import {ProfilePasswordInterface} from '../../interfaces/profilePassword.interface';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-security-setting',
   standalone: true,
-  imports: [ReactiveFormsModule, ConfirmationUpdateSettingsComponent],
+  imports: [ReactiveFormsModule, ConfirmationUpdateSettingsComponent,TranslateModule],
   templateUrl: './security-setting.component.html',
   styleUrl: './security-setting.component.scss'
 })
@@ -42,8 +44,12 @@ export class SecuritySettingComponent {
   }
 )
 
-constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsService: UserSettingsService){
+constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsService: UserSettingsService,
+private _myTranslateService:MyTranslateService){
   this.isBrowser = isPlatformBrowser(platformId);
+}
+changeLang(lang: string) {
+  this._myTranslateService.changLang(lang);
 }
 
 // Password-Repassword matching Fn

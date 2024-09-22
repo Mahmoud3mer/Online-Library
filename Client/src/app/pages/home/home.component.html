@@ -8,8 +8,8 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">Books</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">Explore our vast collection of books across various genres. Whether you're into fiction, non-fiction, self-help, or academic titles, our library has something for every reader.</p>
+                <h2 class="text-3xl font-semibold dark:text-white">{{"home.Books"|translate}}</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">{{"home.There are many"|translate}}</p>
             </div>
             <div>
                 <app-swiper [Books]="allBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
@@ -23,9 +23,8 @@
         <div class="trending-product section">
             <div class="container mx-auto">
                 <div class="text-center section-title">
-                    <h2 class="text-3xl font-semibold dark:text-white">Recommended Books</h2>
-                    <p class="text-gray-600 mt-2 dark:text-gray-400">There are many variations of passages of Lorem Ipsum available, but the
-                        majority have suffered alteration in some form.</p>
+                    <h2 class="text-3xl font-semibold dark:text-white">{{"home.Recommended Books"|translate}}</h2>
+                    <p class="text-gray-600 mt-2 dark:text-gray-400">{{'home.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'|translate}}</p>
                 </div>
                 <div>
                     <app-swiper [Books]="recommendationBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
@@ -39,8 +38,8 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">Top Rating Books</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.</p>
+                <h2 class="text-3xl font-semibold dark:text-white">{{"home.Top Rating Books"|translate}}</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">{{"home.Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention."|translate}}</p>
             </div>
             <div>
                 <app-swiper [Books]="topRatingBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
@@ -53,8 +52,8 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">New Books</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">Stay up to date with the latest arrivals in the literary world. Explore newly published books across various genres, offering fresh narratives and perspectives for your reading pleasure.</p>
+                <h2 class="text-3xl font-semibold dark:text-white">{{"home.New Books"|translate}}</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">{{"home.Stay up to date with the latest arrivals in the literary world. Explore newly published books across various genres, offering fresh narratives and perspectives for your reading pleasure."|translate}}</p>
             </div>
             <div>
                 <app-swiper [Books]="newBooks" ngSkipHydration></app-swiper> <!-- ngSkipHydration for hydration -->
@@ -70,8 +69,8 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">Categories</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">Dive into a world of knowledge with our categorized collection of books. Whether you're looking for adventure, romance, or science, our categories make it easy to find exactly what you're looking for.</p>
+                <h2 class="text-3xl font-semibold dark:text-white">{{"home.Categories"|translate}}</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">{{"home.Dive into a world of knowledge with our categorized collection of books. Whether you're looking for adventure, romance, or science, our categories make it easy to find exactly what you're looking for."|translate}}</p>
             </div>
 
             <div class="">
@@ -86,8 +85,8 @@
     <div class="trending-product section">
         <div class="container mx-auto">
             <div class="text-center section-title">
-                <h2 class="text-3xl font-semibold dark:text-white">Authors Spotlight</h2>
-                <p class="text-gray-600 mt-2 dark:text-gray-400">Get to know the brilliant minds behind your favorite books in our Authors Spotlight. Discover the stories, achievements, and works of the most influential authors in the literary world.</p>
+                <h2 class="text-3xl font-semibold dark:text-white">{{"home.Authors Spotlight"|translate}}</h2>
+                <p class="text-gray-600 mt-2 dark:text-gray-400">{{"home.Get to know the brilliant minds behind your favorite books in our Authors Spotlight. Discover the stories, achievements, and works of the most influential authors in the literary world."|translate}}</p>
             </div>
             <div>
                 <app-author-swiper [authors] = "authors" ngSkipHydration></app-author-swiper>

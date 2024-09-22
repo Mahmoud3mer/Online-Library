@@ -13,6 +13,8 @@ import { SuccessModalComponent } from "../../components/success-modal/success-mo
 import { FailureModalComponent } from "../../components/failure-modal/failure-modal.component";
 import { HttpClient } from "@angular/common/http";
 import { CreateOrderService } from "../../services/orders/create-order.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -26,6 +28,7 @@ import { environment } from "../../../environments/environment";
     NgFor,
     SuccessModalComponent,
     FailureModalComponent,
+    TranslateModule
   ],
   templateUrl: "./payment.component.html",
   styleUrls: ["./payment.component.scss"],
@@ -50,7 +53,7 @@ export class PaymentComponent implements OnInit {
   constructor(
     private _getCartService: GetCartService,
     private _clearCartService: ClearCartService,
-    private _createOrderService: CreateOrderService
+    private _createOrderService: CreateOrderService, private _myTranslateService:MyTranslateService
   ) {}
   public payPalConfig?: IPayPalConfig;
 
@@ -253,5 +256,8 @@ export class PaymentComponent implements OnInit {
   public onSuccessModalClose(): void {
     this.paymentSuccess = false; // Reset payment success flag
     this.setActiveTab("confirmation"); // Switch to confirmation tab
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }
