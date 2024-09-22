@@ -9,13 +9,13 @@
         <div
           class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
         >
-          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">Search Product</h5>
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">{{"books.Search Product"|translate}}</h5>
 
           <form (submit)="onFormSubmit($event)" class="max-w-md mx-auto">
             <label
               for="default-search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-              >Search</label
+              >{{"books.Search"|translate}}</label
             >
             <div class="relative">
               <input
@@ -23,7 +23,7 @@
                 type="search"
                 id="default-search"
                 class="block w-full py-3 pe-8 ps-4 text-md text-gray-900 border border-gray-300 rounded dark:bg-[#081d31] dark:text-gray-300 focus:outline-none"
-                placeholder="Search Here ..."
+                placeholder="{{'books.Search Here ...'|translate}}"
                 style="appearance: none"
               />
               <button
@@ -39,7 +39,7 @@
         <div
           class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
         >
-          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">All Categories</h5>
+          <h5 class="border-b pb-3 mb-6 dark:text-gray-300">{{"books.All Categories"|translate}}</h5>
           @for (category of categories; track $index) {
           <p
             (click)="onCategoryFilter(category._id)"
@@ -69,7 +69,7 @@
           class="search bg-white dark:bg-[#081d31] dark:border-gray-500 border-gray-100 border-2 rounded p-7"
         >
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">
-            Filter By Author
+            {{"books.Filter By Author"|translate}}
           </h5>
           @for (author of authors; track $index) {
           <p
@@ -93,17 +93,17 @@
             (ngSubmit)="$event.preventDefault()"
             class="max-w-sm mx-3 flex items-center"
           >
-            <span class="text-gray-500 me-4 dark:text-gray-300">Sort by:</span>
+            <span class="text-gray-500 me-4 dark:text-gray-300">{{"books.Sort by:"|translate}}</span>
             <select
               (change)="onSortChange($event)"
               id="filter-select"
               class="cursor-pointer block py-1.5 ps-3 pe-8 w-48 text-gray-900 bg-transparent border rounded border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200"
             >
-              <option value="popularity">Popularity</option>
-              <option value="atoz">A-Z Order</option>
-              <option value="ztoa">Z-A Order</option>
-              <option value="lowhigh">Low - High Price</option>
-              <option value="highlow">High - Low Price</option>
+              <option value="popularity">{{"books.Popularity"|translate}}</option>
+              <option value="atoz">{{"books.A-Z Order"|translate}}</option>
+              <option value="ztoa">{{"books.Z-A Order"|translate}}</option>
+              <option value="lowhigh">{{"books.Low - High Price"|translate}}</option>
+              <option value="highlow">{{"books.High - Low Price"|translate}}</option>
             </select>
           </form>
 
