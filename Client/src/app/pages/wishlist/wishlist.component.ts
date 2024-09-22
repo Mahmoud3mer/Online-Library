@@ -8,6 +8,8 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { ToastService } from "../../services/Toast/toast.service";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-wishlist",
@@ -17,7 +19,7 @@ import { WishListCountService } from "../../services/wishlist/wish-list-count.se
   imports: [
     AddToCartBtnComponent,
     ConfirmationDialogComponent,
-    SubNavbarComponent,
+    SubNavbarComponent, TranslateModule
   ],
 })
 export class WishlistComponent implements OnInit {
@@ -33,8 +35,14 @@ export class WishlistComponent implements OnInit {
     private _deletFromWishlist: DeleteBookFromWishlistServiece,
     private _wishlistCount:WishListCountService,
     private _toastService:ToastService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService:MyTranslateService
   ) {}
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
 
   ngOnInit(): void {
     this.getWishList();

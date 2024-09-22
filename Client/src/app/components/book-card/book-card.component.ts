@@ -2,15 +2,18 @@ import { Component, inject, Input, OnChanges, SimpleChanges,  } from '@angular/c
 import { Router } from '@angular/router';
 import { AddToCartBtnComponent } from "../add-to-cart-btn/add-to-cart-btn.component";
 import { AddToWishlistBtnComponent } from "../add-to-wishlist-btn/add-to-wishlist-btn.component";
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-book-card',
   standalone: true,
-  imports: [AddToCartBtnComponent, AddToWishlistBtnComponent],
+  imports: [AddToCartBtnComponent, AddToWishlistBtnComponent,TranslateModule],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.scss'
 })
 export class BookCardComponent implements OnChanges {
+  constructor(private _myTranslateService:MyTranslateService){ }
   @Input() bookId : string = '';
   @Input() bookTitle: string = '';
   @Input() bookCategory: string = '';
@@ -44,5 +47,7 @@ export class BookCardComponent implements OnChanges {
   goToDetails(bookId:string){
     this.router.navigate(["book-details",bookId])
   }
-
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }

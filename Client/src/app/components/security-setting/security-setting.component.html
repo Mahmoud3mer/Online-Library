@@ -1,7 +1,7 @@
 <div class="p-2 md:p-4">
     <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
 
-        <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">Password information</h2>
+        <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">{{"security-setting.Password information"|translate}}</h2>
 
         <div class="grid max-w-2xl mx-auto">
             <form [formGroup]="passwordInfoForm">
@@ -9,49 +9,49 @@
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
 
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Current password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">{{"security-setting.Current password"|translate}}</label>
                         <input type="password" id="current-password" name="current-password"
                             class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="currentPassword"
                             required>
                             @if(passwordInfoForm.get('currentPassword')?.hasError('required') && passwordInfoForm.get('currentPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Current password is required!</p>
+                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">{{"security-setting.Current password is required!"|translate}}</p>
                             }
                     </div>
 
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
 
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">New password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">{{"security-setting.New password"|translate}}</label>
                         <input type="password" id="new-password" name="new-password"
-                            class="bg-indigo-50 dark:bg-gray-300 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
+                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="newPassword"
                             required>
                             @if(passwordInfoForm.get('newPassword')?.hasError('required') && passwordInfoForm.get('newPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">New password is required!</p>
+                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">{{"security-setting.New password is required!"|translate}}</p>
                             }@else if(passwordInfoForm.get('newPassword')?.hasError('pattern') && passwordInfoForm.get('newPassword')?.touched){
                                 <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
-                                    Must contain at least<br />
-                                    -one capital character, a number<br />
-                                    -Use 8 characters or more for your password</p>
+                                   {{"security-setting. Must contain at least"|translate}}<br />
+                                    -{{"security-setting.one capital character, a number"|translate}}<br />
+                                    -{{"security-setting.Use 8 characters or more for your password"|translate}}</p>
                             }
                     </div>
 
                     <div class="mb-2 sm:mb-6">
                         <label for="profession"
 
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Confirm password</label>
+                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">{{"security-setting.Confirm password"|translate}}</label>
                         <input type="password" id="confirm-password" name="confirm-password"
                             class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
                             placeholder="********" 
                             formControlName="confirmPassword"
                             required>
                             @if(passwordInfoForm.get('confirmPassword')?.hasError('required') && passwordInfoForm.get('confirmPassword')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Confirm password is required!</p>
+                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">{{"security-setting.Confirm password is required!"|translate}}</p>
                             }@else if(passwordInfoForm.get('confirmPassword')?.hasError('matching') && passwordInfoForm.get('confirmPassword')?.touched) {
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Those passwords didn’t match. Try again!</p>
+                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">{{"security-setting.Those passwords didn’t match. Try again!"|translate}}</p>
                             }
                     </div>
 
@@ -64,10 +64,10 @@
                             @if (isLoading) {
                                 <div class="flex justify-center items-center">
                                     <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-white mr-2"></div>
-                                    Save...
+                                    {{"security-setting.Save..."|translate}}
                                 </div>
                             }@else if (!isLoading) {
-                                Save
+                                {{"security-setting.Save"|translate}}
                             }
                         </button>
                     </div>

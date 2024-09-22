@@ -1,151 +1,225 @@
 <div class="p-2 md:p-4">
-    <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
+  <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
+    <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">
+      {{"account-setting.General information"|translate}}
+    </h2>
 
-        <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">General information</h2>
-
-        <div class="grid max-w-2xl mx-auto mt-8">
-            <div class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
-
-                <div class="flex-col relative">
-                    @if(profilePicture && !profilePictureFromDB){
-                        <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
-                            [src]="profilePicture"
-                            alt="Bordered avatar"
-                        >
-                    }@else if (profilePictureFromDB) {
-                        <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
-                            [src]="profilePictureFromDB"
-                            alt="Bordered avatar"
-                        >
-                    }
-                    @else {
-                        <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
-                            src="../../../assets/images/blank-profile-picture.webp"
-                            alt="Bordered avatar"
-                        >
-                    }
-                    <label for="file-upload" class="bg-slate-500 w-40 h-40 rounded-full block absolute translate-x-1/2 translate-y-1.5 top-[-3%] right-[73%] opacity-0 cursor-pointer"></label>
-                    <input class="hidden" type="file" (change)="onProfilePictureChange($event)" id="file-upload" name="profilePic">
-                </div>
-                <div class="flex flex-col space-y-5 sm:ml-8">
-                    <label
-                        for="file-upload"
-                        class="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 cursor-pointer"
-                        >
-                        Change picture
-                    </label>
-                    <!-- <button type="button"
+    <div class="grid max-w-2xl mx-auto mt-8">
+      <div
+        class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0"
+      >
+        <div class="flex-col relative">
+          @if(profilePicture && !profilePictureFromDB){
+          <img
+            class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
+            [src]="profilePicture"
+            alt="Bordered avatar"
+          />
+          }@else if (profilePictureFromDB) {
+          <img
+            class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
+            [src]="profilePictureFromDB"
+            alt="Bordered avatar"
+          />
+          } @else {
+          <img
+            class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
+            src="../../../assets/images/blank-profile-picture.webp"
+            alt="Bordered avatar"
+          />
+          }
+          <label
+            for="file-upload"
+            class="bg-slate-500 w-40 h-40 rounded-full block absolute translate-x-1/2 translate-y-1.5 top-[-3%] right-[73%] opacity-0 cursor-pointer"
+          ></label>
+          <input
+            class="hidden"
+            type="file"
+            (change)="onProfilePictureChange($event)"
+            id="file-upload"
+            name="profilePic"
+          />
+        </div>
+        <div class="flex flex-col space-y-5 sm:ml-8">
+          <label
+            for="file-upload"
+            class="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 cursor-pointer"
+          >
+          {{"account-setting.Change picture"|translate}}
+          </label>
+          <!-- <button type="button"
                         class="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 "
                         (click)="updateProfilePicture()"
                         >
                         Change picture
                     </button> -->
-                    <button type="button"
-                        class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white dark:bg-gray-300 rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 "
-                            (click)="deleteProfilePicture()"
-                        >
-                        Delete picture
-                    </button>
-                </div>
+          <button
+            type="button"
+            class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white dark:bg-gray-300 rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200"
+            (click)="deleteProfilePicture()"
+          >
+          {{"account-setting.Delete picture"|translate}}
+          </button>
+        </div>
+      </div>
+
+      <form [formGroup]="settingsForm">
+        <div class="items-center mt-8 sm:mt-14 text-[#202142]">
+          <div
+            class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6"
+          >
+            <div class="w-full">
+              <label
+                for="first_name"
+                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+                >{{"account-setting.Your first name"|translate}}</label
+              >
+              <input
+                type="text"
+                id="first_name"
+                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                placeholder="{{'account-setting.Your first name'|translate}}"
+                required
+                formControlName="fName"
+              />
+              @if(settingsForm.get('fName')?.hasError('required') &&
+              settingsForm.get('fName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{"account-setting.First name is required!"|translate}}
+              </p>
+              }@else if(settingsForm.get('fName')?.hasError('minlength') &&
+              settingsForm.get('fName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{"account-setting.Must be more than 3 characters!"|translate}}              </p>
+              }@else if(settingsForm.get('fName')?.hasError('pattern') &&
+              settingsForm.get('fName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{"account-setting.Must don't contain numbers!"|translate}}              </p>
+              }
             </div>
 
-            <form [formGroup]="settingsForm">
-                <div class="items-center mt-8 sm:mt-14 text-[#202142]">
-                    <div
-                        class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
-                        <div class="w-full">
-                            <label for="first_name"
-                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
-                                first name</label>
-                            <input type="text" id="first_name"
-                                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-                                placeholder="Your first name" 
-                                required
-                                formControlName="fName"
-                                >
-                                @if(settingsForm.get('fName')?.hasError('required') && settingsForm.get('fName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">First name is required!</p>
-                                }@else if(settingsForm.get('fName')?.hasError('minlength') && settingsForm.get('fName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must be more than 3 characters!</p>
-                                }@else if(settingsForm.get('fName')?.hasError('pattern') && settingsForm.get('fName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must don't contain numbers!</p>
-                                }
-                        </div>
+            <div class="w-full">
+              <label
+                for="last_name"
+                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+                >{{"account-setting.Your last name"|translate}}</label
+              >
+              <input
+                type="text"
+                id="last_name"
+                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                placeholder="{{'account-setting.Your last name'|translate}}"
+                formControlName="lName"
+                required
+              />
+              @if(settingsForm.get('lName')?.hasError('required') &&
+              settingsForm.get('lName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{'account-setting.Last name is required!'|translate}}
+              </p>
+              }@else if(settingsForm.get('lName')?.hasError('minlength') &&
+              settingsForm.get('lName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{"account-setting.Must be more than 3 characters!"|translate}}
+              </p>
+              }@else if(settingsForm.get('lName')?.hasError('pattern') &&
+              settingsForm.get('lName')?.touched){
+              <p
+                class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs"
+              >
+              {{"account-setting.Must don't contain numbers!"|translate}}
+              </p>
+              }
+            </div>
+          </div>
 
-                        <div class="w-full">
-                            <label for="last_name"
-                                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
-                                last name</label>
-                            <input type="text" id="last_name"
-                                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                                placeholder="Your last name" 
-                                formControlName="lName"
-                                required>
-                                @if(settingsForm.get('lName')?.hasError('required') && settingsForm.get('lName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Last name is required!</p>
-                                }@else if(settingsForm.get('lName')?.hasError('minlength') && settingsForm.get('lName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must be more than 3 characters!</p>
-                                }@else if(settingsForm.get('lName')?.hasError('pattern') && settingsForm.get('lName')?.touched){
-                                    <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must don't contain numbers!</p>
-                                }
-                        </div>
+          <div class="mb-2 sm:mb-6">
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+              >{{ "account-setting.Your email" | translate }}</label
+            >
+            <input
+              type="email"
+              id="email"
+              class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+              placeholder="your.email@mail.com"
+              formControlName="email"
+              required
+              [disabled]="true"
+            />
+            @if(settingsForm.get('email')?.hasError('required') &&
+            settingsForm.get('email')?.touched){
+            <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
+                {{ "account-setting.Email is required!" | translate }}
+            </p>
+            }@else if(settingsForm.get('email')?.hasError('email') &&
+            settingsForm.get('email')?.touched){
+            <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
+                {{ "account-setting.Must be valid email!" | translate }}
+            </p>
+            }
+          </div>
 
-                    </div>
+          <div class="mb-2 sm:mb-6">
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+              >{{ "account-setting.Your Phone Number" | translate }}</label
+            >
+            <input
+              type="number"
+              id="phone-number"
+              name="phone-number"
+              class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+              placeholder="e.g. +(12)3456 789"
+              formControlName="phone"
+              required
+            />
+            @if(settingsForm.get('phone')?.hasError('required') &&
+            settingsForm.get('phone')?.touched){
+            <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
+                {{ "account-setting.Phone number is required!" | translate }}
+            </p>
+            }@else if(settingsForm.get('phone')?.hasError('pattern') &&
+            settingsForm.get('phone')?.touched){
+            <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">
+                {{
+                    "account-setting.Must be valid phone number (01*********)!"
+                      | translate
+                  }}
+                              </p>
+            }
+          </div>
 
-                    <div class="mb-2 sm:mb-6">
-                        <label for="email"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
-                            email</label>
-                        <input type="email" id="email"
-                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="your.email@mail.com" 
-                            formControlName="email"
-                            required
-                            [disabled]="true"
-                            >
-                            @if(settingsForm.get('email')?.hasError('required') && settingsForm.get('email')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Email is required!</p>
-                            }@else if(settingsForm.get('email')?.hasError('email') && settingsForm.get('email')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must be valid email!</p>
-                            }
-                    </div>
-
-                    <div class="mb-2 sm:mb-6">
-                        <label for="email"
-                            class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400">Your
-                            Phone Number</label>
-                        <input type="number" id="phone-number" name="phone-number"
-                            class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 "
-                            placeholder="e.g. +(12)3456 789" 
-                            formControlName="phone"
-                            required>
-                            @if(settingsForm.get('phone')?.hasError('required') && settingsForm.get('phone')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Phone number is required!</p>
-                            }@else if(settingsForm.get('phone')?.hasError('pattern') && settingsForm.get('phone')?.touched){
-                                <p class="bg-red-500 text-white px-2 py-1 rounded-lg mt-1 text-xs">Must be valid phone number (01*********)!</p>
-                            }
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button 
-                            type="submit"
-                            class="text-white bg-blue-400  hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
-                            (click)="saveSettings()"
-                            >
-                            @if (isLoading) {
-                                <div class="flex justify-center items-center">
-                                    <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-white mr-2"></div>
-                                    Save...
-                                </div>
-                            }@else if (!isLoading) {
-                                Save
-                            }
-                        </button>
-                    </div>
-
-                </div>
-            </form>
-
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="text-white bg-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+              (click)="saveSettings()"
+            >
+              @if (isLoading) {
+              <div class="flex justify-center items-center">
+                <div
+                  class="animate-spin rounded-full h-4 w-4 border-t-2 border-white mr-2"
+                ></div>
+                Save...
+              </div>
+              }@else if (!isLoading) { Save }
+            </button>
+          </div>
         </div>
+      </form>
     </div>
+  </div>
 </div>

@@ -24,7 +24,7 @@
                   <i class="fas fa-info-circle text-xl mr-1"></i>
                   Details</strong
                 >
-                <small class="mt-1">Some info about your Cart.</small>
+                <small class="mt-1">{{"payment.Some info about your Cart."|translate}}</small>
               </p>
             </button>
           </li>
@@ -45,9 +45,9 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-credit-card text-xl mr-2"></i>
-                  Payment</strong
+                  {{"payment.Payment"|translate}}</strong
                 >
-                <small class="mt-1">Show us the money.</small>
+                <small class="mt-1">{{"payment.Show us the money."|translate}}</small>
               </p>
             </button>
           </li>
@@ -73,9 +73,9 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-check-circle text-xl mr-1"></i>
-                  Confirmation</strong
+                  {{"payment.Confirmation"|translate}}</strong
                 >
-                <small class="mt-1"> Thank you for your order! </small>
+                <small class="mt-1"> {{"payment.Thank you for your order!"|translate}} </small>
               </p>
             </button>
           </li>
@@ -94,7 +94,7 @@
           <section class="bg-blueGray-100 mt-6">
             <div class="container mx-auto px-4">
               <div class="mb-8 text-2xl font-semibold text-gray-800">
-                Your Order:
+                {{"payment.Your Order:"|translate}}
               </div>
               <div class="bg-white p-6 rounded-lg shadow-lg">
                 <!-- Product List -->
@@ -116,14 +116,14 @@
                           href="#"
                           >{{ item.name }}</a
                         >
-                        <p class="text-gray-400">Author: {{ item.name }}</p>
+                        <p class="text-gray-400">{{"payment.Author:"|translate}} {{ item.name }}</p>
                         <p class="text-gray-400">
-                          Description: {{ item.name }}
+                          {{"payment.Description:"|translate}} {{ item.name }}
                         </p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-gray-400">Qty: {{ item.quantity }}</p>
+                      <p class="text-gray-400">{{"payment.Qty:"|translate}} {{ item.quantity }}</p>
                       <p class="text-blue-500">
                         $
                         <span class="text-blue-500 text-xl">{{
@@ -136,7 +136,7 @@
                 <!-- Summary -->
                 <div class="lg:flex xl:items-center w-full mt-12">
                   <div class="lg:w-2/12 xl:w-1/12 mb-10 xl:mb-0">
-                    <h3 class="text-xl font-heading font-medium">Summary</h3>
+                    <h3 class="text-xl font-heading font-medium">{{"payment.Summary"|translate}}</h3>
                   </div>
                   <div class="w-full lg:w-10/12 xl:w-11/12">
                     <div class="flex flex-wrap lg:justify-end -mx-3">
@@ -155,7 +155,7 @@
                               {{ totalQuantity }}
                             </div>
                           </div>
-                          <span class="ml-16">Products</span>
+                          <span class="ml-16">{{"payment.Products"|translate}}</span>
                         </div>
                       </div>
                       <div
@@ -164,7 +164,7 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl"
                         >
-                          <span>Shipping:</span>
+                          <span>{{"payment.Shipping:"|translate}}</span>
                           <span class="flex items-center">
                             <span class="ml-2 mr-1 text-sm">$</span>
                             <span class="text-xl">10.00</span>
@@ -177,7 +177,7 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white font-heading font-medium rounded-3xl"
                         >
-                          <span>Total</span>
+                          <span>{{"payment.Total"|translate}}</span>
                           <span class="flex items-center text-blue-500">
                             <span class="mr-1 text-sm ml-3">$</span>
                             <span class="text-xl">{{ totalPrice }}</span>
@@ -192,7 +192,7 @@
                           class="block py-2 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 transition duration-200 mt-4"
                           (click)="activeTab = 'payment'"
                         >
-                          Next
+                          {{"payment.Next"|translate}}
                           <i class="fa-solid fa-arrow-right"></i>
                         </button>
                       </div>
@@ -214,7 +214,7 @@
                   <h2
                     class="text-5xl font-semibold text-gray-900 ml-12 dark:text-white sm:text-2xl"
                   >
-                    Payment Gateway
+                    {{"payment.Payment Gateway"|translate}}
                   </h2>
                   <div
                     id="accordionFlushExample"
@@ -229,7 +229,7 @@
                           aria-expanded="onlinePaymentOpen"
                           aria-controls="flush-collapseOne"
                         >
-                          Online Payment
+                          {{"payment.Online Payment"|translate}}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': onlinePaymentOpen }"
@@ -282,7 +282,7 @@
                           aria-expanded="payOnDeliveryOpen"
                           aria-controls="flush-collapseTwo"
                         >
-                          Pay on Delivery
+                          {{"payment.Pay on Delivery"|translate}}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': payOnDeliveryOpen }"
@@ -318,7 +318,7 @@
                             <h6
                               class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-white"
                             >
-                              Billing Address
+                              {{"payment.Billing Address"|translate}}
                             </h6>
 
                             <!-- Phone number input -->
@@ -327,14 +327,14 @@
                                 for="input-03-5"
                                 class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                               >
-                                Phone number
+                                {{"payment.Phone number"|translate}}
                               </label>
                               <input
                                 id="input-03-5"
                                 name="phoneNumber"
                                 type="tel"
                                 class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                placeholder="Your phone number"
+                                placeholder="{{'payment.Your phone number'|translate}}"
                               />
                             </div>
 
@@ -344,7 +344,7 @@
                                 for="input-03-6"
                                 class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                               >
-                                Street name and house number
+                                {{"payment.Street name and house number"|translate}}
                               </label>
                               <input
                                 id="input-03-6"
@@ -363,14 +363,14 @@
                                     for="input-03-7"
                                     class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                   >
-                                    City
+                                    {{"payment.City"|translate}}
                                   </label>
                                   <input
                                     id="input-03-7"
                                     name="city"
                                     type="text"
                                     class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                    placeholder="Your city"
+                                    placeholder="{{'payment.Your city'|translate}}"
                                   />
                                 </div>
                               </div>
@@ -380,7 +380,7 @@
                                     for="select-03-1"
                                     class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                   >
-                                    Region
+                                    {{"payment.Region"|translate}}
                                   </label>
                                   <select
                                     name="region"
@@ -388,12 +388,12 @@
                                     class="appearance-none block py-2 px-3 w-full text-sm text-gray-900 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
                                   >
                                     <option value="" selected disabled hidden>
-                                      Select region
+                                      {{"payment.Select region"|translate}}
                                     </option>
-                                    <option value="region1">Region 1</option>
-                                    <option value="region2">Region 2</option>
-                                    <option value="region3">Region 3</option>
-                                    <option value="region4">Region 4</option>
+                                    <option value="region1">{{"payment.Region"|translate}} 1</option>
+                                    <option value="region2">{{"payment.Region"|translate}} 2</option>
+                                    <option value="region3">{{"payment.Region"|translate}} 3</option>
+                                    <option value="region4">{{"payment.Region"|translate}} 4</option>
                                   </select>
                                 </div>
                               </div>
@@ -403,14 +403,14 @@
                                     for="input-03-8"
                                     class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                   >
-                                    Postal code
+                                    {{"payment.Postal code"|translate}}
                                   </label>
                                   <input
                                     id="input-03-8"
                                     name="postalCode"
                                     type="text"
                                     class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                    placeholder="Your postal code"
+                                    placeholder="{{'payment.Your postal code'|translate}}"
                                   />
                                 </div>
                               </div>
@@ -420,7 +420,7 @@
                                     for="select-03-2"
                                     class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                   >
-                                    Country
+                                    {{"payment.Country"|translate}}
                                   </label>
                                   <select
                                     name="country"
@@ -428,12 +428,12 @@
                                     class="appearance-none block py-2 px-3 w-full text-sm text-gray-900 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
                                   >
                                     <option value="" selected disabled hidden>
-                                      Select country
+                                      {{"payment.Select country"|translate}}
                                     </option>
-                                    <option value="poland">Poland</option>
-                                    <option value="france">France</option>
-                                    <option value="italy">Italy</option>
-                                    <option value="australia">Australia</option>
+                                    <option value="poland">{{"payment.Poland"|translate}}</option>
+                                    <option value="france">{{"payment.France"|translate}}</option>
+                                    <option value="italy">{{"payment.Italy"|translate}}</option>
+                                    <option value="australia">{{"payment.Australia"|translate}}</option>
                                   </select>
                                 </div>
                               </div>
@@ -445,14 +445,14 @@
                                 type="button"
                                 class="py-2 px-4 text-sm text-gray-900 bg-gray-300 border border-gray-400 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                               >
-                                Reset
+                                {{"payment.Reset"|translate}}
                               </button>
                               <button
                                 type="submit"
                                 class="py-2 px-4 text-sm text-white bg-blue-600 border border-blue-700 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
                                 (click)="confirmOrder()"
                               >
-                                Confirm & Order
+                                {{"payment.Confirm & Order"|translate}}
                               </button>
                             </div>
                           </form>
@@ -475,27 +475,27 @@
             <div class="border border-gray-50 rounded-2xl px-6 md:px-12 py-12">
               <div class="pb-10 border-b border-gray-50">
                 <h1 class="font-heading uppercase text-3xl">
-                  Your order has been confirmed and will be shipping soon... 🎉
+                  {{"payment.Your order has been confirmed and will be shipping soon..."|translate}} 🎉
                 </h1>
               </div>
               <div class="py-6 border-b border-gray-50">
                 <div class="flex flex-wrap -m-4">
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Order Date</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Order Date"|translate}}</p>
                     <p class="font-semibold">
                       {{ orderDate }}
                     </p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Order Number</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Order Number"|translate}}</p>
                     <p class="font-semibold">{{ orderId }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Payment</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Payment"|translate}}</p>
                     <p class="font-semibold">{{ paymentMethod }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Address</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Address"|translate}}</p>
                     <p class="font-semibold">{{ shippingAddress }}</p>
                   </div>
                 </div>
@@ -522,7 +522,7 @@
                   <div class="w-full md:w-1/3 p-4">
                     <div class="flex md:justify-center">
                       <p>
-                        <span>Quantity:</span>
+                        <span>{{"payment.Quantity:"|translate}}</span>
                         <span class="font-semibold">{{ item.quantity }}</span>
                       </p>
                     </div>
@@ -536,16 +536,14 @@
               </div>
               <div class="py-6 border-b border-gray-50 mb-10">
                 <div class="flex justify-between flex-wrap">
-                  <p class="text-xl font-semibold">Total</p>
+                  <p class="text-xl font-semibold">{{"payment.Total"|translate}}</p>
                   <p class="text-xl font-semibold">${{ totalPrice }}</p>
                 </div>
               </div>
               <p class="text-gray-500 mb-3">
-                We’ll send you shipping confirmation when your item(s) are on
-                the way! We appreciate your business, and hope you enjoy your
-                purchase.
+                {{"payment.We’ll send you shipping confirmation when your item(s) are on the way! We appreciate your business, and hope you enjoy your purchase."|translate}}
               </p>
-              <p class="text-gray-500">Thank you!</p>
+              <p class="text-gray-500">{{"payment.Thank you!"|translate}}</p>
             </div>
           </div>
         </div>

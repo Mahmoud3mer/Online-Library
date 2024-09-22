@@ -5,11 +5,13 @@ import { UserSettingsService } from '../../services/user-settings/user-settings.
 import { ConfirmationUpdateSettingsComponent } from '../confirmation-update-settings/confirmation-update-settings.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
 
 @Component({
   selector: 'app-account-setting',
   standalone: true,
-  imports: [ReactiveFormsModule, ConfirmationUpdateSettingsComponent],
+  imports: [ReactiveFormsModule, ConfirmationUpdateSettingsComponent, TranslateModule],
   templateUrl: './account-setting.component.html',
   styleUrl: './account-setting.component.scss'
 })
@@ -40,7 +42,7 @@ export class AccountSettingComponent {
   }
 )
 
-constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsService: UserSettingsService){
+constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsService: UserSettingsService, private _myTranslateService:MyTranslateService ){
   this.isBrowser = isPlatformBrowser(platformId);
   this.getPrfile()
 }
@@ -163,6 +165,9 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
       title: "Error...",
       text: `${message}!`,
     });
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 
 }

@@ -43,7 +43,7 @@ export class AddToCartBtnComponent {
     this._addToCartService.addToCart(bookId).subscribe({
       next: (res) => {
         console.log(res);
-
+        if(document.dir==='ltr'){
         if (res.message === "Book is already in the cart") {
           this.message = "This book is already in your cart.";
           this._toastService.showError(this.message);
@@ -53,7 +53,19 @@ export class AddToCartBtnComponent {
           this._toastService.showSuccess(this.message);
           this._cartBooksService.updateCartBooks(res.data.books);
         }
-       
+      }
+      else if(document.dir==='rtl'){
+        if (res.message === "Book is already in the cart") {
+          this.message = "هذا الكتاب موجود بالفعل";
+          
+          this._toastService.showError(this.message);
+        } else if (res.message === "Book added to cart successfully") {
+          this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
+          this.message = "تم اضافة الكتاب الي السلة بنجاح";
+          this._toastService.showSuccess(this.message);
+        }
+
+      }
  
       },
       error: (err) => {
