@@ -62,7 +62,7 @@
 
             <button
               [ngClass]="{ 'disabled-class': isPaymentDisabled }"
-              [disabled]="isPaymentDisabled && activeTab === 'confirmation'"
+              [disabled]="true"
               (click)="setActiveTab('confirmation')"
               class="flex items-center cursor-pointer"
               [ngClass]="{
@@ -190,7 +190,7 @@
                         <button
                           type="button"
                           class="block py-2 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 transition duration-200 mt-4"
-                          (click)="activeTab = 'payment'"
+                          (click)="setActiveTab('payment')"
                         >
                           {{"payment.Next"|translate}}
                           <i class="fa-solid fa-arrow-right"></i>

@@ -13,9 +13,9 @@ import { SuccessModalComponent } from "../../components/success-modal/success-mo
 import { FailureModalComponent } from "../../components/failure-modal/failure-modal.component";
 import { HttpClient } from "@angular/common/http";
 import { CreateOrderService } from "../../services/orders/create-order.service";
-import { paypalClientId } from "../../util/apiUrl";
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-payment",
@@ -34,6 +34,7 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
   styleUrls: ["./payment.component.scss"],
 })
 export class PaymentComponent implements OnInit {
+  paypalClientId = environment.paypalClientId;
   httpClient = inject(HttpClient);
   activeTab: string = "orderSummary";
   isRearVisible: boolean = false;
@@ -112,7 +113,7 @@ export class PaymentComponent implements OnInit {
     const currency = "USD";
     this.payPalConfig = {
       currency: currency,
-      clientId: paypalClientId,
+      clientId: this.paypalClientId,
       createOrderOnClient: (data) =>
         <ICreateOrderRequest>{
           intent: "CAPTURE",
@@ -172,7 +173,7 @@ export class PaymentComponent implements OnInit {
         const shippedAddress = data.purchase_units[0].shipping?.address;
         this.orderId = data.id; // Set order ID
         this.orderDate = data.create_time; // Set order date
-        this.shippingAddress = `${shippedAddress?.address_line_1}, ${shippedAddress?.address_line_2}, ${shippedAddress?.admin_area_2}, ${shippedAddress?.country_code}`; // Set shipping address
+        this.shippingAddress = `${shippedAddress?.address_line_1}, ${shippedAddress?.admin_area_2}, ${shippedAddress?.admin_area_1}, ${shippedAddress?.country_code}`; // Set shipping address
 
         // Clear Cart
         this._clearCartService.clearCart().subscribe({

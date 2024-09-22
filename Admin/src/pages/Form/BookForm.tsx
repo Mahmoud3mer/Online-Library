@@ -162,6 +162,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
                   UrlWantToFetch="authors"
                   inputName="author"
                   inputPlaceholder="Search for an author..."
+                  searchQuery='name'
                   inputOnSelect={handleAuthorSelect}
                   extractDisplayName={(author: any) => author.name}
                 />
@@ -181,6 +182,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
                   UrlWantToFetch="category"
                   inputName="category"
                   inputPlaceholder="Search for an Category..."
+                  searchQuery='name'
                   inputOnSelect={handleCategorySelect}
                   extractDisplayName={(category: any) => category.name}
                 />
@@ -247,13 +249,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
         </div>
         <button className='btn btn-primary ms-auto mt-4 px-8 text-xl block'>{id ? 'Update Book' : 'Create Book'}</button>
       </form>
-      <AutoCompleteSearch<AuthorInterface>
-        UrlWantToFetch="authors"
-        inputName="author"
-        inputPlaceholder="Search for an author..."
-        inputOnSelect={handleAuthorSelect}
-        extractDisplayName={(author: any) => author.name}
-      />
+    
     </>
   );
 };
