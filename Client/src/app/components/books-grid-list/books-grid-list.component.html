@@ -4,12 +4,13 @@
   @for (item of allBooks; track $index) {
   <app-book-card
     [bookId]="item._id"
+    [bookStock]="item.stock"
     [bookTitle]="item.title"
     [bookCoverImg]="item.coverImage"
-    [bookCategory]="item.category.name"
+    [bookCategory]="item.category ? item.category.name : ''"
     [bookPrice]="item.price
     "
-    [authorName]="item.author.name"
+    [authorName]="item.author? item.author.name : ''"
     [bookRating]="item.averageRating"
   >
   </app-book-card>

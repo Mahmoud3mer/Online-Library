@@ -21,6 +21,7 @@ export class BookCardComponent implements OnChanges {
   @Input() bookCoverImg: string = '';
   @Input() authorName: string = '';
   @Input() bookRating: number = 0;
+  @Input() bookStock : number = 0;
 
   starArray: number[] = [];
 

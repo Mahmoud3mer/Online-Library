@@ -97,11 +97,11 @@ const navigate = useNavigate()
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author ? book.author.name : 'Author Not Provided'}</p>
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category ? book.category.name : 'Category Not Provided'}</p>
             </div>
 
             <div className="col-span-1 flex items-center">

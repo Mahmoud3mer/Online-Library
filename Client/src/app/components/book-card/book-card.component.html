@@ -1,6 +1,9 @@
 <div class="book-card mt-6 bg-white dark:bg-[#123656c8] rounded" style="box-shadow: 0px 0px 20px #00000012;">
-  <div class="p-2 ">
+  <div class="p-2">
     <div class="relative overflow-hidden bg-gray-50 dark:bg-[#123656] img-holder">
+      @if (bookStock < 1) {
+        <span class="absolute top-3 left-0 bg-red-800 text-gray-100 py-1 px-2 rounded">Out Of Stock</span>
+      }
       <div style="width: 80%; margin: auto;" class="py-4">
         @if (bookCoverImg) {
         <img class="block mx-auto lg:w-40 h-60 dark:text-white" [src]="bookCoverImg" [alt]="bookTitle">
