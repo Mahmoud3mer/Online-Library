@@ -8,19 +8,20 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-books-card-for-list',
   standalone: true,
-  imports: [AddToCartBtnComponent, AddToWishlistBtnComponent,TranslateModule],
+  imports: [AddToCartBtnComponent, AddToWishlistBtnComponent, TranslateModule],
   templateUrl: './books-card-for-list.component.html',
   styleUrl: './books-card-for-list.component.scss'
 })
-export class BooksCardForListComponent implements OnChanges{
-  constructor(private _myTranslateService:MyTranslateService){ }
-  @Input() bookId : string = '';
+export class BooksCardForListComponent implements OnChanges {
+  constructor(private _myTranslateService: MyTranslateService) { }
+  @Input() bookId: string = '';
   @Input() bookTitle: string = '';
   @Input() bookCategory: string = '';
   @Input() bookPrice: number = 0;
   @Input() bookCoverImg: string = '';
   @Input() authorName: string = '';
   @Input() bookRating: number = 0;
+  @Input() bookStock: number = 0;
 
   starArray: number[] = [];
 
@@ -44,8 +45,8 @@ export class BooksCardForListComponent implements OnChanges{
 
   router = inject(Router);
 
-  goToDetails(bookId:string){
-    this.router.navigate(["book-details",bookId])
+  goToDetails(bookId: string) {
+    this.router.navigate(["book-details", bookId])
   }
 
   changeLang(lang: string) {
