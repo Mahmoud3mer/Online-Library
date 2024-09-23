@@ -6,7 +6,7 @@ export class Author {
     @Prop({required: true})
     name: string;
 
-    @Prop({required: true})
+    @Prop({required: true, default: ""})
     image: string;
 
     @Prop({required: true})

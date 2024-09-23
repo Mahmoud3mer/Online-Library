@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
 import axios from 'axios';
@@ -9,11 +10,13 @@ import AutoCompleteSearch from '../../components/AutoCompeleteSearch';
 
 const BookForm = () => {
   const { id } = useParams(); // Gets the id from the URL if it exists
+  const [isLoading, setIsLoading] = useState(false);
+
   const [bookData, setBookData] = useState({
     title: '',
-    stock: 0,
-    price: 0,
-    pages: 0,
+    stock: '',
+    price: '',
+    pages: '',
     author: '',
     category: '',
     publishedDate: '',
@@ -76,9 +79,9 @@ const BookForm = () => {
     // !form data 
     const formData = new FormData();
     formData.append('title', bookData.title);
-    formData.append('stock', bookData.stock.toString());
-    formData.append('price', bookData.price.toString());
-    formData.append('pages', bookData.pages.toString());
+    formData.append('stock', bookData.stock);
+    formData.append('price', bookData.price);
+    formData.append('pages', bookData.pages);
     formData.append('author', bookData.author);
     formData.append('category', bookData.category);
     formData.append('publishedDate', bookData.publishedDate);
@@ -88,38 +91,47 @@ const BookForm = () => {
       formData.append('coverImage', bookData.coverImage);
     }
 
-    
+
     if (id) {
-      axios.patch(`${apiUrl}/books/${id}`, formData, { 'headers': { 'token': token }})
-        .then(() => console.log("Book updated successfully"))
-        .catch(err => console.error("Error updating book:", err));
+      try {
+
+        axios.patch(`${apiUrl}/books/${id}`, formData, { 'headers': { 'token': token } })
+        console.log("Book updated successfully")
+      } catch (error) {
+        console.error("Error updating book:", error);
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      axios.post(`${apiUrl}/books`, formData, { 'headers': { 'token': token }})
-        .then(() => console.log("Book created successfully"))
-        .catch(
-          err => console.error("Error creating book:", err.response.data.message));
+      try {
+        axios.post(`${apiUrl}/books`, formData, { 'headers': { 'token': token } })
+          .then(() => console.log("Book created successfully"))
+          .catch(
+            err => console.error("Error creating book:", err.response.data.message));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false); // Reset loading statex
+      }
     }
   };
-
-
-  console.log(bookData);
 
 
   const handleAuthorSelect = (selectedAuthor: AuthorInterface) => {
     console.log("Selected Author:", selectedAuthor);
     setBookData((prevData) => ({
-        ...prevData,
-        author: selectedAuthor._id // Push the selected author's _id to bookData
+      ...prevData,
+      author: selectedAuthor._id // Push the selected author's _id to bookData
     }));
-};
+  };
 
-const handleCategorySelect = (selectedCategory: CategoryInterface) => {
+  const handleCategorySelect = (selectedCategory: CategoryInterface) => {
     console.log("Selected Category:", selectedCategory);
     setBookData((prevData) => ({
-        ...prevData,
-        category: selectedCategory._id // Push the selected category's _id to bookData
+      ...prevData,
+      category: selectedCategory._id // Push the selected category's _id to bookData
     }));
-};
+  };
 
   if (loading) {
     return <div>Loading...</div>; // Show loading state while fetching data
@@ -145,7 +157,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
             inputLabel='Book Stock'
             inputName='stock'
             inputPlaceholder='Book Quantity'
-            inputType='number'
+            inputType='text'
             inputValue={bookData.stock}
             inputOnChangeValue={handleInputChange}
           />
@@ -154,7 +166,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
             inputLabel='Book Price'
             inputName='price'
             inputPlaceholder='Book Price'
-            inputType='number'
+            inputType='text'
             inputValue={bookData.price}
             inputOnChangeValue={handleInputChange}
           />
@@ -163,7 +175,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
             inputLabel='Book Page Count'
             inputName='pages'
             inputPlaceholder='Book Page Count'
-            inputType='number'
+            inputType='text'
             inputValue={bookData.pages}
             inputOnChangeValue={handleInputChange}
           />
@@ -176,7 +188,7 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
               </h3>
             </div>
             <div className="flex flex-col gap-5.5 p-6.5">
-            <span>Current Author: <span className='text-lg font-semibold'> {bookData.author?.name} </span></span>
+              <span>Current Author: <span className='text-lg font-semibold'> {bookData.author?.name} </span></span>
               <div>
                 <AutoCompleteSearch<AuthorInterface>
                   UrlWantToFetch="authors"
@@ -233,14 +245,14 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
             </div>
             <div className="grid grid-cols-4 gap-5.5 p-6.5">
               {bookData.coverImage &&
-              <div className='col-span-1 w-full'>
-                <img src={bookData.coverImage} alt="" />
-              </div>
+                <div className='col-span-1 w-full'>
+                  <img src={bookData.coverImage} alt="" />
+                </div>
               }
 
               <div className={bookData.coverImage ? 'col-span-3 self-end' : 'col-span-4'}>
                 <input
-                  name="Image"
+                  name="coverImage"
                   onChange={handleCoverImgChange}
                   type="file"
                   className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
@@ -274,10 +286,14 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
           </div>
 
         </div>
-        <button className='btn btn-primary ms-auto mt-4 px-8 text-xl block'>{id ? 'Update Book' : 'Create Book'}
+        <button
+          className='btn btn-primary ms-auto mt-4 px-8 text-xl block'
+          disabled={isLoading}>
+          {isLoading ? (id ? 'Updating...' : 'Creating...') : (id ? 'Update Book' : 'Create Book')}
         </button>
+
       </form>
-    
+
     </>
   );
 };

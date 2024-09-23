@@ -5,16 +5,45 @@ import { Model } from 'mongoose';
 import { Author } from 'src/core/schemas/author.schema';
 import { AuthorDTO } from './dto/Author.DTO';
 import { PaginationDTO } from '../book/bookdto/pagination.dto';
+import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class AuthorService {
 
     constructor(@InjectModel(Author.name) private authorModel: Model<Author> // Inject Author model
-){}
+){
+    cloudinary.config({
+        cloud_name: 'dvrl2eknu',
+        api_key: '287955823152971',
+        api_secret: 'TwNg0tN4IDLdQ0k6GEcFZco0deU'
+    });
+}
 
-addNewAuthor = async (body: AuthorDTO) => {
+addNewAuthor = async (body: AuthorDTO, file:Express.Multer.File) => {
     try {
-        const newAuthor = await this.authorModel.create(body);
+        if (file) {
+            console.log(file)
+            // !cloudinary
+            const imgRes = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream(
+                { 
+                    resource_type: 'image' ,
+                    folder: 'author_images'
+                },
+                (error, result) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    resolve(result);
+                }
+                ).end(file.buffer);
+            });
+            // console.log(imgRes['secure_url']);
+            body.image = imgRes['secure_url'];
+        } else {
+            throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+        }
+        const newAuthor = await this.authorModel.insertMany(body);
         return { message: 'Added New Author', newAuthor };
     } catch (error) {
         throw new HttpException('Failed to add author', HttpStatus.BAD_REQUEST);

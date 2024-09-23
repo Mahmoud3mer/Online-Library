@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
 import CustomInput from './FromComponents/CustomInput'
-import { MdDeleteForever, MdOutlineEditOff } from 'react-icons/md';
-import { FaEye } from 'react-icons/fa';
 import AuthorTable from '../../components/AuthorTable';
 import axios from 'axios';
 import { apiUrl } from '../../utils/apiUrl';
@@ -26,18 +24,32 @@ const AuthorForm = () => {
     setAuthorData({ ...authorData, [name]: value });
   };
 
+  const handleAuthorImage = (e: any) => {
+    setAuthorData({ ...authorData, image: e.target.files[0] })
+  }
+
+
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const token = getToken();
+
+    const formData = new FormData();
+    formData.append('name', authorData.name);
+    formData.append('bio', authorData.bio);
+    if (authorData.image) {
+      formData.append('image', authorData.image);
+    }
+
     if (id) {
-      axios.patch(`${apiUrl}/authors/${id}`, authorData, { 'headers': { 'token': token } })
+      axios.patch(`${apiUrl}/authors/${id}`, formData, { 'headers': { 'token': token } })
         .then(() => console.log("Author updated successfully"))
         .catch(err => console.error("Error updating Author:", err));
     } else {
-      axios.post(`${apiUrl}/authors`, authorData, { 'headers': { 'token': token } })
-        .then(() => console.log("Book created successfully"))
+      axios.post(`${apiUrl}/authors`, formData, { 'headers': { 'token': token } })
+        .then(() => console.log("Book created successfully", formData))
         .catch(
-          err => console.error("Error creating book:", err.response.data.message));
+          err => console.error("Error creating book:", err.response.data.message, formData));
     }
   };
 
@@ -116,7 +128,7 @@ const AuthorForm = () => {
               <div className={authorData.image ? 'col-span-3 self-end' : 'col-span-4'}>
                 <input
                   name="image"
-                  onChange={handleInputChange}
+                  onChange={handleAuthorImage}
                   type="file"
                   className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                 />

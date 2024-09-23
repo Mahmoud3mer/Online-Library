@@ -25,14 +25,14 @@ export class BookController {
     return this._bookService.addNewBook(body, file);
   }
 
-   @Get('recommendations')
+  @Get('recommendations')
   async getBooksByRecommendation(
     @Query() paginationDTO: PaginationDTO,
     @Query('categories') categories: string,
   ) {
     // Split the categories string into an array by commas
     const categoryArray = categories ? categories.split(',').map(cat => cat.trim()) : [];
-    
+
     return await this._bookService.getBooksByRecommendation(paginationDTO, categoryArray);
   }
 
@@ -56,11 +56,9 @@ export class BookController {
   @Patch('/:id')
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
-
-  updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any) {
-    const user = req.user;
-    // return user
-    return this._bookService.updateThisBook(id, body, user);
+  @UseInterceptors(FileInterceptor('coverImage'))
+  updateBook(@Param('id') id: string, @Body() body: any, @UploadedFile() file: Express.Multer.File) {
+    return this._bookService.updateThisBook(id, body, file);
   }
 
   @Delete('/:id')

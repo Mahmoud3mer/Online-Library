@@ -25,22 +25,22 @@ export class BookService {
     }
 
     addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
-        
+
         if (file) {
             console.log(file)
             // !cloudinary
             const imgRes = await new Promise((resolve, reject) => {
                 cloudinary.uploader.upload_stream(
-                { 
-                    resource_type: 'image' ,
-                    folder: 'book_cover_image'
-                },
-                (error, result) => {
-                    if (error) {
-                        return reject(error);
+                    {
+                        resource_type: 'image',
+                        folder: 'book_cover_image'
+                    },
+                    (error, result) => {
+                        if (error) {
+                            return reject(error);
+                        }
+                        resolve(result);
                     }
-                    resolve(result);
-                }
                 ).end(file.buffer);
             });
             // console.log(imgRes['secure_url']);
@@ -154,12 +154,34 @@ export class BookService {
 
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateThisBook = async (bookId: string, book: any, user: any) => {
+    updateThisBook = async (bookId: string, book: any, file: Express.Multer.File) => {
         try {
             const findBook = await this.bookModel.findById({ _id: bookId });
 
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
+            if (file) {
+                console.log(file)
+                // !cloudinary
+                const imgRes = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream(
+                        {
+                            resource_type: 'image',
+                            folder: 'book_cover_image'
+                        },
+                        (error, result) => {
+                            if (error) {
+                                return reject(error);
+                            }
+                            resolve(result);
+                        }
+                    ).end(file.buffer);
+                });
+                // console.log(imgRes['secure_url']);
+                book.coverImage = imgRes['secure_url'];
+            } else {
+                throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+            }
 
             const updateBook = await this.bookModel.findByIdAndUpdate(
                 { _id: bookId },

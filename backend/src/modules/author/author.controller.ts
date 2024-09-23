@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { PaginationDTO } from '../book/bookdto/pagination.dto';
 import { AuthGuard } from 'src/core/guards/auth.guard';
 import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
 import { AuthorDTO } from './dto/Author.DTO';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('authors')
 export class AuthorController {
@@ -25,8 +26,9 @@ export class AuthorController {
   @Post()
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
-  addNewAuthor(@Body() authorDTO: AuthorDTO) {
-      const res = this._authorService.addNewAuthor(authorDTO);
+  @UseInterceptors(FileInterceptor('image')) //! pload file (image)
+  addNewAuthor(@Body() authorDTO: AuthorDTO, @UploadedFile() file: Express.Multer.File) {
+      const res = this._authorService.addNewAuthor(authorDTO,file);
       return res;
   }
 
