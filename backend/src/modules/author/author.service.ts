@@ -41,7 +41,7 @@ getAllAuthors = async (paginationDTO: PaginationDTO) => {
 getAuthorById = async (authorId: string) => {
     const author = await this.authorModel.findById(authorId);
     if (!author) throw new HttpException('Author Not Found', HttpStatus.NOT_FOUND);
-    return { message: 'Success, Got Needed Author', author };
+    return { message: 'Success, Got Needed Author', data: author };
 };
 
 updateAuthor = async (authorId: string, author: AuthorDTO) => {
