@@ -20,7 +20,7 @@ export class BookController {
   @UseGuards(AuthGuard)
   @Roles(Role.Admin) //! Rolles for guar (athorization)
 
-  @UseInterceptors(FileInterceptor('image')) //! pload file (image)
+  @UseInterceptors(FileInterceptor('coverImage')) //! pload file (image)
   addBook(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
     return this._bookService.addNewBook(body, file);
   }

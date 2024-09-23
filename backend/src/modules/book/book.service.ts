@@ -25,21 +25,22 @@ export class BookService {
     }
 
     addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
+        
         if (file) {
+            console.log(file)
             // !cloudinary
             const imgRes = await new Promise((resolve, reject) => {
                 cloudinary.uploader.upload_stream(
-                    {
-                        resource_type: 'image',
-                        folder: 'Book_CoverImages'
-                    },
-
-                    (error, result) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        resolve(result);
+                { 
+                    resource_type: 'image' ,
+                    folder: 'book_cover_image'
+                },
+                (error, result) => {
+                    if (error) {
+                        return reject(error);
                     }
+                    resolve(result);
+                }
                 ).end(file.buffer);
             });
             // console.log(imgRes['secure_url']);

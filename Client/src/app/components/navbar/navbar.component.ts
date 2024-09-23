@@ -107,7 +107,7 @@ export class NavbarComponent implements OnInit {
       this.isFadeOut = false;
       this.isFadeIn = false;
 
-      this.isFadeIn = true;
+      this.isFadeIn = true; 
     }, 400);
     localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light");
     this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light");

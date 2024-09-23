@@ -17,7 +17,7 @@ const BookForm = () => {
     author: '',
     category: '',
     publishedDate: '',
-    coverImage: '',
+    coverImage: null,
     description: ''
   });
 
@@ -31,6 +31,10 @@ const BookForm = () => {
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setBookData({ ...bookData, [name]: value });
+  };
+
+  const handleCoverImgChange = (e: any) => {
+    setBookData({ ...bookData, coverImage: e.target.files[0] });
   };
 
   // Fetch data on load
@@ -68,12 +72,29 @@ const BookForm = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const token = getToken();
+
+    // !form data 
+    const formData = new FormData();
+    formData.append('title', bookData.title);
+    formData.append('stock', bookData.stock.toString());
+    formData.append('price', bookData.price.toString());
+    formData.append('pages', bookData.pages.toString());
+    formData.append('author', bookData.author);
+    formData.append('category', bookData.category);
+    formData.append('publishedDate', bookData.publishedDate);
+    formData.append('description', bookData.description);
+
+    if (bookData.coverImage) {
+      formData.append('coverImage', bookData.coverImage);
+    }
+
+    
     if (id) {
-      axios.patch(`${apiUrl}/books/${id}`, bookData, { 'headers': { 'token': token }})
+      axios.patch(`${apiUrl}/books/${id}`, formData, { 'headers': { 'token': token }})
         .then(() => console.log("Book updated successfully"))
         .catch(err => console.error("Error updating book:", err));
     } else {
-      axios.post(`${apiUrl}/books`, bookData, { 'headers': { 'token': token }})
+      axios.post(`${apiUrl}/books`, formData, { 'headers': { 'token': token }})
         .then(() => console.log("Book created successfully"))
         .catch(
           err => console.error("Error creating book:", err.response.data.message));
@@ -219,8 +240,8 @@ const handleCategorySelect = (selectedCategory: CategoryInterface) => {
 
               <div className={bookData.coverImage ? 'col-span-3 self-end' : 'col-span-4'}>
                 <input
-                  name="coverImage"
-                  onChange={handleInputChange}
+                  name="Image"
+                  onChange={handleCoverImgChange}
                   type="file"
                   className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                 />
