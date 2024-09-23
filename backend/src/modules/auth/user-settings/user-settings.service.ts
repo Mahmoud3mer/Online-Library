@@ -8,11 +8,18 @@ import { MailerService } from '@nestjs-modules/mailer';
 import emailHtml from '../mails/confirmPass';
 import * as fs from 'fs';
 import * as path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class UserSettingsService {
 
-  constructor(@InjectModel(User.name) private readonly userModel: Model<User>, private readonly mailerService: MailerService) { }
+  constructor(@InjectModel(User.name) private readonly userModel: Model<User>, private readonly mailerService: MailerService) { 
+    cloudinary.config({
+      cloud_name: 'dvrl2eknu',
+      api_key: '287955823152971',
+      api_secret: 'TwNg0tN4IDLdQ0k6GEcFZco0deU'
+    });
+  }
 
 
   async getAllUsers(paginationDTO: PaginationDTO, name: string) {
@@ -64,8 +71,27 @@ export class UserSettingsService {
     // }
   
       if (file) {
-        body.profilePic = `http://localhost:3000/uploads/profileImages/${file.filename}`;
-      }
+        // body.profilePic = `http://localhost:3000/uploads/profileImages/${file.filename}`;
+        // !cloudinary
+        const imgRes = await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(
+            { 
+              resource_type: 'image' ,
+              folder: 'profile_picture'
+            },
+            (error, result) => {
+              if (error) {
+                return reject(error);
+              }
+              resolve(result);
+            }
+          ).end(file.buffer);
+        });
+        // console.log(imgRes['secure_url']);
+        body.profilePic = imgRes['secure_url'];
+      }else{
+        throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+    }
 
     if (Array.isArray(body.fName)) {
       body.fName = body.fName[body.fName.length - 1]; // Git last array element

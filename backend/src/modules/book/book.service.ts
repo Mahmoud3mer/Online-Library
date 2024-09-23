@@ -7,6 +7,7 @@ import { PaginationDTO } from './bookdto/pagination.dto';
 import { Author } from 'src/core/schemas/author.schema';
 import { Review } from 'src/core/schemas/review.schema';
 import { Category } from 'src/core/schemas/category.schema';
+import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class BookService {
@@ -15,11 +16,36 @@ export class BookService {
         @InjectModel(Author.name) private authorModel: Model<Author>,
         @InjectModel(Review.name) private ReviewModel: Model<Review>,
         @InjectModel(Category.name) private CategoryModel: Model<Category>
-    ) { }
+    ) {
+        cloudinary.config({
+            cloud_name: 'dvrl2eknu',
+            api_key: '287955823152971',
+            api_secret: 'TwNg0tN4IDLdQ0k6GEcFZco0deU'
+        });
+    }
 
     addNewBook = async (book: BookDTO, file: Express.Multer.File) => {
+        if (file) {
+            // !cloudinary
+            const imgRes = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream(
+                { resource_type: 'image' },
+                (error, result) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    resolve(result);
+                }
+                ).end(file.buffer);
+            });
+            // console.log(imgRes['secure_url']);
+            book.coverImage = imgRes['secure_url'];
+        }else{
+            throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+        }
         // console.log(file);
-        book.coverImage = file.path;
+        // book.coverImage = file.path;
+
         book.publishedDate = new Date()
         await this.bookModel.insertMany(book);
         return { message: "Success, Book Added.", data: book };
