@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
 import axios from 'axios';
@@ -81,19 +82,6 @@ const BookForm = () => {
 
     // !form data 
     const formData = new FormData();
-    
-    // formData.append('title', bookData.title);
-    // formData.append('stock', bookData.stock);
-    // formData.append('price', bookData.price);
-    // formData.append('pages', bookData.pages);
-    // formData.append('author', bookData.author._id);
-    // formData.append('category', bookData.category._id);
-    // formData.append('publishedDate', bookData.publishedDate);
-    // formData.append('description', bookData.description);
-
-    // if (bookData.coverImage) {
-    //   formData.append('coverImage', bookData.coverImage);
-    // }
 
 
     if (id) {
@@ -113,6 +101,7 @@ const BookForm = () => {
         axios.patch(`${apiUrl}/books/${id}`, formData, { 'headers': { 'token': token } })
         .then((res) => console.log(res))
         .catch(err => console.error("Error creating book:", err.response.data.message));
+
       } catch (error) {
         console.error("Error updating book:", error);
       } finally {
@@ -132,6 +121,7 @@ const BookForm = () => {
         if (bookData.coverImage) {
           formData.append('coverImage', bookData.coverImage);
         }
+
         axios.post(`${apiUrl}/books`, formData, { 'headers': { 'token': token } })
           .then(() => console.log("Book created successfully"))
           .catch(

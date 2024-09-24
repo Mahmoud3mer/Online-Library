@@ -10,6 +10,8 @@ import { ConfirmationDialogComponent } from '../../components/confirmation-dialo
 import { jwtDecode } from "jwt-decode";
 import { ReviewInterface } from '../../interfaces/review.interface';
 import { StarsLoopComponent } from '../../components/stars-loop/stars-loop.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
 
 interface DecodedToken {
   userId: string;
@@ -17,12 +19,13 @@ interface DecodedToken {
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent],
+  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent, TranslateModule],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss'
 }) 
 
 export class BookDetailsComponent implements OnInit {
+
   quantity: number = 0;
   book: any = {};
   bookId: any= "";
@@ -60,7 +63,8 @@ export class BookDetailsComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
+  constructor(private _myTranslateService:MyTranslateService 
+    , private route: ActivatedRoute ,private _httpClient: HttpClient,private _reviewService:ReviewService,private _booksService:BooksService ,@Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.bookId = this.route.snapshot.paramMap.get('id')
     this.getUserIdFromToken()
@@ -316,3 +320,26 @@ export class BookDetailsComponent implements OnInit {
     this.showConfirmationDialog = false;
   }
 }
+
+
+
+
+//   updateStarArray(): void {
+//     const fullStars = Math.floor(this.bookRating);
+//     const halfStar = this.bookRating % 1 !== 0;
+
+//     this.starArray = Array(fullStars).fill(1);
+//     if (halfStar) {
+//       this.starArray.push(0.5);
+//     }
+//     const emptyStars = 5 - this.starArray.length;
+//     this.starArray.push(...Array(emptyStars).fill(0));
+//   }
+  
+//   changeLang(lang: string) {
+//     this._myTranslateService.changLang(lang);
+//   }
+// }
+
+  
+// >>>>>>> master

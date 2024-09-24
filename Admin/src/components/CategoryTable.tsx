@@ -90,13 +90,15 @@ const CategoryTable = () => {
                 </div>
 
             </div>
-            <div className="grid grid-cols-4">
+
+            <div className="grid grid-cols-4 gap-3">
 
                 {category && category.map((category, index) => (
                     <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={category._id}>
 
                         <div className="card-container">
-                                <div className="rounded-md py-2">
+
+                                <div className="rounded-md p-2">
                                     <img src={category.image} alt={category.name} className='h-30'/>
                                 </div>
                             <div className="content p-2">

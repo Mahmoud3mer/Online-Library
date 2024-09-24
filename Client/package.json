@@ -22,6 +22,8 @@
     "@angular/router": "^17.3.0",
     "@angular/ssr": "^17.3.9",
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@react-oauth/google": "^0.12.1",
     "@sweetalert2/ngx-sweetalert2": "^12.4.0",
     "@types/axios": "^0.14.0",

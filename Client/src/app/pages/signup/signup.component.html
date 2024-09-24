@@ -2,7 +2,7 @@
   <div class="relative z-10 flex flex-wrap">
     <div class="w-full md:w-1/2">
       <div class="p-4 py-8 flex flex-col justify-evenly bg-gray-100 dark:bg-[#0e2134] h-full">
-        <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold dark:text-gray-400">Register</h1>
+        <h1 class="text-4xl text-center py-2 mb-5 from-stone-700 font-semibold dark:text-gray-400">{{"signup.Register"|translate}}</h1>
 
         <form [formGroup]="registerForm" class="md:max-w-lg mx-auto">
           <label class="block mb-4">
@@ -31,7 +31,7 @@
           <div class="flex space-x-4 mb-4">
             <label class="flex-1">
               <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-                First Name *
+                {{"signup.First Name *"|translate}}
               </p>
               <input
                 class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -46,7 +46,7 @@
                 }}"
                 id="first-name"
                 type="text"
-                placeholder="First name"
+                placeholder="{{'signup.First name'|translate}}"
                 formControlName="fName"
               />
               <p
@@ -56,7 +56,7 @@
                 "
                 class="text-red-500 text-sm italic mt-1"
               >
-                First Name is required.
+                {{"signup.First Name is required."|translate}}
               </p>
               <p
                 *ngIf="
@@ -65,14 +65,14 @@
                 "
                 class="text-red-500 text-sm italic mt-1"
               >
-                -must be 3-15 letters<br />
-                -don't have spaces<br />
-                -don't have special characters.
+                -{{"signup.must be 3-15 letters"|translate}}<br />
+                -{{"signup.don't have spaces"|translate}}<br />
+                -{{"signup.don't have special characters."|translate}}
               </p>
             </label>
             <label class="flex-1">
               <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-                Last Name *
+                {{"signup.Last Name *"|translate}}
               </p>
               <input
                 class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -87,7 +87,7 @@
                 }}"
                 id="last-name"
                 type="text"
-                placeholder="Last name"
+                placeholder="{{'signup.Last name'|translate}}"
                 formControlName="lName"
               />
               <p
@@ -97,7 +97,7 @@
                 "
                 class="text-red-500 text-sm italic mt-1"
               >
-                Last Name is required.
+                {{"signup.Last Name is required."|translate}}
               </p>
               <p
                 *ngIf="
@@ -106,16 +106,16 @@
                 "
                 class="text-red-500 text-sm italic mt-1"
               >
-                -must be 3-15 letters<br />
-                -don't have spaces<br />
-                -don't have special characters.
+                -{{"signup.must be 3-15 letters"|translate}}<br />
+                -{{"signup.don't have spaces"|translate}}<br />
+                -{{"signup.don't have special characters."|translate}}
               </p>
             </label>
           </div>
           <!--------------- Email Validation ------------------->
           <label class="block mb-4">
             <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-              Email Address *
+              {{"signup.Email Address *"|translate}}
             </p>
             <input
               class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -130,7 +130,7 @@
               }}"
               id="mail"
               type="text"
-              placeholder="Enter email address"
+              placeholder="{{'signup.Enter email address'|translate}}"
               formControlName="email"
             />
             <!-- Error messages -->
@@ -141,7 +141,7 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Email is required.
+              {{"signup.Email is required."|translate}}
             </p>
             <p
               *ngIf="
@@ -150,13 +150,13 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Please Enter a Valid Email
+              {{"signup.Please Enter a Valid Email"|translate}}
             </p>
           </label>
           <!--------------- Password Validation ------------------->
           <label class="block mb-5">
             <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-              Password *
+              {{"signup.Password *"|translate}}
             </p>
             <input
               class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -210,7 +210,7 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Password is required.
+              {{"signup.Password is required."|translate}}
             </p>
             <p
               *ngIf="
@@ -219,17 +219,17 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Must contain at least:<br />
-              -One number.<br />
-              -One capital character.<br />
-              -Use 8 characters or more for your password.
+              {{"signup.Must contain at least:"|translate}}<br />
+              -{{"signup.One number."|translate}}<br />
+              -{{"signup.One capital character."|translate}}<br />
+              -{{"signup.Use 8 characters or more for your password."|translate}}
             </p>
           </label>
 
           <!--------------- Confirm Password Validation ------------------->
           <label class="block mb-5">
             <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-              Confirm Password *
+              {{"signup.Confirm Password *"|translate}}
             </p>
             <input
               class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -284,7 +284,7 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Field is required.
+              {{"signup.Field is required."|translate}}
             </p>
             <p
               *ngIf="
@@ -293,14 +293,14 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Those passwords didn’t match. Try again.
+              {{"signup.Those passwords didn’t match. Try again."|translate}}
             </p>
           </label>
 
           <!--------------- Phone Number Validation ------------------->
           <label class="block mb-6">
             <p class="mb-2 text-gray-900 font-semibold leading-normal dark:text-gray-400">
-              Phone Number *
+              {{"signup.Phone Number *"|translate}}
             </p>
             <input
               class="px-4 py-3.5 w-full text-gray-800 font-medium placeholder-gray-400 bg-white dark:bg-gray-300 outline-none border rounded-lg focus:ring focus:ring-indigo-300
@@ -326,7 +326,7 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Phone Number is required.
+              {{"signup.Phone Number is required."|translate}}
             </p>
             <p
               *ngIf="
@@ -335,7 +335,7 @@
               "
               class="text-red-500 text-sm italic mt-1"
             >
-              Please Enter a Valid Phone Number.
+              {{"signup.Please Enter a Valid Phone Number."|translate}}
             </p>
           </label>
 
@@ -352,9 +352,9 @@
                   class="ml-2 text-sm text-gray-900 dark:text-gray-400 font-medium"
                   for="default-checkbox"
                 >
-                  <span>By signing up, I agree to the</span>
+                  <span>{{"signup.By signing up, I agree to the"|translate}}</span>
                   <a class="text-indigo-600 hover:text-indigo-700" href="#"
-                    >Terms & Conditions</a
+                    >{{"signup.Terms & Conditions"|translate}}</a
                   >
                   <span> of Flaro</span>
                 </label>
@@ -367,7 +367,7 @@
                 "
                 class="text-red-500 text-sm italic mt-1"
               >
-                You must agree to the terms and conditions.
+                {{"signup.You must agree to the terms and conditions."|translate}}
               </p>
             </div>
           </div>
@@ -397,11 +397,11 @@
                   class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                   role="status"
                 ></div>
-                <span class="ms-2">Loading...</span>
+                <span class="ms-2">{{"signup.Loading..."|translate}}</span>
               </div>
             </div>
 
-            <span *ngIf="!isLoading">Sign Up</span>
+            <span *ngIf="!isLoading">{{"signup.Sign Up"|translate}}</span>
           </button>
 
           <div class="flex flex-wrap justify-center -m-2">
@@ -410,9 +410,9 @@
                 class="flex items-center p-4 bg-white dark:bg-gray-300 hover:bg-gray-100 border rounded-lg transition ease-in-out duration-200"
               >
                 <span class="font-semibold leading-normal"
-                  >If You Have Account Sign in
+                  >{{"signup.If You Have Account Sign in"|translate}}
                   <a href="signin" class="underline text-indigo-500"
-                    >here</a
+                    >{{"signup.here"|translate}}</a
                   ></span
                 >
               </button>
@@ -437,7 +437,7 @@
 
               <div class="flex items-center justify-center mb-6">
                 <hr class="w-1/3 border-gray-300" />
-                <span class="px-4 text-lg font-semibold text-gray-200">Or</span>
+                <span class="px-4 text-lg font-semibold text-gray-200">{{"signup.Or"|translate}}</span>
                 <hr class="w-1/3 border-gray-300" />
               </div>
               <button
@@ -449,7 +449,7 @@
                   alt="google"
                   class="h-5 w-5 me-3"
                 />
-                Sign In With Google
+                {{"signup.Sign In With Google"|translate}}
               </button>
             </div>
           </div>

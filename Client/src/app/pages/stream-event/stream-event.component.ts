@@ -3,11 +3,13 @@ import { StreamInterface } from '../../interfaces/streamEvent.interface';
 import { AllStreamEventService } from '../../services/stream-event/all-stream-event.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-stream-event',
   standalone: true,
-  imports: [SubNavbarComponent],
+  imports: [SubNavbarComponent,TranslateModule],
   templateUrl: './stream-event.component.html',
   styleUrl: './stream-event.component.scss'
 })
@@ -20,9 +22,13 @@ export class StreamEventComponent implements OnInit {
   streamTitle: string = ''
   constructor(
     private _allStreamEventService: AllStreamEventService,
-    private _domSanitizer:DomSanitizer
+    private _domSanitizer:DomSanitizer,
+    private _myTranslateService:MyTranslateService
   ) { }
 
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 
   ngOnInit(): void {
 this.getAllOldStreams()

@@ -21,6 +21,8 @@ import {
   RouterLinkActive,
 } from "@angular/router";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-books",
@@ -34,6 +36,7 @@ import { PaginationComponent } from "../../components/pagination/pagination.comp
     RouterLink,
     RouterLinkActive,
     PaginationComponent,
+    TranslateModule
   ],
 
   templateUrl: "./books.component.html",
@@ -69,7 +72,8 @@ export class BooksComponent implements OnInit {
     private _authorService: AuthorService,
     private _searchFilterBooksService: SearchFilterBooksService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _myTranslateService:MyTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -256,4 +260,8 @@ export class BooksComponent implements OnInit {
         break;
     }
   }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+  
 }

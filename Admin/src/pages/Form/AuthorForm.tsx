@@ -15,6 +15,7 @@ const AuthorForm = () => {
     name: '',
     bio: '',
     image: null
+
   });
 
   // const [loading, setLoading] = useState(true); // Loading state for fetch
@@ -55,11 +56,11 @@ const AuthorForm = () => {
 
 
     // console.log(formData);
+
   };
 
 
   console.log(authorData);
-
 
 
   const handleAuthorSelect = (selectedAuthor: AuthorInterface) => {
@@ -161,8 +162,10 @@ const AuthorForm = () => {
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 ></textarea>
               </div>
+
             </div>
           </div>
+
         </div>
         <button className='btn btn-primary ms-auto my-4 px-8 text-xl block'>{id ? 'Update Author' : 'Add New Author'}
         </button>

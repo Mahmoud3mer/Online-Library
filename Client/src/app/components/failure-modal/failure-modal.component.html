@@ -12,10 +12,10 @@
     <!-- Use a different background color -->
     <i class="fa-regular fa-circle-xmark text-red-500 text-6xl"></i>
     <!-- Use a failure icon -->
-    <h2 class="text-2xl font-bold mt-4">Payment Failed</h2>
+    <h2 class="text-2xl font-bold mt-4">{{"failure-modal.Payment Failed"|translate}}</h2>
     <!-- Adjust title -->
     <h3 class="mt-2 text-lg">
-      There was an issue with your payment. Please try again.
+      {{"failure-modal.There was an issue with your payment. Please try again."|translate}}
     </h3>
     <!-- Adjust message -->
     <div class="mt-4">
@@ -23,7 +23,7 @@
         class="close-btn bg-red-500 text-white py-2 px-6 rounded hover:bg-red-600 transition"
         (click)="closeModal()"
       >
-        Ok, Close
+        {{"failure-modal.Ok, Close"|translate}}
       </button>
     </div>
   </div>

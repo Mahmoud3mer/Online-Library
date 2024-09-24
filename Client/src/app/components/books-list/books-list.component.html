@@ -2,11 +2,12 @@
     @for (item of allBooks; track item._id) {
     <app-books-card-for-list 
       [bookId]="item._id" 
+      
       [bookTitle]="item.title" 
       [bookCoverImg]="item.coverImage"
-      [bookCategory]="item.category.name" 
+      [bookCategory]="item.category ? item.category.name : ''"
       [bookPrice]="item.price" 
-      [authorName]="item.author.name"
+      [authorName]="item.author? item.author.name : ''"
       [bookRating]="item.averageRating">
     </app-books-card-for-list>
 
