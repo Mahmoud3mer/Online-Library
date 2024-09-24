@@ -8,7 +8,7 @@
         </div>
         <div class="basis-2/3">
             <h1 class="text-4xl font-bold mb-3 dark:text-white">{{book.title}}</h1>
-            <p class="mb-3 font-semibold dark:text-white">by <span class="text-blue-500">{{book.author.name}}</span> <span class="font-normal ms-2 text-xs text-gray-400">Author</span></p>
+            <p class="mb-3 font-semibold dark:text-white"> {{"book-details.by"|translate}}  <span class="text-blue-500">{{book.author.name}}</span> <span class="font-normal ms-2 text-xs text-gray-400">{{"book-details.Author"|translate}}</span></p>
             <div class="flex gap-5">
                 <p class="text-xl font-semibold mb-3 dark:text-white">${{book.price.toFixed(2)}}</p>
                 <p class="text-xl font-semibold mb-3 line-through text-gray-400">$725.00</p>
@@ -24,15 +24,16 @@
                 <!-- <span class="px-2 text-xl font-semibold dark:text-white">{{book.averageRating.toFixed(1)}}</span> -->
                 <span class="text-xs text-gray-500 mx-2">{{reviewsRatingsNumber.toFixed(0)}} <span>raitings</span></span>
                 <span class="text-xs text-gray-500">{{reviewsLength}} <span>reviews</span></span>
+
             </div>
             <div class="my-6 dark:text-white">
                 <p>{{book.description}}</p>
             </div>
-            <p class="text-gray-500 text-sm mb-3">{{book.pages}} Pages</p>
-            <p class="text-gray-500 text-sm mb-3">quantity {{book.stock}}</p>
-            <p class="text-gray-500 text-sm">First published {{book.publishedDate.slice(0,10)}}</p>
+            <p class="text-gray-500 text-sm mb-3">{{book.pages}} {{"book-details.Pages"|translate}}</p>
+            <p class="text-gray-500 text-sm mb-3">{{"book-details.quantity"|translate}} {{book.stock}}</p>
+            <p class="text-gray-500 text-sm"> {{"book-details.First published"|translate}} {{book.publishedDate.slice(0,10)}}</p>
             @if(quantity == book.stock){
-                <p class="text-red-500 text-sm mt-3">quantity is only {{book.stock}}!</p>
+                <p class="text-red-500 text-sm mt-3"> {{"book-details.quantity is only"|translate}} {{book.stock}}!</p>
             }
             <div class="flex gap-4 mt-10 flex-col md:flex-row">
                 <div class="border-2 md:w-fit px-3 py-3 text-center w-full flex justify-between items-center dark:text-white">
@@ -40,8 +41,8 @@
                     <span class="px-8">{{quantity}}</span>
                     <i class="fa-solid fa-plus cursor-pointer" (click)="increaseBooks(book.stock)"></i>
                 </div>
-                <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">Add To Cart <i class="fa-solid fa-cart-shopping me-1"></i></button>
-                <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">Add To Favorite <i class="fa-regular fa-heart"></i></button>
+                <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">{{"book-details.Add To Cart"|translate}}<i class="fa-solid fa-cart-shopping me-1"></i></button>
+                <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">{{"book-details.Add To Favorite"|translate}}  <i class="fa-regular fa-heart"></i></button>
             </div>
         </div>
     </div>
@@ -49,7 +50,7 @@
 
     <!--! Reviews  -->
     <div class="px-5 py-10">
-        <h1 class="text-2xl font-semibold mb-6 dark:text-white">All Reviews (<span class="text-lg text-gray-500">{{reviewsLength}}</span>)</h1>
+        <h1 class="text-2xl font-semibold mb-6 dark:text-white">{{"book-details.All Reviews"|translate}} (<span class="text-lg text-gray-500">{{reviewsLength}}</span>)</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
@@ -59,8 +60,8 @@
                     <div class="dark:bg-slate-400 bg-slate-200 p-2 px-4 w-fit rounded-md text-center absolute top-4 right-10">
                         @if(userId === review.userId._id){
                             <ul>
-                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mb-1 bg-slate-300" (click)="updateReview(review._id)">Edit</li><hr>
-                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mt-1 bg-slate-300" (click)="openConfirmationDialog(review._id)">Delete</li>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mb-1 bg-slate-300" (click)="updateReview(review._id)">{{"book-details.Edit"|translate}}</li><hr>
+                                <li class="cursor-pointer hover:bg-blue-600 text-gray-600 hover:text-gray-900 rounded-md px-2 mt-1 bg-slate-300" (click)="openConfirmationDialog(review._id)">{{"book-details.Delete"|translate}}</li>
                             </ul>
                         }@else{
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -77,6 +78,7 @@
                     <p class="rounded-full bg-blue-500 h-10 w-10 flex justify-center items-center">{{review.userId.fName[0] + review.userId.lName[0]}}</p>
                     <div>
                         <h3 class="text-xl font-semibold dark:text-gray-400">{{review.userId.fName}} {{review.userId.lName[0]}}.</h3>
+
                         <p class="text-gray-500 text-sm">{{review.date.slice(0,10)}}</p>
                     </div>
                 </div>
@@ -95,12 +97,12 @@
                 (click)="loadMoreReviews()"
                 [disabled]="AllReviews.length == reviewsPagination.length"
                 [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''"
-                >Load More Reviews</button>
+                >{{"book-details.Load More Reviews"|translate}}</button>
             @if(reviewsPagination.length > 10){
                 <button 
                 class="bg-white ms-2 px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300" 
                 (click)="showLessReviews()"
-                >Show Less</button>
+                >{{"book-details.Load More Reviews"|translate}}</button>
             }
         </div>
     </div>
@@ -109,12 +111,12 @@
     <!--! Add review -->
     @if(isLoggedIn){
         <div  class="px-5 py-6">
-            <h3 class="text-xl font-semibold mb-5 dark:text-white underline">Add Your Review</h3>
+            <h3 class="text-xl font-semibold mb-5 dark:text-white underline">{{"book-details.Add Your Review"|translate}}</h3>
         
             <form action="" [formGroup]="reviewForm">
                 <textarea 
                     name="review" 
-                    placeholder="Add Comment..." 
+                    placeholder="{{'book-details.Add Comment...'|translate}}" 
                     class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 mt-3 dark:bg-slate-300 dark:text-slate-700" 
                     rows="2" 
                     maxlength="500" 
@@ -124,11 +126,11 @@
                     [disabled]="commentLength >= 500"
                     ></textarea>
                     <span class="text-xs text-gray-500" [ngClass]="commentLength >= 500? 'text-red-600' : ''">(500/{{commentLength}})</span>
-                <input type="number" name="raiting" placeholder="Raiting (1-5)" min="1" max="5" class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 my-3 dark:bg-slate-300 dark:text-slate-700" formControlName="rating">
+                <input type="number" name="raiting" placeholder="{{'book-details.Raiting (1-5)'|translate}}" min="1" max="5" class="w-full border-2 focus:border-blue-600 outline-none rounded-md p-3 my-3 dark:bg-slate-300 dark:text-slate-700" formControlName="rating">
                 @if(isUpdaiting){
-                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendUpdatingReview()">Update Review</button>
+                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendUpdatingReview()">  {{"book-details.Update Review"|translate}}</button>
                 }@else{
-                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendReview()">Send Review</button>
+                    <button class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 block ms-auto dark:bg-slate-300" (click)="sendReview()">{{"book-details.Send Review"|translate}}</button>
                 }
             </form>
         </div>

@@ -22,6 +22,7 @@ export class AuthorService {
 addNewAuthor = async (body: AuthorDTO, file:Express.Multer.File) => {
     try {
         // console.log(file)
+
         if (file) {
             console.log(file)
             // !cloudinary

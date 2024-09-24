@@ -16,6 +16,7 @@ import { ReviewModule } from '../review/review.module';
     AuthorModule,
     CategoryModule,
     ReviewModule
+
 ],
   controllers: [BookController],
   providers: [BookService,JwtService]

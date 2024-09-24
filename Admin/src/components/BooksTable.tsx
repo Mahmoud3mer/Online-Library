@@ -19,7 +19,7 @@ const BooksTable = () => {
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
   const [page, setPage] = useState(1);
   const [numberOfPages, setnumberOfPages] = useState(0)
-  const limit = 1;
+  const limit = 12;
 
 const getToken = () => localStorage.getItem('token')
   useEffect(() => {
@@ -112,7 +112,7 @@ const navigate = useNavigate()
               <p className="text-sm text-black dark:text-white">{book.stock}</p>
             </div>
 
-            <div className="col-span-1 flex items-center justify-between">
+            <div className="col-span-1 flex items-center gap-1">
               <div className="hover:cursor-pointer hover:text-meta-5 p-1" onClick={() => handleMoreDetails(book._id)}>
                 <FaEye size={20} />
               </div>

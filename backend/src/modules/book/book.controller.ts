@@ -25,14 +25,14 @@ export class BookController {
     return this._bookService.addNewBook(body, file);
   }
 
-   @Get('recommendations')
+  @Get('recommendations')
   async getBooksByRecommendation(
     @Query() paginationDTO: PaginationDTO,
     @Query('categories') categories: string,
   ) {
     // Split the categories string into an array by commas
     const categoryArray = categories ? categories.split(',').map(cat => cat.trim()) : [];
-    
+
     return await this._bookService.getBooksByRecommendation(paginationDTO, categoryArray);
   }
 
@@ -61,6 +61,7 @@ export class BookController {
     const user = req.user;
     // return user
     return this._bookService.updateThisBook(id, body, user, file);
+
   }
 
   @Delete('/:id')
