@@ -14,7 +14,8 @@ const AuthorForm = () => {
   const [authorData, setAuthorData] = useState({
     name: '',
     bio: '',
-    image: ''
+    image: null
+
   });
 
   // const [loading, setLoading] = useState(true); // Loading state for fetch
@@ -25,6 +26,7 @@ const AuthorForm = () => {
   };
 
   const handleAuthorImage = (e: any) => {
+    console.log(e.target.files[0])
     setAuthorData({ ...authorData, image: e.target.files[0] })
   }
 
@@ -47,10 +49,14 @@ const AuthorForm = () => {
         .catch(err => console.error("Error updating Author:", err));
     } else {
       axios.post(`${apiUrl}/authors`, formData, { 'headers': { 'token': token } })
-        .then(() => console.log("Book created successfully", formData))
+        .then(() => console.log("Author created successfully", formData))
         .catch(
-          err => console.error("Error creating book:", err.response.data.message, formData));
+          err => console.error("Error creating Author:", err.response.data.message, formData));
     }
+
+
+    // console.log(formData);
+
   };
 
 
@@ -156,7 +162,6 @@ const AuthorForm = () => {
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 ></textarea>
               </div>
-
 
             </div>
           </div>

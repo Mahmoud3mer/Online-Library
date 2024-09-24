@@ -138,8 +138,6 @@ const CategoryForm = () => {
           </div>
 
 
-  
-
         </div>
         <button className='btn btn-primary ms-auto my-4 px-8 text-xl block'>{id ? 'Update Category' : 'Add New Category'}
         </button>

@@ -21,6 +21,8 @@ export class AuthorService {
 
 addNewAuthor = async (body: AuthorDTO, file:Express.Multer.File) => {
     try {
+        // console.log(file)
+
         if (file) {
             console.log(file)
             // !cloudinary
@@ -73,8 +75,30 @@ getAuthorById = async (authorId: string) => {
     return { message: 'Success, Got Needed Author', data: author };
 };
 
-updateAuthor = async (authorId: string, author: AuthorDTO) => {
+updateAuthor = async (authorId: string, author: AuthorDTO, file:Express.Multer.File) => {
     try {
+        if (file) {
+            console.log(file)
+            // !cloudinary
+            const imgRes = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream(
+                { 
+                    resource_type: 'image' ,
+                    folder: 'author_images'
+                },
+                (error, result) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    resolve(result);
+                }
+                ).end(file.buffer);
+            });
+            // console.log(imgRes['secure_url']);
+            author.image = imgRes['secure_url'];
+        } else {
+            throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+        }
         const updatedAuthor = await this.authorModel.findByIdAndUpdate(
             authorId,
             { $set: author },

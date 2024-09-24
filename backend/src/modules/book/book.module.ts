@@ -13,9 +13,10 @@ import { ReviewModule } from '../review/review.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Book.name, schema: BookSchema }]),
-AuthorModule,
-CategoryModule,
-ReviewModule
+    AuthorModule,
+    CategoryModule,
+    ReviewModule
+
 ],
   controllers: [BookController],
   providers: [BookService,JwtService]

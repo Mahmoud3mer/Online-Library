@@ -9,6 +9,7 @@ import { AuthorInterface, CategoryInterface } from '../../interfaces/BookInterfa
 import AutoCompleteSearch from '../../components/AutoCompeleteSearch';
 
 const BookForm = () => {
+  
   const { id } = useParams(); // Gets the id from the URL if it exists
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,6 +25,9 @@ const BookForm = () => {
     description: ''
   });
 
+  console.log(bookData)
+  console.log(bookData.category)
+  console.log(bookData.author)
   // Initialize as empty arrays
   const [authors, setAuthors] = useState<AuthorInterface[]>([]);
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
@@ -78,25 +82,26 @@ const BookForm = () => {
 
     // !form data 
     const formData = new FormData();
-    formData.append('title', bookData.title);
-    formData.append('stock', bookData.stock);
-    formData.append('price', bookData.price);
-    formData.append('pages', bookData.pages);
-    formData.append('author', bookData.author);
-    formData.append('category', bookData.category);
-    formData.append('publishedDate', bookData.publishedDate);
-    formData.append('description', bookData.description);
-
-    if (bookData.coverImage) {
-      formData.append('coverImage', bookData.coverImage);
-    }
 
 
     if (id) {
       try {
-
+        formData.append('title', bookData.title);
+        formData.append('stock', bookData.stock);
+        formData.append('price', bookData.price);
+        formData.append('pages', bookData.pages);
+        formData.append('author', bookData.author._id);
+        formData.append('category', bookData.category._id);
+        formData.append('publishedDate', bookData.publishedDate);
+        formData.append('description', bookData.description);
+    
+        if (bookData.coverImage) {
+          formData.append('coverImage', bookData.coverImage);
+        }
         axios.patch(`${apiUrl}/books/${id}`, formData, { 'headers': { 'token': token } })
-        console.log("Book updated successfully")
+        .then((res) => console.log(res))
+        .catch(err => console.error("Error creating book:", err.response.data.message));
+
       } catch (error) {
         console.error("Error updating book:", error);
       } finally {
@@ -104,6 +109,19 @@ const BookForm = () => {
       }
     } else {
       try {
+        formData.append('title', bookData.title);
+        formData.append('stock', bookData.stock);
+        formData.append('price', bookData.price);
+        formData.append('pages', bookData.pages);
+        formData.append('author', bookData.author);
+        formData.append('category', bookData.category);
+        formData.append('publishedDate', bookData.publishedDate);
+        formData.append('description', bookData.description);
+
+        if (bookData.coverImage) {
+          formData.append('coverImage', bookData.coverImage);
+        }
+
         axios.post(`${apiUrl}/books`, formData, { 'headers': { 'token': token } })
           .then(() => console.log("Book created successfully"))
           .catch(

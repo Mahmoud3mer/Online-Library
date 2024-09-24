@@ -154,8 +154,9 @@ export class BookService {
 
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateThisBook = async (bookId: string, book: any, file: Express.Multer.File) => {
-        try {
+    updateThisBook = async (bookId: string, book: any, user: any, file: Express.Multer.File) => {
+
+
             const findBook = await this.bookModel.findById({ _id: bookId });
 
             if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
@@ -165,22 +166,23 @@ export class BookService {
                 // !cloudinary
                 const imgRes = await new Promise((resolve, reject) => {
                     cloudinary.uploader.upload_stream(
-                        {
-                            resource_type: 'image',
-                            folder: 'book_cover_image'
-                        },
-                        (error, result) => {
-                            if (error) {
-                                return reject(error);
-                            }
-                            resolve(result);
+                    { 
+                        resource_type: 'image' ,
+                        folder: 'book_cover_image'
+                    },
+                    (error, result) => {
+                        if (error) {
+                            return reject(error);
                         }
+                        resolve(result);
+                    }
+
                     ).end(file.buffer);
                 });
                 // console.log(imgRes['secure_url']);
                 book.coverImage = imgRes['secure_url'];
-            } else {
-                throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+//             } else {
+//                 throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
             }
 
             const updateBook = await this.bookModel.findByIdAndUpdate(
@@ -191,9 +193,7 @@ export class BookService {
                 .populate('category');
 
             return { message: "Success, Book Updated.", data: updateBook };
-        } catch (error) {
-            return { message: "Error fetching the book.", Error: error.message }
-        }
+
     }
 
     removeBook = async (bookId: string) => {
