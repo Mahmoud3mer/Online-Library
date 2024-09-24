@@ -1,9 +1,9 @@
 <app-sub-navbar></app-sub-navbar>
-<section class="py-20 bg-sky-100">
+<section class="py-20 bg-[#f9f9f9] dark:bg-[#081d31]">
   <div class="lg:w-11/12 mx-auto px-4">
     <div >
       <div class="flex flex-wrap   ">
-        <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white  shadow-custom rounded-lg px-4 py-12">
+        <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white dark:bg-[#123656c8]  shadow-custom rounded-lg px-4 py-12">
 
           <div class="flex justify-between items-center">
             <h2 class="text-4xl font-bold font-heading pb-4">{{"cart.Your cart"|translate}}</h2>
@@ -44,18 +44,26 @@
                     </div>
                   </div>
                   <div class="w-2/3 px-4">
-                    <h3 class="mb-2 text-xl font-bold font-heading">{{item.book.title}}</h3>
-                    @if (item.book.rating) {
-                    <p class="text-gray-400 text-sm font-semibold flex justify-between">
-                      <span>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                      </span>
-
-                    </p>
+                    <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    @if (item.book.averageRating) {
+                      {{updateStarArray(item.book.averageRating)}}
+                      <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                        <span> 
+                          @for (star of starArray; track $index) {
+                          @if (star === 1) {
+                          <i class="fa-solid fa-star text-yellow-500"></i>
+                          }
+                          @if (star === .5) {
+                          <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                          }
+                          @if (star === 0) {
+                          <i class="fa-regular fa-star text-yellow-500"></i>
+                          }
+                          }
+                  
+                        </span>
+                     
+                      </p>
                     }
                     <p class="text-gray-500">{{"cart.Author:"|translate}} {{item.book.author.name}}</p>
                     <p>{{item.book.description}}</p>

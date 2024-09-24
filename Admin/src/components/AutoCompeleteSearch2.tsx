@@ -13,7 +13,7 @@ interface AutoCompleteSearchProps<T> {
 
 }
 
-const AutoCompleteSearch = <T,>({
+const AutoCompleteSearch2 = <T,>({
   UrlWantToFetch,
   inputName,
   inputPlaceholder,
@@ -31,8 +31,11 @@ const AutoCompleteSearch = <T,>({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const res = await axios.get(`${apiUrl}/${UrlWantToFetch}?limit=20&${searchQuery}=${searchQueryValue}`);
         setDataResults(res.data.data); // Set data from the API
+        console.log(res.data.data);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -96,4 +99,4 @@ const AutoCompleteSearch = <T,>({
   );
 };
 
-export default AutoCompleteSearch;
+export default AutoCompleteSearch2;
