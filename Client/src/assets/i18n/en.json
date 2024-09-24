@@ -131,7 +131,7 @@
         "Your cart":"Your cart",
         "Clear Cart":"Clear Cart",
         "loading ...":"loading ...",
-        "our cart is empty!":"our cart is empty!",
+        "Your cart is empty!":"Your cart is empty!",
         "Browse our categories and discover our best deals!":"Browse our categories and discover our best deals!",
         "Start Shopping Now":"Start Shopping Now",
         "Author:":"Author:",
@@ -162,6 +162,7 @@
         "Authors Spotlight":"Authors Spotlight",
         "Trending/Best Sellers":"Trending/Best Sellers",
         "Recommended Books":"Recommended Books",
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
         "Top Rating Books":"Top Rating Books",
         "Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.":"Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.",
         "New Books":"New Books",
@@ -401,6 +402,19 @@
         "Completed":"Completed",
         "Payment completed successfully!":"Payment completed successfully!",
         "Ok, Close":"Ok, Close"
+    },
+    "my-orders":{
+        "Order History":"Order History",
+        "pending":"pending",
+        "ID number:":"ID number:",
+        "Your invoice":"Your invoice",
+        "Track order":"Track order",
+        "Order Date:":"Order Date:",
+        "Shipping Address:":"Shipping Address:",
+        "Total Price:":"Total Price:",
+        "Author:":"Author:",
+        "Qty:":"Qty:",
+        "You didn’t order yet.":"You didn’t order yet."
     }
 
 }

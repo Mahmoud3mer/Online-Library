@@ -33,11 +33,11 @@ export class WishlistComponent implements OnInit {
   constructor(
     private _getWishlist: GetWishlistService,
     private _deletFromWishlist: DeleteBookFromWishlistServiece,
-    private _wishlistCount:WishListCountService,
-    private _toastService:ToastService,
+    private _wishlistCount: WishListCountService,
+    private _toastService: ToastService,
     private router: Router,
-    private _myTranslateService:MyTranslateService
-  ) {}
+    private _myTranslateService: MyTranslateService
+  ) { }
 
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
@@ -61,11 +61,15 @@ export class WishlistComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res.data.books);
-            
+
             this.wishlistBooks = res.data.books;
             this.numOfWishlist = this.wishlistBooks.length;
             this._wishlistCount.updateNumOfWishItems(this.numOfWishlist)
-            this._toastService.showSuccess('Book removed from wishlist successfully!');
+            if (localStorage.getItem('lang') === 'en') {
+              this._toastService.showSuccess('Book removed from wishlist successfully!');
+            } else {
+              this._toastService.showSuccess('تمت إزالة الكتاب من المفضلة بنجاح!');
+            }
           },
           error: (err) => {
             console.error(err);

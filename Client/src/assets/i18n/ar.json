@@ -121,7 +121,7 @@
         "All Categories":"جميع الفئات",
         "Filter By Author":"تصنيف حسب المؤلف",
         "Sort by:":"ترتيب حسب:",
-        "Popularity":"الشعبية",
+        "Popularity":"الاكثر شعبية",
         "A-Z Order":" من الألف إلى الياء",
         "Z-A Order":"  من الياء إلى الألف",
         "Low - High Price":" من الاقل إلى الاعلي سعر ",
@@ -131,7 +131,7 @@
         "Your cart":" السلة الخاصة بي",
         "Clear Cart":"مسح السلة",
         "loading ...":"تحميل ...",
-        "our cart is empty!":"السلة فارغة!",
+        "Your cart is empty!":"السلة فارغة!",
         "Browse our categories and discover our best deals!":"تصفح فئاتنا واكتشف أفضل عروضنا!",
         "Start Shopping Now":"ابدأ التسوق الآن",
         "Author:":"المؤلف:",
@@ -162,6 +162,7 @@
         "Authors Spotlight":"المؤلفون في دائرة الضوء",
         "Trending/Best Sellers":"الأكثر رواجًا/الأكثر مبيعًا",
         "Recommended Books":"كتب مقترحة",
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.":"هناك العديد من الاختلافات المتوفرة لمقاطع لوريم إيبسوم، ولكن الغالبية خضعت للتعديل في شكل ما.",
         "Top Rating Books":"الكتب الأعلى تقييمًا",
         "Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.":"تصفح كتبنا الأعلى تقييمًا، والتي تم اختيارها بعناية من قبل القراء والنقاد على حد سواء. اكتشف العناوين الأكثر شهرة والتي نالت الثناء والاهتمام على نطاق واسع.",
         "New Books":"كتب جديدة",
@@ -402,6 +403,19 @@
         "Completed":"اكتملت",
         "Payment completed successfully!":"تمت عملية الدفع بنجاح",
         "Ok, Close":"حسنا، إغلاق"
+    },
+    "my-orders":{
+        "Order History":"سجل الطلبات",
+        "pending":"قيد الانتظار",
+        "ID number:":"رقم الهوية:",
+        "Your invoice":"فاتورتك",
+        "Track order":"تتبع الطلب",
+        "Order Date:":"تاريخ الطلب:",
+        "Shipping Address:":"عنوان الشحن:",
+        "Total Price:":"السعر الإجمالي:",
+        "Author:":"المؤلف:",
+        "Qty:":"الكمية:",
+        "You didn’t order yet.":"لم تطلب بعد"
     }
 
 

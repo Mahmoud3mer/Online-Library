@@ -19,73 +19,73 @@ import { MyTranslateService } from '../../services/translation/my-translate.serv
 
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrl:'./cart.component.scss',
+  styleUrl: './cart.component.scss',
   imports: [
     CommonModule,
     ConfirmationDialogComponent,
     AddToCartBtnComponent,
     AddToWishlistBtnComponent,
     SubNavbarComponent,
-    RouterLink,TranslateModule
-],
+    RouterLink, TranslateModule
+  ],
 })
 export class CartComponent implements OnInit {
-  cartBooks:any[] = []
-  numOfCartItems:number=0;
-  subtotal:number=0;
-  shippingCost:number=0;
-  totalOrder:number=0;
+  cartBooks: any[] = []
+  numOfCartItems: number = 0;
+  subtotal: number = 0;
+  shippingCost: number = 0;
+  totalOrder: number = 0;
   showConfirmationDialog = false;
-  bookIdToRemove: string =''
-  isLoading:boolean=true;
-  confirmMsg:string="are you sure you want to delete this book from your cart";
-  confirmText:string="delete";
+  bookIdToRemove: string = ''
+  isLoading: boolean = true;
+  confirmMsg: string = "are you sure you want to delete this book from your cart";
+  confirmText: string = "delete";
   clearCartMode = false;
-  constructor(private _getCartService:GetCartService,private _updatCartQuantity:UpdateCartQuantiy,
-    private _deleteBookFromCart:DeleteBookFromCartService,
-    private _toastService:ToastService,
-    private _cartCount:CartCountService,
+  constructor(private _getCartService: GetCartService, private _updatCartQuantity: UpdateCartQuantiy,
+    private _deleteBookFromCart: DeleteBookFromCartService,
+    private _toastService: ToastService,
+    private _cartCount: CartCountService,
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
-    private router:Router,
-  private _myTranslateService:MyTranslateService) { }
+    private router: Router,
+    private _myTranslateService: MyTranslateService) { }
 
   ngOnInit(): void {
     this.getCart();
   }
 
-    roundedPrice(): number {
+  roundedPrice(): number {
     return Math.round(this.totalOrder);
   }
 
-    // Fetch items from CartService
-    getCart(){
-      this._getCartService.getCart().subscribe(
-        {
-          next: (res) => {
-            this.cartBooks=res.data.books;
-            this.subtotal=res.data.subtotal;
-            this.shippingCost=res.data.shippingCost;
-            this.totalOrder=res.data.totalOrder;
-            this.numOfCartItems=res.data.numOfCartItems;
-            console.log(this.cartBooks);
-  
-          },
-          error: (err) => {
+  // Fetch items from CartService
+  getCart() {
+    this._getCartService.getCart().subscribe(
+      {
+        next: (res) => {
+          this.cartBooks = res.data.books;
+          this.subtotal = res.data.subtotal;
+          this.shippingCost = res.data.shippingCost;
+          this.totalOrder = res.data.totalOrder;
+          this.numOfCartItems = res.data.numOfCartItems;
+          console.log(this.cartBooks);
 
-            console.log("errororro",err);
-            this.isLoading=false;
-          },
-          complete: () => {
-            console.log("get cart products");
-            this.isLoading = false;
-          }
+        },
+        error: (err) => {
+
+          console.log("errororro", err);
+          this.isLoading = false;
+        },
+        complete: () => {
+          console.log("get cart products");
+          this.isLoading = false;
         }
-      )
-    }
+      }
+    )
+  }
   //confirmation //
   openConfirmationDialog(bookId: string): void {
     this.bookIdToRemove = bookId;
@@ -94,26 +94,30 @@ export class CartComponent implements OnInit {
     this.clearCartMode = false; // Ensure clearCartMode is false
     this.showConfirmationDialog = true;
   }
-  
 
-  
+
+
   openClearCartConfirmation(): void {
     this.clearCartMode = true; // Set clearCartMode to true
     this.confirmMsg = "Are you sure you want to clear your cart?";
     this.confirmText = "clear cart";
     this.showConfirmationDialog = true;
   }
-  
+
   deleteBookFromCart(): void {
     this._deleteBookFromCart.deleteBookFormCart(this.bookIdToRemove).subscribe({
       next: (res) => {
         this.cartBooks = res.data.books;
-        this.subtotal=res.data.subtotal;
-        this.shippingCost=res.data.shippingCost;
-        this.totalOrder=res.data.totalOrder;
+        this.subtotal = res.data.subtotal;
+        this.shippingCost = res.data.shippingCost;
+        this.totalOrder = res.data.totalOrder;
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
         this._cartBooksService.updateCartBooks(res.data.books);
-        this._toastService.showSuccess('Book removed from cart successfully!');
+        if (localStorage.getItem('lang') === 'en') {
+          this._toastService.showSuccess('Book removed from cart successfully!');
+        } else {
+          this._toastService.showSuccess('تمت إزالة الكتاب من سلة التسوق بنجاح!');
+        }
       },
       error: (err) => {
         console.error(err);
@@ -135,7 +139,12 @@ export class CartComponent implements OnInit {
         this.numOfCartItems = 0;
         this._cartCount.updateNumOfCartItems(0); // Update cart count to 0
         this._cartBooksService.updateCartBooks([]);
-        this._toastService.showSuccess('Cart cleared successfully!');
+        if (localStorage.getItem('lang') === 'en') {
+          this._toastService.showSuccess('Cart cleared successfully!');
+        }
+        else {
+          this._toastService.showSuccess('تم مسح العربة بنجاح!');
+        }
       },
       error: (err) => {
         console.error(err);
@@ -160,8 +169,8 @@ export class CartComponent implements OnInit {
 
   handleCancel() {
     this.showConfirmationDialog = false;
-  this.clearCartMode = false; 
-  this.bookIdToRemove = ''; 
+    this.clearCartMode = false;
+    this.bookIdToRemove = '';
   }
 
 
@@ -172,10 +181,10 @@ export class CartComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems)
-        this.cartBooks= res.data.books
-        this.subtotal=res.data.subtotal;
-        this.shippingCost=res.data.shippingCost;
-        this.totalOrder=res.data.totalOrder;
+        this.cartBooks = res.data.books
+        this.subtotal = res.data.subtotal;
+        this.shippingCost = res.data.shippingCost;
+        this.totalOrder = res.data.totalOrder;
 
       },
       error: (err) => {
@@ -183,7 +192,7 @@ export class CartComponent implements OnInit {
       }
     });
   }
-  navigatToProducts(){
+  navigatToProducts() {
     this.router.navigate(['/books']);
   }
 
@@ -192,4 +201,3 @@ export class CartComponent implements OnInit {
   }
 }
 
-  
