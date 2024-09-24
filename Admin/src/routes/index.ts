@@ -44,7 +44,17 @@ const coreRoutes = [
     component: AuthorForm,
   },
   {
+    path: '/forms/author-form/:id',
+    title: 'Author Form',
+    component: AuthorForm,
+  },
+  {
     path: '/forms/category-form',
+    title: 'Category Form',
+    component: CategoryForm,
+  },
+  {
+    path: '/forms/category-form/:id',
     title: 'Category Form',
     component: CategoryForm,
   },
