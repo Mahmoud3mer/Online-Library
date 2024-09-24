@@ -16,12 +16,12 @@ const BooksTable = () => {
   const [books, setBooks] = useState<Array<BookInterface>>([]);
   const [detailedBook, setDetailedBook] = useState<Partial<BookInterface>>({});
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
+  const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [numberOfPages, setnumberOfPages] = useState(0)
   const limit = 12;
 
-const getToken = () => localStorage.getItem('token')
+  const getToken = () => localStorage.getItem('token')
   useEffect(() => {
     axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
       .then((res) => {
@@ -33,11 +33,11 @@ const getToken = () => localStorage.getItem('token')
       .catch((err) => {
         console.log("Error", err);
       })
-  }, [page,books.length])
+  }, [page, books.length])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-};
+  };
 
 
 
@@ -51,17 +51,17 @@ const getToken = () => localStorage.getItem('token')
     document.getElementById('my_modal_3')?.showModal();
   };
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleEdit = (BookId: string) => {
-    navigate(`/forms/book-form/${BookId}`)    
+    navigate(`/forms/book-form/${BookId}`)
   };
 
   const handleDelete = async (bookId: string) => {
     try {
       const token = getToken();
       await axios.delete(
-        `http://localhost:3000/books/${bookId}`, 
-        { headers: { token: token || "" } } // Ensure token is passed as a string
+        `http://localhost:3000/books/${bookId}`,
+        { headers: { token: token || "" } }
       );
       setBooks(books.filter(book => book._id !== bookId));
     } catch (error) {
@@ -71,14 +71,14 @@ const navigate = useNavigate()
 
   const handleConfirmDelete = () => {
     if (selectedBookId) {
-      handleDelete(selectedBookId);  // Proceed with deletion after confirmation
-      setIsDeleteModalOpen(false);   // Close the modal
+      handleDelete(selectedBookId);
+      setIsDeleteModalOpen(false);
     }
   };
 
   const openDeleteModal = (bookId: string) => {
-    setSelectedBookId(bookId);  // Store the book ID to be deleted
-    setIsDeleteModalOpen(true); // Open the delete confirmation modal
+    setSelectedBookId(bookId);
+    setIsDeleteModalOpen(true);
   };
 
   return (
@@ -128,7 +128,7 @@ const navigate = useNavigate()
 
 
           <dialog id="my_modal_3" className="modal">
-            <div className="modal-box w-11/12 max-w-4xl dark:bg-black"> {/* Customize size here */}
+            <div className="modal-box w-11/12 max-w-4xl dark:bg-black">
               <form method="dialog">
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
               </form>
@@ -136,7 +136,7 @@ const navigate = useNavigate()
               <h5 className="font-semibold py-4">Details for book ID: {detailedBook._id}</h5>
               <section className="grid grid-cols-3">
                 <div>
-                  <img src={detailedBook.coverImage} alt={detailedBook.title} className="w-full"/>
+                  <img src={detailedBook.coverImage} alt={detailedBook.title} className="w-full" />
                 </div>
                 <div className="col-span-2 ms-10">
                   <h6 className="font-semibold pb-2 border-b mb-4">
@@ -149,7 +149,6 @@ const navigate = useNavigate()
                   <p className="py-1"><span className="font-semibold">Average Rating : </span>{detailedBook.averageRating}</p>
                 </div>
               </section>
-              {/* Display more details about the book */}
             </div>
           </dialog>
 
@@ -162,10 +161,9 @@ const navigate = useNavigate()
         </div>
       ))}
 
-              {/* Pagingation */}
-              <div className='py-3 flex justify-center'>
-            <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
-        </div>
+      <div className='py-3 flex justify-center'>
+        <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
+      </div>
     </>
   )
 }

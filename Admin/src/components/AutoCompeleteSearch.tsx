@@ -52,10 +52,14 @@ const AutoCompleteSearch = <T,>({
         extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
       )
       setSearchResults(filteredResults);
-      updateSearchResults(filteredResults); // Send results to the parent
+      if(updateSearchResults){
+        updateSearchResults(filteredResults); // Send results to the parent
+      }
     } else {
       setSearchResults([]);
-      updateSearchResults([]); // Clear search results in the parent
+      if(updateSearchResults){
+        updateSearchResults([]); // Clear search results in the parent
+      }
     }
   };
 

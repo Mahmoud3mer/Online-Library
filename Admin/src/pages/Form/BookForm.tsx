@@ -90,8 +90,8 @@ const BookForm = () => {
         formData.append('stock', bookData.stock);
         formData.append('price', bookData.price);
         formData.append('pages', bookData.pages);
-        formData.append('author', bookData.author._id);
-        formData.append('category', bookData.category._id);
+        formData.append('author', bookData.author?._id);
+        formData.append('category', bookData.category?._id);
         formData.append('publishedDate', bookData.publishedDate);
         formData.append('description', bookData.description);
     
