@@ -7,6 +7,7 @@ import axios from "axios";
 import { apiUrl } from "../utils/apiUrl";
 import ConfirmationModal from "./ConfirmationModal";
 import Pagination from "./Pagination";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -50,9 +51,9 @@ const getToken = () => localStorage.getItem('token')
     document.getElementById('my_modal_3')?.showModal();
   };
 
-
+const navigate = useNavigate()
   const handleEdit = (BookId: string) => {
-    console.log(BookId);
+    navigate(`/forms/book-form/${BookId}`)    
   };
 
   const handleDelete = async (bookId: string) => {
@@ -96,11 +97,11 @@ const getToken = () => localStorage.getItem('token')
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author ? book.author.name : 'Author Not Provided'}</p>
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category ? book.category.name : 'Category Not Provided'}</p>
             </div>
 
             <div className="col-span-1 flex items-center">

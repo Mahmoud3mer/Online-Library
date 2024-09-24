@@ -56,11 +56,11 @@ export class BookController {
   @Patch('/:id')
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
-
-  updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any) {
+  @UseInterceptors(FileInterceptor('coverImage'))
+  updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any, @UploadedFile() file: Express.Multer.File) {
     const user = req.user;
     // return user
-    return this._bookService.updateThisBook(id, body, user);
+    return this._bookService.updateThisBook(id, body, user, file);
   }
 
   @Delete('/:id')
