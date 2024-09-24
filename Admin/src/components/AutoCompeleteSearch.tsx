@@ -9,6 +9,8 @@ interface AutoCompleteSearchProps<T> {
   searchQuery: string; // The query parameter to search for
   inputOnSelect: (selectedItem: T) => void;
   extractDisplayName: (item: T) => string; // Function to extract the display name for auto-complete
+  updateSearchResults?: (results: T[]) => void; // New prop to update search results in parent
+
 }
 
 const AutoCompleteSearch = <T,>({
@@ -18,6 +20,8 @@ const AutoCompleteSearch = <T,>({
   searchQuery,
   inputOnSelect,
   extractDisplayName,
+  updateSearchResults, // Receive this function from the parent
+
 }: AutoCompleteSearchProps<T>) => {
   const [dataResults, setDataResults] = useState<T[]>([]);
   const [searchResults, setSearchResults] = useState<T[]>([]);
@@ -44,13 +48,14 @@ const AutoCompleteSearch = <T,>({
     setSearchQueryValue(inputValue); // Update value for API search
 
     if (inputValue) {
-      setSearchResults(
-        dataResults.filter((item) =>
-          extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
-        )
-      );
+      const filteredResults = dataResults.filter((item) =>
+        extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
+      )
+      setSearchResults(filteredResults);
+      updateSearchResults(filteredResults); // Send results to the parent
     } else {
       setSearchResults([]);
+      updateSearchResults([]); // Clear search results in the parent
     }
   };
 
@@ -71,7 +76,7 @@ const AutoCompleteSearch = <T,>({
         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary"
       />
       {searchResults.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white shadow-lg border rounded-md dark:bg-black">
+        <ul className="absolute z-10 w-full max-h-96 overflow-auto bg-white shadow-lg border rounded-md dark:bg-black">
           {searchResults.map((item, index) => (
             <li
               key={index}
