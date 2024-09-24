@@ -1,12 +1,16 @@
 <app-sub-navbar></app-sub-navbar>
-<section class="py-20 bg-sky-100">
+<section class="py-20 bg-[#f9f9f9] dark:bg-[#081d31]">
   <div class="lg:w-11/12 mx-auto px-4">
     <div >
       <div class="flex flex-wrap   ">
-        <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white  shadow-custom rounded-lg px-4 py-12">
+        <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white dark:bg-[#123656c8]  shadow-custom rounded-lg px-4 py-12">
 
-          <div class="flex justify-between items-center">
-            <h2 class="text-4xl font-bold font-heading pb-4">Your cart</h2>
+          <div class="flex justify-between items-center pb-5">
+            <h3  class="text-3xl font-semibold dark:text-white">Your cart</h3>
+            <!-- <div class="w-20">
+              <img class="rounded-md" src='https://tse3.mm.bing.net/th?id=OIG2.hcuwpJr9JTwee4VW3v_7&pid=ImgGn' alt="">
+
+            </div> -->
           @if (cartBooks.length!=0) {
             <button (click)="openClearCartConfirmation()" class="btn bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
               Clear Cart
@@ -44,21 +48,29 @@
                     </div>
                   </div>
                   <div class="w-2/3 px-4">
-                    <h3 class="mb-2 text-xl font-bold font-heading">{{item.book.title}}</h3>
-                    @if (item.book.rating) {
-                    <p class="text-gray-400 text-sm font-semibold flex justify-between">
-                      <span>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                      </span>
-
-                    </p>
+                    <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    @if (item.book.averageRating) {
+                      {{updateStarArray(item.book.averageRating)}}
+                      <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                        <span> 
+                          @for (star of starArray; track $index) {
+                          @if (star === 1) {
+                          <i class="fa-solid fa-star text-yellow-500"></i>
+                          }
+                          @if (star === .5) {
+                          <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                          }
+                          @if (star === 0) {
+                          <i class="fa-regular fa-star text-yellow-500"></i>
+                          }
+                          }
+                  
+                        </span>
+                     
+                      </p>
                     }
-                    <p class="text-gray-500">Author: {{item.book.author.name}}</p>
-                    <p>{{item.book.description}}</p>
+                    <p class="dark:text-gray-300">Author: {{item.book.author.name}}</p>
+                    <p class="dark:text-gray-400">{{item.book.description}}</p>
                   </div>
                 </div>
               </div>
@@ -132,7 +144,7 @@
 
         </div>
         <div class="w-full xl:w-4/12 ps-4  ">
-          <div class="p-6 md:p-12 bg-gray-400 shadow-custom rounded-lg">
+          <div class="p-6 md:p-12 bg-gray-600 shadow-custom rounded-lg">
             <h2 class="mb-6 text-4xl font-bold font-heading text-white">Cart totals</h2>
             <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
               <span class="text-blue-50">Subtotal</span>
@@ -140,13 +152,13 @@
             </div>
             <div class="flex mb-2 justify-between items-center">
               <h4 class="mb-2 text-xl font-bold font-heading text-white">Shipping</h4>
-         
+    
               <span class="text-xl font-bold font-heading text-white">{{shippingCost}}</span>
             </div>
             
             <div class="flex mb-10 justify-between items-center">
               <span class="text-xl font-bold font-heading text-white">Order total</span>
-              <span class="text-xl font-bold font-heading text-white">{{roundedPrice()}}</span>
+              <span class="text-xl font-bold font-heading text-white">{{totalOrder}}</span>
             </div>
             <a
             routerLink="/payment"

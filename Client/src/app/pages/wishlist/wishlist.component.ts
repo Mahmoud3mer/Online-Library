@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { ToastService } from "../../services/Toast/toast.service";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
+import { BookInterface } from "../../interfaces/books.interface";
 
 @Component({
   selector: "app-wishlist",
@@ -21,7 +22,7 @@ import { WishListCountService } from "../../services/wishlist/wish-list-count.se
   ],
 })
 export class WishlistComponent implements OnInit {
-  wishlistBooks: any[] = [];
+  wishlistBooks: BookInterface[] = [];
 
   numOfWishlist: number = 0;
   showConfirmationDialog = false;

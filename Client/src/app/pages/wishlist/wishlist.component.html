@@ -1,11 +1,11 @@
 <app-sub-navbar></app-sub-navbar>
 
-<div class="card bg-sky-100 px-5 py-10">
+<div class="card bg-[#f9f9f9] dark:bg-[#081d31] px-5 py-10">
 
-  <div class=" w-full shadow-custom p-10 bg-white   mx-auto   lg:w-2/3       rounded-lg">
+  <div class=" w-full shadow-custom p-10 bg-white dark:bg-[#123656c8]  mx-auto   lg:w-2/3       rounded-lg">
     <div class="pb-4 mb-2  flex justify-between border-b-2   border-gray-300">
       <div>
-        <h4 class="font-bold text-xl">wish list</h4>
+        <h3  class="text-3xl font-semibold dark:text-white">Wishlist</h3>
       </div>
       <div class="text-gray-500">{{ numOfWishlist }} items</div>
     </div>
@@ -35,7 +35,7 @@
 
         <div class="sm:w-1/3 w-2/3 ps-5 ">
           <div class="pb-3">
-            <h1> <span class="font-semibold">Title:</span> {{ book.title }}</h1>
+            <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{book.title}}</h5>
             <p> <span class="font-semibold">Author: </span> author {{ book.author.name }}</p>
             <p> <span class="font-semibold"> Category: </span>{{ book.category.name}}</p>
 
