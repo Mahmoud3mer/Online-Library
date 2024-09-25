@@ -80,6 +80,7 @@ const AutoCompleteSearch2 = <T,>({
         onChange={handleQueryChange} // Call when user types in the input
         type="search"
         placeholder={inputPlaceholder}
+        autoComplete='off'
         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary"
       />
       {searchResults.length > 0 && (

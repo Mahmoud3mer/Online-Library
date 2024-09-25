@@ -19,27 +19,39 @@ const BooksTable = () => {
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [numberOfPages, setnumberOfPages] = useState(0)
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
   const limit = 12;
 
   const getToken = () => localStorage.getItem('token')
   useEffect(() => {
-    axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
-      .then((res) => {
-        setnumberOfPages(res.data.metaData.numberOfPages)
-        setBooks(res.data.data)
-        // console.log(res.data);
-
-      })
-      .catch((err) => {
-        console.log("Error", err);
-      })
-  }, [page, books.length])
+    fetchBooks()
+  }, [page, books.length, searchTerm])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/books`, {
+        params: {
+            page,
+            limit,
+            title: searchTerm, 
+        },
+      });
 
+      setnumberOfPages(response.data.metaData.numberOfPages);
+      setBooks(response.data.data);
+
+    } catch (err) {
+      console.error("Error fetching users", err);
+
+    }
+
+    
+  }
 
   const handleMoreDetails = (bookId: string) => {
     axios.get(`${apiUrl}/books/${bookId}`)
@@ -83,6 +95,44 @@ const BooksTable = () => {
 
   return (
     <>
+
+      <div className="px-4 md:px-6 xl:px-7.5 mb-4 ">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
+          className="
+                    input input-bordered w-125 
+                    bg-white text-stroke border-gray-300
+                    dark:bg-strokedark dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-600
+                    transition-all duration-300 ease-in-out 
+                    focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200
+                    dark:focus:border-blue-400 dark:focus:ring-blue-400
+                    rounded-lg shadow-md hover:shadow-lg
+                  "
+        />
+      </div>
+      <div className="grid grid-cols-6 border-t  mt-5 border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
+        <div className="col-span-3 flex items-center">
+          <p className="font-medium">Book Name</p>
+        </div>
+        <div className="col-span-2 hidden items-center sm:flex">
+          <p className="font-medium">Author</p>
+        </div>
+        <div className="col-span-2 hidden items-center sm:flex">
+          <p className="font-medium">Category</p>
+        </div>
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Price</p>
+        </div>
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Stock</p>
+        </div>
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Actions</p>
+        </div>
+      </div>
       {books && books.map((book, index) => (
         <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={book._id}>
 
@@ -90,7 +140,7 @@ const BooksTable = () => {
             <div className="col-span-3 flex items-center">
               <div className="grid grid-cols-4 gap-4 sm:flex-row sm:items-center">
                 <div className="h-17 w-full rounded-md">
-                  <img src={book.coverImage} alt={book.title} className="h-full" />
+                  <img src={book.coverImage ? book.coverImage : ''} alt={book.title} className="h-full" />
                 </div>
                 <p className="col-span-3 text-sm text-black dark:text-white text-ellipsis overflow-hidden max-h-10 self-center pe-4">{book.title}</p>
               </div>
