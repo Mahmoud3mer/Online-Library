@@ -13,7 +13,8 @@ const CategoryForm = () => {
   const { id } = useParams(); // Gets the id from the URL if it exists
   const [categoryData, setCategoryData] = useState({
     name: '',
-    image: ''
+    bio: '',
+    image: null
   });
 
   // const [loading, setLoading] = useState(true); // Loading state for fetch
@@ -46,9 +47,9 @@ const CategoryForm = () => {
         .catch(err => console.error("Error updating Category:", err));
     } else {
       axios.post(`${apiUrl}/category`, formData, { 'headers': { 'token': token } })
-        .then(() => console.log("Book created successfully", formData))
+        .then(() => console.log("Category created successfully", formData))
         .catch(
-          err => console.error("Error creating book:", err.response.data.message, formData));
+          err => console.error("Error creating Category:", err.response.data.message, formData));
     }
   };
 

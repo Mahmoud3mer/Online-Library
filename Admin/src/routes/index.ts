@@ -49,6 +49,11 @@ const coreRoutes = [
     component: CategoryForm,
   },
   {
+    path: '/forms/category-form/:id',
+    title: 'Category Form',
+    component: CategoryForm,
+  },
+  {
     path: '/forms/user-form',
     title: 'User Form',
     component: UserForm,
