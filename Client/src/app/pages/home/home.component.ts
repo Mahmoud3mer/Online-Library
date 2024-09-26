@@ -18,6 +18,8 @@ import { AuthorService } from '../../services/author/author.service';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthorSwiperComponent } from '../../components/author-swiper/author-swiper.component';
 import { CategorySliderComponent } from '../../components/category-slider/category-slider.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
 
 
 @Component({
@@ -31,7 +33,8 @@ import { CategorySliderComponent } from '../../components/category-slider/catego
     SwiperComponent,
     AuthorSwiperComponent,
     CategorySliderComponent,
-    SubNavbarComponent
+    SubNavbarComponent,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -71,9 +74,13 @@ export class HomeComponent {
     private _searchFilterBooksService: SearchFilterBooksService,
     private _categoryService: CategoryService,
     private _authorService: AuthorService,
-    @Inject(PLATFORM_ID) platformId: object
+    @Inject(PLATFORM_ID) platformId: object,
+    private _myTranslateService:MyTranslateService
   ){
     this.isBrowser = isPlatformBrowser(platformId);
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 
   ngOnInit(): void {
@@ -208,6 +215,8 @@ export class HomeComponent {
       next: (res) => {
         // console.log(res.data);
         this.categories = res.data
+        console.log(this.categories);
+        
       },
       error: (err) => {
         console.log(err);

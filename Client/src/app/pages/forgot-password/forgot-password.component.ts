@@ -8,10 +8,12 @@ import {
   Validators,
 } from "@angular/forms";
 import { AuthourizationService } from "../../services/users/authourization.service";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { TranslateModule } from "@ngx-translate/core";
 @Component({
   selector: "app-forgot-password",
   standalone: true,
-  imports: [NgIf, NgClass, ReactiveFormsModule],
+  imports: [NgIf, NgClass, ReactiveFormsModule,TranslateModule],
   templateUrl: "./forgot-password.component.html",
   styleUrl: "./forgot-password.component.scss",
 })
@@ -22,7 +24,7 @@ export class ForgotPasswordComponent {
 
   constructor(
     private _authourizationService: AuthourizationService,
-    private fb: FormBuilder
+    private fb: FormBuilder, private _myTranslateService:MyTranslateService
   ) {
     this.resetForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -50,5 +52,8 @@ export class ForgotPasswordComponent {
         this.isLoading = false;
       },
     });
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }

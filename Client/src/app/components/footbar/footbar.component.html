@@ -1,28 +1,29 @@
 <!-- Start Footer Area -->
 <!-- bg-[#081828] dark:bg-[#0a0a0a] -->
-<footer class="footer bg-[#081828] dark:bg-[#0a0a0a]">
+<footer class="footer bg-light-300 dark:bg-dark-800">
   <div class="px-20 flex justify-center">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-center">
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5 flex justify-center md:justify-normal items-center mt-2">
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5 pt-2 flex justify-center md:justify-normal items-center mt-2">
           <div>
-            <a href="index.html" class="text-white text-2xl">
-              <img src="../../../../assets/images/logo/photo_2024-09-21_15-02-33.jpg" class="h-28 w-48" alt="">
+            <a href="index.html" class="pb-2 text-text-primary dark:text-text-forDark text-2xl">
+              <img [src]="footerLogo" class="h-20 w-48" alt="">
             </a>
+            <p class="text-text-primary dark:text-text-forDark">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam cum ipsum dignissimos placeat expedita doloribus minima debitis, beatae veritatis laudantium.</p>
           </div>
         </div>
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5">
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 px-5 pt-2">
           <!-- Single Widget -->
-          <div class="single-footer f-contact text-white">
-            <h3 class="text-lg font-semibold mb-4">Get In Touch With Us</h3>
-            <p class="text-sm mb-2">Phone: +1 (900) 33 169 7720</p>
-            <ul class="text-sm text-gray-400">
+          <div class="single-footer f-contact text-text-primary dark:text-text-forDark">
+            <h3 class="text-lg font-semibold mb-4 text-text-primary dark:text-text-forDark">{{"footbar.Get In Touch With Us"|translate}}</h3>
+            <p class="text-sm mb-2">{{"footbar.Phone:"|translate}} +1 (900) 33 169 7720</p>
+            <ul class="text-sm text-text-primary dark:text-text-forDark">
               <li>
-                <span class="font-semibold">Monday-Friday: </span> 9.00 am -
-                8.00 pm
+                <span class="text-text-primary dark:text-text-forDark font-semibold">{{"footbar.Monday-Friday:"|translate}} </span> 9.00 {{"footbar.am"|translate}} -
+                8.00 {{"footbar.pm"|translate}}
               </li>
               <li>
-                <span class="font-semibold">Saturday: </span> 10.00 am - 6.00 pm
+                <span class="font-semibold">{{"footbar.Saturday:"|translate}} </span> 10.00 {{"footbar.am"|translate}} - 6.00 {{"footbar.pm"|translate}}
               </li>
             </ul>
             <p class="text-sm mt-2">
@@ -33,23 +34,23 @@
           </div>
           <!-- End Single Widget -->
         </div>
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
-          <div class="single-footer f-link px-5">
-            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul class="text-sm text-gray-400">
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 pt-2 ">
+          <div class="single-footer f-link px-5 h-full ">
+            <h3 class="text-lg font-semibold mb-4 text-text-primary dark:text-text-forDark">{{"footbar.Quick Links"|translate}}</h3>
+            <ul class="text-sm text-text-primary dark:text-text-forDark">
               <li>
                 <a
                   routerLink="/home"
                   class="hover:cursor-pointer"
                   routerLinkActive="text-blue-800"
-                  >Home</a>
+                  >{{"footbar.Home"|translate}}</a>
               </li>
                 <li>
                   <a
                   routerLink="/home"
                   class="hover:cursor-pointer"
                   routerLinkActive="text-blue-800"
-                  >Books</a
+                  >{{"footbar.Books"|translate}}</a
                 >
                 </li>
                 <li>
@@ -57,7 +58,7 @@
                   routerLink="/about"
                   class="hover:cursor-pointer"
                   routerLinkActive="text-blue-800"
-                  >About Us</a
+                  >{{"footbar.About Us"|translate}}</a
                 >
                 </li>
               <li>
@@ -65,7 +66,7 @@
                   routerLink="/contact"
                   class="hover:cursor-pointer"
                   routerLinkActive="text-blue-800"
-                  >Contact Us</a
+                  >{{"footbar.Contact Us"|translate}}</a
                 >
               </li>
               <li>
@@ -73,38 +74,38 @@
             </ul>
           </div>
         </div>
-        <div class="lg:w-1/4 md:w-1/2 w-full mb-6">
+        <div class="lg:w-1/4 md:w-1/2 w-full mb-6 pt-2">
           <div class="single-footer f-link px-5">
-            <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
-              <ul class="text-sm text-gray-400">
+            <h3 class="text-lg font-semibold mb-4 text-text-primary dark:text-text-forDark">{{"footbar.Follow Us"|translate}}</h3>
+              <ul class="text-sm text-text-primary dark:text-text-forDark">
                 <li>
                   <a
                     href="https://www.facebook.com/Andalosia.Book.Store?mibextid=ZbWKwL"
                     [target]="'_blank'"
-                    class="text-gray-400 hover:text-white"
+                    class="text-text-primary  hover:text-text-primary dark:text-text-forDark"
                     ><i class="fab fa-facebook-f"></i
-                  ><span class="ms-2">facebook</span></a>
+                  ><span class="ms-2">{{"footbar.facebook"|translate}}</span></a>
                 </li>
                 <li>
                   <a
                     href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
+                    class="text-text-primary dark:text-text-forDark hover:text-text-primary dark:text-text-forDark"
                     ><i class="fab fa-twitter"></i
-                  ><span class="ms-2">twitter</span></a>
+                  ><span class="ms-2">{{"footbar.twitter"|translate}}</span></a>
                 </li>
                 <li>
                   <a
                     href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
+                    class="text-text-primary dark:text-text-forDark hover:text-text-primary dark:text-text-forDark"
                     ><i class="fab fa-instagram"></i
-                  ><span class="ms-2">instagram</span></a>
+                  ><span class="ms-2">{{"footbar.instagram"|translate}}</span></a>
                 </li>
                 <li>
                   <a
                     href="javascript:void(0)"
-                    class="text-gray-400 hover:text-white"
+                    class="text-text-primary dark:text-text-forDark hover:text-text-primary dark:text-text-forDark"
                     ><i class="fab fa-google"></i
-><span class="ms-2">google</span></a>
+><span class="ms-2">{{"footbar.google"|translate}}</span></a>
                 </li>
               </ul>
           </div>
@@ -114,13 +115,13 @@
   </div>
   <!--! End Footer Middle -->
   <!-- Start Footer Bottom -->
-  <div class="footer-bottom">
+  <div class="footer-bottom bg-dark-900">
     <div class="container mx-auto">
       <div
         class="flex flex-wrap justify-center items-center gap-y-5 text-center inner-content"
       >
-        <div class="text-gray-400 py-4 text-center">
-          <p>&copy; 2024 Online Library. All rights reserved.</p>
+        <div class=" py-4 text-center">
+          <p class="text-text-forDark ">&copy; {{"footbar.2024 Online Library. All rights reserved."|translate}}</p>
         </div>
       </div>
     </div>

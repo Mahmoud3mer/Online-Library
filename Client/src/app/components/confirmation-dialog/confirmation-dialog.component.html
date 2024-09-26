@@ -11,17 +11,17 @@
           </svg>
         </div>
         <div class="ml-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ title }}</h3>
-          <p class="mt-2 text-gray-700 dark:text-gray-300">{{ message }}</p>
+          <h3 class="text-lg font-semibold text-gray-900">{{"confirmation-dialog.Confirm Action"|translate}}</h3> <!-- Use dynamic title -->
+          <p class="mt-2 text-gray-700">{{"confirmation-dialog.Are you sure you."|translate}}</p> <!-- Use dynamic message -->
         </div>
       </div>
     </div>
     <div class="flex justify-end bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg">
       <button (click)="onConfirm()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-        {{ confirmText }}
+        {{"confirmation-dialog.Confirm"|translate}} <!-- Dynamic confirm button text -->
       </button>
-      <button (click)="onCancel()" class="ml-3 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400">
-        {{ cancelText }}
+      <button (click)="onCancel()" class="ml-3 bg-gray-200 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+        {{"confirmation-dialog.Cancel"|translate}} <!-- Dynamic cancel button text -->
       </button>
     </div>
   </div>

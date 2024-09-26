@@ -8,9 +8,11 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { ToastService } from "../../services/Toast/toast.service";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
+import { TranslateModule } from "@ngx-translate/core";
 import { BookInterface } from "../../interfaces/books.interface";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 import { isPlatformBrowser } from "@angular/common";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-wishlist",
@@ -20,7 +22,7 @@ import { isPlatformBrowser } from "@angular/common";
   imports: [
     AddToCartBtnComponent,
     ConfirmationDialogComponent,
-    SubNavbarComponent,
+    SubNavbarComponent, TranslateModule
   ],
 })
 export class WishlistComponent implements OnInit {
@@ -38,10 +40,16 @@ export class WishlistComponent implements OnInit {
     private _wishlistCount:WishListCountService,
     private _wishlistBooks:WishlistBookService,
     private _toastService:ToastService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService:MyTranslateService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
 
   ngOnInit(): void {
     if(this.isBrowser){

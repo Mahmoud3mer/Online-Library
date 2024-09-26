@@ -5,8 +5,8 @@
         <button
           (click)="+changePage(currentPage - 1); handleClick()"
           [disabled]="currentPage === 1"
-          class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
-          <span>Previous</span>
+          class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
+          <span>{{"pagination.Previous"|translate}}</span>
         </button>
       </li>
   
@@ -16,7 +16,7 @@
           (click)="changePage(i + 1)"
           [class.active]="i + 1 === currentPage"
           [attr.disabled]="i + 1 === currentPage ? true : null"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
           {{ i + 1 }}
         </button>
       </li>
@@ -26,8 +26,8 @@
       <li>
         <button
           (click)="changePage(+currentPage + 1); handleClick()"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
-          <span>Next</span>
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
+          <span>{{"pagination.Next"|translate}}</span>
         </button>
       </li>
     </ul>

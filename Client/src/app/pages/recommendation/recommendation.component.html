@@ -1,8 +1,7 @@
 <div class="container mx-auto py-10 bg-[#f9f9f9] dark:bg-[#081d31]">
     <div class="text-center mb-16">
-        <h1 class="text-4xl font-bold mb-3 text-gray-800 dark:text-white">Choose Your Favorite Categories</h1>
- 
-        <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">Select the categories you like the most from the options below.</p>
+        <h2 class="text-2xl font-bold text-gray-800">{{"recommendation.Choose Your Favorite Categories"|translate}}</h2>
+        <p class="text-lg text-gray-600 mt-2">{{"recommendation.Select the categories you like the most from the options below."|translate}}</p>
     </div>
     <div class="flex flex-wrap justify-center">
         
@@ -32,12 +31,12 @@
         <button
            (click)="saveSelections()"
             class="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-300">
-            Save and continue
+            {{"recommendation.Save and continue"|translate}}
         </button>
         <button
         (click)="skipSelections()"
          class="px-8 py-4 ms-5 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors duration-300">
-         Skip for now
+         {{"recommendation.Skip for now"|translate}}
      </button>
     </div>
 </div>

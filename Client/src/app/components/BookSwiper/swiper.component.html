@@ -21,10 +21,10 @@
                     [bookId]="book._id"
                     [bookTitle]="book.title"
                     [bookCoverImg]="book.coverImage"
-                    [bookCategory]="book.category.name"
+                    [bookCategory]="book.category ? book.category.name : ''"
                     [bookPrice]="book.price"
                     [bookRating]="book.averageRating"
-                    [bookId]="book._id"
+                    [bookStock]="book.stock"
                     ></app-book-card>
         </swiper-slide>
     }

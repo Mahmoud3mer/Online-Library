@@ -13,20 +13,10 @@ import { ReviewModule } from '../review/review.module';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Book.name, schema: BookSchema }]),
-  MulterModule.register({
-    storage: diskStorage({
-      destination: './uploads', //! مكان حفظ الملفات
-      filename: (req, file, callback) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const ext = extname(file.originalname); //! الامتداد
-        const fileName = `${file.originalname}-${uniqueSuffix}${ext}`;
-        callback(null, fileName);
-      },
-    }),
-  }),
-AuthorModule,
-CategoryModule,
-ReviewModule
+    AuthorModule,
+    CategoryModule,
+    ReviewModule
+
 ],
   controllers: [BookController],
   providers: [BookService,JwtService]
