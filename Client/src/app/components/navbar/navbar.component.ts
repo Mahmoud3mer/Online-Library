@@ -71,7 +71,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProfilePicure()
+    if(this.token){
+      this.getProfilePicure()
+    }
   }
   // !get profile image when render navbar
   getProfilePicure(){
