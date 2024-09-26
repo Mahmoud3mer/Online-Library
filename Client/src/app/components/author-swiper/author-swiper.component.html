@@ -1,6 +1,6 @@
 <swiper-container 
     [breakpoints]="breakpoints"
-    speed="1000"
+    speed="1500"
     autoplay-delay="2000" 
     class="w-full h-full"
     effect="coverflow" 
@@ -21,9 +21,9 @@
             <a routerLink="/authors" class="absolute bottom-[22%] right-[50%] translate-x-1/2 text-white text-lg font-bold hover:text-blue-600 hover:underline cursor-pointer">{{author.name}}</a>
             <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{author.bio}}</p> -->
             <div class="text-center bg-white dark:bg-[#123656c8] px-6 py-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow hover:scale-105 duration-300 h-[318px]">
-                <img [src]="author.image ? author.image : ''" alt="Author Image" class="w-32 h-32 rounded-full mx-auto mb-4" />
-                <a routerLink="/authors" class="text-lg font-semibold text-gray-800 dark:text-gray-300 hover:text-blue-500 hover:underline dark:hover:text-blue-400 cursor-pointer">{{ author.name ? author.name : '' }}</a>
-                <p class="text-gray-600 mt-3 dark:text-gray-400">{{ author.bio ? author.bio : ''}}</p>
+                <img [src]="author.image" alt="Author Image" class="w-32 h-32 rounded-full mx-auto mb-4" />
+                <a routerLink="/authors" class="text-lg font-semibold text-gray-800 dark:text-gray-300 hover:text-blue-500 hover:underline dark:hover:text-blue-400 cursor-pointer">{{ author.name }}</a>
+                <p class="text-gray-600 mt-3 dark:text-gray-400">{{ author.bio}}</p>
                 <!-- <a routerLink="/authors" class="bg-blue-500 dark:bg-blue-700 text-white dark:text-gray-300 px-4 py-2 rounded-full hover:bg-blue-600 transition">View Author</a> -->
             </div>
         </swiper-slide>

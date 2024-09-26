@@ -5,7 +5,7 @@ export interface BookInterface {
   title: string;
   price: number;
   publishedDate: Date | undefined;
-  coverImage: any;
+  coverImage: string;
   description: string;
   averageRating: number;
   stock: number;

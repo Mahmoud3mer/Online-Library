@@ -3,28 +3,28 @@ import mongoose, { Types } from "mongoose";
 
 @Schema({ timestamps: false, versionKey: false })
 export class Book {
-    @Prop({ required: true, minlength: 3, maxlength: 100, index: 1 })
+    @Prop({ required: true, index: 1 })
     title: string;
 
-    @Prop({ required: true, min: 0 })
+    @Prop({ required: true })
     price: number;
 
-    @Prop({ required: true, min: 0 })
+    @Prop({ required: true })
     publishedDate: Date;
 
-    @Prop({ required: true, default: "" })
+    @Prop({required: true, default: ""})
     coverImage: string;
 
-    @Prop({ required: true, minlength: 10, maxlength: 500 })
+    @Prop({ required: true })
     description: string;
 
-    @Prop({ required: true, min: 0, max: 5, default: 0 })
+    @Prop({ required: true, default: 0 })
     averageRating: number;
 
-    @Prop({ required: true, min: 0 })
+    @Prop({ required: true })
     stock: number;
 
-    @Prop({ required: true, min: 0 })
+    @Prop({ required: true })
     pages: number;
 
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }] })

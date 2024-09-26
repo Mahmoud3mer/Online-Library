@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GetCartService } from '../../services/cart/GetCart.service';
 import { UpdateCartQuantiy } from '../../services/cart/updateCartQuantiy.service';
 import { DeleteBookFromCartService } from '../../services/cart/delete.service';
@@ -12,6 +12,8 @@ import { CartCountService } from '../../services/cart/CartCount.service';
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { CartBooksService } from '../../services/cart/cart-books.service';
 import { ClearCartService } from '../../services/cart/clear-cart.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
 
 
 
@@ -27,7 +29,7 @@ import { ClearCartService } from '../../services/cart/clear-cart.service';
     AddToCartBtnComponent,
     AddToWishlistBtnComponent,
     SubNavbarComponent,
-    RouterLink
+    RouterLink,TranslateModule
 ],
 })
 export class CartComponent implements OnInit {
@@ -48,26 +50,17 @@ export class CartComponent implements OnInit {
     private _cartCount:CartCountService,
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
-    private router:Router) { }
-  
+    private router:Router,
+  private _myTranslateService:MyTranslateService) { }
+
   ngOnInit(): void {
     this.getCart();
   }
- 
-  starArray: number[] = [];
- 
- 
-  updateStarArray(rating:number): void {
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
 
-    this.starArray = Array(fullStars).fill(1);
-    if (halfStar) {
-      this.starArray.push(0.5);
-    }
-    const emptyStars = 5 - this.starArray.length;
-    this.starArray.push(...Array(emptyStars).fill(0));
+    roundedPrice(): number {
+    return Math.round(this.totalOrder);
   }
+
     // Fetch items from CartService
     getCart(){
       this._getCartService.getCart().subscribe(
@@ -118,10 +111,6 @@ export class CartComponent implements OnInit {
         this.subtotal=res.data.subtotal;
         this.shippingCost=res.data.shippingCost;
         this.totalOrder=res.data.totalOrder;
-        console.log(this.subtotal);
-        console.log(this.shippingCost);
-        console.log(this.totalOrder);
-        
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
         this._cartBooksService.updateCartBooks(res.data.books);
         this._toastService.showSuccess('Book removed from cart successfully!');
@@ -198,6 +187,9 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/books']);
   }
 
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }
 
   

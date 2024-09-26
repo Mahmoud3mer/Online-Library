@@ -72,8 +72,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfilePicure()
-    this.toggleLang()
-    this.loadLang()
   }
   // !get profile image when render navbar
   getProfilePicure(){

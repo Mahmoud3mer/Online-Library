@@ -28,12 +28,9 @@ export class UserSettingsService {
     const skip = (page - 1) * limit;
     const query ={};
     if (name && name.trim() !== '') {
-      query['$or'] = [
-        { fName: { $regex: name.trim(), $options: 'i' } },
-        { lName: { $regex: name.trim(), $options: 'i' } }
-      ];
+      query['name'] = { $regex: name.trim(), $options: 'i' };
   }
-    const total = await this.userModel.countDocuments(query).exec();
+    const total = await this.userModel.countDocuments().exec();
     const allUsers = await this.userModel
       .find(query)
       .limit(limit)

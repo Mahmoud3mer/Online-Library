@@ -9,7 +9,6 @@ import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navba
 import { ToastService } from "../../services/Toast/toast.service";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
 import { TranslateModule } from "@ngx-translate/core";
-import { BookInterface } from "../../interfaces/books.interface";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
@@ -24,7 +23,7 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
   ],
 })
 export class WishlistComponent implements OnInit {
-  wishlistBooks: BookInterface[] = [];
+  wishlistBooks: any[] = [];
 
   numOfWishlist: number = 0;
   showConfirmationDialog = false;

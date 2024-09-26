@@ -11,9 +11,9 @@ const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
-const AllOrders = lazy(() => import('../pages/AllData/AllOrders'));
-const AllBooks = lazy(() => import('../pages/AllData/AllBooks'));
-const AllUsers = lazy(() => import('../pages/AllData/AllUsers'));
+const AllOrders = lazy(() => import('../pages/All Data/AllOrders'));
+const AllBooks = lazy(() => import('../pages/All Data/AllBooks'));
+const AllUsers = lazy(() => import('../pages/All Data/AllUsers'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 
@@ -45,11 +45,6 @@ const coreRoutes = [
   },
   {
     path: '/forms/category-form/:id?',
-    title: 'Category Form',
-    component: CategoryForm,
-  },
-  {
-    path: '/forms/category-form/:id',
     title: 'Category Form',
     component: CategoryForm,
   },
