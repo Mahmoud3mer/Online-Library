@@ -58,7 +58,7 @@ import { Roles } from 'src/core/decorators/roles.decorator';
     }
   
     @Delete('clear')
-    // @Roles(Role.User) 
+    // @Roles(Role.User) comment
     async clearCart(@Body() body: UserDTO,@Req() req:any) {
       body["userId"] = req.user.userId;
       return await this._cartService.clearCart(body);
