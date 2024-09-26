@@ -36,6 +36,7 @@ import { CartCountService } from "../../services/cart/CartCount.service";
     SuccessModalComponent,
     FailureModalComponent,
     RouterLink,
+    TranslateModule
   ],
   templateUrl: "./payment.component.html",
   styleUrls: ["./payment.component.scss"],
