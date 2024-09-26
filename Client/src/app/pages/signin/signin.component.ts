@@ -16,6 +16,7 @@ import { GetWishlistService } from "../../services/wishlist/getWishlist.service"
 import { GetCartService } from "../../services/cart/GetCart.service";
 import { CartCountService } from "../../services/cart/CartCount.service";
 import { CartBooksService } from "../../services/cart/cart-books.service";
+import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 
 // Default values shown
 
@@ -42,7 +43,8 @@ export class SigninComponent {
     private _getWishlist:GetWishlistService,
     private _getCartService:GetCartService,
     private _cartCountService:CartCountService,
-    private _cartBooksService: CartBooksService
+    private _cartBooksService: CartBooksService,
+    private _wishlistBooksService:WishlistBookService
   ) {}
 
   // get email if in  cookies
@@ -128,6 +130,7 @@ export class SigninComponent {
     this._getWishlist.getWishlist().subscribe({
       next: (res) => {
         this._numOfWishlist.updateNumOfWishItems(res.data.books.length);
+        this._wishlistBooksService.updateWishlistBooks(res.data.books)
       },
       error: (err) => {
         console.log(err, "err get wish list prodcuts");
@@ -166,7 +169,8 @@ export class SigninComponent {
         }
       },
       error: (err) => {
-        console.log(err);
+        console.log(err,"error from check recommendation");
+        this.router.navigate(['/home']);
       },
       complete: () => {
         console.log('Recommendations check complete');

@@ -74,7 +74,7 @@
           </a>
          @if (cartBooks.length!=0) {
           <div
-          class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40"
+          class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40 h-80 overflow-y-scroll"
         >
           <div
             class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
@@ -112,7 +112,7 @@
           </ul>
             <div class="button">
               <a
-                href="checkout.html"
+                 routerLink="/cart"
                 class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
                 >View Cart</a
               >

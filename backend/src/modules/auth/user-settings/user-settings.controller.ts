@@ -24,15 +24,7 @@ export class UserSettingsController {
   @Roles(Role.User) 
   @Patch('profile')
   @UseInterceptors(
-    FileInterceptor('profilePic', {
-      storage: diskStorage({
-        destination: './uploads/profileImages',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, `${uniqueSuffix}${extname(file.originalname)}`);
-        }
-      })
-    })
+    FileInterceptor('profilePic')
   )
   async updateProfile(@Req() req: any, @Body() body: any , @UploadedFile() file: Express.Multer.File) {
     // console.log('file:', file);
