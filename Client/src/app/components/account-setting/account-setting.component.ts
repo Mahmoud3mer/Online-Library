@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup , ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { UserSettingsService } from '../../services/user-settings/user-settings.service';
 import { ConfirmationUpdateSettingsComponent } from '../confirmation-update-settings/confirmation-update-settings.component';
@@ -15,7 +15,7 @@ import { MyTranslateService } from '../../services/translation/my-translate.serv
   templateUrl: './account-setting.component.html',
   styleUrl: './account-setting.component.scss'
 })
-export class AccountSettingComponent {
+export class AccountSettingComponent implements OnInit {
 
   userId: any = '';
   token: string | null = '';
@@ -45,6 +45,13 @@ export class AccountSettingComponent {
 constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsService: UserSettingsService, private _myTranslateService:MyTranslateService ){
   this.isBrowser = isPlatformBrowser(platformId);
   this.getPrfile()
+}
+
+
+ngOnInit(): void {
+  if(this.isBrowser) {
+    getpr
+  }
 }
 
   onProfilePictureChange(event: any){

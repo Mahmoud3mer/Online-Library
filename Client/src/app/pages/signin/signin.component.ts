@@ -17,6 +17,7 @@ import { GetCartService } from "../../services/cart/GetCart.service";
 import { CartCountService } from "../../services/cart/CartCount.service";
 import { CartBooksService } from "../../services/cart/cart-books.service";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 // Default values shown
 
@@ -44,7 +45,8 @@ export class SigninComponent {
     private _getCartService:GetCartService,
     private _cartCountService:CartCountService,
     private _cartBooksService: CartBooksService,
-    private _wishlistBooksService:WishlistBookService
+    private _wishlistBooksService:WishlistBookService,
+    private _myTranslateService : MyTranslateService
   ) {}
 
   // get email if in  cookies
@@ -177,6 +179,11 @@ export class SigninComponent {
       }
     });
   }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
 
 }
 

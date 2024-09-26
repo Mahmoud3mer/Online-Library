@@ -65,7 +65,8 @@ export class PaymentComponent implements OnInit {
     private _getCartService: GetCartService,
     private _clearCartService: ClearCartService,
     private _createOrderService: CreateOrderService,
-    private _cartCountService: CartCountService
+    private _cartCountService: CartCountService,
+    private _myTranslateService : MyTranslateService
   ) {
     this.deliveryForm = new FormGroup({
       firstName: new FormControl("", [
@@ -361,4 +362,8 @@ export class PaymentComponent implements OnInit {
       });
     }
   }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
 }
