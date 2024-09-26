@@ -10,4 +10,5 @@ export class CategoryDTO {
 
     @IsOptional()
     image: string;
+
 } 

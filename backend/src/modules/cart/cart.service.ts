@@ -21,10 +21,14 @@ import {
     ) {}
 
     calculateShipping(subtotal: number): number {
-      return subtotal < 500 ? 80 : 120;
+      if(subtotal==0)  return 0;
+      const shippingCost = subtotal < 500 ? 80 : 120;
+      return parseFloat(shippingCost.toFixed(2)); // Format to two decimal plac
     }
     calculateTotalOrder(subtotal: number, shippingCost: number): number {
-      return subtotal + shippingCost;
+      if (subtotal==0) return 0;
+      const totalOrder = subtotal + shippingCost;
+      return parseFloat(totalOrder.toFixed(2));
     }
   
     async createCart(userDTO: UserDTO) {
@@ -103,7 +107,7 @@ import {
         cart = new this.cartModel({
           user: userId,
           books: [{ book: bookId, quantity: 1 }],
-          subtotal: book.price,
+          subtotal: parseFloat(book.price.toFixed(2)),
           numOfCartItems: 1,
           shippingCost: this.calculateShipping(book.price), 
           totalOrder: this.calculateTotalOrder(book.price, this.calculateShipping(book.price))
@@ -125,7 +129,7 @@ import {
           cart.books.push({ book: bookId, quantity: 1 });
           
           // Update total price and number of items
-          cart.subtotal += book.price;
+          cart.subtotal = parseFloat((cart.subtotal + book.price).toFixed(2));
           cart.numOfCartItems += 1;
           cart.shippingCost = this.calculateShipping(cart.subtotal);
           cart.totalOrder = this.calculateTotalOrder(cart.subtotal, cart.shippingCost);
@@ -196,7 +200,7 @@ import {
     }
   
     
-      cart.subtotal = subtotal;
+      cart.subtotal = parseFloat(subtotal.toFixed(2));
       cart.numOfCartItems = numOfCartItems;
       cart.shippingCost = this.calculateShipping(subtotal);
       cart.totalOrder = this.calculateTotalOrder(subtotal, cart.shippingCost);
@@ -251,7 +255,7 @@ import {
       }
     
       // Update the cart with the new totals
-      cart.subtotal = subtotal;
+      cart.subtotal = parseFloat(subtotal.toFixed(2));
       cart.numOfCartItems = numOfCartItems;
       cart.shippingCost = this.calculateShipping(subtotal);
       cart.totalOrder = this.calculateTotalOrder(subtotal, cart.shippingCost);

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { GetWishlistService } from "../../services/wishlist/getWishlist.service";
@@ -8,10 +8,8 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { ToastService } from "../../services/Toast/toast.service";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
-import { BookInterface } from "../../interfaces/books.interface";
-import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
-import { isPlatformBrowser } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
+import { BookInterface } from "../../interfaces/books.interface";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
@@ -27,7 +25,6 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
 })
 export class WishlistComponent implements OnInit {
   wishlistBooks: BookInterface[] = [];
-  private isBrowser: Boolean = false;
 
   numOfWishlist: number = 0;
   showConfirmationDialog = false;
@@ -35,19 +32,13 @@ export class WishlistComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    @Inject(PLATFORM_ID) platformId: object,
     private _getWishlist: GetWishlistService,
     private _deletFromWishlist: DeleteBookFromWishlistServiece,
     private _wishlistCount:WishListCountService,
-    private _wishlistBooks:WishlistBookService,
     private _toastService:ToastService,
     private router: Router,
-    private _myTranslateService:MyTranslateService,
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-  }
-
-
+    private _myTranslateService:MyTranslateService
+  ) {}
 
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
@@ -55,24 +46,9 @@ export class WishlistComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(this.isBrowser){
-      this.getWishList();
-    }
+    this.getWishList();
   }
-  //rating stars
-  starArray: number[] = [];
 
-  updateStarArray(rating: number): void {
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
-
-    this.starArray = Array(fullStars).fill(1);
-    if (halfStar) {
-      this.starArray.push(0.5);
-    }
-    const emptyStars = 5 - this.starArray.length;
-    this.starArray.push(...Array(emptyStars).fill(0));
-  }
   //confirmation
   openConfirmationDialog(bookId: string): void {
     this.bookIdToRemove = bookId;
@@ -89,7 +65,6 @@ export class WishlistComponent implements OnInit {
             
             this.wishlistBooks = res.data.books;
             this.numOfWishlist = this.wishlistBooks.length;
-            this._wishlistBooks.updateWishlistBooks(this.wishlistBooks)
             this._wishlistCount.updateNumOfWishItems(this.numOfWishlist)
             this._toastService.showSuccess('Book removed from wishlist successfully!');
           },
@@ -109,16 +84,7 @@ export class WishlistComponent implements OnInit {
   }
 
   getWishList() {
- 
-      const token = localStorage.getItem("token");
-      if (!token) {
-        this._toastService.showError("Please log in to view your cart.");
-        this.router.navigate(['/signin']);  // Redirect to login page
-        this.isLoading = false;
-        return;
-      }
-      
- 
+    console.log("get");
 
     this._getWishlist.getWishlist().subscribe({
       next: (res) => {

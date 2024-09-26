@@ -27,8 +27,8 @@ export class OrderService {
   ): Promise<{ message: string; updatedOrder: Order }> {
     const updatedOrder = await this.orderModel.findByIdAndUpdate(
       { _id: id, userId },
-      { $set: updateOrderDto, orderDate: new Date().toLocaleString() },
-      { new: true, runValidators: true },
+      { $set: updateOrderDto, orderDate: new Date().toLocaleString() }, // Only update the fields provided in the DTO
+      { new: true, runValidators: true }, // Return the updated document and run validators
     );
 
     if (!updatedOrder) {
@@ -56,25 +56,40 @@ export class OrderService {
     return orders;
   }
 
-  getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
-    const page = paginationDTO.page || 1;
-    const limit = paginationDTO.limit || 10;
+  async getAllOrders(userId: any, paginationDTO: PaginationDTO) {
+    const page = paginationDTO.page;
+    const limit = paginationDTO.limit;
     const skip = (page - 1) * limit;
-
     const total = await this.orderModel.countDocuments().exec();
-
-    if (total === 0) {
+    const allOrders = await this.orderModel.find().skip(skip).limit(limit);
+    if (allOrders.length === 0) {
       throw new NotFoundException(`No orders found`);
     }
 
-    const allOrders = await this.orderModel
-      .find()
-      .skip(skip)
-      .limit(limit)
-      .exec();
+    return {
+      message: 'Success, Get All Books.',
+      results: allOrders.length,
+      metaData: {
+        currentPage: page,
+        numberOfPages: Math.ceil(total / limit),
+        limit,
+      },
+      data: allOrders,
+    };
+  }
+
+  getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
+    const page = paginationDTO.page;
+    const limit = paginationDTO.limit;
+    const skip = (page - 1) * limit;
+    const total = await this.orderModel.countDocuments().exec();
+    const allOrders = await this.orderModel.find().skip(skip).limit(limit);
+    if (allOrders.length === 0) {
+      throw new NotFoundException(`No orders found`);
+    }
 
     return {
-      message: 'Success, Get All Orders.',
+      message: 'Success, Get All Books.',
       results: allOrders.length,
       metaData: {
         currentPage: page,

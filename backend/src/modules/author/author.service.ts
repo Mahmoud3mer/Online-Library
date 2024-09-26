@@ -25,7 +25,6 @@ addNewAuthor = async (body: AuthorDTO, file:Express.Multer.File) => {
 
         if (file) {
             console.log(file)
-            // !cloudinary
             const imgRes = await new Promise((resolve, reject) => {
                 cloudinary.uploader.upload_stream(
                 { 
@@ -40,7 +39,6 @@ addNewAuthor = async (body: AuthorDTO, file:Express.Multer.File) => {
                 }
                 ).end(file.buffer);
             });
-            // console.log(imgRes['secure_url']);
             body.image = imgRes['secure_url'];
         } else {
             throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
@@ -79,7 +77,6 @@ updateAuthor = async (authorId: string, author: AuthorDTO, file:Express.Multer.F
     try {
         if (file) {
             console.log(file)
-            // !cloudinary
             const imgRes = await new Promise((resolve, reject) => {
                 cloudinary.uploader.upload_stream(
                 { 
@@ -94,10 +91,7 @@ updateAuthor = async (authorId: string, author: AuthorDTO, file:Express.Multer.F
                 }
                 ).end(file.buffer);
             });
-            // console.log(imgRes['secure_url']);
             author.image = imgRes['secure_url'];
-        } else {
-            throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
         }
         const updatedAuthor = await this.authorModel.findByIdAndUpdate(
             authorId,
@@ -110,7 +104,7 @@ updateAuthor = async (authorId: string, author: AuthorDTO, file:Express.Multer.F
         throw new HttpException('Error updating the author', HttpStatus.BAD_REQUEST);
     }
 };
- 
+
 deleteAuthor = async (authorId: string) => {
     try {
         const author = await this.authorModel.findByIdAndDelete(authorId);
