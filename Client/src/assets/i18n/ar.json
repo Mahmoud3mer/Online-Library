@@ -289,27 +289,6 @@
         "Category:":"تصنيف:",
         "Desc:":"الوصف:",
         "EGP":"جنيه"
-        
-    },
-    "about":{
-        "About Us":"من نحن",
-        "Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.":"اكتشف عالم الكتب العربية والإسلامية، المصممة لتقديم تجربة قراءة فريدة.",
-        "Authentic Arabic Books":"كتب عربية أصلية",
-        "Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.":"مجموعة كتبنا العربية مختارة من مصادر أصلية، مما يضمن محتوى عالي الجودة للقراء.",
-        "Islamic Studies & Literature":"الدراسات الإسلامية والأدب",
-        "Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.":"استكشف مجموعة واسعة من الكتب الإسلامية التي تغطي الدراسات الدينية والفلسفة والتاريخ.",
-        "Excellent Customer Service":"خدمة عملاء ممتازة",
-        "We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.":"نحن ملتزمون بتقديم خدمة عملاء عالية الجودة، ومستعدون لمساعدتك في أي استفسار.",
-        "Secure Online Payment":"دفع إلكتروني آمن",
-        "Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase.":"استمتع بتجربة دفع إلكتروني سلسة وآمنة، مما يضمن لك الرضا مع كل عملية شراء."
-    },
-    "contact":{
-        "Get connected":"تواصل معنا",
-        "Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.":"لوريم إيبسوم دولور يجلس أميت، إلى يخدع adipiscing. Volutpat tempor إلى بهار السيرة الذاتية فيل بوروس.",
-        "Send Email":"إرسال بريد إلكتروني",
-        "Call Us":"اتصل بنا",
-        "Address":"العنوان",
-        "EL-Behera,Egypt":"محافظة البحيرة، مصر"
     },
     "payment":{
         "Some info about your Cart.":"بعض المعلومات عن سلة التسوق الخاصة بك.",
@@ -416,6 +395,31 @@
         "Author:":"المؤلف:",
         "Qty:":"الكمية:",
         "You didn’t order yet.":"لم تطلب بعد"
+    },
+    "about":{
+        "We are here to offer the best Arabic books with a digital touch":"نحن هنا لنقدم أفضل الكتب العربية بلمسة رقمية.",
+        "Founded":"تأسست",
+        "Total books":"إجمالي الكتب",
+        "Contributing Authors":"المؤلفون المساهمون",
+        "Nationalities":"الجنسيات",
+        "A Library with values":"قيم مكتبتنا",
+        "The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.":"تنوع الكتب والمحتوى العربي والإسلامي يسهم في نجاح مكتبتنا. نؤمن أن أفضل التجارب تحدث عندما يجتمع القراء من خلفيات مختلفة لتبادل المعرفة.",
+        "Content Diversity":"تنوع المحتوى",
+        "Embracing Knowledge":"الانتماء",
+        "Quality Content":"الجودة",
+        "Sustainable Library":"الاستدامة",
+        "People-first":"الناس أولاً",
+        "Meet the team":"تعرف على الفريق",
+        "A collaborative group united by a passion for reading and sharing.":"مجموعة تعاونية تجمعها شغف القراءة والمشاركة.",
+        "Join us on our mission":"انضم إلينا في مهمتنا.",
+        "View Books":"عرض الكتب"
+    },
+    "contact":{
+        "Let’s stay connected":"دعونا نبقى على تواصل",
+        "If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!":"إذا كان لديك أي استفسارات أو تحتاج إلى مساعدة، فلا تتردد في التواصل معنا. نحن هنا لمساعدتك!",
+        "Email":"البريد الالكتروني",
+        "Phone":"الهاتف",
+        "Socials":"وسائل التواصل الاجتماعي"
     }
 
 

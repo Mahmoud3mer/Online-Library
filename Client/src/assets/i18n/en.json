@@ -290,26 +290,6 @@
         "Desc:":"Desc:",
         "EGP":"EGP"
     },
-    "about":{
-        "About Us":"About Us",
-        "Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.":"Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.",
-        "Authentic Arabic Books":"Authentic Arabic Books",
-        "Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.":"Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.",
-        "Islamic Studies & Literature":"Islamic Studies & Literature",
-        "Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.":"Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.",
-        "Excellent Customer Service":"Excellent Customer Service",
-        "We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.":"We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.",
-        "Secure Online Payment":"Secure Online Payment",
-        "Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase.":"Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase."
-    },
-    "contact":{
-        "Get connected":"Get connected",
-        "Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.":"Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.",
-        "Send Email":"Send Email",
-        "Call Us":"Call Us",
-        "Address":"Address",
-        "EL-Behera,Egypt":"EL-Behera,Egypt"
-    },
     "payment":{
         "Some info about your Cart.":"Some info about your Cart.",
         "Show us the money.":"Show us the money.",
@@ -415,6 +395,31 @@
         "Author:":"Author:",
         "Qty:":"Qty:",
         "You didn’t order yet.":"You didn’t order yet."
+    },
+    "about":{
+        "We are here to offer the best Arabic books with a digital touch":"We are here to offer the best Arabic books with a digital touch",
+        "Founded":"Founded",
+        "Total books":"Total books",
+        "Contributing Authors":"Contributing Authors",
+        "Nationalities":"Nationalities",
+        "A Library with values":"A Library with values",
+        "The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.":"The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.",
+        "Content Diversity":"Content Diversity",
+        "Embracing Knowledge":"Embracing Knowledge",
+        "Quality Content":"Quality Content",
+        "Sustainable Library":"Sustainable Library",
+        "People-first":"People-first",
+        "Meet the team":"Meet the team",
+        "A collaborative group united by a passion for reading and sharing.":"A collaborative group united by a passion for reading and sharing.",
+        "Join us on our mission":"Join us on our mission",
+        "View Books":"View Books"
+    },
+    "contact":{
+        "Let’s stay connected":"Let’s stay connected",
+        "If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!":"If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!",
+        "Email":"Email",
+        "Phone":"Phone",
+        "Socials":"Socials"
     }
 
 }
