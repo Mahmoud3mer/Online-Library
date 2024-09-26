@@ -215,6 +215,8 @@ export class HomeComponent {
       next: (res) => {
         // console.log(res.data);
         this.categories = res.data
+        console.log(this.categories);
+        
       },
       error: (err) => {
         console.log(err);
