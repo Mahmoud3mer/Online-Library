@@ -46,7 +46,7 @@ export class SigninComponent {
     private _getCartService:GetCartService,
     private _cartCountService:CartCountService,
     private _cartBooksService: CartBooksService,
-    private _wishlistBooksService:WishlistBookService
+    private _wishlistBooksService:WishlistBookService,
     private _myTranslateService:MyTranslateService
   ) {}
 

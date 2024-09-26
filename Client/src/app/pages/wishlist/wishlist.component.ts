@@ -41,13 +41,13 @@ export class WishlistComponent implements OnInit {
     private _wishlistCount:WishListCountService,
     private _wishlistBooks:WishlistBookService,
     private _toastService:ToastService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService:MyTranslateService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-    private _myTranslateService:MyTranslateService
-  ) {}
+
 
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);

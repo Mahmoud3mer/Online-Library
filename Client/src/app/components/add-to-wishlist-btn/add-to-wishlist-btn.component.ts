@@ -22,10 +22,10 @@ export class AddToWishlistBtnComponent implements OnInit {
   private isBrowser: boolean = false;
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
-    private _bookWishlistService:WishlistBookService,
+    private _bookWishlistService: WishlistBookService,
     private _addToWishListService: AddToWishListService,
     private _deleteFromWishlistService: DeleteBookFromWishlistServiece,
-    private _numOfWishlist:WishListCountService,
+    private _numOfWishlist: WishListCountService,
     private _toastService: ToastService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -40,7 +40,7 @@ export class AddToWishlistBtnComponent implements OnInit {
     // if (this.isBrowser) {
     //   const token = localStorage.getItem("token");
     //   if (!token) return;
-  
+
     // }
 
     this.isWishlisted = this._bookWishlistService.isBookWishlisted(this.bookId);
@@ -64,33 +64,33 @@ export class AddToWishlistBtnComponent implements OnInit {
             this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
             this._bookWishlistService.updateWishlistBooks(res.data.books)
 
-          if(localStorage.getItem('lang')==='en'){
-            this._toastService.showSuccess("Removed from wishlist.");
+            if (localStorage.getItem('lang') === 'en') {
+              this._toastService.showSuccess("Removed from wishlist.");
+            }
+            else {
+              this._toastService.showSuccess("تمت الازالة من المفضلة");
+            }
           }
-          else{
-            this._toastService.showSuccess("تمت الازالة من المفضلة");
-          }}
-          
+
           ,
           error: (err) => console.log(err),
         });
-    } else {
+
+    }
+    else {
       this._addToWishListService.addToWishList(this.bookId).subscribe({
         next: (res) => {
           console.log(res);
           this.isWishlisted = true;
           this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
           this._bookWishlistService.updateWishlistBooks(res.data.books)
-          this._toastService.showSuccess("Added to wishlist.");
-        },
-          if(localStorage.getItem('lang')==='en'){
-            this._toastService.showSuccess("Added to wishlist.");
+          if (localStorage.getItem('lang') === 'en') {
+            this._toastService.showSuccess("Added To wishlist Succefully.");
           }
-        else{
-          this._toastService.showSuccess("تمت الاضافة الي المفضلة ");
-        }
-        }
-        ,
+          else {
+            this._toastService.showSuccess("تمت الإضافة الي المفضلة");
+          }
+        },
         error: (err) => console.log(err),
       });
     }
