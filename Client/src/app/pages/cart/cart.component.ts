@@ -64,7 +64,6 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     if(this.isBrowser){
       this.getCart();
-
     }
   }
 
