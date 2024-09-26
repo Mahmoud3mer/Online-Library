@@ -1,18 +1,10 @@
 <app-sub-navbar></app-sub-navbar>
 <section class="py-20 bg-[#f9f9f9] dark:bg-[#081d31]">
-<section class="py-20 bg-[#f9f9f9] dark:bg-[#081d31]">
   <div class="lg:w-11/12 mx-auto px-4">
     <div >
       <div class="flex flex-wrap   ">
         <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white dark:bg-[#123656c8]  shadow-custom rounded-lg px-4 py-12">
-        <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white dark:bg-[#123656c8]  shadow-custom rounded-lg px-4 py-12">
 
-          <div class="flex justify-between items-center pb-5">
-            <h3  class="text-3xl font-semibold dark:text-white">Your cart</h3>
-            <!-- <div class="w-20">
-              <img class="rounded-md" src='https://tse3.mm.bing.net/th?id=OIG2.hcuwpJr9JTwee4VW3v_7&pid=ImgGn' alt="">
-
-            </div> -->
           <div class="flex justify-between items-center pb-5">
             <h3  class="text-3xl font-semibold dark:text-white">Your cart</h3>
             <!-- <div class="w-20">
@@ -22,7 +14,6 @@
           @if (cartBooks.length!=0) {
             <button (click)="openClearCartConfirmation()" class="btn bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
               Clear Cart
-              Clear Cart
             </button> 
           }
           </div>
@@ -30,7 +21,6 @@
       
           <div class="mb-12 py-6 border-t border-b border-gray-200">
             @if (cartBooks.length==0 && isLoading) {
-            loading ...............
             loading ...............
             }@else if (cartBooks.length==0 && !isLoading) {
             <div class="text-center p-10 rounded-md ">
@@ -40,11 +30,8 @@
               </div>
               <h2 class="text-3xl font-bold text-gray-700 mb-2">Your cart is empty!</h2>
               <p class="text-lg text-gray-500 mb-6">Browse our categories and discover our best deals!</p>
-              <h2 class="text-3xl font-bold text-gray-700 mb-2">Your cart is empty!</h2>
-              <p class="text-lg text-gray-500 mb-6">Browse our categories and discover our best deals!</p>
               <button (click)="navigatToProducts()"
                 class="bg-sky-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-300">
-                Start Shopping Now
                 Start Shopping Now
               </button>
             </div>
@@ -55,13 +42,21 @@
               <div class="w-full md:w-1/2  pe-4 mb-6 md:mb-0 ">
                 <div class="flex  flex-wrap  items-center">
                   <div class="w-full md:w-1/4   md:px-0 mb-3  ">
-                    <div class="w-full    ">
-                      <img class="text-center h-full block object-contain" [src]="item.book.coverImage " alt="">
+                    <div class="w-full">
+                      @if (item.book.coverImage) {
+                        <img class="text-center h-full block object-contain" [src]="item.book.coverImage " [alt]="item.book.title">
+                        }@else {
+                          <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="item.book.title">
+                        }
+    
 
                     </div>
                   </div>
                   <div class="w-2/3 px-4">
-                    <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    @if (item.book.title) {
+                      <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    }
+
                     @if (item.book.averageRating) {
                       {{updateStarArray(item.book.averageRating)}}
                       <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
@@ -93,7 +88,9 @@
                 </div>
               </div>
               <div class="lg:block md:w-1/12 px-4 text-center  ">
+                @if (item.book.price) {
                 <p class="text-lg text-blue-500 font-bold font-heading">{{item.book.price}}</p>
+                }
                 <!-- <span class="text-xs text-gray-500 line-through">{{item.book.price}}</span> -->
               </div>
               <div class="w-auto md:w-1/6 lg:w-2/12 px-4  ">
@@ -152,12 +149,10 @@
           @if (cartBooks.length!=0) {
           <div class="flex flex-wrap items-center lg:-mb-4">
             <span class="mr-12 mb-4 font-medium">Apply discount code:</span>
-            <span class="mr-12 mb-4 font-medium">Apply discount code:</span>
             <input
               class="flex-1 md:flex-none mr-6 sm:mr-0 md:mr-6 mb-4 px-8 py-4 placeholder-gray-800 font-bold font-heading border rounded-md"
               type="text" placeholder="SUMMER30X">
             <a class="flex-1 md:flex-none inline-block mb-4 px-8 py-4 text-center text-white font-bold font-heading uppercase bg-gray-800 hover:bg-gray-700 rounded-md"
-              href="#">Apply</a>
               href="#">Apply</a>
           </div>
           }
@@ -166,16 +161,11 @@
         <div class="w-full xl:w-4/12 ps-4  ">
           <div class="p-6 md:p-12 bg-gray-600 shadow-custom rounded-lg">
             <h2 class="mb-6 text-4xl font-bold font-heading text-white">Cart totals</h2>
-          <div class="p-6 md:p-12 bg-gray-600 shadow-custom rounded-lg">
-            <h2 class="mb-6 text-4xl font-bold font-heading text-white">Cart totals</h2>
             <div class="flex mb-8 items-center justify-between pb-5 border-b border-blue-100">
-              <span class="text-blue-50">Subtotal</span>
               <span class="text-blue-50">Subtotal</span>
               <span class="text-xl font-bold font-heading text-white">{{subtotal}}</span>
             </div>
             <div class="flex mb-2 justify-between items-center">
-              <h4 class="mb-2 text-xl font-bold font-heading text-white">Shipping</h4>
-    
               <h4 class="mb-2 text-xl font-bold font-heading text-white">Shipping</h4>
     
               <span class="text-xl font-bold font-heading text-white">{{shippingCost}}</span>
@@ -184,13 +174,10 @@
             <div class="flex mb-10 justify-between items-center">
               <span class="text-xl font-bold font-heading text-white">Order total</span>
               <span class="text-xl font-bold font-heading text-white">{{totalOrder}}</span>
-              <span class="text-xl font-bold font-heading text-white">Order total</span>
-              <span class="text-xl font-bold font-heading text-white">{{totalOrder}}</span>
             </div>
             <a
             routerLink="/payment"
               class="block w-full py-4 bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-center text-white font-bold font-heading uppercase rounded-md shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-              Checkout
               Checkout
             </a>
 

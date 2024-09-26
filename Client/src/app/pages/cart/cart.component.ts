@@ -13,18 +13,17 @@ import { ConfirmationDialogComponent } from "../../components/confirmation-dialo
 import { Router, RouterLink } from "@angular/router";
 import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
 import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
-import { ToastService } from '../../services/Toast/toast.service';
-import { CartCountService } from '../../services/cart/CartCount.service';
+import { ToastService } from "../../services/Toast/toast.service";
+import { CartCountService } from "../../services/cart/CartCount.service";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { CartBooksService } from "../../services/cart/cart-books.service";
 import { ClearCartService } from "../../services/cart/clear-cart.service";
-import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
-  standalone:true,
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrl:'./cart.component.scss',
+  standalone: true,
+  selector: "app-cart",
+  templateUrl: "./cart.component.html",
+  styleUrl: "./cart.component.scss",
   imports: [
     CommonModule,
     ConfirmationDialogComponent,
@@ -35,37 +34,43 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
   ],
 })
 export class CartComponent implements OnInit {
-  cartBooks:any[] = []
-  numOfCartItems:number=0;
-  subtotal:number=0;
-  shippingCost:number=0;
-  totalOrder:number=0;
+  private isBrowser: Boolean = false;
+  cartBooks: any[] = [];
+  numOfCartItems: number = 0;
+  subtotal: number = 0;
+  shippingCost: number = 0;
+  totalOrder: number = 0;
   showConfirmationDialog = false;
-  bookIdToRemove: string =''
-  isLoading:boolean=true;
-  confirmMsg:string="are you sure you want to delete this book from your cart";
-  confirmText:string="delete";
+  bookIdToRemove: string = "";
+  isLoading: boolean = true;
+  confirmMsg: string =
+    "are you sure you want to delete this book from your cart";
+  confirmText: string = "delete";
   clearCartMode = false;
-  constructor(private _getCartService:GetCartService,private _updatCartQuantity:UpdateCartQuantiy,
-    private _deleteBookFromCart:DeleteBookFromCartService,
-    private _toastService:ToastService,
-    private _cartCount:CartCountService,
+  constructor(
+    @Inject(PLATFORM_ID) platformId: object,
+    private _getCartService: GetCartService,
+    private _updatCartQuantity: UpdateCartQuantiy,
+    private _deleteBookFromCart: DeleteBookFromCartService,
+    private _toastService: ToastService,
+    private _cartCount: CartCountService,
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
-    private router: Router,
-    private _myTranslateService: MyTranslateService
+    private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
-    this.getCart();
+    if(this.isBrowser){
+      this.getCart();
+
+    }
   }
- 
+
   starArray: number[] = [];
- 
- 
-  updateStarArray(rating:number): void {
+
+  updateStarArray(rating: number): void {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0;
 
@@ -88,7 +93,8 @@ export class CartComponent implements OnInit {
       }
       
     }
-this._getCartService.getCart().subscribe({
+
+    this._getCartService.getCart().subscribe({
       next: (res) => {
         this.cartBooks = res.data.books;
         this.subtotal = res.data.subtotal;
@@ -110,21 +116,20 @@ this._getCartService.getCart().subscribe({
   //confirmation //
   openConfirmationDialog(bookId: string): void {
     this.bookIdToRemove = bookId;
-    this.confirmMsg = "are you sure you want to delete this book from your cart";
+    this.confirmMsg =
+      "are you sure you want to delete this book from your cart";
     this.confirmText = "delete";
     this.clearCartMode = false; // Ensure clearCartMode is false
     this.showConfirmationDialog = true;
   }
-  
 
-  
   openClearCartConfirmation(): void {
     this.clearCartMode = true; // Set clearCartMode to true
     this.confirmMsg = "Are you sure you want to clear your cart?";
     this.confirmText = "clear cart";
     this.showConfirmationDialog = true;
   }
-  
+
   deleteBookFromCart(): void {
     this._deleteBookFromCart.deleteBookFormCart(this.bookIdToRemove).subscribe({
       next: (res) => {
@@ -138,7 +143,7 @@ this._getCartService.getCart().subscribe({
 
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
         this._cartBooksService.updateCartBooks(res.data.books);
-        this._toastService.showSuccess('Book removed from cart successfully!');
+        this._toastService.showSuccess("Book removed from cart successfully!");
       },
       error: (err) => {
         console.error(err);
@@ -146,21 +151,23 @@ this._getCartService.getCart().subscribe({
       complete: () => {
         console.log("delete book successfully");
         this.showConfirmationDialog = false;
-      }
+      },
     });
   }
 
   clearCart(): void {
     this._clearCartService.clearCart().subscribe({
       next: (res) => {
-        this.cartBooks = [];
-        this.subtotal = 0;
-        this.shippingCost = 0;
-        this.totalOrder = 0;
+        this.cartBooks = res.data.books;
+        this.subtotal = res.data.subtotal;
+        this.shippingCost = res.data.shippingCost;
+        this.totalOrder = res.data.totalOrder;
+        console.log(res);
+
         this.numOfCartItems = 0;
         this._cartCount.updateNumOfCartItems(0); // Update cart count to 0
         this._cartBooksService.updateCartBooks([]);
-        this._toastService.showSuccess('Cart cleared successfully!');
+        this._toastService.showSuccess("Cart cleared successfully!");
       },
       error: (err) => {
         console.error(err);
@@ -168,10 +175,9 @@ this._getCartService.getCart().subscribe({
       complete: () => {
         this.showConfirmationDialog = false;
         console.log("Cart cleared successfully");
-      }
+      },
     });
   }
-
 
   handleConfirm(): void {
     if (this.clearCartMode) {
@@ -185,33 +191,27 @@ this._getCartService.getCart().subscribe({
 
   handleCancel() {
     this.showConfirmationDialog = false;
-  this.clearCartMode = false; 
-  this.bookIdToRemove = ''; 
+    this.clearCartMode = false;
+    this.bookIdToRemove = "";
   }
-
-
 
   updateCartItem(bookId: string, newCount: number) {
     if (newCount < 1) return;
     this._updatCartQuantity.updateCart(bookId, newCount).subscribe({
       next: (res) => {
         console.log(res);
-        this._cartCount.updateNumOfCartItems(res.data.numOfCartItems)
-        this.cartBooks= res.data.books
-        this.subtotal=res.data.subtotal;
-        this.shippingCost=res.data.shippingCost;
-        this.totalOrder=res.data.totalOrder;
-
+        this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
+        this.cartBooks = res.data.books;
+        this.subtotal = res.data.subtotal;
+        this.shippingCost = res.data.shippingCost;
+        this.totalOrder = res.data.totalOrder;
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
-  navigatToProducts(){
-    this.router.navigate(['/books']);
-  }
-  changeLang(lang: string) {
-    this._myTranslateService.changLang(lang);
+  navigatToProducts() {
+    this.router.navigate(["/books"]);
   }
 }
