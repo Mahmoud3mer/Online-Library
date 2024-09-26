@@ -1,11 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-call-section',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   templateUrl: './call-section.component.html',
   styleUrl: './call-section.component.scss'
 })
@@ -14,7 +16,7 @@ export class CallSectionComponent implements OnInit {
   isBrowser: boolean = false;
   token: string | null = ''
 
-  constructor(@Inject(PLATFORM_ID) platformId: object) {
+  constructor(@Inject(PLATFORM_ID) platformId: object, private _myTranslateService:MyTranslateService) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -28,5 +30,8 @@ export class CallSectionComponent implements OnInit {
       }
     }
   }
-
+ 
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }

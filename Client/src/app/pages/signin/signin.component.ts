@@ -17,13 +17,15 @@ import { GetCartService } from "../../services/cart/GetCart.service";
 import { CartCountService } from "../../services/cart/CartCount.service";
 import { CartBooksService } from "../../services/cart/cart-books.service";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { TranslateModule } from "@ngx-translate/core";
 
 // Default values shown
 
 @Component({
   selector: "app-signin",
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass,RouterOutlet ,RouterLink],
+  imports: [ReactiveFormsModule, NgIf, FormsModule, NgClass,RouterOutlet ,RouterLink,TranslateModule],
   templateUrl: "./signin.component.html",
   styleUrls: ["./signin.component.scss"],
   providers: [CookieService],
@@ -45,6 +47,7 @@ export class SigninComponent {
     private _cartCountService:CartCountService,
     private _cartBooksService: CartBooksService,
     private _wishlistBooksService:WishlistBookService
+    private _myTranslateService:MyTranslateService
   ) {}
 
   // get email if in  cookies
@@ -178,6 +181,9 @@ export class SigninComponent {
     });
   }
 
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }
 
 

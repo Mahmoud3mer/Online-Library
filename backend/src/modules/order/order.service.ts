@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Order } from 'src/core/schemas/order.schema';
@@ -13,7 +10,7 @@ import { PaginationDTO } from '../book/bookdto/pagination.dto';
 export class OrderService {
   constructor(
     @InjectModel('Order') private readonly orderModel: Model<Order>,
-  ) { }
+  ) {}
 
   async createOrder(
     createOrderDto: CreateOrderDto,
@@ -30,8 +27,8 @@ export class OrderService {
   ): Promise<{ message: string; updatedOrder: Order }> {
     const updatedOrder = await this.orderModel.findByIdAndUpdate(
       { _id: id, userId },
-      { $set: updateOrderDto, orderDate: new Date().toLocaleString() }, // Only update the fields provided in the DTO
-      { new: true, runValidators: true }, // Return the updated document and run validators
+      { $set: updateOrderDto, orderDate: new Date().toLocaleString() },
+      { new: true, runValidators: true },
     );
 
     if (!updatedOrder) {
@@ -53,60 +50,38 @@ export class OrderService {
     const orders = await this.orderModel.find({ userId });
 
     if (orders.length === 0) {
-      throw new NotFoundException(`No orders found for user with ID ${userId}`);
+      throw new NotFoundException(`No orders found`);
     }
 
     return orders;
   }
 
-  async getAllOrders(userId: any, paginationDTO: PaginationDTO) {
-    const page = paginationDTO.page;
-    const limit = paginationDTO.limit;
+  getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
+    const page = paginationDTO.page || 1;
+    const limit = paginationDTO.limit || 10;
     const skip = (page - 1) * limit;
+
     const total = await this.orderModel.countDocuments().exec();
-    const allOrders = await this.orderModel.find()
-      .skip(skip)
-      .limit(limit);
-    if (allOrders.length === 0) {
+
+    if (total === 0) {
       throw new NotFoundException(`No orders found`);
     }
 
+    const allOrders = await this.orderModel
+      .find()
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
     return {
-      message: "Success, Get All Books.",
+      message: 'Success, Get All Orders.',
       results: allOrders.length,
       metaData: {
         currentPage: page,
         numberOfPages: Math.ceil(total / limit),
-        limit
+        limit,
       },
-      data: allOrders
+      data: allOrders,
     };
   };
-
-
-
-
-  getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
-    const page = paginationDTO.page;
-    const limit = paginationDTO.limit;
-    const skip = (page - 1) * limit;
-    const total = await this.orderModel.countDocuments().exec();
-    const allOrders = await this.orderModel.find()
-      .skip(skip)
-      .limit(limit);
-    if (allOrders.length === 0) {
-      throw new NotFoundException(`No orders found`);
-    }
-
-    return {
-      message: "Success, Get All Books.",
-      results: allOrders.length,
-      metaData: {
-        currentPage: page,
-        numberOfPages: Math.ceil(total / limit),
-        limit
-      },
-      data: allOrders
-    };
-  }
 }

@@ -63,8 +63,15 @@ export class AddToWishlistBtnComponent implements OnInit {
             this.isWishlisted = false;
             this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
             this._bookWishlistService.updateWishlistBooks(res.data.books)
+
+          if(localStorage.getItem('lang')==='en'){
             this._toastService.showSuccess("Removed from wishlist.");
-          },
+          }
+          else{
+            this._toastService.showSuccess("تمت الازالة من المفضلة");
+          }}
+          
+          ,
           error: (err) => console.log(err),
         });
     } else {
@@ -76,6 +83,14 @@ export class AddToWishlistBtnComponent implements OnInit {
           this._bookWishlistService.updateWishlistBooks(res.data.books)
           this._toastService.showSuccess("Added to wishlist.");
         },
+          if(localStorage.getItem('lang')==='en'){
+            this._toastService.showSuccess("Added to wishlist.");
+          }
+        else{
+          this._toastService.showSuccess("تمت الاضافة الي المفضلة ");
+        }
+        }
+        ,
         error: (err) => console.log(err),
       });
     }

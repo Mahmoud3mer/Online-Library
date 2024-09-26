@@ -3,15 +3,11 @@ import Breadcrumb from '../../components/Breadcrumb'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { apiUrl } from '../../utils/apiUrl';
-import AlertModal from '../../components/AlertModal';
-import LoadingSpinner from '../../components/LoadingSpinner';
 
 const UserFrom = () => {
    const { state } = useLocation();
    const navigate = useNavigate();
-   
-   const [isAlertOpen, setAlertOpen] = useState(false); 
-   const [isLoading, setIsLoading] = useState(false); 
+
    const [formData, setFormData] = useState({
     fName: state?.user?.fName || '',
     lName: state?.user?.lName || '',
@@ -37,20 +33,15 @@ const UserFrom = () => {
     };
 
     // Validate First Name
-  // Validate First Name
-  if (!formData.fName.trim()) {
-    newErrors.fName = 'First Name is required';
-  } else if (formData.fName.includes(' ')) {
-    newErrors.fName = 'First Name cannot contain spaces';
-  } else if (formData.fName.length < 3 || formData.fName.length > 15) {
-    newErrors.fName = 'First Name must be between 3 and 15 characters';
-  }
+    if (!formData.fName.trim()) {
+      newErrors.fName = 'First Name is required';
+    } else if (formData.fName.length < 3 || formData.fName.length > 15) {
+      newErrors.fName = 'First Name must be between 3 and 15 characters';
+    }
 
     // Validate Last Name
     if (!formData.lName.trim()) {
       newErrors.lName = 'Last Name is required';
-    } else if (formData.lName.includes(' ')) {
-      newErrors.lName = 'Last Name cannot contain spaces';
     } else if (formData.lName.length < 3 || formData.lName.length > 15) {
       newErrors.lName = 'Last Name must be between 3 and 15 characters';
     }
@@ -63,41 +54,35 @@ const UserFrom = () => {
       newErrors.email = 'Invalid email format';
     }
 
-  // Validate Role
-  const validRoles = ['admin', 'user'];
-  if (!formData.role.trim()) {
-    newErrors.role = 'Role is required';
-  } else if (!validRoles.includes(formData.role)) {
-    newErrors.role = 'Role must be "admin" or "user"';
-  }
+    // Validate Role (optional but can add constraints if needed)
+    if (!formData.role.trim()) {
+      newErrors.role = 'Role is required';
+    }
 
     // Validate Phone (optional)
-    // if (!formData.phone.trim()) {
-    //   newErrors.phone = 'Phone number is required';
-    // }
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    }
 
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === '');
   };
-  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   
     // Clear the error message for the current input field if valid
-    if (name === 'fName') {
-      if (value.includes(' ')) {
-        setErrors((prevErrors) => ({ ...prevErrors, fName: 'First Name cannot contain spaces' }));
-      } else if (value.trim() && (value.length < 3 || value.length > 15)) {
+    if (name === 'fName' && value.trim()) {
+      if (value.length < 3 || value.length > 15) {
         setErrors((prevErrors) => ({ ...prevErrors, fName: 'First Name must be between 3 and 15 characters' }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, fName: '' }));
       }
     }
   
-    if (name === 'lName') {
-      if (value.includes(' ')) {
-        setErrors((prevErrors) => ({ ...prevErrors, lName: 'Last Name cannot contain spaces' }));
-      } else if (value.trim() && (value.length < 3 || value.length > 15)) {
+    if (name === 'lName' && value.trim()) {
+      if (value.length < 3 || value.length > 15) {
         setErrors((prevErrors) => ({ ...prevErrors, lName: 'Last Name must be between 3 and 15 characters' }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, lName: '' }));
@@ -122,36 +107,27 @@ const UserFrom = () => {
     }
   };
   
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      setIsLoading(true);
       try {
         const token = localStorage.getItem('token');
         await axios.patch(`${apiUrl}/user-settings/admin/users/${state.user._id}`, formData, {
           headers: { token },
         });
-        setAlertOpen(true);
-          
+        alert('User updated successfully');
+        navigate('/users'); // Navigate back to the users list after updating
       } catch (err) {
         console.error('Error updating user:', err);
-      }finally {
-        setIsLoading(false); // End loading
       }
     } else {
       console.log('Validation errors:', errors);
     }
   };
-//  alert close
-  const closeAlert = () => {
-    setAlertOpen(false);
-    navigate('/users'); // Navigate back to the users list after closing
-  };
   return (
     <>
       <Breadcrumb  pageName="Edit User info" />
-     
+      <h1 className='font-extrabold text-3xl pb-5'>User Form</h1>
       <form onSubmit={handleSubmit}>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -169,7 +145,7 @@ const UserFrom = () => {
               placeholder="First Name"
               value={formData.fName}
               onChange={handleInputChange}
-                                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              className="w-full rounded-lg border-[1.5px] py-3 px-5"
             />
              {errors.fName && <p className="text-red-500">{errors.fName}</p>}
               </div>
@@ -189,7 +165,7 @@ const UserFrom = () => {
               placeholder="Last Name"
               value={formData.lName}
               onChange={handleInputChange}
-              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              className="w-full rounded-lg border-[1.5px] py-3 px-5"
             />
               {errors.lName && <p className="text-red-500">{errors.lName}</p>}
               </div>
@@ -209,7 +185,7 @@ const UserFrom = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              className="w-full rounded-lg border-[1.5px] py-3 px-5"
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
               </div>
@@ -222,21 +198,17 @@ const UserFrom = () => {
               </h3>
             </div>
             <div className="flex flex-col gap-5.5 p-6.5">
-        <div>
-          <select
-            name="role"
-            value={formData.role}
-            onChange={handleInputChange}
-            className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-          >
-            
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-          </select>
-          {errors.role && <p className="text-red-500">{errors.role}</p>}
-        </div>
-      </div>
-
+              <div>
+              <input
+              type="text"
+              name="role"
+              placeholder="Role"
+              value={formData.role}
+              onChange={handleInputChange}
+              className="w-full rounded-lg border-[1.5px] py-3 px-5"
+            />
+              </div>
+            </div>
           </div>
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -252,7 +224,7 @@ const UserFrom = () => {
               placeholder="phone"
               value={formData.phone}
               onChange={handleInputChange}
-                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              className="w-full rounded-lg border-[1.5px] py-3 px-5"
             />
               </div>
             </div>
@@ -262,7 +234,7 @@ const UserFrom = () => {
        
   
           {/* <!-- File upload --> */}
-          {/* <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 User Cover Image
@@ -278,15 +250,11 @@ const UserFrom = () => {
 
 
             </div>
-          </div> */}
+          </div>
       </div>
-      <button className='btn my-5' disabled={isLoading}>
-          {isLoading ? <LoadingSpinner size="text-sm" color="text-white" /> : 'Edit'}
-        </button>
+        <button className='btn my-5'>Edit</button>
       </form>
 
-       {/* alert */}
-      <AlertModal message='edit user successfully' onClose={closeAlert} isOpen={isAlertOpen} />
     </>
   )
 }

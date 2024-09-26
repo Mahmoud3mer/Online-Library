@@ -11,6 +11,8 @@ import { WishListCountService } from "../../services/wishlist/wish-list-count.se
 import { BookInterface } from "../../interfaces/books.interface";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 import { isPlatformBrowser } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-wishlist",
@@ -20,12 +22,13 @@ import { isPlatformBrowser } from "@angular/common";
   imports: [
     AddToCartBtnComponent,
     ConfirmationDialogComponent,
-    SubNavbarComponent,
+    SubNavbarComponent, TranslateModule
   ],
 })
 export class WishlistComponent implements OnInit {
   wishlistBooks: BookInterface[] = [];
   private isBrowser: Boolean = false;
+
   numOfWishlist: number = 0;
   showConfirmationDialog = false;
   bookIdToRemove: string = "";
@@ -42,6 +45,14 @@ export class WishlistComponent implements OnInit {
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
+
+    private _myTranslateService:MyTranslateService
+  ) {}
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
 
   ngOnInit(): void {
     if(this.isBrowser){

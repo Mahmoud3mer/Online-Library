@@ -24,7 +24,7 @@
                   <i class="fas fa-info-circle text-xl mr-1"></i>
                   Details</strong
                 >
-                <small class="mt-1">Some info about your Cart.</small>
+                <small class="mt-1">{{"payment.Some info about your Cart."|translate}}</small>
               </p>
             </button>
           </li>
@@ -45,9 +45,9 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-credit-card text-xl mr-2"></i>
-                  Payment</strong
+                  {{"payment.Payment"|translate}}</strong
                 >
-                <small class="mt-1">Show us the money.</small>
+                <small class="mt-1">{{"payment.Show us the money."|translate}}</small>
               </p>
             </button>
           </li>
@@ -62,7 +62,7 @@
 
             <button
               [ngClass]="{ 'disabled-class': isPaymentDisabled }"
-              [disabled]="isPaymentDisabled && activeTab === 'confirmation'"
+              [disabled]="true"
               (click)="setActiveTab('confirmation')"
               class="flex items-center cursor-pointer"
               [ngClass]="{
@@ -73,9 +73,9 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-check-circle text-xl mr-1"></i>
-                  Confirmation</strong
+                  {{"payment.Confirmation"|translate}}</strong
                 >
-                <small class="mt-1"> Thank you for your order! </small>
+                <small class="mt-1"> {{"payment.Thank you for your order!"|translate}} </small>
               </p>
             </button>
           </li>
@@ -94,7 +94,7 @@
           <section class="bg-blueGray-100 mt-6">
             <div class="container mx-auto px-4">
               <div class="mb-8 text-2xl font-semibold text-gray-800">
-                Your Order:
+                {{"payment.Your Order:"|translate}}
               </div>
               <div class="bg-white p-6 rounded-lg shadow-lg">
                 <!-- Product List -->
@@ -116,14 +116,14 @@
                           href="#"
                           >{{ item.name }}</a
                         >
-                        <p class="text-gray-400">Author: {{ item.name }}</p>
+                        <p class="text-gray-400">{{"payment.Author:"|translate}} {{ item.name }}</p>
                         <p class="text-gray-400">
-                          Description: {{ item.name }}
+                          {{"payment.Description:"|translate}} {{ item.name }}
                         </p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-gray-400">Qty: {{ item.quantity }}</p>
+                      <p class="text-gray-400">{{"payment.Qty:"|translate}} {{ item.quantity }}</p>
                       <p class="text-blue-500">
                         $
                         <span class="text-blue-500 text-xl">{{
@@ -136,7 +136,7 @@
                 <!-- Summary -->
                 <div class="lg:flex xl:items-center w-full mt-12">
                   <div class="lg:w-2/12 xl:w-1/12 mb-10 xl:mb-0">
-                    <h3 class="text-xl font-heading font-medium">Summary</h3>
+                    <h3 class="text-xl font-heading font-medium">{{"payment.Summary"|translate}}</h3>
                   </div>
                   <div class="w-full lg:w-10/12 xl:w-11/12">
                     <div class="flex flex-wrap lg:justify-end -mx-3">
@@ -155,7 +155,7 @@
                               {{ totalQuantity }}
                             </div>
                           </div>
-                          <span class="ml-16">Products</span>
+                          <span class="ml-16">{{"payment.Products"|translate}}</span>
                         </div>
                       </div>
                       <div
@@ -164,7 +164,7 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl"
                         >
-                          <span>Shipping:</span>
+                          <span>{{"payment.Shipping:"|translate}}</span>
                           <span class="flex items-center">
                             <span class="ml-2 mr-1 text-sm">$</span>
                             <span class="text-xl">10.00</span>
@@ -177,7 +177,7 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white font-heading font-medium rounded-3xl"
                         >
-                          <span>Total</span>
+                          <span>{{"payment.Total"|translate}}</span>
                           <span class="flex items-center text-blue-500">
                             <span class="mr-1 text-sm ml-3">$</span>
                             <span class="text-xl">{{ totalPrice }}</span>
@@ -190,9 +190,9 @@
                         <button
                           type="button"
                           class="block py-2 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 transition duration-200 mt-4"
-                          (click)="activeTab = 'payment'"
+                          (click)="setActiveTab('payment')"
                         >
-                          Next
+                          {{"payment.Next"|translate}}
                           <i class="fa-solid fa-arrow-right"></i>
                         </button>
                       </div>
@@ -214,7 +214,7 @@
                   <h2
                     class="text-5xl font-semibold text-gray-900 ml-12 dark:text-white sm:text-2xl"
                   >
-                    Payment Gateway
+                    {{"payment.Payment Gateway"|translate}}
                   </h2>
                   <div
                     id="accordionFlushExample"
@@ -229,7 +229,7 @@
                           aria-expanded="onlinePaymentOpen"
                           aria-controls="flush-collapseOne"
                         >
-                          Online Payment
+                          {{"payment.Online Payment"|translate}}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': onlinePaymentOpen }"
@@ -282,7 +282,7 @@
                           aria-expanded="payOnDeliveryOpen"
                           aria-controls="flush-collapseTwo"
                         >
-                          Pay on Delivery
+                          {{"payment.Pay on Delivery"|translate}}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': payOnDeliveryOpen }"
@@ -313,130 +313,324 @@
                           <!-- Content for Pay on Delivery -->
                           <!-- Billing Address -->
                           <form
+                            [formGroup]="deliveryForm"
+                            (ngSubmit)="confirmOrder()"
                             class="mb-14 px-4 py-6 border border-gray-300 rounded-lg bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
                           >
                             <h6
                               class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-white"
                             >
-                              Billing Address
+                              {{"payment.Billing Address"|translate}}
                             </h6>
 
-                            <!-- Phone number input -->
-                            <div class="mb-4">
-                              <label
-                                for="input-03-5"
-                                class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-                              >
-                                Phone number
-                              </label>
-                              <input
-                                id="input-03-5"
-                                name="phoneNumber"
-                                type="tel"
-                                class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                placeholder="Your phone number"
-                              />
+                            <!-- First Name and Last Name Inputs -->
+                            <div class="flex flex-wrap -m-2 mb-4">
+                              <div class="w-full md:w-1/2 p-2">
+                                <label
+                                  for="input-first-name"
+                                  class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
+                                >
+                                  First Name *
+                                </label>
+                                <input
+                                  id="input-first-name"
+                                  name="firstName"
+                                  type="text"
+                                  class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                  {{
+                                    deliveryForm.get('firstName')?.touched &&
+                                    !deliveryForm.get('firstName')?.invalid
+                                      ? 'border-green-500'
+                                      : deliveryForm.get('firstName')
+                                          ?.touched &&
+                                        deliveryForm.get('firstName')?.invalid
+                                      ? 'border-red-500'
+                                      : 'border-gray-400'
+                                  }}"
+                                  placeholder="Your first name"
+                                  formControlName="firstName"
+                                />
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('firstName')?.touched &&
+                                    deliveryForm
+                                      .get('firstName')
+                                      ?.hasError('required')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  First Name is required.
+                                </p>
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('firstName')?.touched &&
+                                    deliveryForm
+                                      .get('firstName')
+                                      ?.hasError('pattern')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  - Must be 3-15 letters<br />
+                                  - No spaces or special characters.
+                                </p>
+                              </div>
+                              <div class="w-full md:w-1/2 p-2">
+                                <label
+                                  for="input-last-name"
+                                  class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
+                                >
+                                  Last Name *
+                                </label>
+                                <input
+                                  id="input-last-name"
+                                  name="lastName"
+                                  type="text"
+                                  class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                  {{
+                                    deliveryForm.get('lastName')?.touched &&
+                                    !deliveryForm.get('lastName')?.invalid
+                                      ? 'border-green-500'
+                                      : deliveryForm.get('lastName')?.touched &&
+                                        deliveryForm.get('lastName')?.invalid
+                                      ? 'border-red-500'
+                                      : 'border-gray-400'
+                                  }}"
+                                  placeholder="Your last name"
+                                  formControlName="lastName"
+                                />
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('lastName')?.touched &&
+                                    deliveryForm
+                                      .get('lastName')
+                                      ?.hasError('required')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  Last Name is required.
+                                </p>
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('lastName')?.touched &&
+                                    deliveryForm
+                                      .get('lastName')
+                                      ?.hasError('pattern')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  - Must be 3-15 letters<br />
+                                  - No spaces or special characters.
+                                </p>
+                              </div>
                             </div>
 
-                            <!-- Street name and house number input -->
+                            <!-- Phone Number Input -->
                             <div class="mb-4">
                               <label
-                                for="input-03-6"
+                                for="input-phone"
                                 class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                               >
-                                Street name and house number
+
+                                {{"payment.Phone number"|translate}}
                               </label>
                               <input
-                                id="input-03-6"
-                                name="streetName"
-                                type="text"
-                                class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                placeholder="-"
+                                id="input-phone"
+                                name="phoneNumber"
+                                type="tel"
+                                class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                {{
+                                  deliveryForm.get('phoneNumber')?.touched &&
+                                  !deliveryForm.get('phoneNumber')?.invalid
+                                    ? 'border-green-500'
+                                    : deliveryForm.get('phoneNumber')
+                                        ?.touched &&
+                                      deliveryForm.get('phoneNumber')?.invalid
+                                    ? 'border-red-500'
+                                    : 'border-gray-400'
+                                }}"
+                                placeholder="Your phone number"
+                                formControlName="phoneNumber"
+
                               />
+                              <p
+                                *ngIf="
+                                  deliveryForm.get('phoneNumber')?.touched &&
+                                  deliveryForm
+                                    .get('phoneNumber')
+                                    ?.hasError('required')
+                                "
+                                class="text-red-500 text-sm italic mt-1"
+                              >
+                                Phone Number is required.
+                              </p>
+                              <p
+                                *ngIf="
+                                  deliveryForm.get('phoneNumber')?.touched &&
+                                  deliveryForm
+                                    .get('phoneNumber')
+                                    ?.hasError('pattern')
+                                "
+                                class="text-red-500 text-sm italic mt-1"
+                              >
+                                - Must be a valid phone number.
+                              </p>
+                            </div>
+
+                            <!-- City and Email Inputs -->
+                            <div class="flex flex-wrap -m-2 mb-4">
+                              <div class="w-full md:w-1/2 p-2">
+                                <label
+                                  for="input-city"
+                                  class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
+                                >
+                                  City *
+                                </label>
+                                <input
+                                  id="input-city"
+                                  name="city"
+                                  type="text"
+                                  class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                  {{
+                                    deliveryForm.get('city')?.touched &&
+                                    !deliveryForm.get('city')?.invalid
+                                      ? 'border-green-500'
+                                      : deliveryForm.get('city')?.touched &&
+                                        deliveryForm.get('city')?.invalid
+                                      ? 'border-red-500'
+                                      : 'border-gray-400'
+                                  }}"
+                                  placeholder="Your city"
+                                  formControlName="city"
+                                />
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('city')?.touched &&
+                                    deliveryForm
+                                      .get('city')
+                                      ?.hasError('required')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  City is required.
+                                </p>
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('city')?.touched &&
+                                    deliveryForm
+                                      .get('city')
+                                      ?.hasError('pattern')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  - Must be letters only.<br />
+                                  - Max length 10 characters,
+                                </p>
+                              </div>
+                              <div class="w-full md:w-1/2 p-2">
+                                <label
+                                  for="input-email"
+                                  class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
+                                >
+                                  Email *
+                                </label>
+                                <input
+                                  id="input-email"
+                                  name="email"
+                                  type="email"
+                                  class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                  {{
+                                    deliveryForm.get('email')?.touched &&
+                                    !deliveryForm.get('email')?.invalid
+                                      ? 'border-green-500'
+                                      : deliveryForm.get('email')?.touched &&
+                                        deliveryForm.get('email')?.invalid
+                                      ? 'border-red-500'
+                                      : 'border-gray-400'
+                                  }}"
+                                  placeholder="Your email"
+                                  formControlName="email"
+                                />
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('email')?.touched &&
+                                    deliveryForm
+                                      .get('email')
+                                      ?.hasError('required')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  Email is required.
+                                </p>
+                                <p
+                                  *ngIf="
+                                    deliveryForm.get('email')?.touched &&
+                                    deliveryForm.get('email')?.hasError('email')
+                                  "
+                                  class="text-red-500 text-sm italic mt-1"
+                                >
+                                  Please enter a valid email address.
+                                </p>
+                              </div>
+                            </div>
+
+                            <!-- Delivery Address Input -->
+                            <div class="mb-4">
+                              <label
+                                for="input-delivery-address"
+                                class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
+                              >
+
+                                {{"payment.Street name and house number"|translate}}
+                              </label>
+                              <input
+                                id="input-delivery-address"
+                                name="deliveryAddress"
+                                type="text"
+                                class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border rounded-lg
+                                {{
+                                  deliveryForm.get('shippingAddress')
+                                    ?.touched &&
+                                  !deliveryForm.get('shippingAddress')?.invalid
+                                    ? 'border-green-500'
+                                    : deliveryForm.get('shippingAddress')
+                                        ?.touched &&
+                                      deliveryForm.get('shippingAddress')
+                                        ?.invalid
+                                    ? 'border-red-500'
+                                    : 'border-gray-400'
+                                }}"
+                                placeholder="Your delivery address"
+                                formControlName="shippingAddress"
+                              />
+                              <p
+                                *ngIf="
+                                  deliveryForm.get('shippingAddress')
+                                    ?.touched &&
+                                  deliveryForm
+                                    .get('shippingAddress')
+                                    ?.hasError('required')
+                                "
+                                class="text-red-500 text-sm italic mt-1"
+                              >
+                                Delivery Address is required.
+                              </p>
+                              <p
+                                *ngIf="
+                                  deliveryForm.get('shippingAddress')
+                                    ?.touched &&
+                                  deliveryForm
+                                    .get('shippingAddress')
+                                    ?.hasError('pattern')
+                                "
+                                class="text-red-500 text-sm italic mt-1"
+                              >
+                                - Must be letters and numbers.<br />
+                                - Max length 30 characters,
+                              </p>
                             </div>
 
                             <!-- City, Region, Postal Code, Country inputs -->
-                            <div class="flex flex-wrap -m-2">
-                              <div class="w-full md:w-1/2 p-2">
-                                <div>
-                                  <label
-                                    for="input-03-7"
-                                    class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-                                  >
-                                    City
-                                  </label>
-                                  <input
-                                    id="input-03-7"
-                                    name="city"
-                                    type="text"
-                                    class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                    placeholder="Your city"
-                                  />
-                                </div>
-                              </div>
-                              <div class="w-full md:w-1/2 p-2">
-                                <div>
-                                  <label
-                                    for="select-03-1"
-                                    class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-                                  >
-                                    Region
-                                  </label>
-                                  <select
-                                    name="region"
-                                    id="select-03-1"
-                                    class="appearance-none block py-2 px-3 w-full text-sm text-gray-900 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                  >
-                                    <option value="" selected disabled hidden>
-                                      Select region
-                                    </option>
-                                    <option value="region1">Region 1</option>
-                                    <option value="region2">Region 2</option>
-                                    <option value="region3">Region 3</option>
-                                    <option value="region4">Region 4</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="w-full md:w-1/2 p-2">
-                                <div>
-                                  <label
-                                    for="input-03-8"
-                                    class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-                                  >
-                                    Postal code
-                                  </label>
-                                  <input
-                                    id="input-03-8"
-                                    name="postalCode"
-                                    type="text"
-                                    class="py-2 px-3 w-full text-sm text-gray-900 placeholder-gray-500 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                    placeholder="Your postal code"
-                                  />
-                                </div>
-                              </div>
-                              <div class="w-full md:w-1/2 p-2">
-                                <div>
-                                  <label
-                                    for="select-03-2"
-                                    class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-                                  >
-                                    Country
-                                  </label>
-                                  <select
-                                    name="country"
-                                    id="select-03-2"
-                                    class="appearance-none block py-2 px-3 w-full text-sm text-gray-900 bg-gray-100 border border-gray-400 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 shadow-sm"
-                                  >
-                                    <option value="" selected disabled hidden>
-                                      Select country
-                                    </option>
-                                    <option value="poland">Poland</option>
-                                    <option value="france">France</option>
-                                    <option value="italy">Italy</option>
-                                    <option value="australia">Australia</option>
-                                  </select>
-                                </div>
-                              </div>
+
                             </div>
 
                             <!-- Buttons -->
@@ -444,15 +638,15 @@
                               <button
                                 type="button"
                                 class="py-2 px-4 text-sm text-gray-900 bg-gray-300 border border-gray-400 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
+                                (click)="deliveryForm.reset()"
                               >
-                                Reset
+                                {{"payment.Reset"|translate}}
                               </button>
                               <button
                                 type="submit"
                                 class="py-2 px-4 text-sm text-white bg-blue-600 border border-blue-700 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
-                                (click)="confirmOrder()"
                               >
-                                Confirm & Order
+                                {{"payment.Confirm & Order"|translate}}
                               </button>
                             </div>
                           </form>
@@ -475,27 +669,28 @@
             <div class="border border-gray-50 rounded-2xl px-6 md:px-12 py-12">
               <div class="pb-10 border-b border-gray-50">
                 <h1 class="font-heading uppercase text-3xl">
-                  Your order has been confirmed and will be shipping soon... 🎉
+                  {{"payment.Your order has been confirmed and will be shipping soon..."|translate}} 🎉
                 </h1>
               </div>
               <div class="py-6 border-b border-gray-50">
                 <div class="flex flex-wrap -m-4">
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Order Date</p>
+
+                    <p class="text-gray-500 mb-2">{{"payment.Order Date"|translate}}</p>
                     <p class="font-semibold">
                       {{ orderDate }}
                     </p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Order Number</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Order Number"|translate}}</p>
                     <p class="font-semibold">{{ orderId }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Payment</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Payment"|translate}}</p>
                     <p class="font-semibold">{{ paymentMethod }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Address</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Address"|translate}}</p>
                     <p class="font-semibold">{{ shippingAddress }}</p>
                   </div>
                 </div>
@@ -522,7 +717,7 @@
                   <div class="w-full md:w-1/3 p-4">
                     <div class="flex md:justify-center">
                       <p>
-                        <span>Quantity:</span>
+                        <span>{{"payment.Quantity:"|translate}}</span>
                         <span class="font-semibold">{{ item.quantity }}</span>
                       </p>
                     </div>
@@ -536,16 +731,31 @@
               </div>
               <div class="py-6 border-b border-gray-50 mb-10">
                 <div class="flex justify-between flex-wrap">
-                  <p class="text-xl font-semibold">Total</p>
+                  <p class="text-xl font-semibold">{{"payment.Total"|translate}}</p>
                   <p class="text-xl font-semibold">${{ totalPrice }}</p>
                 </div>
               </div>
               <p class="text-gray-500 mb-3">
-                We’ll send you shipping confirmation when your item(s) are on
-                the way! We appreciate your business, and hope you enjoy your
-                purchase.
+                {{"payment.We’ll send you shipping confirmation when you item(s) are on the way! We appreciate your business, and hope you enjoy your purchase."|translate}}
               </p>
               <p class="text-gray-500">Thank you!</p>
+
+              <!-- Buttons -->
+              <div class="mt-8 flex justify-center space-x-4">
+                <a
+                  routerLink="/books/grid"
+                  class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-200"
+                >
+                  Go Back to Shop
+                </a>
+                <a
+                  routerLink="/user-settings/my-orders"
+                  class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-200"
+                >
+                  See My Orders
+                </a>
+              </div>
+              <p class="text-gray-500">{{"payment.Thank you!"|translate}}</p>
             </div>
           </div>
         </div>

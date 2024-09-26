@@ -7,6 +7,7 @@ import axios from "axios";
 import { apiUrl } from "../utils/apiUrl";
 import ConfirmationModal from "./ConfirmationModal";
 import Pagination from "./Pagination";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,7 +19,7 @@ const BooksTable = () => {
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
   const [page, setPage] = useState(1);
   const [numberOfPages, setnumberOfPages] = useState(0)
-  const limit = 1;
+  const limit = 12;
 
 const getToken = () => localStorage.getItem('token')
   useEffect(() => {
@@ -50,9 +51,9 @@ const getToken = () => localStorage.getItem('token')
     document.getElementById('my_modal_3')?.showModal();
   };
 
-
+const navigate = useNavigate()
   const handleEdit = (BookId: string) => {
-    console.log(BookId);
+    navigate(`/forms/book-form/${BookId}`)    
   };
 
   const handleDelete = async (bookId: string) => {
@@ -96,11 +97,11 @@ const getToken = () => localStorage.getItem('token')
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.author ? book.author.name : 'Author Not Provided'}</p>
             </div>
 
             <div className="col-span-2 hidden items-center sm:flex">
-              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category.name}</p>
+              <p className="text-sm text-black dark:text-white truncate overflow-hidden">{book.category ? book.category.name : 'Category Not Provided'}</p>
             </div>
 
             <div className="col-span-1 flex items-center">
@@ -111,7 +112,7 @@ const getToken = () => localStorage.getItem('token')
               <p className="text-sm text-black dark:text-white">{book.stock}</p>
             </div>
 
-            <div className="col-span-1 flex items-center justify-between">
+            <div className="col-span-1 flex items-center gap-1">
               <div className="hover:cursor-pointer hover:text-meta-5 p-1" onClick={() => handleMoreDetails(book._id)}>
                 <FaEye size={20} />
               </div>

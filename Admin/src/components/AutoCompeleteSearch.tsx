@@ -9,15 +9,19 @@ interface AutoCompleteSearchProps<T> {
   searchQuery: string; // The query parameter to search for
   inputOnSelect: (selectedItem: T) => void;
   extractDisplayName: (item: T) => string; // Function to extract the display name for auto-complete
+  updateSearchResults?: (results: T[]) => void; // New prop to update search results in parent
+
 }
 
-const AutoCompleteSearch2 = <T,>({
+const AutoCompleteSearch = <T,>({
   UrlWantToFetch,
   inputName,
   inputPlaceholder,
   searchQuery,
   inputOnSelect,
   extractDisplayName,
+  updateSearchResults, // Receive this function from the parent
+
 }: AutoCompleteSearchProps<T>) => {
   const [dataResults, setDataResults] = useState<T[]>([]);
   const [searchResults, setSearchResults] = useState<T[]>([]);
@@ -27,11 +31,8 @@ const AutoCompleteSearch2 = <T,>({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
         const res = await axios.get(`${apiUrl}/${UrlWantToFetch}?limit=20&${searchQuery}=${searchQueryValue}`);
         setDataResults(res.data.data); // Set data from the API
-        console.log(res.data.data);
-        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -47,13 +48,14 @@ const AutoCompleteSearch2 = <T,>({
     setSearchQueryValue(inputValue); // Update value for API search
 
     if (inputValue) {
-      setSearchResults(
-        dataResults.filter((item) =>
-          extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
-        )
-      );
+      const filteredResults = dataResults.filter((item) =>
+        extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
+      )
+      setSearchResults(filteredResults);
+      updateSearchResults(filteredResults); // Send results to the parent
     } else {
       setSearchResults([]);
+      updateSearchResults([]); // Clear search results in the parent
     }
   };
 
@@ -74,7 +76,7 @@ const AutoCompleteSearch2 = <T,>({
         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary"
       />
       {searchResults.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white shadow-lg border rounded-md dark:bg-black">
+        <ul className="absolute z-10 w-full max-h-96 overflow-auto bg-white shadow-lg border rounded-md dark:bg-black">
           {searchResults.map((item, index) => (
             <li
               key={index}
@@ -90,4 +92,4 @@ const AutoCompleteSearch2 = <T,>({
   );
 };
 
-export default AutoCompleteSearch2;
+export default AutoCompleteSearch;

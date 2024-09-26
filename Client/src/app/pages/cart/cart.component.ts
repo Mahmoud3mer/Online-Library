@@ -11,13 +11,20 @@ import { DeleteBookFromCartService } from "../../services/cart/delete.service";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
 import { Router, RouterLink } from "@angular/router";
+
 import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
 import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 import { ToastService } from "../../services/Toast/toast.service";
 import { CartCountService } from "../../services/cart/CartCount.service";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
-import { CartBooksService } from "../../services/cart/cart-books.service";
-import { ClearCartService } from "../../services/cart/clear-cart.service";
+
+import { CartBooksService } from '../../services/cart/cart-books.service';
+import { ClearCartService } from '../../services/cart/clear-cart.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+
+
+
 
 @Component({
   standalone: true,
@@ -31,7 +38,8 @@ import { ClearCartService } from "../../services/cart/clear-cart.service";
     AddToWishlistBtnComponent,
     SubNavbarComponent,
     RouterLink,
-  ],
+    TranslateModule
+],
 })
 export class CartComponent implements OnInit {
   private isBrowser: Boolean = false;
@@ -60,6 +68,7 @@ export class CartComponent implements OnInit {
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
+  private _myTranslateService:MyTranslateService) { }
 
   ngOnInit(): void {
     if(this.isBrowser){
@@ -92,6 +101,35 @@ export class CartComponent implements OnInit {
         return;
       }
       
+
+    roundedPrice(): number {
+    return Math.round(this.totalOrder);
+  }
+
+    // Fetch items from CartService
+    getCart(){
+      this._getCartService.getCart().subscribe(
+        {
+          next: (res) => {
+            this.cartBooks=res.data.books;
+            this.subtotal=res.data.subtotal;
+            this.shippingCost=res.data.shippingCost;
+            this.totalOrder=res.data.totalOrder;
+            this.numOfCartItems=res.data.numOfCartItems;
+            console.log(this.cartBooks);
+  
+          },
+          error: (err) => {
+
+            console.log("errororro",err);
+            this.isLoading=false;
+          },
+          complete: () => {
+            console.log("get cart products");
+            this.isLoading = false;
+          }
+        }
+      )
     }
 
     this._getCartService.getCart().subscribe({
@@ -137,9 +175,6 @@ export class CartComponent implements OnInit {
         this.subtotal = res.data.subtotal;
         this.shippingCost = res.data.shippingCost;
         this.totalOrder = res.data.totalOrder;
-        console.log(this.subtotal);
-        console.log(this.shippingCost);
-        console.log(this.totalOrder);
 
         this._cartCount.updateNumOfCartItems(res.data.numOfCartItems);
         this._cartBooksService.updateCartBooks(res.data.books);
@@ -213,5 +248,10 @@ export class CartComponent implements OnInit {
   }
   navigatToProducts() {
     this.router.navigate(["/books"]);
+  }
+
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }
