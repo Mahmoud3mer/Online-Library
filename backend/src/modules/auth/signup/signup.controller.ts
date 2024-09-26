@@ -29,7 +29,7 @@ export class SignupController {
   }
 
   @Get('verify-email')
-  async verifyEmail(@Query('token') token: string) {
+  async verifyEmail(@Query('token') token: string) { 
     try {
       const result = await this.signupService.verifyEmail(token);
       return {

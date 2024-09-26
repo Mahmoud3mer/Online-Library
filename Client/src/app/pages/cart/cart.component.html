@@ -42,13 +42,21 @@
               <div class="w-full md:w-1/2  pe-4 mb-6 md:mb-0 ">
                 <div class="flex  flex-wrap  items-center">
                   <div class="w-full md:w-1/4   md:px-0 mb-3  ">
-                    <div class="w-full    ">
-                      <img class="text-center h-full block object-contain" [src]="item.book.coverImage " alt="">
+                    <div class="w-full">
+                      @if (item.book.coverImage) {
+                        <img class="text-center h-full block object-contain" [src]="item.book.coverImage " [alt]="item.book.title">
+                        }@else {
+                          <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="item.book.title">
+                        }
+    
 
                     </div>
                   </div>
                   <div class="w-2/3 px-4">
-                    <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    @if (item.book.title) {
+                      <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}</h5>
+                    }
+
                     @if (item.book.averageRating) {
                       {{updateStarArray(item.book.averageRating)}}
                       <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
@@ -69,13 +77,20 @@
                      
                       </p>
                     }
-                    <p class="dark:text-gray-300">Author: {{item.book.author.name}}</p>
-                    <p class="dark:text-gray-400">{{item.book.description}}</p>
+                    @if (item.book.author.name) {
+                      <p class="dark:text-gray-300">Author: {{item.book.author.name}}</p>
+                    }
+                    @if(item.book.description){
+                                <p class="dark:text-gray-400">{{item.book.description}}</p>
+                    }
+          
                   </div>
                 </div>
               </div>
               <div class="lg:block md:w-1/12 px-4 text-center  ">
+                @if (item.book.price) {
                 <p class="text-lg text-blue-500 font-bold font-heading">{{item.book.price}}</p>
+                }
                 <!-- <span class="text-xs text-gray-500 line-through">{{item.book.price}}</span> -->
               </div>
               <div class="w-auto md:w-1/6 lg:w-2/12 px-4  ">

@@ -78,6 +78,7 @@ export class RecommendationComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error saving selections:', err);
+          this.router.navigate(['/home'])
         },
         complete: () => {
           console.log('Save selections request complete');
