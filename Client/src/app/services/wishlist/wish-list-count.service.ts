@@ -27,10 +27,5 @@ export class WishListCountService {
     localStorage.setItem('wishListCount',newCount.toString())}
     this.wishlistCount.next(newCount);
   }
-  clearWishlistCount(): void {
-    if (this.isBrowser) {
-      localStorage.removeItem('wishListCount');
-    }
-    this.wishlistCount.next(0);
-  }
+
 }

@@ -6,10 +6,6 @@ export interface OrderInterface {
   totalPrice: number;
   paymentStatus: string;
   items: OrderItemInterface[];
-  phone: string;
-  email: string;
-  name: string;
-  paymentMethod: string;
 }
 
 export interface OrderItemInterface {
