@@ -30,12 +30,38 @@
     <div class=" border-b-2   border-gray-300 pb-4 pt-4 ">
       <div class="flex items-center">
         <div class="w-1/5">
-          <img class="w-full " [src]="book.coverImage" />
+          @if (book.coverImage) {
+            <img class="w-full " [src]="book.coverImage" [alt]="book.title"/>
+            }@else {
+              <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="book.title">
+            }
+        
         </div>
 
         <div class="sm:w-1/3 w-2/3 ps-5 ">
           <div class="pb-3">
+
             <h1> <span class="font-semibold">{{"wishlist.Title:"|translate}}</span> {{ book.title }}</h1>
+@if (book.averageRating) {
+              {{updateStarArray(book.averageRating)}}
+              <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                <span> 
+                  @for (star of starArray; track $index) {
+                  @if (star === 1) {
+                  <i class="fa-solid fa-star text-yellow-500"></i>
+                  }
+                  @if (star === .5) {
+                  <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                  }
+                  @if (star === 0) {
+                  <i class="fa-regular fa-star text-yellow-500"></i>
+                  }
+                  }
+          
+                </span>
+             
+              </p>
+            }
             <p> <span class="font-semibold">{{"wishlist.Author:"|translate}} </span>{{"wishlist.author"|translate}} {{ book.author.name }}</p>
             <p> <span class="font-semibold"> {{"wishlist.Category:"|translate}} </span>{{ book.category.name}}</p>
 

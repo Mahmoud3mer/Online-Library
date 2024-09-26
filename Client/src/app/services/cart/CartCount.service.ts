@@ -29,4 +29,13 @@ export class CartCountService {
     }
     this.cartCount.next(newCount);
   }
+
+  clearNumOfCartItems(): void {
+    if (this.isBrowser) {
+      localStorage.removeItem('numOfCartItems');
+    }
+    this.cartCount.next(0);
+  }
+
+
 }
