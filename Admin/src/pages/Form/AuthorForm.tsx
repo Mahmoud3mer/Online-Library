@@ -15,6 +15,7 @@ const AuthorForm = () => {
     name: '',
     bio: '',
     image: null
+
   });
 
   // const [loading, setLoading] = useState(true); // Loading state for fetch

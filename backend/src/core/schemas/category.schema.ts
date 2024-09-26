@@ -9,7 +9,6 @@ export class Category {
 
     @Prop({required: false})
     image: string;
-
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

@@ -16,42 +16,30 @@ const BooksTable = () => {
   const [books, setBooks] = useState<Array<BookInterface>>([]);
   const [detailedBook, setDetailedBook] = useState<Partial<BookInterface>>({});
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
+  const [selectedBookId, setSelectedBookId] = useState<string | null>(null); // Holds the ID of the book to be deleted
   const [page, setPage] = useState(1);
   const [numberOfPages, setnumberOfPages] = useState(0)
-  const [searchTerm, setSearchTerm] = useState<string>('');
-
   const limit = 12;
 
-  const getToken = () => localStorage.getItem('token')
+const getToken = () => localStorage.getItem('token')
   useEffect(() => {
-    fetchBooks()
-  }, [page, books.length, searchTerm])
+    axios.get(`${apiUrl}/books?page=${page}&limit=${limit}`)
+      .then((res) => {
+        setnumberOfPages(res.data.metaData.numberOfPages)
+        setBooks(res.data.data)
+        // console.log(res.data);
+
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      })
+  }, [page,books.length])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-  };
+};
 
-  const fetchBooks = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/books`, {
-        params: {
-            page,
-            limit,
-            title: searchTerm, 
-        },
-      });
 
-      setnumberOfPages(response.data.metaData.numberOfPages);
-      setBooks(response.data.data);
-
-    } catch (err) {
-      console.error("Error fetching users", err);
-
-    }
-
-    
-  }
 
   const handleMoreDetails = (bookId: string) => {
     axios.get(`${apiUrl}/books/${bookId}`)
@@ -63,17 +51,17 @@ const BooksTable = () => {
     document.getElementById('my_modal_3')?.showModal();
   };
 
-  const navigate = useNavigate()
+const navigate = useNavigate()
   const handleEdit = (BookId: string) => {
-    navigate(`/forms/book-form/${BookId}`)
+    navigate(`/forms/book-form/${BookId}`)    
   };
 
   const handleDelete = async (bookId: string) => {
     try {
       const token = getToken();
       await axios.delete(
-        `http://localhost:3000/books/${bookId}`,
-        { headers: { token: token || "" } }
+        `http://localhost:3000/books/${bookId}`, 
+        { headers: { token: token || "" } } // Ensure token is passed as a string
       );
       setBooks(books.filter(book => book._id !== bookId));
     } catch (error) {
@@ -83,56 +71,18 @@ const BooksTable = () => {
 
   const handleConfirmDelete = () => {
     if (selectedBookId) {
-      handleDelete(selectedBookId);
-      setIsDeleteModalOpen(false);
+      handleDelete(selectedBookId);  // Proceed with deletion after confirmation
+      setIsDeleteModalOpen(false);   // Close the modal
     }
   };
 
   const openDeleteModal = (bookId: string) => {
-    setSelectedBookId(bookId);
-    setIsDeleteModalOpen(true);
+    setSelectedBookId(bookId);  // Store the book ID to be deleted
+    setIsDeleteModalOpen(true); // Open the delete confirmation modal
   };
 
   return (
     <>
-
-      <div className="px-4 md:px-6 xl:px-7.5 mb-4 ">
-        <input
-          type="text"
-          placeholder="Search by name"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
-          className="
-                    input input-bordered w-125 
-                    bg-white text-stroke border-gray-300
-                    dark:bg-strokedark dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-600
-                    transition-all duration-300 ease-in-out 
-                    focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200
-                    dark:focus:border-blue-400 dark:focus:ring-blue-400
-                    rounded-lg shadow-md hover:shadow-lg
-                  "
-        />
-      </div>
-      <div className="grid grid-cols-6 border-t  mt-5 border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
-          <p className="font-medium">Book Name</p>
-        </div>
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">Author</p>
-        </div>
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">Category</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Price</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Stock</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Actions</p>
-        </div>
-      </div>
       {books && books.map((book, index) => (
         <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={book._id}>
 
@@ -140,7 +90,7 @@ const BooksTable = () => {
             <div className="col-span-3 flex items-center">
               <div className="grid grid-cols-4 gap-4 sm:flex-row sm:items-center">
                 <div className="h-17 w-full rounded-md">
-                  <img src={book.coverImage ? book.coverImage : ''} alt={book.title} className="h-full" />
+                  <img src={book.coverImage} alt={book.title} className="h-full" />
                 </div>
                 <p className="col-span-3 text-sm text-black dark:text-white text-ellipsis overflow-hidden max-h-10 self-center pe-4">{book.title}</p>
               </div>
@@ -178,7 +128,7 @@ const BooksTable = () => {
 
 
           <dialog id="my_modal_3" className="modal">
-            <div className="modal-box w-11/12 max-w-4xl dark:bg-black">
+            <div className="modal-box w-11/12 max-w-4xl dark:bg-black"> {/* Customize size here */}
               <form method="dialog">
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
               </form>
@@ -186,7 +136,7 @@ const BooksTable = () => {
               <h5 className="font-semibold py-4">Details for book ID: {detailedBook._id}</h5>
               <section className="grid grid-cols-3">
                 <div>
-                  <img src={detailedBook.coverImage} alt={detailedBook.title} className="w-full" />
+                  <img src={detailedBook.coverImage} alt={detailedBook.title} className="w-full"/>
                 </div>
                 <div className="col-span-2 ms-10">
                   <h6 className="font-semibold pb-2 border-b mb-4">
@@ -199,6 +149,7 @@ const BooksTable = () => {
                   <p className="py-1"><span className="font-semibold">Average Rating : </span>{detailedBook.averageRating}</p>
                 </div>
               </section>
+              {/* Display more details about the book */}
             </div>
           </dialog>
 
@@ -211,9 +162,10 @@ const BooksTable = () => {
         </div>
       ))}
 
-      <div className='py-3 flex justify-center'>
-        <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
-      </div>
+              {/* Pagingation */}
+              <div className='py-3 flex justify-center'>
+            <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
+        </div>
     </>
   )
 }

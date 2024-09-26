@@ -12,5 +12,5 @@ import { ToastComponent } from "./components/toast/toast.component";
   styleUrl: "./app.component.scss",
 })
 export class AppComponent {
-  title = "Andalosia book store";
+  title = "Client";
 }

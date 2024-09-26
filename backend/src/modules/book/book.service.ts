@@ -46,36 +46,14 @@ export class BookService {
             // console.log(imgRes['secure_url']);
             book.coverImage = imgRes['secure_url'];
         } else {
-            book.coverImage = '';
+            throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
         }
         // console.log(file);
         // book.coverImage = file.path;
-        const pages = Number(book.pages);
-        const price = Number(book.price);
-        const stock = Number(book.stock);
-        
-        if (isNaN(pages) || pages < 0) {
-            throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        
-        if (isNaN(price) || price < 0) {
-            throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        if (isNaN(stock) || stock < 0) {
-            throw new HttpException('Invalid Stock. Stock must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        book.pages = pages;
-        book.price = price;
-        book.stock = stock;
-        
-        book.publishedDate = new Date()
-        try {
-            await this.bookModel.insertMany(book);
-            return { message: "Success, Book Added.", data: book };
 
-        } catch (error){
-            throw new HttpException(`Error Inserting Data ${error}`, HttpStatus.BAD_REQUEST)
-        }
+        book.publishedDate = new Date()
+        await this.bookModel.insertMany(book);
+        return { message: "Success, Book Added.", data: book };
     }
 
     // ! All Books and Pagination
@@ -176,20 +154,20 @@ export class BookService {
 
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateThisBook = async (bookId: string, book: BookDTO, user: any, file: Express.Multer.File) => {
+    updateThisBook = async (bookId: string, book: any, user: any, file: Express.Multer.File) => {
 
 
-        const findBook = await this.bookModel.findById({ _id: bookId });
+            const findBook = await this.bookModel.findById({ _id: bookId });
 
-        if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
+            if (!findBook) throw new HttpException('Fail, Book Not Found!', HttpStatus.BAD_REQUEST);
 
-        if (file) {
-            console.log(file)
-            // !cloudinary
-            const imgRes = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream(
-                    {
-                        resource_type: 'image',
+            if (file) {
+                console.log(file)
+                // !cloudinary
+                const imgRes = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream(
+                    { 
+                        resource_type: 'image' ,
                         folder: 'book_cover_image'
                     },
                     (error, result) => {
@@ -199,41 +177,22 @@ export class BookService {
                         resolve(result);
                     }
 
-                ).end(file.buffer);
-            });
-            // console.log(imgRes['secure_url']);
-            book.coverImage = imgRes['secure_url'];
-            //             } else {
-            //                 throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
-        }
+                    ).end(file.buffer);
+                });
+                // console.log(imgRes['secure_url']);
+                book.coverImage = imgRes['secure_url'];
+//             } else {
+//                 throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+            }
 
-        const pages = Number(book.pages);
-        const price = Number(book.price);
-        const stock = Number(book.stock);
-        
-        if (isNaN(pages) || pages < 0) {
-            throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        
-        if (isNaN(price) || price < 0) {
-            throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        if (isNaN(stock) || stock < 0) {
-            throw new HttpException('Invalid Stock. Stock must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-        
-        book.pages = pages;
-        book.price = price;
-        book.stock = stock;
-        
-        const updateBook = await this.bookModel.findByIdAndUpdate(
-            { _id: bookId },
-            { $set: book },
-            { new: true }
-        ).populate('author')
-            .populate('category');
+            const updateBook = await this.bookModel.findByIdAndUpdate(
+                { _id: bookId },
+                { $set: book },
+                { new: true }
+            ).populate('author')
+                .populate('category');
 
-        return { message: "Success, Book Updated.", data: updateBook };
+            return { message: "Success, Book Updated.", data: updateBook };
 
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
 import CustomInput from './FromComponents/CustomInput'
 import CategoryTable from '../../components/CategoryTable';
@@ -7,42 +7,16 @@ import { apiUrl } from '../../utils/apiUrl';
 import AutoCompleteSearch from '../../components/AutoCompeleteSearch';
 import { CategoryInterface } from '../../interfaces/BookInterface';
 import { useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import LoadingSpinner from '../../components/LoadingSpinner';
 
 const CategoryForm = () => {
 
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams(); // Gets the id from the URL if it exists
   const [categoryData, setCategoryData] = useState({
     name: '',
-    image: null
+    image: ''
   });
 
-  const resetForm = () => {
-    setCategoryData({
-      name: '',
-    image: null
-    })
-  }
-
-  const fetchCategory = async () => {
-    const res = await axios.get(`${apiUrl}/category/${id}`)
-    setCategoryData(res.data.category)
-  }
-
-  useEffect(() => {
-    if (id) {
-      fetchCategory()
-      .then(() => setLoading(false))
-      .catch(() => setLoading(false));
-    } else {
-      // navigate(`/forms/category-form`)
-      setLoading(false)
-
-    }
-  }, [id])
+  // const [loading, setLoading] = useState(true); // Loading state for fetch
   const getToken = () => localStorage.getItem('token');
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -61,52 +35,20 @@ const CategoryForm = () => {
 
     const formData = new FormData();
     formData.append('name', categoryData.name);
+    formData.append('bio', categoryData.bio);
     if (categoryData.image) {
       formData.append('image', categoryData.image);
     }
-    setIsLoading(true)
+
     if (id) {
       axios.patch(`${apiUrl}/category/${id}`, formData, { 'headers': { 'token': token } })
-        .then((res) =>
-        {
-          Swal.fire({
-            icon: 'success',
-            title: `${res.data.data.name}<br> \n Updated Successfully!`,
-            showConfirmButton: true,
-            timer: 2000
-          })
-        }
-          
-        )
-        .catch(err =>
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `Something went wrong!`,
-          })
-        ).finally(
-          () => {
-            setIsLoading(false)
-          })
+        .then(() => console.log("Category updated successfully"))
+        .catch(err => console.error("Error updating Category:", err));
     } else {
       axios.post(`${apiUrl}/category`, formData, { 'headers': { 'token': token } })
-        .then((res) =>
-          Swal.fire({
-            icon: 'success',
-            title: `${res.data.category.name}<br> \n Created Successfully!`,
-            showConfirmButton: true,
-            timer: 2000
-          })
-        )
-        .catch(err =>
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `Something went wrong!`,
-          })
-        ).finally(() =>{
-           setIsLoading(false)
-          })
+        .then(() => console.log("Book created successfully", formData))
+        .catch(
+          err => console.error("Error creating book:", err.response.data.message, formData));
     }
   };
 
@@ -122,12 +64,11 @@ const CategoryForm = () => {
 
   const navigate = useNavigate()
   const handleCreateBtn = () => {
-    resetForm()
     navigate(`/forms/category-form`)
   }
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>; // Show loading state while fetching data
+  // }
   return (
     <>
       <Breadcrumb pageName="Category Form" />
@@ -198,12 +139,8 @@ const CategoryForm = () => {
 
 
         </div>
-        <button
-          className={isLoading ? 'btn btn-primary ms-auto mt-4 px-8 text-xl block cursor-progress' : 'btn btn-primary ms-auto mt-4 px-8 text-xl block'}
-        >
-          {isLoading ? <LoadingSpinner color='white'/> : (id ? 'Update Category' : 'Create category')}
+        <button className='btn btn-primary ms-auto my-4 px-8 text-xl block'>{id ? 'Update Category' : 'Add New Category'}
         </button>
-
       </form>
 
 

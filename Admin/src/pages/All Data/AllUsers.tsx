@@ -5,7 +5,6 @@ import UserTable from '../../components/UserTable';
 import { UserInterface } from '../../interfaces/UserInterface';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
-// import AutoCompleteSearch from '../../components/AutoCompeleteSearch';
 
 
 
@@ -15,13 +14,13 @@ const AllUsers = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const navigate = useNavigate(); // Use navigate to move between routes
-    const [searchTerm, setSearchTerm] = useState<string>('');
 
     const [selectedUser, setSelectedUser] = useState<UserInterface | null>(null);
     const [numberOfPages, setnumberOfPages] = useState(0)
     useEffect(() => {
         fetchUsers();
-    }, [page, limit, searchTerm]);
+    }, [page, limit]);
+
 
 
 
@@ -30,24 +29,18 @@ const AllUsers = () => {
     const fetchUsers = async () => {
         try {
             const token = getToken();
-            // Send the search term as a query parameter
-            const response = await axios.get(`${apiUrl}/user-settings/admin/users`, {
-                params: {
-                    page,
-                    limit,
-                    name: searchTerm, // Include search query
-                },
+            const response = await axios.get(`${apiUrl}/user-settings/admin/users?page=${page}&limit=${limit}`, {
                 headers: { token },
             });
-
-            setnumberOfPages(response.data.metaData.numberOfPages);
+    
+            setnumberOfPages(response.data.metaData.numberOfPages)
             setUsers(response.data.data);
         } catch (err) {
             console.error("Error fetching users", err);
         }
     };
 
-
+    
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
     };
@@ -63,23 +56,18 @@ const AllUsers = () => {
     const handleEdit = (user: UserInterface) => {
         navigate('/forms/user-form', { state: { user } });
         console.log("edit");
-
-    };
+        
+      };
 
     const handleDelete = async (userId: string) => {
         try {
             const token = getToken();
-            await axios.delete(`http://localhost:3000/user-settings/admin/users/${userId}`, { 'headers': { 'token': token || "" } });
+            await axios.delete(`http://localhost:3000/user-settings/admin/users/${userId}`, { 'headers': { 'token': token } });
             setUsers(users.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);
         }
     };
-    // const handleUserSelect = (selectedUser: UserInterface) => {
-    //     // Update the users array to display the searched user
-    //     setUsers([selectedUser]);
-    //   };
-
     return (<>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="py-6 px-4 md:px-6 xl:px-7.5">
@@ -87,39 +75,7 @@ const AllUsers = () => {
                     Users
                 </h4>
             </div>
-            {/* <div className='w-150 '>
-                <AutoCompleteSearch<UserInterface>
-                    UrlWantToFetch="user-settings/admin/users"  // The API endpoint to fetch users
-                    inputName="userSearch"
-                    inputPlaceholder="Search for users"
-                    searchQuery="name"   
-                    extractDisplayName={(user) => `${user.fName} ${user.lName}`}   
-                    inputOnSelect={handleUserSelect}  // Function to handle selection
-                />
 
-            </div> */}
-
-
-
-            <div className="px-4 md:px-6 xl:px-7.5 mb-4 ">
-                <input
-                    type="text"
-                    placeholder="Search by name"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
-                    className="
-                    input input-bordered w-125 
-                    bg-white text-stroke border-gray-300
-                    dark:bg-strokedark dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-600
-                    transition-all duration-300 ease-in-out 
-                    focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200
-                    dark:focus:border-blue-400 dark:focus:ring-blue-400
-                    rounded-lg shadow-md hover:shadow-lg
-                  "
-                />
-            </div>
-
- 
             <div className="grid grid-cols-10 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
                 <div className="col-span-1 flex items-center">
                     <p className="font-medium">image</p>
@@ -144,19 +100,19 @@ const AllUsers = () => {
 
 
 
-            {users && users.map((user, index) => (
-                <div   className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
-                    <UserTable
-                        image={user.profilePic}
-                        fName={user.fName}
-                        lName={user.lName}
-                        email={user.email}
-                        role={user.role}
-                        phone={user.phone}
-                        moreDetails={() => handleMoreDetails(user)}
-                        Edit={() => handleEdit(user)}
-                        Delete={() => handleDelete(user._id)}
-                    />
+            {users && users.map((user,index) => (
+             <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
+                <UserTable  
+                    image={user.profilePic}
+                    fName={user.fName}
+                    lName={user.lName}
+                    email={user.email}
+                    role={user.role}
+                    phone={user.phone}
+                    moreDetails={() => handleMoreDetails(user)}
+                    Edit={() => handleEdit(user)}
+                    Delete={() => handleDelete(user._id)}
+                />
                 </div>
             ))}
 
@@ -200,7 +156,7 @@ const AllUsers = () => {
             <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />
         </div>
 
-
+    
     </>
 
     )

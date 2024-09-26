@@ -6,38 +6,13 @@ import { Category } from 'src/core/schemas/category.schema';
 import { CategoryDTO } from './dto/Category.DTO';
 
 import { PaginationDTO } from '../book/bookdto/pagination.dto';
-import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class CategoryService {
-    constructor(@InjectModel(Category.name) private readonly CategoryModel: Model<Category>) { 
-        cloudinary.config({
-            cloud_name: 'dvrl2eknu',
-            api_key: '287955823152971',
-            api_secret: 'TwNg0tN4IDLdQ0k6GEcFZco0deU'
-        });
-    }
+    constructor(@InjectModel(Category.name) private readonly CategoryModel: Model<Category>) { }
 
-    addNewCategory = async (body: CategoryDTO, file: Express.Multer.File) => {
+    addNewCategory = async (body: CategoryDTO) => {
         try {
-            if (file) {
-                console.log(file)
-                const imgRes = await new Promise((resolve, reject) => {
-                    cloudinary.uploader.upload_stream(
-                    { 
-                        resource_type: 'image' ,
-                        folder: 'category_image'
-                    },
-                    (error, result) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        resolve(result);
-                    }
-                    ).end(file.buffer);
-                });
-                body.image = imgRes['secure_url'];
-            }
             const newCategory = await this.CategoryModel.create(body);
             return { message: 'Added New Category', newCategory };
         } catch (error) {
@@ -75,27 +50,8 @@ export class CategoryService {
         return { message: 'Success, Got Needed Category', category };
     };
 
-    updateCategory = async (categoryId: string, category: CategoryDTO, file: Express.Multer.File) => {
+    updateCategory = async (categoryId: string, category: CategoryDTO) => {
         try {
-            if (file) {
-                console.log(file)
-                const imgRes = await new Promise((resolve, reject) => {
-                    cloudinary.uploader.upload_stream(
-                    { 
-                        resource_type: 'image' ,
-                        folder: 'category_image'
-                    },
-                    (error, result) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        resolve(result);
-                    }
-                    ).end(file.buffer);
-                });
-                category.image = imgRes['secure_url'];
-            }
-            
             const updatedCategory = await this.CategoryModel.findByIdAndUpdate(
                 categoryId,
                 { $set: category },
