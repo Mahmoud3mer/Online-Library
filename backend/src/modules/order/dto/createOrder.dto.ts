@@ -24,6 +24,9 @@ export class CreateOrderDto {
   @IsEnum(['PENDING', 'APPROVED', 'DENIED'])
   paymentStatus: 'PENDING' | 'APPROVED' | 'DENIED';
 
+  @IsEnum(['online', 'ondelivery'])
+  paymentMethod: 'online' | 'ondelivery';
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderItemDto)
