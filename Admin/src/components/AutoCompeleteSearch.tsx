@@ -13,7 +13,7 @@ interface AutoCompleteSearchProps<T> {
 
 }
 
-const AutoCompleteSearch = <T,>({
+const AutoCompleteSearch2 = <T,>({
   UrlWantToFetch,
   inputName,
   inputPlaceholder,
@@ -31,8 +31,11 @@ const AutoCompleteSearch = <T,>({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const res = await axios.get(`${apiUrl}/${UrlWantToFetch}?limit=20&${searchQuery}=${searchQueryValue}`);
         setDataResults(res.data.data); // Set data from the API
+        console.log(res.data.data);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -52,10 +55,14 @@ const AutoCompleteSearch = <T,>({
         extractDisplayName(item).toLowerCase().includes(inputValue.toLowerCase())
       )
       setSearchResults(filteredResults);
-      updateSearchResults(filteredResults); // Send results to the parent
+      if(updateSearchResults){
+        updateSearchResults(filteredResults); // Send results to the parent
+      }
     } else {
       setSearchResults([]);
-      updateSearchResults([]); // Clear search results in the parent
+      if(updateSearchResults){
+        updateSearchResults([]); // Clear search results in the parent
+      }
     }
   };
 
@@ -73,6 +80,7 @@ const AutoCompleteSearch = <T,>({
         onChange={handleQueryChange} // Call when user types in the input
         type="search"
         placeholder={inputPlaceholder}
+        autoComplete='off'
         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary"
       />
       {searchResults.length > 0 && (
@@ -92,4 +100,4 @@ const AutoCompleteSearch = <T,>({
   );
 };
 
-export default AutoCompleteSearch;
+export default AutoCompleteSearch2;

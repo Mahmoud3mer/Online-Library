@@ -1,21 +1,19 @@
-
-<swiper-container class="mySwiper" 
+<swiper-container class="mySwiper"
     loop="true"
     autoplay-delay="1000"
-    speed="150"
+    speed="2000"
     pagination="true"
-    pagination-clickable="true"
-    [breakpoints] = "breakpoints"
+    pagination-type="fraction"
+    [breakpoints]="breakpoints"
     >
-    @for (categorie of categories; track $index) {
+    @for (category of categories; track $index) {
         <swiper-slide class="relative">
-            <img src="../../../assets/images/hero/6920933.jpg" class="w-full h-full object-cover" />
+            <img [src]="category.image ? category.image : ''" class="w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black opacity-30"></div>
 
-            <p class="absolute text-white text-2xl hover:text-blue-500 font-semibold bottom-10 left-1/2 translate-x-[-50%] z-10">
-                {{ categorie.name }}
+            <p class="absolute text-text-forDark bg-dark-700 w-full text-center pt-1.5 pb-2 text-2xl font-semibold bottom-7 left-1/2 translate-x-[-50%] z-10">
+                {{ category.name ? category.name : '' }}
             </p>
         </swiper-slide>
     }
-
 </swiper-container>

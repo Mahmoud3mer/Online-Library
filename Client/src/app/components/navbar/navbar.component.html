@@ -10,13 +10,13 @@
     'fade-out': isFadeOut
   }"
 >
-  <div class="topbar bg-[#eee] dark:bg-[#0a0a0a]">
+  <div class="topbar bg-light-300 dark:bg-dark-900">
 
-    <div class="container mx-auto px-4 py-1">
-      <div class="flex items-center flex-wrap md:flex-nowrap justify-between gap-y-3">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center flex-wrap md:flex-nowrap justify-between">
         <!-- First Column (Language & Dark Mode Toggle) -->
-        <div class="flex items-center space-x-4  order-2 md:order-none">
-          <ul class="flex">
+        <div class="flex items-center space-x-4  order-2 md:order-none w-fit">
+          <ul class="flex items-center">
             <li>
               <button
                 (click)="toggleLang()"
@@ -48,15 +48,15 @@
 
         <!-- Links (Hidden on small screens) -->
         <div
-          class="hidden md:flex justify-center items-center w-full order-3 md:order-none"
+          class="hidden md:flex justify-center items-center w-fit order-3 md:order-none "
           [ngClass]="{ 'block': isMobileMenuOpen, 'hidden': !isMobileMenuOpen }"
         >
-          <ul class="flex flex-col md:flex-row items-center md:space-x-8 space-y-4 md:space-y-0">
+          <ul class="flex flex-col md:flex-row items-center ">
             <li>
               <a
                 routerLink="/home"
-                routerLinkActive="bg-blue-600 text-white rounded-md"
-                class="dark:text-white tracking-wider p-3 grid items-center justify-center transition-colors duration-300"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-5 py-4 grid place-items-center transition-colors duration-300"
               >
               {{'navbar.Home'|translate}}
               </a>
@@ -64,19 +64,19 @@
             <li>
               <a
                 routerLink="/books"
-                routerLinkActive="bg-blue-600 text-white rounded-md"
-                class="dark:text-white tracking-wider p-3 grid place-items-center transition-colors duration-300"
+                routerLinkActive="curved-div"
+                class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
               >
               {{'navbar.Books'|translate}}
               </a>
             </li>
             <li>
               <a
-                routerLink="/streaming"
+                routerLink="/about"
                 routerLinkActive="curved-div"
                 class="dark:text-white tracking-wider px-4 py-4 grid place-items-center transition-colors duration-300"
               >
-                {{"navbar.Stream Events"|translate}}
+                {{'navbar.About Us'|translate}}
               </a>
             </li>
           </ul>
@@ -84,11 +84,11 @@
 
 
         <!-- Third Column (User Profile and Login/Register) -->
-        <div class="flex items-center space-x-4 order-1 md:order-none">
+        <div class="flex items-center space-x-4 order-1 md:order-none w-fit">
           <ul class="flex items-center space-x-4">
             <li *ngIf="isLoggedIn">
               <!-- User Dropdown -->
-              <div class="relative z-50">
+              <div class="relative " style="z-index: 1000;">
                 <button (click)="toggleDropdown()" class="flex items-center">
                   @if(profileImage){
                     <img
@@ -137,18 +137,19 @@
               <a
                 routerLink="/signin"
                 routerLinkActive="text-dark bg-[#f9f9f9] dark:text-white dark:bg-[#0e2134]"
-                class="dark:text-white px-4 py-5 transition-colors duration-300"
+                class="flex items-center gap-1 dark:text-white px-4 py-4 transition-colors duration-300"
               >
-                <i class="fas fa-sign-in-alt mr-1"></i> {{'navbar.Login'|translate}}
+                <i class="fas fa-sign-in-alt mr-1"></i> 
+                <span>{{'navbar.Login'|translate}}</span>
               </a>
             </li>
             <li *ngIf="!isLoggedIn">
               <a
                 routerLink="/signup"
                 routerLinkActive="text-white bg-slate-700 dark:bg-[#081828]"
-                class="dark:text-white px-3 py-5 rounded transition-colors duration-300"
+                class="flex items-center gap-1 dark:text-white px-4 py-4 transition-colors duration-300"
               >
-                <i class="fas fa-user-plus mr-1"></i> {{'navbar.Register'|translate}}
+                <i class="fas fa-user-plus mr-1"></i><span>{{'navbar.Register'|translate}}</span> 
               </a>
             </li>
           </ul>
