@@ -7,9 +7,9 @@ export class AuthorDTO {
     @IsNotEmpty()
     name: string;
 
-    @IsString()
+    @IsOptional()
     @IsNotEmpty()
-    image: string;
+    image?: string;
     
     @IsString()
     @IsOptional()

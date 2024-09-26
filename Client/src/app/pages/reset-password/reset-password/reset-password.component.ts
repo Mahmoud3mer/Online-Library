@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AuthourizationService } from "../../../services/users/authourization.service";
+import { MyTranslateService } from "../../../services/translation/my-translate.service";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-reset-password",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: "./reset-password.component.html",
   styleUrls: ["./reset-password.component.scss"],
 })
@@ -24,7 +26,8 @@ export class ResetPasswordComponent implements OnInit {
     private _authourizationService: AuthourizationService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _myTranslateService:MyTranslateService
   ) {
     this.resetForm = this.fb.group({
       password: [
@@ -89,5 +92,8 @@ export class ResetPasswordComponent implements OnInit {
     } else if (field === "confirmPassword") {
       this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }

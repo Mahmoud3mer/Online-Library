@@ -13,11 +13,13 @@ import { NgClass, NgIf } from "@angular/common";
 import { AuthourizationService } from "../../services/users/authourization.service";
 import { SubNavbarComponent } from "./sub-navbar/sub-navbar.component";
 import { UserSettingsService } from "../../services/user-settings/user-settings.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-navbar",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf, NgClass, SubNavbarComponent],
+  imports: [RouterLink, RouterLinkActive, NgIf, NgClass, SubNavbarComponent, TranslateModule],
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
@@ -37,7 +39,7 @@ export class NavbarComponent implements OnInit {
   token: string | null = "";
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
-
+  currentLang: string = "";
   isMobileMenuOpen: boolean = false;
 
   constructor(
@@ -47,7 +49,7 @@ export class NavbarComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone,
     private _userSettingsService: UserSettingsService
-  ) {
+  , private _myTranslateService:MyTranslateService) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
       this.isDarkMode =
@@ -105,7 +107,7 @@ export class NavbarComponent implements OnInit {
       this.isFadeOut = false;
       this.isFadeIn = false;
 
-      this.isFadeIn = true;
+      this.isFadeIn = true; 
     }, 400);
     localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light");
     this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light");
@@ -117,6 +119,29 @@ export class NavbarComponent implements OnInit {
 
   toggleMobileMenu() {
   this.isMobileMenuOpen = !this.isMobileMenuOpen;
+}
+
+
+// translate
+
+loadLang() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      this.currentLang = savedLang;
+    }
+  }
+}
+
+toggleLang() {
+  this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
+  localStorage.setItem('lang', this.currentLang);
+  this.changeLang(this.currentLang);
+}
+
+
+changeLang(lang: string) {
+  this._myTranslateService.changLang(lang);
 }
 }
 

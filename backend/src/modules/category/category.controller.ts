@@ -12,7 +12,6 @@ export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
     @Get()
-
     getAllCategories(@Query() paginationDTO: PaginationDTO,@Query('name') name: string) {
         return this.categoryService.getAllCategories(paginationDTO,name);
     }

@@ -18,6 +18,8 @@ import { SuccessModalComponent } from "../../components/success-modal/success-mo
 import { FailureModalComponent } from "../../components/failure-modal/failure-modal.component";
 import { HttpClient } from "@angular/common/http";
 import { CreateOrderService } from "../../services/orders/create-order.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { environment } from "../../../environments/environment";
 import { RouterLink } from "@angular/router";
 import { CartCountService } from "../../services/cart/CartCount.service";
@@ -34,6 +36,7 @@ import { CartCountService } from "../../services/cart/CartCount.service";
     SuccessModalComponent,
     FailureModalComponent,
     RouterLink,
+    TranslateModule
   ],
   templateUrl: "./payment.component.html",
   styleUrls: ["./payment.component.scss"],
@@ -89,6 +92,8 @@ export class PaymentComponent implements OnInit {
       ]),
     });
   }
+    private _myTranslateService:MyTranslateService
+  ) {}
   public payPalConfig?: IPayPalConfig;
 
   purchaseItems: {
@@ -358,5 +363,8 @@ export class PaymentComponent implements OnInit {
         },
       });
     }
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }

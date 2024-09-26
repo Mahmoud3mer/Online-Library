@@ -12,13 +12,15 @@ import {
 } from "@angular/forms";
 import { AuthourizationService } from "../../services/users/authourization.service";
 import { Router, RouterOutlet } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { environment } from "../../../environments/environment";
 
 declare var google: any;
 @Component({
   selector: "app-signup",
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule, RouterOutlet],
+  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule, RouterOutlet,TranslateModule],
   templateUrl: "./signup.component.html",
   styleUrl: "./signup.component.scss",
 })
@@ -42,11 +44,15 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private _authourizationService: AuthourizationService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _myTranslateService:MyTranslateService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
   ngOnInit(): void {
     if (this.isBrowser) {
       this.loadGoogleSignInScript()

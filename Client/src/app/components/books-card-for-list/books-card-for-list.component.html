@@ -1,5 +1,10 @@
 <div class="book-card grid grid-cols-1  md:grid-cols-8 mt-6 bg-white dark:bg-[#123656c8] rounded shadow-md">
-  <div class="p-2 md:col-span-3">
+  <div class="p-2 md:col-span-3 relative">
+    @if (bookStock === 0) {
+      <span class="absolute top-6 left-0 bg-red-700 text-gray-100 py-1 ps-1.5 pe-4 rounded-e-lg z-50">Out Of Stock</span>
+    } @else {
+      <span class="absolute top-6 left-0 bg-green-600 text-gray-100 py-1 ps-1.5 pe-4 rounded-e-lg z-50">Book In Stock</span>
+    }
       <div class="relative overflow-hidden bg-gray-50 dark:bg-[#123656] img-holder">
         <div style="width: 80%; margin: auto;" class="py-4">
           @if (bookCoverImg) {
@@ -44,15 +49,15 @@
           }
   
         </span>
-        <span> <span class="text-gray-700 dark:text-gray-300">{{bookRating}}</span> Reviews</span>
+        <span> <span class="text-gray-700 dark:text-gray-300">{{bookRating}}</span> {{"book-card.Reviews"|translate}}</span>
       </p>
       }
     </div>
     <div class="pb-3 px-1 w-fit ms-auto">
       <div class="flex w-72 items-center">
         <div (click)="goToDetails(bookId)" class="hover:scale-105 hover:transition cursor-pointer w-full p-2 mx-1 text-center bg-neutral-800 text-sm text-white font-semibold rounded shadow-md hover:bg-neutral-950 focus:outline-none  focus:ring-opacity-75">
-          More Details
-          <i class="fa-regular fa-eye text-lg"></i>
+          {{"book-card.More Details"|translate}}
+                    <i class="fa-regular fa-eye text-lg"></i>
         </div>
         <div class="btn-animation">
           <app-add-to-cart-btn [bookId]="bookId" class="p-2 mx-1 bg-zinc-200 text-sm text-black font-semibold rounded shadow-md hover:bg-zinc-900 hover:text-white focus:outline-none  focus:ring-opacity-75"></app-add-to-cart-btn>

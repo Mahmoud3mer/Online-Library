@@ -20,19 +20,19 @@ export class BookController {
   @UseGuards(AuthGuard)
   @Roles(Role.Admin) //! Rolles for guar (athorization)
 
-  @UseInterceptors(FileInterceptor('image')) //! pload file (image)
+  @UseInterceptors(FileInterceptor('coverImage')) //! pload file (image)
   addBook(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
     return this._bookService.addNewBook(body, file);
   }
 
-   @Get('recommendations')
+  @Get('recommendations')
   async getBooksByRecommendation(
     @Query() paginationDTO: PaginationDTO,
     @Query('categories') categories: string,
   ) {
     // Split the categories string into an array by commas
     const categoryArray = categories ? categories.split(',').map(cat => cat.trim()) : [];
-    
+
     return await this._bookService.getBooksByRecommendation(paginationDTO, categoryArray);
   }
 
@@ -56,11 +56,12 @@ export class BookController {
   @Patch('/:id')
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
-
-  updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any) {
+  @UseInterceptors(FileInterceptor('coverImage'))
+  updateBook(@Param('id') id: string, @Body() body: any, @Req() req: any, @UploadedFile() file: Express.Multer.File) {
     const user = req.user;
     // return user
-    return this._bookService.updateThisBook(id, body, user);
+    return this._bookService.updateThisBook(id, body, user, file);
+
   }
 
   @Delete('/:id')
