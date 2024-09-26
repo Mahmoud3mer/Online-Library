@@ -118,7 +118,7 @@ export class BooksComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log("API Response for page:", this.page, res);
+          // console.log("API Response for page:", this.page, res);
 
           this.filteredBooks = res.data;
           this.allBooks = this.filteredBooks;
@@ -132,8 +132,8 @@ export class BooksComponent implements OnInit {
   }
 
   onPageChanged(newPage: number): void {
-    console.log("Page changed to:", newPage);
-    console.log("num of pages:", this.numberOfPages);
+    // console.log("Page changed to:", newPage);
+    // console.log("num of pages:", this.numberOfPages);
     this.page = newPage;
     this.loadBooks();
   }
@@ -208,8 +208,8 @@ export class BooksComponent implements OnInit {
     } else {
       this.searchedTitle = searchByTitle;
     }
-    console.log("this trun from search");
-    console.log(this.searchedTitle);
+    // console.log("this trun from search");
+    // console.log(this.searchedTitle);
 
     this.loadBooks();
   }
