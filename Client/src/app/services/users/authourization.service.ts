@@ -4,10 +4,6 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { apiUrl } from "../../util/apiUrl";
 import { isPlatformBrowser } from "@angular/common";
 import { Router } from "@angular/router";
-import { WishlistBookService } from "../wishlist/wishlist-books.service";
-import { CartBooksService } from "../cart/cart-books.service";
-import { WishListCountService } from "../wishlist/wish-list-count.service";
-import { CartCountService } from "../cart/CartCount.service";
 
 @Injectable({
   providedIn: "root",
@@ -20,13 +16,7 @@ export class AuthourizationService {
   userName: string = "";
   loggedInUser: BehaviorSubject<string> = new BehaviorSubject("");
 
-  constructor(
-    @Inject(PLATFORM_ID) platformId: object,
-    private _cartbooks: CartBooksService,
-    private _wishlistBooks: WishlistBookService,
-    private _wishlistCount:WishListCountService,
-    private _cartCount:CartCountService
-  ) {
+  constructor(@Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
       const storedToken = localStorage.getItem("token");
@@ -68,10 +58,9 @@ export class AuthourizationService {
     if (this.isBrowser) {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
-      this._cartCount.clearNumOfCartItems();
-      this._wishlistCount.clearWishlistCount();
-      this._cartbooks.clearCartBooks();
-      this._wishlistBooks.clearWishlistBooks();
+      localStorage.removeItem("numOfCartItems");
+      localStorage.removeItem("wishListCount");
+      localStorage.removeItem("cartBooks");
       this.loggedInUser.next("");
       this.router.navigate(["/signin"]);
     }

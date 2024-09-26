@@ -1,12 +1,12 @@
 
 import { Component, Inject, Input, OnInit, PLATFORM_ID } from "@angular/core";
 import { ToastService } from "../../services/Toast/toast.service";
+import { GetWishlistService } from "../../services/wishlist/getWishlist.service";
 import { AddToWishListService } from "../../services/wishlist/addToWishlist.service";
 import { DeleteBookFromWishlistServiece } from "../../services/wishlist/deleteFromWishlist.service";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BookInterface } from "./../../interfaces/books.interface";
 import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
-import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 
 @Component({
   standalone: true,
@@ -22,7 +22,7 @@ export class AddToWishlistBtnComponent implements OnInit {
   private isBrowser: boolean = false;
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
-    private _bookWishlistService:WishlistBookService,
+    private _getWishlistService: GetWishlistService,
     private _addToWishListService: AddToWishListService,
     private _deleteFromWishlistService: DeleteBookFromWishlistServiece,
     private _numOfWishlist:WishListCountService,
@@ -37,13 +37,21 @@ export class AddToWishlistBtnComponent implements OnInit {
 
 
   checkIfWishlisted(): void {
-    // if (this.isBrowser) {
-    //   const token = localStorage.getItem("token");
-    //   if (!token) return;
+    if (this.isBrowser) {
+      const token = localStorage.getItem("token");
+      if (!token) return;
   
-    // }
+    }
 
-    this.isWishlisted = this._bookWishlistService.isBookWishlisted(this.bookId);
+    this._getWishlistService.getWishlist().subscribe({
+      next: (response) => {
+        const wishlistedBooks = response.data.books.map(
+          (book: BookInterface) => book._id
+        );
+        this.isWishlisted = wishlistedBooks.includes(this.bookId);
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   toggleWishlist(): void {
@@ -61,8 +69,7 @@ export class AddToWishlistBtnComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.isWishlisted = false;
-            this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
-            this._bookWishlistService.updateWishlistBooks(res.data.books)
+          this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
 
           if(localStorage.getItem('lang')==='en'){
             this._toastService.showSuccess("Removed from wishlist.");
@@ -80,9 +87,6 @@ export class AddToWishlistBtnComponent implements OnInit {
           console.log(res);
           this.isWishlisted = true;
           this._numOfWishlist.updateNumOfWishItems(res.data.books.length)
-          this._bookWishlistService.updateWishlistBooks(res.data.books)
-          this._toastService.showSuccess("Added to wishlist.");
-        },
           if(localStorage.getItem('lang')==='en'){
             this._toastService.showSuccess("Added to wishlist.");
           }

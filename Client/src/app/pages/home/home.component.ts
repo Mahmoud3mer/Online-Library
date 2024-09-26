@@ -120,7 +120,7 @@ export class HomeComponent {
       next: (res) => {
         if (res.data && res.data.recommendedCategories.length > 0) {
           // Map the category IDs and join them into a comma-separated string
-          // console.log(res.data.recommendedCategories);
+          console.log(res.data.recommendedCategories);
           
           const categoryIds = res.data.recommendedCategories.map((category: CategoryInterface) => category._id).join(',');
           console.log(categoryIds);
@@ -139,7 +139,7 @@ export class HomeComponent {
     this._getBooksByCateg.getBooksByRecommendation(this.page, this.limit, categoryIds).subscribe({
       next: (res) => {
         this.recommendationBooks = res.data; // Set books based on recommendations
-        // console.log(res.data);
+        console.log(res.data);
         
       },
       error: (err) => {
@@ -173,7 +173,7 @@ export class HomeComponent {
   getTopRatingBooks(){
     this._searchFilterBooksService.getFilteredBooks(1,24,'','','',"averageRating","asc").subscribe({
       next: (res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.topRatingBooks = res.data
         this.topRatingBooks.sort((a ,b) => b.averageRating - a.averageRating) // Descendig sort
         this.topRatingBooks = this.topRatingBooks.slice(0,10)
@@ -195,8 +195,8 @@ export class HomeComponent {
         // console.log(res.data);
         this.newBooks = res.data
         this.newBooks.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
-        // console.log(res.data);
-        // console.log(this.newBooks);
+        console.log(res.data);
+        console.log(this.newBooks);
         this.newBooks = this.newBooks.slice(0,10)
       },
       error: (err) => {
@@ -215,6 +215,8 @@ export class HomeComponent {
       next: (res) => {
         // console.log(res.data);
         this.categories = res.data
+        console.log(this.categories);
+        
       },
       error: (err) => {
         console.log(err);
