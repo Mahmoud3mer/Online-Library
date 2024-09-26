@@ -11,6 +11,7 @@ import { WishListCountService } from "../../services/wishlist/wish-list-count.se
 import { BookInterface } from "../../interfaces/books.interface";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 import { isPlatformBrowser } from "@angular/common";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-wishlist",
@@ -38,7 +39,8 @@ export class WishlistComponent implements OnInit {
     private _wishlistCount:WishListCountService,
     private _wishlistBooks:WishlistBookService,
     private _toastService:ToastService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService: MyTranslateService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -47,6 +49,10 @@ export class WishlistComponent implements OnInit {
     if(this.isBrowser){
       this.getWishList();
     }
+  }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
   //rating stars
   starArray: number[] = [];

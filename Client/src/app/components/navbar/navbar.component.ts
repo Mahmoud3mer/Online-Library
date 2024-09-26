@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone,
     private _userSettingsService: UserSettingsService
-  , private _myTranslateService:MyTranslateService) {
+    , private _myTranslateService: MyTranslateService) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
       this.isDarkMode =
@@ -65,31 +65,36 @@ export class NavbarComponent implements OnInit {
 
     _userSettingsService.profileImage.subscribe(res => {
       this.profileImage = res
-      console.log(res , "from navbar");
-      
+      console.log(res, "from navbar");
+
     })
   }
 
   ngOnInit(): void {
-    this.getProfilePicure()
-    this.toggleLang()
-    this.loadLang()
+    if (this.isBrowser) {
+      this.getProfilePicure()
+      this.toggleLang()
+      this.loadLang()
+    }
   }
   // !get profile image when render navbar
-  getProfilePicure(){
-    this._userSettingsService.getUser().subscribe({
-      next: (res) => {
-        this.profileImage = res.user.profilePic
-        // console.log(this.profileImage);
-        
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log("Update Profile Completed");
-      }
-    })
+  getProfilePicure() {
+    if (this.token?.length !== 0) {
+
+      this._userSettingsService.getUser().subscribe({
+        next: (res) => {
+          this.profileImage = res.user.profilePic
+          // console.log(this.profileImage);
+
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          console.log("Update Profile Completed");
+        }
+      })
+    }
   }
 
   toggleDropdown() {
@@ -109,7 +114,7 @@ export class NavbarComponent implements OnInit {
       this.isFadeOut = false;
       this.isFadeIn = false;
 
-      this.isFadeIn = true; 
+      this.isFadeIn = true;
     }, 400);
     localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light");
     this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light");
@@ -120,31 +125,31 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleMobileMenu() {
-  this.isMobileMenuOpen = !this.isMobileMenuOpen;
-}
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 
 
-// translate
+  // translate
 
-loadLang() {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      this.currentLang = savedLang;
+  loadLang() {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang) {
+        this.currentLang = savedLang;
+      }
     }
   }
-}
 
-toggleLang() {
-  this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
-  localStorage.setItem('lang', this.currentLang);
-  this.changeLang(this.currentLang);
-}
+  toggleLang() {
+    this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
+    localStorage.setItem('lang', this.currentLang);
+    this.changeLang(this.currentLang);
+  }
 
 
-changeLang(lang: string) {
-  this._myTranslateService.changLang(lang);
-}
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }
 
 

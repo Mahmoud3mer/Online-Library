@@ -5,23 +5,23 @@
   <div class=" w-full shadow-custom p-10 bg-white dark:bg-[#123656c8]  mx-auto   lg:w-2/3       rounded-lg">
     <div class="pb-4 mb-2  flex justify-between border-b-2   border-gray-300">
       <div>
-        <h4 class="font-bold text-xl">{{"wishlist.wish list"|translate}}</h4>
+        <h3  class="text-3xl font-semibold dark:text-white">Wishlist</h3>
       </div>
-      <div class="text-gray-500">{{ numOfWishlist }} {{"wishlist.items"|translate}}</div>
+      <div class="text-gray-500">{{ numOfWishlist }} items</div>
     </div>
     @if (wishlistBooks.length==0 && isLoading) {
-      {{"wishlist.loading ..............."|translate}}
+    loading ...............
     }@else if (wishlistBooks.length==0 && !isLoading) {
     <div class="text-center p-10 rounded-md ">
       <div class="flex justify-center mb-6">
         <img src="https://metro-website-images.s3.eu-west-1.amazonaws.com/plugins/user/images/emptycart.png"
           alt="Empty Cart" class="w-40 h-40" />
       </div>
-      <h2 class="text-3xl font-bold text-gray-700 mb-2">{{"wishlist.Your wishlist is empty!"|translate}}</h2>
-      <p class="text-lg text-gray-500 mb-6">{{"wishlist.Browse our categories and discover our best deals!"|translate}}</p>
+      <h2 class="text-3xl font-bold text-gray-700 mb-2">Your wishlist is empty!</h2>
+      <p class="text-lg text-gray-500 mb-6">Browse our categories and discover our best deals!</p>
       <button (click)="navigatToProducts()"
         class="bg-sky-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-300">
-        {{"wishlist.Start Shopping Now"|translate}}
+        Start Shopping Now
       </button>
     </div>
 
@@ -30,23 +30,47 @@
     <div class=" border-b-2   border-gray-300 pb-4 pt-4 ">
       <div class="flex items-center">
         <div class="w-1/5">
-          <img class="w-full " [src]="book.coverImage" />
+          @if (book.coverImage) {
+            <img class="w-full " [src]="book.coverImage" [alt]="book.title"/>
+            }@else {
+              <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png" [alt]="book.title">
+            }
+        
         </div>
 
         <div class="sm:w-1/3 w-2/3 ps-5 ">
           <div class="pb-3">
-            <h1> <span class="font-semibold">{{"wishlist.Title:"|translate}}</span> {{ book.title }}</h1>
-            <p> <span class="font-semibold">{{"wishlist.Author:"|translate}} </span>{{"wishlist.author"|translate}} {{ book.author.name }}</p>
-            <p> <span class="font-semibold"> {{"wishlist.Category:"|translate}} </span>{{ book.category.name}}</p>
+            <h5  class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{book.title}}</h5>
+            @if (book.averageRating) {
+              {{updateStarArray(book.averageRating)}}
+              <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                <span> 
+                  @for (star of starArray; track $index) {
+                  @if (star === 1) {
+                  <i class="fa-solid fa-star text-yellow-500"></i>
+                  }
+                  @if (star === .5) {
+                  <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                  }
+                  @if (star === 0) {
+                  <i class="fa-regular fa-star text-yellow-500"></i>
+                  }
+                  }
+          
+                </span>
+             
+              </p>
+            }
+            <p class="dark:text-gray-300"> <span class="font-semibold"> Author: </span> {{book.author.name}}</p>
+            <p class="dark:text-gray-300"> <span class="font-semibold"> category: </span> {{book.category.name}}</p>
 
 
           </div>
-
-          <p class="hidden md:block"><span class="font-semibold">{{"wishlist.Desc:"|translate}}</span>{{ book.description }}</p>
-
+ 
+          <p class="dark:text-gray-400">{{book.description}}</p>
         </div>
 
-        <div class="w-1/6 text-center">{{ book.price }} {{"wishlist.EGP"|translate}}</div>
+        <div class="w-1/6 text-center"><p class="text-lg text-blue-500 font-bold font-heading">{{book.price}} EGP</p> </div>
 
         <div class="w-1/6 text-center">
           <app-add-to-cart-btn [bookId]="book._id" />
@@ -63,7 +87,7 @@
       </div>
     </div>
     }
-  }
+    }
   </div>
 
 </div>
