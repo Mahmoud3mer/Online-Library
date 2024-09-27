@@ -123,7 +123,7 @@ export class HomeComponent {
           // console.log(res.data.recommendedCategories);
           
           const categoryIds = res.data.recommendedCategories.map((category: CategoryInterface) => category._id).join(',');
-          console.log(categoryIds);
+          // console.log(categoryIds);
           
           this.getBooksByRecommendation(categoryIds); // Pass comma-separated category IDs
         } 
@@ -215,7 +215,7 @@ export class HomeComponent {
       next: (res) => {
         // console.log(res.data);
         this.categories = res.data
-        console.log(this.categories);
+        // console.log(this.categories);
         
       },
       error: (err) => {
