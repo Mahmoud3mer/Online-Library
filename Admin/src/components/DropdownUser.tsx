@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import UserOne from "../images/user/user-01.png";
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { apiUrl } from '../utils/apiUrl';
+import blankImg from '../../public/blank-profile-picture.webp'
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAddminProfil } from '../redux/action';
 
 const DropdownUser = () => {
   const navigate = useNavigate();
@@ -16,6 +19,8 @@ const DropdownUser = () => {
   const dropdown = useRef<any>(null);
 
   // close on click outside
+
+
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
@@ -41,6 +46,24 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+
+  // !Profile
+  const adminProfile = useSelector((state: any) => state.adminProfile);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(GetAddminProfil());
+  }, [dispatch]);
+
+
+  // !Profile
+  const adminProfile = useSelector((state: any) => state.adminProfile);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(GetAddminProfil());
+  }, [dispatch]);
+
   return (
     <div className="relative">
       <Link
@@ -50,14 +73,14 @@ const DropdownUser = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+          <span className="block text-base font-medium text-black dark:text-white">
+            {adminProfile.fName + " " + adminProfile.lName}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          {/* <span className="block text-xs">UX Designer</span> */}
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img src={adminProfile.profilePic? adminProfile.profilePic : blankImg} alt="User" className='h-12 w-12 rounded-full' />
         </span>
 
         <svg

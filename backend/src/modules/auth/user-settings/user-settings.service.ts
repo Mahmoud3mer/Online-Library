@@ -6,8 +6,6 @@ import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
 import emailHtml from '../mails/confirmPass';
-import * as fs from 'fs';
-import * as path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
@@ -89,8 +87,11 @@ export class UserSettingsService {
         });
         // console.log(imgRes['secure_url']);
         body.profilePic = imgRes['secure_url'];
-      }else{
-        throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+      }
+
+      // if deleted image
+    if(!body.profilePic){
+      body.profilePic = '';
     }
 
     if (Array.isArray(body.fName)) {
@@ -158,7 +159,7 @@ export class UserSettingsService {
       },
     });
 
-    return { message: 'Profile updated successfully' , updatedUser};
+    return { message: 'Password updated successfully' , updatedUser};
   }
 
 

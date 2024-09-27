@@ -6,8 +6,6 @@ import { Roles } from 'src/core/decorators/roles.decorator';
 import { Role } from 'src/core/EnumRoles/role.enum';
 import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 
 @Controller('user-settings')
 export class UserSettingsController {
@@ -21,7 +19,7 @@ export class UserSettingsController {
   }
 
   @UseGuards(AuthGuard) 
-  @Roles(Role.User) 
+  @Roles(Role.User, Role.Admin) 
   @Patch('profile')
   @UseInterceptors(
     FileInterceptor('profilePic')
@@ -33,9 +31,8 @@ export class UserSettingsController {
     return this._userSettingsService.updateUserProfile(userId, body , file);
   }
 
-
   @UseGuards(AuthGuard) 
-  @Roles(Role.User) 
+  @Roles(Role.User, Role.Admin) 
   @Patch('password')
   async updateProfilePassword(@Req() req: any, @Body() body: any) {
     const userId = req.user.userId; 
