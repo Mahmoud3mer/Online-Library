@@ -46,7 +46,7 @@
         "Confirm password is required!":"Confirm password is required!",
         "Those passwords didn’t match. Try again!":"Those passwords didn’t match. Try again!",
         "Save":"Save"
-    
+
     },
     "book-card":{
         "Reviews":"Reviews",
@@ -101,6 +101,7 @@
         "quantity":"quantity",
         "First published":"First published",
         "quantity is only":"quantity is only",
+        "Out Of Stock!":"Out Of Stock",
         "Add To Cart":"Add To Cart",
         "Add To Favorite":"Add To Favorite",
         "All Reviews":"All Reviews",
@@ -371,11 +372,11 @@
 "About Us":"About Us",
 "Contact Us":"Contact Us",
 "Follow Us":"Follow Us",
-"facebook":"facebook",
-"twitter":"twitter",
-"instagram":"instagram",
-"google":"google",
-"2024 Online Library. All rights reserved.":"2024 Online Library. All rights reserved."
+"facebook":"Facebook",
+"twitter":"Twitter",
+"instagram":"Isntgram",
+"threads":"Threads",
+"2024 Online Library. All rights reserved.":"2024 Andalosia Book Store. All rights reserved."
     },
     "security-setting":{
         "Password information":"Password information",

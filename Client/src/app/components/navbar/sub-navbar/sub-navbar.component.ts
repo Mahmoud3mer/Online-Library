@@ -24,7 +24,8 @@ export class SubNavbarComponent implements OnInit {
     private _cartCountService: CartCountService,
     private _wishlistCount: WishListCountService,
     private _cartBooksService: CartBooksService,
-    private _myTranslateService:MyTranslateService
+    private _myTranslateService:MyTranslateService,
+    private _ :
   ) {}
 
   ngOnInit(): void {

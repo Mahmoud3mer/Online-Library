@@ -101,6 +101,7 @@
         "quantity":"الكمية",
         "First published":"نُشرت لأول مرة",
         "quantity is only":"الكمية فقط",
+        "Out Of Stock!":"غير متوفر حاليا",
         "Add To Cart":"أضف الي السلة",
         "Add To Favorite":"أضف الي المفضلة",
         "All Reviews":"كل المراجعات",
@@ -375,8 +376,8 @@
 "facebook":"فيسبوك",
 "twitter":"تويتر",
 "instagram":"انستجرام",
-"google":"جوجل",
-"2024 Online Library. All rights reserved.":"مكتبة إلكترونية 2024. جميع الحقوق محفوظة."
+"google":"ثريد",
+"2024 Online Library. All rights reserved.":"متجر الأندلوسية للكتب 2024. جميع الحقوق محفوظة."
     },
     "security-setting":{
         "Password information":"معلومات كلمة المرور",

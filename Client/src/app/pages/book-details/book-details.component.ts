@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +12,8 @@ import { ReviewInterface } from '../../interfaces/review.interface';
 import { StarsLoopComponent } from '../../components/stars-loop/stars-loop.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
+import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 
 interface DecodedToken {
   userId: string;
@@ -19,12 +21,12 @@ interface DecodedToken {
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent, TranslateModule],
+  imports: [SubNavbarComponent, ReactiveFormsModule, NgClass, ConfirmationDialogComponent, StarsLoopComponent, TranslateModule, AddToWishlistBtnComponent, AddToCartBtnComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss'
 }) 
 
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, AfterViewInit {
 
   quantity: number = 0;
   book: any = {};
@@ -54,6 +56,9 @@ export class BookDetailsComponent implements OnInit {
 
   @ViewChild('commentInput') commentInput!: ElementRef;
 
+  @ViewChild(AddToWishlistBtnComponent) _addToWishlistBtnComponent!: AddToWishlistBtnComponent;
+  @ViewChild(AddToCartBtnComponent) _addToCartBtnComponent!: AddToCartBtnComponent;
+
 
   reviewForm: FormGroup = new FormGroup({
     comment: new FormControl(null,[Validators.required, Validators.maxLength(500),Validators.minLength(1)]),
@@ -80,6 +85,20 @@ export class BookDetailsComponent implements OnInit {
     this.getReviewsFromDb()
   }
 
+ngAfterViewInit(): void {
+  
+}
+
+  triggerAddToWishList() {
+    if (this._addToWishlistBtnComponent) {
+      this._addToWishlistBtnComponent.toggleWishlist();
+      }
+  }
+  triggerAddToCart() {
+    if (this._addToCartBtnComponent) {
+      this._addToCartBtnComponent.addToCart(this.bookId);
+      }
+  }
 
 
   decreaseBooks(){

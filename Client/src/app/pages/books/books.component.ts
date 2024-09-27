@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { BookCardComponent } from "../../components/book-card/book-card.component";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import {
@@ -11,7 +11,7 @@ import { CategoryService } from "../../services/category/category.service";
 import { SearchFilterBooksService } from "../../services/books/search-filter-books.service";
 import { AuthorService } from "../../services/author/author.service";
 import { debounceTime, Subject } from "rxjs";
-import { CommonModule } from "@angular/common";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BooksGridListComponent } from "../../components/books-grid-list/books-grid-list.component";
 import { BooksListComponent } from "../../components/books-list/books-list.component";
 import {
@@ -73,8 +73,9 @@ export class BooksComponent implements OnInit {
     private _searchFilterBooksService: SearchFilterBooksService,
     private route: ActivatedRoute,
     private router: Router,
-    private _myTranslateService:MyTranslateService
-  ) {}
+    private _myTranslateService: MyTranslateService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   ngOnInit(): void {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchTerm) => {
@@ -84,12 +85,13 @@ export class BooksComponent implements OnInit {
       const url = this.route.firstChild?.snapshot.url
         .map((segment) => segment.path)
         .join("");
-      this.currentView = url || "grid";
+      this.currentView = url || "list";
     });
-
-    this.loadBooks();
-    this.getAllCategories();
-    this.getAllAuthors();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadBooks();
+      this.getAllCategories();
+      this.getAllAuthors();
+    }
   }
 
   onSearchInputChange(event: Event): void {
@@ -156,6 +158,8 @@ export class BooksComponent implements OnInit {
     this._authorService.getAllAuthors(this.page, 5).subscribe({
       next: (res) => {
         this.authors = res.data;
+        console.log(this.authors);
+
       },
       error: (err) => {
         console.error(err);
@@ -263,5 +267,5 @@ export class BooksComponent implements OnInit {
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
-  
+
 }

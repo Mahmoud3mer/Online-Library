@@ -21,7 +21,7 @@ export class BooksCardForListComponent implements OnChanges {
   @Input() bookCoverImg: string = '';
   @Input() authorName: string = '';
   @Input() bookRating: number = 0;
-  @Input() bookStock: number = 0;
+  @Input() bookStock!: number 
 
   starArray: number[] = [];
 
@@ -48,7 +48,6 @@ export class BooksCardForListComponent implements OnChanges {
   goToDetails(bookId: string) {
     this.router.navigate(["book-details", bookId])
   }
-
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
