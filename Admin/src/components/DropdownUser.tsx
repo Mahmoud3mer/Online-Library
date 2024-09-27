@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { apiUrl } from '../utils/apiUrl';
 import blankImg from '../../public/blank-profile-picture.webp'
@@ -80,13 +80,12 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={adminProfile.profilePic? adminProfile.profilePic : blankImg} alt="User" className='h-12 w-12 rounded-full' />
+          <img src={adminProfile.profilePic ? adminProfile.profilePic : blankImg} alt="User" className='h-12 w-12 rounded-full' />
         </span>
 
         <svg
-          className={`hidden fill-current sm:block ${
-            dropdownOpen ? "rotate-180" : ""
-          }`}
+          className={`hidden fill-current sm:block ${dropdownOpen ? "rotate-180" : ""
+            }`}
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -107,9 +106,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
-          dropdownOpen === true ? "block" : "hidden"
-        }`}
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? "block" : "hidden"
+          }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>

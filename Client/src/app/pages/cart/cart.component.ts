@@ -18,7 +18,8 @@ import { CartCountService } from "../../services/cart/CartCount.service";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { CartBooksService } from "../../services/cart/cart-books.service";
 import { ClearCartService } from "../../services/cart/clear-cart.service";
-
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 @Component({
   standalone: true,
   selector: "app-cart",
@@ -31,6 +32,7 @@ import { ClearCartService } from "../../services/cart/clear-cart.service";
     AddToWishlistBtnComponent,
     SubNavbarComponent,
     RouterLink,
+    TranslateModule
   ],
 })
 export class CartComponent implements OnInit {
@@ -56,7 +58,8 @@ export class CartComponent implements OnInit {
     private _cartCount: CartCountService,
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService: MyTranslateService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -212,5 +215,9 @@ export class CartComponent implements OnInit {
   }
   navigatToProducts() {
     this.router.navigate(["/books"]);
+  }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }
