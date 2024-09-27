@@ -56,13 +56,6 @@ const DropdownUser = () => {
   }, [dispatch]);
 
 
-  // !Profile
-  const adminProfile = useSelector((state: any) => state.adminProfile);
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(GetAddminProfil());
-  }, [dispatch]);
 
   return (
     <div className="relative">
