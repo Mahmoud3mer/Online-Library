@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
     }
   }
   initMap(L: any): void {
-    const map = L.map('map').setView([28.1003, 30.7582], 13); 
+    const map = L.map('map').setView([31.027890505751508, 30.464741651090844], 11); 
   
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 23,
@@ -44,7 +44,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
       popupAnchor: [1, -34],
     });
   
-    L.marker([28.1003, 30.7582], { icon: redIcon }).addTo(map);
+    L.marker([31.027890505751508, 30.464741651090844], { icon: redIcon }).addTo(map);
   }
 
   changeLang(lang: string) {

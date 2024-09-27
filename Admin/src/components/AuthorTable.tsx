@@ -4,9 +4,9 @@ import { MdDeleteForever, MdOutlineEditOff } from 'react-icons/md';
 import { apiUrl } from '../utils/apiUrl';
 import axios from 'axios';
 import { AuthorInterface } from '../interfaces/BookInterface';
+import ConfirmationModal from './ConfirmationModal';
 
 const AuthorTable = () => {
-
     const [authors, setAuthors] = useState<AuthorInterface[]>([]);
     const [detailedAuthor, setDetailedAuthor] = useState<Partial<AuthorInterface>>({});
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
