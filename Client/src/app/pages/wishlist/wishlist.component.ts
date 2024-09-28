@@ -83,12 +83,16 @@ export class WishlistComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res.data.books);
-            
+
             this.wishlistBooks = res.data.books;
             this.numOfWishlist = this.wishlistBooks.length;
             this._wishlistBooks.updateWishlistBooks(this.wishlistBooks)
             this._wishlistCount.updateNumOfWishItems(this.numOfWishlist)
-            this._toastService.showSuccess('Book removed from wishlist successfully!');
+            if (localStorage.getItem('lang') === 'en') {
+              this._toastService.showSuccess('Book removed from wishlist successfully!');
+            } else {
+              this._toastService.showSuccess('تمت إزالة الكتاب من المفضلة بنجاح!');
+            }
           },
           error: (err) => {
             console.error(err);

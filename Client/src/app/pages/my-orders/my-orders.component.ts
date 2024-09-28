@@ -54,4 +54,7 @@ export class MyOrdersComponent implements OnInit {
     this.selectedOrder = order;
     this.showInvoiceModal = !this.showInvoiceModal;
   }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }

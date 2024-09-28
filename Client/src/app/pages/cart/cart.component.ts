@@ -132,6 +132,7 @@ export class CartComponent implements OnInit {
     this.showConfirmationDialog = true;
   }
 
+
   deleteBookFromCart(): void {
     this._deleteBookFromCart.deleteBookFormCart(this.bookIdToRemove).subscribe({
       next: (res) => {

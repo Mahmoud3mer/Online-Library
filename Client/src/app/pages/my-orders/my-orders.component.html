@@ -3,7 +3,7 @@
     <h1
       class="font-heading text-purple-800 text-center text-4xl font-bold mb-12"
     >
-      Order History
+      {{"my-orders.Order History"|translate}}
     </h1>
 
     <ng-container *ngIf="paginatedOrders.length > 0">
@@ -19,7 +19,7 @@
           <div
             class="mb-2 inline-block py-1 px-2 rounded-xl bg-orange-100 uppercase text-orange-500 text-xs font-bold tracking-widest"
           >
-            pending
+            {{"my-orders.pending"|translate}}
           </div>
           <div
             class="flex flex-col md:flex-row items-center justify-between mb-3"
@@ -32,7 +32,7 @@
                 (click)="toggleInvoiceModal(order)"
                 class="py-1 px-3 text-blue-500 border border-gray-200 rounded-sm text-center text-sm font-medium shadow-md hover:bg-blue-500 hover:text-white transition duration-200"
               >
-                Your invoice
+                {{"my-orders.Your invoice"|translate}}
               </button>
             </div>
           </div>
