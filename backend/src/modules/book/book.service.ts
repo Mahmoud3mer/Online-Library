@@ -201,63 +201,34 @@ export class BookService {
 
                 ).end(file.buffer);
             });
-            // console.log(imgRes['secure_url']);
             book.coverImage = imgRes['secure_url'];
         }
 
-        // const pages = Number(book.pages);
-        // const price = Number(book.price);
-        // const stock = Number(book.stock);
-        // if (isNaN(pages) || pages < 0) {
-        //     throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        // }
-        // if (isNaN(price) || price < 0) {
-        //     throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        // }
-        // if (isNaN(stock) || stock < 0) {
-        //     throw new HttpException('Invalid Stock. Stock must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        // }
-        // book.pages = pages;
-        // book.price = price;
-        // book.stock = stock;
 
-        if(book.pages){
+        if (book.pages) {
             const pages = Number(book.pages);
             if (isNaN(pages) || pages < 0) {
                 throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
             }
             book.pages = pages;
-            //             } else {
-            //                 throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
         }
 
-        const pages = Number(book.pages);
-        const price = Number(book.price);
-        const stock = Number(book.stock);
-
-        if (isNaN(pages) || pages < 0) {
-            throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
-        }
-
-        if(book.price){
+        if (book.price) {
             const price = Number(book.price);
             if (isNaN(price) || price < 0) {
                 throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
             }
             book.price = price;
-
-        if (isNaN(price) || price < 0) {
-            throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
 
-        if(book.stock){
+        if (book.stock) {
             const stock = Number(book.stock);
             if (isNaN(stock) || stock < 0) {
                 throw new HttpException('Invalid Stock. Stock must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
             }
             book.stock = stock;
         }
-        
+
         const updateBook = await this.bookModel.findByIdAndUpdate(
             { _id: bookId },
             { $set: book },
@@ -265,25 +236,11 @@ export class BookService {
         ).populate('author')
             .populate('category');
 
-        book.pages = pages;
-        book.price = price;
-        book.stock = stock;
-
-        try {
-
-            const updateBook = await this.bookModel.findByIdAndUpdate(
-                { _id: bookId },
-                { $set: book },
-                { new: true }
-            ).populate('author')
-                .populate('category');
-
-            return { message: "Success, Book Updated.", data: updateBook };
-        } catch (error) {
-            throw new HttpException(`Error Updating Book ${error}`, HttpStatus.BAD_REQUEST)
-        }
+        return { message: "Success, Book Updated.", data: updateBook };
 
     }
+
+
 
     removeBook = async (bookId: string) => {
         try {
@@ -352,14 +309,14 @@ export class BookService {
         const page = paginationDTO.page;
         const limit = paginationDTO.limit;
         const skip = (page - 1) * limit;
-    
+
         const query = {};
-    
+
         // Search by title if provided
         if (title && title.trim() !== '') {
             query['title'] = { $regex: title.trim(), $options: 'i' };
         }
-    
+
         // Search by author name if provided
         if (author && author.trim() !== '') {
             // Find authors by the provided name
@@ -382,10 +339,10 @@ export class BookService {
                 };
             }
         }
-    
+
         const total = await this.bookModel.countDocuments(query).exec();
         console.log(query);
-    
+
         try {
             const foundedBooks = await this.bookModel
                 .find(query)
@@ -401,7 +358,7 @@ export class BookService {
                     }
                 })
                 .exec();
-    
+
             return {
                 message: "Success, Got Books.",
                 results: foundedBooks.length,
@@ -416,5 +373,5 @@ export class BookService {
             return { message: "Error fetching the books.", Error: error.message };
         }
     }
-    
+
 }
