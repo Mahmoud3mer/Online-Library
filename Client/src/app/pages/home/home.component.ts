@@ -120,11 +120,10 @@ export class HomeComponent implements OnInit {
           // Map the category IDs and join them into a comma-separated string
           // console.log(res.data.recommendedCategories);
 
-          const categoryIds = res.data.recommendedCategories
-            .map((category: CategoryInterface) => category._id)
-            .join(",");
+          
+          const categoryIds = res.data.recommendedCategories.map((category: CategoryInterface) => category._id).join(',');
           // console.log(categoryIds);
-
+          
           this.getBooksByRecommendation(categoryIds); // Pass comma-separated category IDs
         }
       },
@@ -135,17 +134,18 @@ export class HomeComponent implements OnInit {
   }
 
   getBooksByRecommendation(categoryIds: string): void {
-    this._getBooksByCateg
-      .getBooksByRecommendation(this.page, this.limit, categoryIds)
-      .subscribe({
-        next: (res) => {
-          this.recommendationBooks = res.data; // Set books based on recommendations
-          // console.log(res.data);
-        },
-        error: (err) => {
-          console.log("Error fetching books by recommendation:", err);
-        },
-      });
+
+    this._getBooksByCateg.getBooksByRecommendation(this.page, this.limit, categoryIds).subscribe({
+      next: (res) => {
+        this.recommendationBooks = res.data; // Set books based on recommendations
+        // console.log(res.data);
+        
+      },
+      error: (err) => {
+        console.log('Error fetching books by recommendation:', err);
+      }
+    });
+
   }
 
   getBooks() {
@@ -163,56 +163,55 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getTopRatingBooks() {
-    this._searchFilterBooksService
-      .getFilteredBooks(1, 24, "", "", "", "averageRating", "asc")
-      .subscribe({
-        next: (res) => {
-          // console.log(res.data);
-          this.topRatingBooks = res.data;
-          this.topRatingBooks.sort((a, b) => b.averageRating - a.averageRating); // Descendig sort
-          this.topRatingBooks = this.topRatingBooks.slice(0, 10);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log("Get Top Rating Books Completed.");
-        },
-      });
+
+  getTopRatingBooks(){
+    this._searchFilterBooksService.getFilteredBooks(1,24,'','','',"averageRating","asc").subscribe({
+      next: (res) => {
+        // console.log(res.data);
+        this.topRatingBooks = res.data
+        this.topRatingBooks.sort((a ,b) => b.averageRating - a.averageRating) // Descendig sort
+        this.topRatingBooks = this.topRatingBooks.slice(0,10)
+      },
+      error: (err) => {
+        console.log(err);
+        
+      },
+      complete: () => {
+        console.log("Get Top Rating Books Completed.");
+        
+      }
+    })
   }
 
-  getNewBooks() {
-    this._searchFilterBooksService
-      .getFilteredBooks(1, 24, "", "", "", "publishedDate", "asc")
-      .subscribe({
-        next: (res) => {
-          // console.log(res.data);
-          this.newBooks = res.data;
-          this.newBooks.sort(
-            (a, b) =>
-              new Date(b.publishedDate).getTime() -
-              new Date(a.publishedDate).getTime()
-          );
-          // console.log(res.data);
-          // console.log(this.newBooks);
-          this.newBooks = this.newBooks.slice(0, 10);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log("Get Top Rating Books Completed.");
-        },
-      });
+  getNewBooks(){
+    this._searchFilterBooksService.getFilteredBooks(1,24,'','','',"publishedDate","asc").subscribe({
+      next: (res) => {
+        // console.log(res.data);
+        this.newBooks = res.data
+        this.newBooks.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+        // console.log(res.data);
+        // console.log(this.newBooks);
+        this.newBooks = this.newBooks.slice(0,10)
+      },
+      error: (err) => {
+        console.log(err);
+        
+      },
+      complete: () => {
+        console.log("Get Top Rating Books Completed.");
+        
+      }
+    })
   }
 
   getCategories() {
     this._categoryService.getAllCategory(1, 5).subscribe({
       next: (res) => {
         // console.log(res.data);
-        this.categories = res.data;
+
+        this.categories = res.data
         // console.log(this.categories);
+        
       },
       error: (err) => {
         console.log(err);

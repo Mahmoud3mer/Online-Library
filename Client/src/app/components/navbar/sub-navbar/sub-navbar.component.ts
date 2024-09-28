@@ -13,11 +13,13 @@ import { MyTranslateService } from "../../../services/translation/my-translate.s
 import { TranslateModule } from "@ngx-translate/core";
 import { io, Socket } from "socket.io-client";
 import { apiUrl } from "../../../util/apiUrl";
+import { AutoCompleteSearchComponent } from "../../auto-complete-search/auto-complete-search.component";
+
 
 @Component({
   selector: "app-sub-navbar",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslateModule],
+  imports: [RouterLink, RouterLinkActive, TranslateModule,AutoCompleteSearchComponent],
   templateUrl: "./sub-navbar.component.html",
   styleUrls: ["./sub-navbar.component.scss"],
 })
@@ -34,6 +36,7 @@ export class SubNavbarComponent implements OnInit {
     private _cartBooksService: CartBooksService,
     private _myTranslateService: MyTranslateService,
     private ngZone: NgZone
+
   ) {}
 
   ngOnInit(): void {

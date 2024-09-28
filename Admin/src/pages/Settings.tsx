@@ -116,6 +116,10 @@ const handleSubmitInformation = (e:any) => {
     setIsLoadingInfo(false)
     alertWithError(err.response.data.message)
   })
+
+
+  console.log("From Info", adminData);
+  
 }
 
 // ! Profile Photo
@@ -149,6 +153,10 @@ const handleSubmitPhoto = (e:any) => {
     console.log(res);
     setIsLoadingImg(false)
     setImageUrl(res.data.updatedUser.profilePic)
+    setAdminData({
+      ...adminData,
+      profilePic: res.data.updatedUser.profilePic
+    })
     alertWithSuccess(res.data.message)
     dispatch(GetAddminProfil());
   })

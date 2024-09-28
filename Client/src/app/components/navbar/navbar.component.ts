@@ -68,17 +68,19 @@ export class NavbarComponent implements OnInit {
       });
     });
 
-    _userSettingsService.profileImage.subscribe((res) => {
-      this.profileImage = res;
-      console.log(res, "from navbar");
-    });
+
+    _userSettingsService.profileImage.subscribe(res => {
+      this.profileImage = res
+      // console.log(res , "from navbar");
+      
+    })
   }
 
   ngOnInit(): void {
-    if (this.isBrowser) {
-      this.getProfilePicure();
-      this.toggleLang();
-      this.loadLang();
+    if(this.isBrowser) {
+      this.getProfilePicure()
+      this.toggleLang()
+      this.loadLang()
     }
   }
   // !get profile image when render navbar
@@ -125,7 +127,11 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+
+  this.isMobileMenuOpen = !this.isMobileMenuOpen;
+}
+  xCloseMobileMenu() {
+    this.isMobileMenuOpen = false;
   }
 
   // translate

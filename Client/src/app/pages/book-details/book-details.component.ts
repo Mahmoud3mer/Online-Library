@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +12,8 @@ import { ReviewInterface } from '../../interfaces/review.interface';
 import { StarsLoopComponent } from '../../components/stars-loop/stars-loop.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { AddToWishlistBtnComponent } from "../../components/add-to-wishlist-btn/add-to-wishlist-btn.component";
+import { AddToCartBtnComponent } from "../../components/add-to-cart-btn/add-to-cart-btn.component";
 
 interface DecodedToken {
   userId: string;
@@ -19,12 +21,12 @@ interface DecodedToken {
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [SubNavbarComponent,ReactiveFormsModule, NgClass,ConfirmationDialogComponent ,StarsLoopComponent, TranslateModule],
+  imports: [SubNavbarComponent, ReactiveFormsModule, NgClass, ConfirmationDialogComponent, StarsLoopComponent, TranslateModule, AddToWishlistBtnComponent, AddToCartBtnComponent],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss'
 }) 
 
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, AfterViewInit {
 
   quantity: number = 0;
   book: any = {};
@@ -54,6 +56,9 @@ export class BookDetailsComponent implements OnInit {
 
   @ViewChild('commentInput') commentInput!: ElementRef;
 
+  @ViewChild(AddToWishlistBtnComponent) _addToWishlistBtnComponent!: AddToWishlistBtnComponent;
+  @ViewChild(AddToCartBtnComponent) _addToCartBtnComponent!: AddToCartBtnComponent;
+
 
   reviewForm: FormGroup = new FormGroup({
     comment: new FormControl(null,[Validators.required, Validators.maxLength(500),Validators.minLength(1)]),
@@ -80,6 +85,20 @@ export class BookDetailsComponent implements OnInit {
     this.getReviewsFromDb()
   }
 
+ngAfterViewInit(): void {
+  
+}
+
+  triggerAddToWishList() {
+    if (this._addToWishlistBtnComponent) {
+      this._addToWishlistBtnComponent.toggleWishlist();
+      }
+  }
+  triggerAddToCart() {
+    if (this._addToCartBtnComponent) {
+      this._addToCartBtnComponent.addToCart(this.bookId);
+      }
+  }
 
 
   decreaseBooks(){
@@ -120,14 +139,14 @@ export class BookDetailsComponent implements OnInit {
   getBookFromDb(){
       this._booksService.getSinglBook(this.bookId).subscribe({
       next: (res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.book = res.data
       },
       error: (err) => {
         console.log(err)
       },
       complete: () => {
-        console.log("Get book by id completed")
+        // console.log("Get book by id completed")
       }
     })
   }
@@ -150,7 +169,7 @@ export class BookDetailsComponent implements OnInit {
         console.log(err)
       },
       complete: () => {
-        console.log("Get reviews completed")
+        // console.log("Get reviews completed")
       }
     })
   }
@@ -159,14 +178,14 @@ export class BookDetailsComponent implements OnInit {
   getReviewsFromDb(){
     this._reviewService.getPaginationReviews(this.bookId ,this.page, this.limit).subscribe({
       next: (res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.reviewsPagination = res.data
         // this.reviewsLength = this.reviews.length
         // this.reviewsRatingsNumber = this.reviews.reduce((total:any, element: any) => {return total + element.rating;}, 0)
         // this.bookRating = this.reviewsRatingsNumber / this.reviews.length;
       },
       error: (err) => {
-        console.log(err)
+        // console.log(err)
       },
       complete: () => {
         console.log("Get reviews completed")
@@ -186,15 +205,26 @@ export class BookDetailsComponent implements OnInit {
       next: (res) => {
         // console.log(this.reviewForm.value)
         
-        console.log(res.addedReview[0])
+        // console.log(res.addedReview[0])
         this.reviewsPagination.push(res.addedReview[0]);
+
+        this.book.reviews.push(res.addedReview[0])
+        this._booksService.updateTheBook(this.bookId , { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            // console.log(res);
+            
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
         // this.reviewForm.reset();
       },
       error: (err) => {
         console.log(err)
       },
       complete: () => {
-        console.log("Add review completed")
+        // console.log("Add review completed")
         this.getReviewsFromDb()
         this.getAllReviewsFromDb()
       }
@@ -210,8 +240,21 @@ export class BookDetailsComponent implements OnInit {
 
     this._reviewService.updateReview(reviewId, reviewData).subscribe({
       next: (res) => {
-        console.log(res)
+        // console.log(res)
         // this.getReviewsFromDb()
+
+        this.book.review = this.book.reviews.find((review: any) => review._id == reviewId);
+        this.book.review = reviewData
+
+        this._booksService.updateTheBook(this.bookId, { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            console.log("Update book after update review", res);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+
         this.getReviewsFromDb()
         this.getAllReviewsFromDb()
       },
@@ -229,15 +272,25 @@ export class BookDetailsComponent implements OnInit {
   deleteReviewFromDb(reviewId: string){
     this._reviewService.deleteReview(reviewId).subscribe({
       next: (res) => {
-        console.log(res)
-        console.log(res.message)
+        // console.log(res)
+        // console.log(res.message)
+
+        this.book.reviews = this.book.reviews.filter((review: any) => review._id !== reviewId);
+        this._booksService.updateTheBook(this.bookId, { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            // console.log("Update book after delete review", res);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
       },
       error: (err) => {
         console.log(err)
         
       },
       complete: () => {
-        console.log("Delete review completed")
+        // console.log("Delete review completed")
         this.showConfirmationDialog = false;
         this.getAllReviewsFromDb()
         this.getReviewsFromDb()
@@ -248,8 +301,8 @@ export class BookDetailsComponent implements OnInit {
   loadMoreReviews(){
     this.limit += 10;
     this.getReviewsFromDb();
-    console.log(this.AllReviews.length);
-    console.log(this.reviewsPagination.length);
+    // console.log(this.AllReviews.length);
+    // console.log(this.reviewsPagination.length);
     
   }
 
@@ -273,7 +326,7 @@ export class BookDetailsComponent implements OnInit {
     // ! to add comment in textarea field to update
     this._reviewService.getOneReview(reviewId).subscribe({
       next: (res) => {
-        console.log("from update:",res.reviewById.comment)
+        // console.log("from update:",res.reviewById.comment)
         this.reviewFromDB = res.reviewById
         this.reviewID = reviewId
         this.isUpdaiting = true
@@ -288,7 +341,7 @@ export class BookDetailsComponent implements OnInit {
         console.log(err)
       },
       complete: () => {
-        console.log("Get one review completed")
+        // console.log("Get one review completed")
       }
     })
   }

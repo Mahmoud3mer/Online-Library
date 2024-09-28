@@ -48,7 +48,6 @@ export class BooksCardForListComponent implements OnChanges {
   goToDetails(bookId: string) {
     this.router.navigate(["book-details", bookId])
   }
-
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }

@@ -9,7 +9,6 @@ import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
 
 const AuthorTable = () => {
-
     const [authors, setAuthors] = useState<AuthorInterface[]>([]);
     const [detailedAuthor, setDetailedAuthor] = useState<Partial<AuthorInterface>>({});
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

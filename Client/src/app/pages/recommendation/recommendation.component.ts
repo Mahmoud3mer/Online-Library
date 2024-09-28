@@ -72,22 +72,21 @@ export class RecommendationComponent implements OnInit {
 
   saveSelections(): void {
     if (this.selectedCategories.length > 0) {
-      this._recommendationService
-        .createRecommendation(this.selectedCategories)
-        .subscribe({
-          next: (res) => {
-            console.log("Selections saved:", res);
-            this._toast.showSuccess("Welcome ");
-            this.router.navigate(["/home"]);
-          },
-          error: (err) => {
-            console.error("Error saving selections:", err);
-            this.router.navigate(["/home"]);
-          },
-          complete: () => {
-            console.log("Save selections request complete");
-          },
-        });
+
+      this._recommendationService.createRecommendation(this.selectedCategories).subscribe({
+        next: (res) => {
+          console.log('Selections saved:', res);
+          this._toast.showSuccess("Welcome ")
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.error('Error saving selections:', err);
+          this.router.navigate(['/home'])
+        },
+        complete: () => {
+          console.log('Save selections request complete');
+        }
+      });
     } else {
       console.log("No categories selected");
       this._toast.showError("No categories selected");

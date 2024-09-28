@@ -9,9 +9,9 @@ module.exports = {
       },
       colors: {
         dark: {
-          900: '#121212', // Dark background
-          800: '#1E1E1E', // Slightly lighter background bg-dark-800 dark:
-          700: '#242424', // Card background
+          900: '#121212', // Dark background  2nd// Choice '#1a222c' 
+          800: '#1E1E1E', // Slightly lighter 2nd// Choice '#24303f'  background bg-dark-800 dark:
+          700: '#242424', // Card background  2nd// Choice '#313d4a'
         },
         light: {
           100: '#FAFAFA', // Main light background
@@ -32,7 +32,7 @@ module.exports = {
         border: {
           light: '#DDDDDD', // Border for light mode
           dark: '#444444',  // Border for dark mode
-        }
+        },
       },
     },
   },

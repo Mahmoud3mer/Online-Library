@@ -6,6 +6,7 @@ import { CubeIcon } from "@heroicons/react/solid";
 import { apiUrl } from "../../utils/apiUrl";
 import Swal from "sweetalert2";
 import { io, Socket } from "socket.io-client";
+
 interface OrderItem {
   coverImage: string;
   quantity: number;
@@ -48,6 +49,7 @@ const AllOrders = () => {
     email: "",
     totalPrice: "",
   });
+  const [searchOrderId, setSearchOrderId] = useState(""); // New state for order ID search
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -83,6 +85,7 @@ const AllOrders = () => {
       );
     }
 
+
     if (startDate) {
       filtered = filtered.filter(
         (order) => new Date(order.orderDate) >= new Date(startDate)
@@ -94,11 +97,13 @@ const AllOrders = () => {
       );
     }
 
+
     if (searchUserId) {
       filtered = filtered.filter((order) =>
         order.userId.includes(searchUserId)
       );
     }
+
 
     if (searchOrderId) {
       filtered = filtered.filter((order) =>
@@ -240,6 +245,7 @@ const AllOrders = () => {
     setErrors(newErrors);
     return isValid;
   };
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -424,6 +430,7 @@ const AllOrders = () => {
 
       <h1 className="text-title-xl font-semibold mb-6">Order History</h1>
 
+
       <div className="mb-6 flex justify-between items-center">
         <div className="flex space-x-4">
           <div>
@@ -446,6 +453,7 @@ const AllOrders = () => {
             </div>
           </div>
         </div>
+
         <div>
           <label className="block text-sm font-medium mb-1">
             Search by User ID:
@@ -458,6 +466,7 @@ const AllOrders = () => {
             placeholder="Enter User ID"
           />
         </div>
+
         <div>
           <label className="block text-sm font-medium mb-1">
             Search by Order ID:
@@ -472,6 +481,7 @@ const AllOrders = () => {
         </div>
       </div>
 
+
       {filteredOrdersCount > 0 && (
         <div className="mb-4 text-sm text-gray-600">
           Found <span className="font-bold text-xl">{filteredOrdersCount}</span>{" "}
@@ -484,6 +494,7 @@ const AllOrders = () => {
           className={`p-4 border rounded-lg flex items-center cursor-pointer ${
             activeTab === "All Orders"
               ? "bg-primary border-gray-4 text-white"
+
               : "border-gray-300"
           }`}
           onClick={() => {
@@ -501,6 +512,7 @@ const AllOrders = () => {
                 : "h-6 w-6 text-primary mr-2"
             }`}
           />
+
           <div>
             <p className="text-lg font-medium">{totalOrders}</p>
             <p className="text-sm">Total Orders</p>
@@ -511,6 +523,7 @@ const AllOrders = () => {
           className={`p-4 border rounded-lg flex items-center cursor-pointer ${
             activeTab === "Pending"
               ? "bg-warning border-warning text-white"
+
               : "border-gray-300"
           }`}
           onClick={() => setActiveTab("Pending")}
@@ -522,6 +535,7 @@ const AllOrders = () => {
                 : "h-6 w-6 text-warning mr-2"
             }`}
           />
+
           <div>
             <p className="text-lg font-medium">{activeOrdersCount}</p>
             <p className="text-sm">Active Orders</p>
@@ -532,6 +546,7 @@ const AllOrders = () => {
           className={`p-4 border rounded-lg flex items-center cursor-pointer ${
             activeTab === "Completed"
               ? "bg-success border-success text-white"
+
               : "border-gray-300"
           }`}
           onClick={() => setActiveTab("Completed")}
@@ -543,6 +558,7 @@ const AllOrders = () => {
                 : "h-6 w-6 text-success mr-2"
             }`}
           />
+
           <div>
             <p className="text-lg font-medium">{completedOrdersCount}</p>
             <p className="text-sm">Completed Orders</p>
@@ -698,6 +714,8 @@ const AllOrders = () => {
           onPageChange={handlePageChange}
         />
       </div>
+
+     
     </div>
   );
 };

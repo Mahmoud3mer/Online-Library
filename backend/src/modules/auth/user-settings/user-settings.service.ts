@@ -110,6 +110,10 @@ export class UserSettingsService {
       body.phone = body.phone[body.phone.length - 1];
     }
 
+    if (Array.isArray(body.profilePic)) {
+      body.profilePic = body.profilePic[body.profilePic.length - 1];
+    }
+
     const updatedUser = await this.userModel.findByIdAndUpdate(userId, body, { new: true });
     if (!updatedUser) throw new NotFoundException('User not found');
 

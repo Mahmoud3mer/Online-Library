@@ -26,6 +26,7 @@ export class OrderService {
   ): Promise<{ message: string; updatedOrder: Order }> {
     const updatedOrder = await this.orderModel.findOneAndUpdate(
       { orderId: id },
+
       { $set: updateOrderDto, orderDate: new Date().toLocaleString() },
       { new: true, runValidators: true },
     );
@@ -63,7 +64,7 @@ export class OrderService {
     const allOrders = await this.orderModel.find().skip(skip).limit(limit);
     if (allOrders.length === 0) {
       throw new NotFoundException(`No orders found`);
-    }
+    } 
 
     return {
       message: 'Success, Get All Books.',

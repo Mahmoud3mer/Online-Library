@@ -75,10 +75,7 @@ const AllUsers = () => {
             console.error('Error deleting user:', error);
         }
     };
-    // const handleUserSelect = (selectedUser: UserInterface) => {
-    //     // Update the users array to display the searched user
-    //     setUsers([selectedUser]);
-    //   };
+ 
 
     return (<>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -87,17 +84,7 @@ const AllUsers = () => {
                     Users
                 </h4>
             </div>
-            {/* <div className='w-150 '>
-                <AutoCompleteSearch<UserInterface>
-                    UrlWantToFetch="user-settings/admin/users"  // The API endpoint to fetch users
-                    inputName="userSearch"
-                    inputPlaceholder="Search for users"
-                    searchQuery="name"   
-                    extractDisplayName={(user) => `${user.fName} ${user.lName}`}   
-                    inputOnSelect={handleUserSelect}  // Function to handle selection
-                />
-
-            </div> */}
+         
 
 
 
@@ -109,7 +96,7 @@ const AllUsers = () => {
                     onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
                     className="
                     input input-bordered w-125 
-                    bg-white text-stroke border-gray-300
+                    bg-white dark:text-stroke border-gray-300
                     dark:bg-strokedark dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-600
                     transition-all duration-300 ease-in-out 
                     focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-200

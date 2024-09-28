@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"err404.component.css"}
+{"version":3,"sources":["err404.component.scss","err404.component.css"],"names":[],"mappings":"AAAA;EACI,oBAAA;KAAA,iBAAA;EACA,aAAA;EACA,WAAA;ACCJ","file":"err404.component.css"}

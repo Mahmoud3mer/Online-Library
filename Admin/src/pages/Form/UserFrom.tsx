@@ -171,7 +171,7 @@ const UserFrom = () => {
               onChange={handleInputChange}
                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
-             {errors.fName && <p className="text-red-500">{errors.fName}</p>}
+             {errors.fName && <p className="text-danger">{errors.fName}</p>}
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ const UserFrom = () => {
               onChange={handleInputChange}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
-              {errors.lName && <p className="text-red-500">{errors.lName}</p>}
+              {errors.lName && <p className="text-danger">{errors.lName}</p>}
               </div>
             </div>
           </div>
@@ -211,7 +211,7 @@ const UserFrom = () => {
               onChange={handleInputChange}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
+            {errors.email && <p className="text-danger">{errors.email}</p>}
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@ const UserFrom = () => {
             <option value="admin">Admin</option>
             <option value="user">User</option>
           </select>
-          {errors.role && <p className="text-red-500">{errors.role}</p>}
+          {errors.role && <p className="text-danger">{errors.role}</p>}
         </div>
       </div>
 
@@ -280,7 +280,7 @@ const UserFrom = () => {
             </div>
           </div> */}
       </div>
-      <button className='btn my-5' disabled={isLoading}>
+      <button className='block ms-auto px-8 text-lg btn my-5' disabled={isLoading}>
           {isLoading ? <LoadingSpinner size="text-sm" color="text-white" /> : 'Edit'}
         </button>
       </form>

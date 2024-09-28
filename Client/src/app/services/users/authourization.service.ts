@@ -24,8 +24,8 @@ export class AuthourizationService {
     @Inject(PLATFORM_ID) platformId: object,
     private _cartbooks: CartBooksService,
     private _wishlistBooks: WishlistBookService,
-    private _wishlistCount: WishListCountService,
-    private _cartCount: CartCountService
+    private _wishlistCount:WishListCountService,
+    private _cartCount:CartCountService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {

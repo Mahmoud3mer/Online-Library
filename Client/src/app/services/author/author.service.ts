@@ -11,6 +11,6 @@ export class AuthorService {
   constructor(private _httpClient: HttpClient) { }
 
   getAllAuthors(page: number, limit: number): Observable<any> {
-    return this._httpClient.get(`${apiUrl}/authors?${page}&${limit}`)
+    return this._httpClient.get(`${apiUrl}/authors?page=${page}&limit=${limit}`)
   }
 }
