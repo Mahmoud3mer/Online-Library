@@ -38,7 +38,7 @@ export class AccountSettingComponent {
     fName: new FormControl('',[Validators.required , Validators.pattern("^[a-zA-Z]+$"),Validators.minLength(3)]),
     lName: new FormControl('',[Validators.required, Validators.pattern("^[a-zA-Z]+$"),Validators.minLength(3)]),
     email: new FormControl('',[Validators.required , Validators.email]),
-    phone: new FormControl('',[Validators.required , Validators.pattern("^01\\d{9}$")]),
+    phone: new FormControl(null,[Validators.required , Validators.pattern("^01\\d{9}$")]),
   }
 )
 
@@ -103,6 +103,8 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
       this.formData.append('profilePic',this.selectedFileImage , this.selectedFileImage.name);
     }else if(!this.profilePictureFromDB){
       this.formData.append('profilePic','');
+    }else if (!this.selectedFileImage && this.profilePictureFromDB) {
+      this.formData.append('profilePic', this.profilePictureFromDB);
     }
 
     // تحقق من محتويات formData قبل الإرسال (لأغراض الفحص)
@@ -141,7 +143,9 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
 
 
   saveSettings(){
-    
+    console.log(this.settingsForm.value);
+    console.log(this.selectedFileImage);
+    console.log(this.settingsForm.get('profilePic')?.errors);
     if (this.settingsForm.valid == false) {
       this.settingsForm.markAllAsTouched()
     }
@@ -150,7 +154,7 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
       this.updateUserProfile();
       this.getPrfile()
     }
-    console.log(this.settingsForm);
+    // console.log(this.settingsForm);
   }
 
 

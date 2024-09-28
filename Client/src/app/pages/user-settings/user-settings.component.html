@@ -1,40 +1,36 @@
 <app-sub-navbar></app-sub-navbar>
 
 <div
-  class="Setting bg-white dark:bg-[#081d31] w-full flex flex-col gap-5 px-3 md:px-12 lg:px-16 md:flex-row text-[#161931]"
+  class="Setting bg-light-100 dark:bg-dark-800 w-full flex flex-col gap-5 px-3 md:px-12 lg:px-16 md:flex-row"
 >
   <aside class="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
     <div
       class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12"
     >
-      <h2 class="pl-3 mb-4 text-2xl font-semibold dark:text-gray-400">
+      <h2 class="pl-3 mb-4 text-2xl font-semibold text-dark-900 dark:text-text-forDark">
         Settings
       </h2>
-
-            <h2 class="pl-3 mb-4 text-2xl font-semibold dark:text-gray-400">{{"user-settings.Settings"|translate}}</h2>
-
             
             <a  
                 routerLink="account"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
-                class="flex items-center px-3 py-2.5 font-semibold cursor-pointer hover:border hover:rounded-full dark:text-gray-300">
+                routerLinkActive="bg-dark-800 dark:bg-light-100 dark:text-dark-900 text-white rounded-full"
+                class="flex items-center px-3 py-2.5 font-semibold cursor-pointer hover:border hover:rounded-full text-dark-900 dark:text-text-forDark">
                 {{"user-settings.Account Settings"|translate}}
             </a>
             <a 
                 routerLink="security"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
+                routerLinkActive="bg-dark-800 dark:bg-light-100 dark:text-dark-900 text-white rounded-full"
 
-                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300 ">
+                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full text-dark-900 dark:text-text-forDark ">
                 {{"user-settings.Security"|translate}}
             </a>
             <a 
                 routerLink="my-orders"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
+                routerLinkActive="bg-dark-800 dark:bg-light-100 dark:text-dark-900 text-white rounded-full"
 
-                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300 ">
+                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full text-dark-900 dark:text-text-forDark ">
                 {{"user-settings.My Orders"|translate}}
             </a>
-         
         </div>
     </aside>
 
