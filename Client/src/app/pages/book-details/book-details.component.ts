@@ -207,6 +207,17 @@ ngAfterViewInit(): void {
         
         console.log(res.addedReview[0])
         this.reviewsPagination.push(res.addedReview[0]);
+
+        this.book.reviews.push(res.addedReview[0])
+        this._booksService.updateTheBook(this.bookId , { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            console.log(res);
+            
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
         // this.reviewForm.reset();
       },
       error: (err) => {
@@ -231,6 +242,19 @@ ngAfterViewInit(): void {
       next: (res) => {
         console.log(res)
         // this.getReviewsFromDb()
+
+        this.book.review = this.book.reviews.find((review: any) => review._id == reviewId);
+        this.book.review = reviewData
+
+        this._booksService.updateTheBook(this.bookId, { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            console.log("Update book after update review", res);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+
         this.getReviewsFromDb()
         this.getAllReviewsFromDb()
       },
@@ -250,6 +274,16 @@ ngAfterViewInit(): void {
       next: (res) => {
         console.log(res)
         console.log(res.message)
+
+        this.book.reviews = this.book.reviews.filter((review: any) => review._id !== reviewId);
+        this._booksService.updateTheBook(this.bookId, { reviews: this.book.reviews }).subscribe({
+          next: (res) => {
+            console.log("Update book after delete review", res);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
       },
       error: (err) => {
         console.log(err)

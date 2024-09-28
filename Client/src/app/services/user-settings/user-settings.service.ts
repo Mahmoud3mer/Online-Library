@@ -19,13 +19,12 @@ export class UserSettingsService {
     if (this.isBrowser) {
       this.token = localStorage.getItem('token');
       if (this.token) {
-        this.headers = this.headers.set('token', this.token.slice(1,this.token.length - 1)); 
+        this.headers = this.headers.set('token', this.token.slice(1,this.token.length - 1));
         // console.log(this.token);
         // console.log(this.token.slice(1,this.token.length - 1));
       }
     }
   }
-
 
   getUser() : Observable <any> {
     return this._httpClient.get(`${apiUrl}/user-settings`,{headers: this.headers})

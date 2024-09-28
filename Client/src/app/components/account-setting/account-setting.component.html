@@ -1,6 +1,6 @@
 <div class="p-2 md:p-4">
   <div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg mx-auto">
-    <h2 class="pl-6 text-2xl font-bold sm:text-xl dark:text-gray-400">
+    <h2 class="pl-6 text-2xl font-bold sm:text-xl text-dark-900 dark:text-text-forDark">
       {{"account-setting.General information"|translate}}
     </h2>
 
@@ -43,7 +43,7 @@
         <div class="flex flex-col space-y-5 sm:ml-8">
           <label
             for="file-upload"
-            class="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 cursor-pointer"
+            class="py-3.5 px-7 text-base font-medium text-dark-900 dark:text-text-forDark focus:outline-none bg-light-100 dark:bg-dark-800 rounded-lg border border-indigo-200 hover:bg-dark-800 hover:text-text-forDark dark:hover:bg-light-100 dark:hover:text-dark-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 cursor-pointer"
           >
           {{"account-setting.Change picture"|translate}}
           </label>
@@ -55,8 +55,7 @@
                     </button> -->
           <button
             type="button"
-            class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white dark:bg-gray-300 rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200"
-            (click)="deleteProfilePicture()"
+            class="py-3.5 px-7 text-base font-medium text-dark-900 dark:text-text-forDark focus:outline-none bg-light-100 dark:bg-dark-800 rounded-lg border border-indigo-200 hover:bg-dark-800 hover:text-text-forDark dark:hover:bg-light-100 dark:hover:text-dark-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 cursor-pointer"            (click)="deleteProfilePicture()"
           >
           {{"account-setting.Delete picture"|translate}}
           </button>
@@ -64,20 +63,20 @@
       </div>
 
       <form [formGroup]="settingsForm">
-        <div class="items-center mt-8 sm:mt-14 text-[#202142]">
+        <div class="items-center mt-8 sm:mt-14 text-dark-900 dark:text-text-forDark">
           <div
             class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6"
           >
             <div class="w-full">
               <label
                 for="first_name"
-                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+                class="block mb-2 text-sm font-medium text-dark-900 dark:text-text-forDark"
                 >{{"account-setting.Your first name"|translate}}</label
               >
               <input
                 type="text"
                 id="first_name"
-                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                class="bg-light-200 dark:bg-dark-700 dark:text-text-forDark border outline-none border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
                 placeholder="{{'account-setting.Your first name'|translate}}"
                 required
                 formControlName="fName"
@@ -107,13 +106,13 @@
             <div class="w-full">
               <label
                 for="last_name"
-                class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+                class="block mb-2 text-sm font-medium text-dark-900 dark:text-text-forDark"
                 >{{"account-setting.Your last name"|translate}}</label
               >
               <input
                 type="text"
                 id="last_name"
-                class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                class="bg-light-200 dark:bg-dark-700 dark:text-text-forDark border outline-none border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
                 placeholder="{{'account-setting.Your last name'|translate}}"
                 formControlName="lName"
                 required
@@ -146,13 +145,13 @@
           <div class="mb-2 sm:mb-6">
             <label
               for="email"
-              class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+              class="block mb-2 text-sm font-medium text-dark-900 dark:text-text-forDark"
               >{{ "account-setting.Your email" | translate }}</label
             >
             <input
               type="email"
               id="email"
-              class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+              class="bg-light-200 dark:bg-dark-700 dark:text-text-forDark border outline-none border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
               placeholder="your.email@mail.com"
               formControlName="email"
               required
@@ -174,14 +173,14 @@
           <div class="mb-2 sm:mb-6">
             <label
               for="email"
-              class="block mb-2 text-sm font-medium text-indigo-900 dark:text-gray-400"
+              class="block mb-2 text-sm font-medium text-dark-900 dark:text-text-forDark"
               >{{ "account-setting.Your Phone Number" | translate }}</label
             >
             <input
-              type="number"
+              type="text"
               id="phone-number"
               name="phone-number"
-              class="bg-indigo-50 dark:bg-gray-300 border outline-none border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+              class="bg-light-200 dark:bg-dark-700 dark:text-text-forDark border outline-none border-indigo-300 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
               placeholder="e.g. +(12)3456 789"
               formControlName="phone"
               required
@@ -205,13 +204,13 @@
           <div class="flex justify-end">
             <button
               type="submit"
-              class="text-white bg-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+              class="border hover:bg-dark-800 hover:text-text-forDark dark:hover:bg-light-100 dark:hover:text-dark-900 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               (click)="saveSettings()"
             >
               @if (isLoading) {
               <div class="flex justify-center items-center">
                 <div
-                  class="animate-spin rounded-full h-4 w-4 border-t-2 border-white mr-2"
+                  class="animate-spin rounded-full h-4 w-4 border-t-2 border-border-dark mr-2"
                 ></div>
                 Save...
               </div>

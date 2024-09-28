@@ -122,15 +122,19 @@
 
         </div>
         <div class="text-center my-8">
-            <button
-                class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300"
-                (click)="loadMoreReviews()" [disabled]="AllReviews.length == reviewsPagination.length"
-                [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''">{{"book-details.Load
-                More Reviews"|translate}}</button>
-            @if(reviewsPagination.length > 10){
-            <button
-                class="bg-white ms-2 px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300"
-                (click)="showLessReviews()">{{"book-details.Load More Reviews"|translate}}</button>
+            @if(reviewsPagination.length <= 10){
+                <button 
+                class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300" 
+                (click)="loadMoreReviews()"
+                [disabled]="AllReviews.length == reviewsPagination.length"
+                [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''"
+                >{{"book-details.Load More Reviews"|translate}}</button>
+            }
+            @else if(reviewsPagination.length > 10){
+                <button 
+                class="bg-white ms-2 px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300" 
+                (click)="showLessReviews()"
+                >{{"book-details.Show Less Reviews"|translate}}</button>
             }
         </div>
     </div>
