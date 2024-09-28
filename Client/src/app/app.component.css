@@ -1,1 +1,46 @@
-/*# sourceMappingURL=app.component.css.map */
+h1.heading {
+  color: var(--Black-brown);
+  letter-spacing: 4px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+}
+h1.heading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 13%;
+  height: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--Black-brown);
+  margin-top: 10px;
+}
+h1.heading::before {
+  content: "\e0bb";
+  display: block;
+  position: absolute;
+  font-size: 35px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: var(--Black-brown);
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+  padding: 0 8px;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  h1.heading {
+    margin-top: -25px;
+    margin-bottom: 30px;
+  }
+  h1.heading::after {
+    margin-top: 8px;
+    width: 26%;
+  }
+  h1.heading::before {
+    margin-top: 30px;
+    font-size: 25px;
+  }
+}/*# sourceMappingURL=app.component.css.map */

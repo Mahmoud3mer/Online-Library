@@ -75,10 +75,7 @@ const AllUsers = () => {
             console.error('Error deleting user:', error);
         }
     };
-    // const handleUserSelect = (selectedUser: UserInterface) => {
-    //     // Update the users array to display the searched user
-    //     setUsers([selectedUser]);
-    //   };
+ 
 
     return (<>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -87,17 +84,7 @@ const AllUsers = () => {
                     Users
                 </h4>
             </div>
-            {/* <div className='w-150 '>
-                <AutoCompleteSearch<UserInterface>
-                    UrlWantToFetch="user-settings/admin/users"  // The API endpoint to fetch users
-                    inputName="userSearch"
-                    inputPlaceholder="Search for users"
-                    searchQuery="name"   
-                    extractDisplayName={(user) => `${user.fName} ${user.lName}`}   
-                    inputOnSelect={handleUserSelect}  // Function to handle selection
-                />
-
-            </div> */}
+         
 
 
 

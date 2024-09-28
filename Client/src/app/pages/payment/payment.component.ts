@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from "@angular/core";
-import { NgClass, NgFor, NgIf } from "@angular/common";
+import { Component, Inject, inject, OnInit, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser, NgClass, NgFor, NgIf } from "@angular/common";
 import {
   FormControl,
   FormGroup,
@@ -23,6 +23,8 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
 import { environment } from "../../../environments/environment";
 import { RouterLink } from "@angular/router";
 import { CartCountService } from "../../services/cart/CartCount.service";
+import { CartBooksService } from "../../services/cart/cart-books.service";
+import { UpdateBooksStockService } from "../../services/books/update-book-stock.service";
 
 @Component({
   selector: "app-payment",
@@ -36,12 +38,13 @@ import { CartCountService } from "../../services/cart/CartCount.service";
     SuccessModalComponent,
     FailureModalComponent,
     RouterLink,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: "./payment.component.html",
   styleUrls: ["./payment.component.scss"],
 })
 export class PaymentComponent implements OnInit {
+  private isBrowser: Boolean = false;
   paypalClientId = environment.paypalClientId;
   httpClient = inject(HttpClient);
   activeTab: string = "orderSummary";
@@ -63,12 +66,17 @@ export class PaymentComponent implements OnInit {
   numOfCartItems: number = 0;
   // ////////////////////////////////////////////////////////////
   constructor(
+    @Inject(PLATFORM_ID) platformId: object,
     private _getCartService: GetCartService,
     private _clearCartService: ClearCartService,
     private _createOrderService: CreateOrderService,
     private _cartCountService: CartCountService,
-    private _myTranslateService : MyTranslateService
+    private _myTranslateService: MyTranslateService,
+    private _cartBooksService: CartBooksService,
+    private _cartCount:CartCountService,
+    private _updateBooksStockService:UpdateBooksStockService
   ) {
+    this.isBrowser = isPlatformBrowser(platformId);
     this.deliveryForm = new FormGroup({
       firstName: new FormControl("", [
         Validators.required,
@@ -96,6 +104,7 @@ export class PaymentComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
 
   purchaseItems: {
+    _id: string;
     name: string;
     quantity: number;
     price: number;
@@ -109,7 +118,9 @@ export class PaymentComponent implements OnInit {
   total!: string;
   ngOnInit(): void {
     this.initConfig();
-    this.fetchCartItems();
+    if(this.isBrowser){
+      this.fetchCartItems();
+    }
   }
 
   // order Summery
@@ -117,6 +128,7 @@ export class PaymentComponent implements OnInit {
     this._getCartService.getCart().subscribe({
       next: (res) => {
         this.purchaseItems = res.data.books.map((book: any) => ({
+          _id: book.book._id,
           name: book.book.title,
           quantity: book.quantity,
           price: book.book.price,
@@ -206,7 +218,23 @@ export class PaymentComponent implements OnInit {
           "onClientAuthorization - you should probably inform your server about completed transaction at this point",
           data
         );
-
+        //  books to update their stock
+        const booksToUpdate = this.purchaseItems.map((item) => ({
+          bookId: item._id,
+          quantity: item.quantity,
+        }
+      ));
+      console.log(booksToUpdate,'------------------------');
+      
+        //update stock
+        this._updateBooksStockService.updateStock(booksToUpdate).subscribe({
+          next: () => {
+            console.log("Stock updated successfully");
+          },
+          error: (err) => {
+            console.error("Error updating stock", err);
+          },
+        });
         // Set order details
         const shippedAddress = data.purchase_units[0].shipping?.address;
         this.orderId = data.id;
@@ -218,6 +246,8 @@ export class PaymentComponent implements OnInit {
         this._clearCartService.clearCart().subscribe({
           next: () => {
             this.paymentSuccess = true;
+            this._cartCount.updateNumOfCartItems(0); // Update cart count to 0
+            this._cartBooksService.updateCartBooks([]);
           },
           error: (err) => {
             console.error("Error clearing cart", err);
@@ -366,5 +396,4 @@ export class PaymentComponent implements OnInit {
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
-
 }
