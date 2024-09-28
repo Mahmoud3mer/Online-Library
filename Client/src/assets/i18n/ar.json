@@ -13,7 +13,7 @@
     },
     "sub-navbar":{
         "Book Title":"اسم الكتاب",
-        "Author":"اسم الكاتب",
+        "Author":"اسم المؤلف",
         "Search":"بحث",
         "Items":"عنصر",
         "View Cart":"مشاهدة السلة ",
@@ -93,8 +93,8 @@
     },
     "book-details":{
         "by":"بواسطة ",
-        "Author Name":"اسم الكاتب",
-        "Author":"الكاتب",
+        "Author Name":"اسم المؤلف",
+        "Author":"المؤلف",
         "raitings":"تقييم",
         "reviews":"مراجعات",
         "Pages":"صفحة",

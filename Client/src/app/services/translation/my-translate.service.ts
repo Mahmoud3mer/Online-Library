@@ -24,20 +24,20 @@ export class MyTranslateService {
     _translate.use(defaultLang);
 
     //call method change dir
-    // this.changeDirection(defaultLang);
+    this.changeDirection(defaultLang);
 
     }
 
    }
 
-   //change direction
-  //  changeDirection(lang:string){
-  // if(lang==='en'){
-  //   document.dir='ltr';
-  // }else if(lang==='ar'){
-  //   document.dir='rtl';
-  // }
-  //  }
+  //  change direction
+   changeDirection(lang:string){
+  if(lang==='en'){
+    document.dir='ltr';
+  }else if(lang==='ar'){
+    document.dir='rtl';
+  }
+   }
    changLang(lang:string){
     //set lang in localstorage
     localStorage.setItem('lang',lang);
@@ -46,6 +46,6 @@ export class MyTranslateService {
     //set use lang
     this._translate.use(lang);
     //call dir method
-    // this.changeDirection(lang);
+    this.changeDirection(lang);
    }
 }
