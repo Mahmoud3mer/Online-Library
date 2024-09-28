@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"user-settings.component.css"}
+{"version":3,"sources":["user-settings.component.scss","user-settings.component.css"],"names":[],"mappings":"AAAA;EACI,4CAAA;ACCJ","file":"user-settings.component.css"}

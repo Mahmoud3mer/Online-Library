@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"recommendation.component.css"}
+{"version":3,"sources":["recommendation.component.scss","recommendation.component.css"],"names":[],"mappings":"AAAA,iCAAA;AACA;EACI;IACI,mBAAA;ECCN;EDCE;IACI,sBAAA;ECCN;EDCE;IACI,mBAAA;ECCN;AACF;ADEA,sCAAA;AACA;EACI,kCAAA;EACA,mCAAA;ACAJ","file":"recommendation.component.css"}

@@ -300,4 +300,98 @@ export class BookService {
     }
 
 
+
+
+
+         //update stock
+         async updateStock(books: { bookId: string, quantity: number }[]) {
+            try {
+                // Step 1: Fetch all required books in a single query
+                const bookIds = books.map(b => b.bookId);
+                const existingBooks = await this.bookModel.find({ _id: { $in: bookIds } });
+        
+                // Step 2: Create a map for quick lookup
+                const bookMap = new Map(existingBooks.map(book => [book._id.toString(), book]));
+        
+                // Step 3: Prepare bulk operations
+                const bulkOperations = books.map(orderedBook => {
+                    const { bookId, quantity } = orderedBook;
+                    const book = bookMap.get(bookId);
+        
+                    if (!book) {
+                        throw new HttpException(`Book with ID ${bookId} not found`, HttpStatus.NOT_FOUND);
+                    }
+        
+                    if (book.stock < quantity) {
+                        throw new HttpException(`Insufficient stock for book: ${book.title}`, HttpStatus.BAD_REQUEST);
+                    }
+        
+                    return {
+                        updateOne: {
+                            filter: { _id: bookId },
+                            update: { $inc: { stock: -quantity } } // Decrease stock
+                        }
+                    };
+                });
+        
+                // Step 4: Execute bulkWrite
+                const result = await this.bookModel.bulkWrite(bulkOperations);
+        
+                // Step 5: Check modified count
+                if (result.modifiedCount === 0) {
+                    throw new HttpException(`No stock updates were made.`, HttpStatus.BAD_REQUEST);
+                }
+        
+                return { message: "Success, stock updated." };
+        
+            } catch (error) {
+                // Additional error handling for bulkWrite can be added here
+                throw new HttpException(`Error updating stock: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        //check stock
+        async checkStock(booksInCart: { bookId: string; quantity: number }[]) {
+            const outOfStockBooks = [];
+            
+            try {
+                // Step 1: Fetch all required books in a single query
+                const bookIds = booksInCart.map(book => book.bookId);
+                const existingBooks = await this.bookModel.find({ _id: { $in: bookIds } });
+        
+                // Step 2: Create a map for quick lookup
+                const bookMap = new Map(existingBooks.map(book => [book._id.toString(), book]));
+        
+                // Step 3: Check the stock for each book
+                for (const book of booksInCart) {
+                    const { bookId, quantity } = book;
+                    const bookDetails = bookMap.get(bookId);
+            
+                    // Check if there is enough stock
+                    if (bookDetails && bookDetails.stock < quantity) {
+                        outOfStockBooks.push({
+                            bookId: bookId,
+                            bookTitle: bookDetails.title, // Include title for better feedback
+                            availableStock: bookDetails.stock // Optional: include available stock
+                        });
+                    }
+                }
+        
+                // Determine if all books are in stock
+                const inStock = outOfStockBooks.length === 0;
+        
+                return {
+                    inStock,
+                    outOfStockBooks,
+                };
+            } catch (error) {
+                throw new HttpException(`Error checking stock: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        
+       
+        
+        
+        
+        
 }
