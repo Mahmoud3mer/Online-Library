@@ -20,7 +20,7 @@
             <a routerLink="/authors" class="absolute bottom-[22%] right-[50%] translate-x-1/2 text-white text-lg font-bold hover:text-blue-600 hover:underline cursor-pointer">{{author.name}}</a>
             <p class="absolute bottom-[10%] right-[5%] text-white text-center">{{author.bio}}</p> -->
             <div class="text-center bg-light-200 dark:bg-dark-700 px-6 py-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow hover:scale-105 duration-300 h-[318px]">
-                <img [src]="author.image ? author.image : ''" alt="Author Image" class="w-80 h-40 rounded mx-auto mb-4" />
+                <img [src]="author.image ? author.image : ''" alt="Author Image" class="rounded-full w-40 h-40  mx-auto mb-4" />
                 <a routerLink="/authors" class="text-lg font-semibold text-gray-800 dark:text-gray-300 hover:text-blue-500 hover:underline dark:hover:text-blue-400 cursor-pointer">{{ author.name ? author.name : '' }}</a>
                 <div class="py-2">
 

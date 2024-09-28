@@ -280,7 +280,7 @@ const UserFrom = () => {
             </div>
           </div> */}
       </div>
-      <button className='btn my-5' disabled={isLoading}>
+      <button className='block ms-auto px-8 text-lg btn my-5' disabled={isLoading}>
           {isLoading ? <LoadingSpinner size="text-sm" color="text-white" /> : 'Edit'}
         </button>
       </form>

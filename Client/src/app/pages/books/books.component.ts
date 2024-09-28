@@ -78,15 +78,15 @@ export class BooksComponent implements OnInit {
     private _myTranslateService: MyTranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
-
+  
   ngOnInit(): void {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchTerm) => {
       this.onSearchFilter(searchTerm);
     });
     this.router.events.subscribe(() => {
       const url = this.route.firstChild?.snapshot.url
-        .map((segment) => segment.path)
-        .join("");
+      .map((segment) => segment.path)
+      .join("");
       this.currentView = url || "list";
     });
     if (isPlatformBrowser(this.platformId)) {
@@ -95,7 +95,7 @@ export class BooksComponent implements OnInit {
       this.getAllAuthors();
     }
   }
-
+  
   onSearchInputChange(event: Event): void {
     event.preventDefault();
     const inputElement = event.target as HTMLInputElement;
@@ -106,7 +106,8 @@ export class BooksComponent implements OnInit {
     event.preventDefault();
     this.loadBooks();
   }
-
+  
+  
   numberOfPages!: number;
 
   loadBooks(): void {
@@ -128,6 +129,8 @@ export class BooksComponent implements OnInit {
           this.allBooks = this.filteredBooks;
           this.numberOfPages = res.metaData?.numberOfPages || 1;
           this.page = res.metaData?.currentPage || this.page;
+          console.log(this.allBooks);
+          
         },
         error: (err) => {
           console.error(err);
@@ -160,7 +163,7 @@ export class BooksComponent implements OnInit {
     this._authorService.getAllAuthors(this.page, 5).subscribe({
       next: (res) => {
         this.authors = res.data;
-        console.log(this.authors);
+        // console.log(this.authors);
 
       },
       error: (err) => {

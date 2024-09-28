@@ -2,13 +2,14 @@
     @for (item of allBooks; track item._id) {
     <app-books-card-for-list 
       [bookId]="item._id" 
-      
+      [bookStock]="item.stock"
       [bookTitle]="item.title" 
       [bookCoverImg]="item.coverImage"
       [bookCategory]="item.category ? item.category.name : ''"
       [bookPrice]="item.price" 
       [authorName]="item.author? item.author.name : ''"
       [bookRating]="item.averageRating">
+      
     </app-books-card-for-list>
 
     }
