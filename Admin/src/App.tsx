@@ -40,7 +40,7 @@ function App() {
               element={
                 <Suspense fallback={<Loader />}>
                   <Component />
-                </Suspense>
+                </Suspense> 
               }
             />
           );

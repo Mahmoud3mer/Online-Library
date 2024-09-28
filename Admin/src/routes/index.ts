@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -19,23 +19,23 @@ const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 
 const coreRoutes = [
   {
-    path: '/calendar',
-    title: 'Calender',
+    path: "/calendar",
+    title: "Calender",
     component: Calendar,
   },
   {
-    path: '/profile',
-    title: 'Profile',
+    path: "/profile",
+    title: "Profile",
     component: Profile,
   },
   {
-    path: '/forms/form-elements',
-    title: 'Forms Elements',
+    path: "/forms/form-elements",
+    title: "Forms Elements",
     component: FormElements,
   },
   {
-    path: '/forms/book-form/:id?',
-    title: 'Book Form',
+    path: "/forms/book-form/:id?",
+    title: "Book Form",
     component: BookForm,
   },
   {
@@ -54,53 +54,53 @@ const coreRoutes = [
     component: CategoryForm,
   },
   {
-    path: '/forms/user-form',
-    title: 'User Form',
+    path: "/forms/user-form",
+    title: "User Form",
     component: UserForm,
   },
   {
-    path: '/forms/form-layout',
-    title: 'Form Layouts',
+    path: "/forms/form-layout",
+    title: "Form Layouts",
     component: FormLayout,
   },
   {
-    path: '/orders',
-    title: 'Orders',
+    path: "/orders",
+    title: "Orders",
     component: AllOrders,
   },
   {
-    path: '/users',
-    title: 'Users',
+    path: "/users",
+    title: "Users",
     component: AllUsers,
   },
   {
-    path: '/books',
-    title: 'All Books',
+    path: "/books",
+    title: "All Books",
     component: AllBooks,
   },
   {
-    path: '/tables',
-    title: 'Tables',
+    path: "/tables",
+    title: "Tables",
     component: Tables,
   },
   {
-    path: '/settings',
-    title: 'Settings',
+    path: "/settings",
+    title: "Settings",
     component: Settings,
   },
   {
-    path: '/chart',
-    title: 'Chart',
+    path: "/chart",
+    title: "Chart",
     component: Chart,
   },
   {
-    path: '/ui/alerts',
-    title: 'Alerts',
+    path: "/ui/alerts",
+    title: "Alerts",
     component: Alerts,
   },
   {
-    path: '/ui/buttons',
-    title: 'Buttons',
+    path: "/ui/buttons",
+    title: "Buttons",
     component: Buttons,
   },
 ];
