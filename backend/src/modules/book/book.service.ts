@@ -53,11 +53,11 @@ export class BookService {
         const pages = Number(book.pages);
         const price = Number(book.price);
         const stock = Number(book.stock);
-        
+
         if (isNaN(pages) || pages < 0) {
             throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
-        
+
         if (isNaN(price) || price < 0) {
             throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
@@ -67,13 +67,13 @@ export class BookService {
         book.pages = pages;
         book.price = price;
         book.stock = stock;
-        
+
         book.publishedDate = new Date()
         try {
             await this.bookModel.insertMany(book);
             return { message: "Success, Book Added.", data: book };
 
-        } catch (error){
+        } catch (error) {
             throw new HttpException(`Error Inserting Data ${error}`, HttpStatus.BAD_REQUEST)
         }
     }
@@ -210,30 +210,35 @@ export class BookService {
         const pages = Number(book.pages);
         const price = Number(book.price);
         const stock = Number(book.stock);
-        
+
         if (isNaN(pages) || pages < 0) {
             throw new HttpException('Invalid pages count. Pages must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
-        
+
         if (isNaN(price) || price < 0) {
             throw new HttpException('Invalid price. Price must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
         if (isNaN(stock) || stock < 0) {
             throw new HttpException('Invalid Stock. Stock must be a valid number greater than 0.', HttpStatus.BAD_REQUEST);
         }
-        
+
         book.pages = pages;
         book.price = price;
         book.stock = stock;
-        
-        const updateBook = await this.bookModel.findByIdAndUpdate(
-            { _id: bookId },
-            { $set: book },
-            { new: true }
-        ).populate('author')
-            .populate('category');
 
-        return { message: "Success, Book Updated.", data: updateBook };
+        try {
+
+            const updateBook = await this.bookModel.findByIdAndUpdate(
+                { _id: bookId },
+                { $set: book },
+                { new: true }
+            ).populate('author')
+                .populate('category');
+
+            return { message: "Success, Book Updated.", data: updateBook };
+        } catch (error) {
+            throw new HttpException(`Error Updating Book ${error}`, HttpStatus.BAD_REQUEST)
+        }
 
     }
 
@@ -300,4 +305,73 @@ export class BookService {
     }
 
 
+    async findByAuthorOrTitle(paginationDTO: PaginationDTO, author: string, title: string) {
+        const page = paginationDTO.page;
+        const limit = paginationDTO.limit;
+        const skip = (page - 1) * limit;
+    
+        const query = {};
+    
+        // Search by title if provided
+        if (title && title.trim() !== '') {
+            query['title'] = { $regex: title.trim(), $options: 'i' };
+        }
+    
+        // Search by author name if provided
+        if (author && author.trim() !== '') {
+            // Find authors by the provided name
+            const authors = await this.authorModel.find({ name: { $regex: author.trim(), $options: 'i' } }).exec();
+            if (authors.length > 0) {
+                // Extract the author _id values
+                const authorIds = authors.map(a => a._id);
+                query['author'] = { $in: authorIds };  // Use author _id(s) to filter books
+            } else {
+                // If no authors match, return empty results
+                return {
+                    message: "No books found for the specified author.",
+                    results: 0,
+                    metaData: {
+                        currentPage: page,
+                        numberOfPages: 0,
+                        limit
+                    },
+                    data: []
+                };
+            }
+        }
+    
+        const total = await this.bookModel.countDocuments(query).exec();
+        console.log(query);
+    
+        try {
+            const foundedBooks = await this.bookModel
+                .find(query)
+                .limit(limit)
+                .skip(skip)
+                .populate('author') // Ensure the author is populated
+                .populate('category') // Populate category
+                .populate({
+                    path: 'reviews',
+                    populate: {
+                        path: 'userId',
+                        select: 'fName lName profilePic'  // Select only specific fields from User model
+                    }
+                })
+                .exec();
+    
+            return {
+                message: "Success, Got Books.",
+                results: foundedBooks.length,
+                metaData: {
+                    currentPage: page,
+                    numberOfPages: Math.ceil(total / limit),
+                    limit
+                },
+                data: foundedBooks
+            };
+        } catch (error) {
+            return { message: "Error fetching the books.", Error: error.message };
+        }
+    }
+    
 }

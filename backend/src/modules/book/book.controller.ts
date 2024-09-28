@@ -48,6 +48,15 @@ export class BookController {
     return this._bookService.getAllBooks(paginationDTO, category, author, title, sortField, sortOrder);
   }
 
+  @Get('search')
+  async searchBooksByAuthor(
+    @Query()paginationDTO:PaginationDTO ,
+    @Query('author') author: string,
+    @Query('title') title: string
+  ) {
+    return this._bookService.findByAuthorOrTitle(paginationDTO,author,title);
+  }
+
   @Get('/:id')
   getBook(@Param('id') id: string) {
     return this._bookService.getOneBook(id);

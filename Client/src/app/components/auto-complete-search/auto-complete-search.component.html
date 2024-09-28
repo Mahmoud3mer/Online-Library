@@ -1,0 +1,34 @@
+<div class="w-full  flex items-center justify-between space-x-4 bg-white rounded sm:px-4 py-2">
+    <div class="search-select bg-white mx-2">
+        <select id="select1"
+            class="bg-transparent border border-gray-300 outline-none rounded-lg px-2 md:px-4 py-2 text-gray-800 focus:ring-2 focus:ring-gray-300"
+            (change)="onTypeChange($event)">
+            <option selected value="title">{{ 'sub-navbar.Book Title' | translate }}</option>
+            <option value="author">{{ 'sub-navbar.Author' | translate }}</option>
+        </select>
+    </div>
+    <div class="search-input w-full relative">
+        <input type="text" placeholder="{{ 'sub-navbar.Search' | translate }}"
+            class="w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 bg-white placeholder-gray-500"
+            [(ngModel)]="searchTerm" (input)="onSearch()" />
+            @if(filteredBooks.length > 0) {
+                <ul class="absolute w-full rounded h-72 overflow-auto" style="z-index: 10000;">
+                    <li *ngFor="let item of filteredBooks; trackBy: trackByFn" (click)="selectBook(item)">
+                        <div class="grid grid-cols-8 gap-3 border-b border-border-light hover:cursor-pointer hover:bg-gray-400 dark:hover:bg-border-dark dark:border-border-dark py-1 items-center bg-light-200 dark:bg-dark-700">
+                            <div class="col-span-3 md:col-span-2 lg:col-span-1 h-16 ">
+                                <img [src]="item.coverImage" alt="{{item.title}}" class="h-full mx-auto">
+                            </div>
+                            <div class="col-span-5 md:col-span-6 lg:col-span-7 text-text-primary dark:text-text-forDark">
+                                <p>
+                                    {{ item.title }}
+                                </p>
+                                <p class="text-sm">{{ item.author.name }}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                }
+    </div>
+</div>
+
+<!-- Display filtered books -->

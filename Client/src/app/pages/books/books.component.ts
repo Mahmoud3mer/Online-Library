@@ -23,6 +23,7 @@ import {
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { AutoCompleteSearchComponent } from "../../components/auto-complete-search/auto-complete-search.component";
 
 @Component({
   selector: "app-books",
@@ -36,7 +37,8 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
     RouterLink,
     RouterLinkActive,
     PaginationComponent,
-    TranslateModule
+    TranslateModule,
+    AutoCompleteSearchComponent
   ],
 
   templateUrl: "./books.component.html",

@@ -1,0 +1,9 @@
+:host ::ng-deep .swiper-button-next,
+:host ::ng-deep .swiper-button-prev {
+    color: #ff0000 !important; /* Set the desired color */
+}
+
+:host ::ng-deep .swiper-button-next:hover,
+:host ::ng-deep .swiper-button-prev:hover {
+    color: #00ff00 !important; /* Set hover color */
+}

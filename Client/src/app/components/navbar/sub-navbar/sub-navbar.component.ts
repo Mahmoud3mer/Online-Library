@@ -6,12 +6,13 @@ import { GetCartService } from "../../../services/cart/GetCart.service";
 import { CartBooksService } from "../../../services/cart/cart-books.service";
 import { MyTranslateService } from "../../../services/translation/my-translate.service";
 import { TranslateModule } from "@ngx-translate/core";
+import { AutoCompleteSearchComponent } from "../../auto-complete-search/auto-complete-search.component";
 
 
 @Component({
   selector: "app-sub-navbar",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslateModule],
+  imports: [RouterLink, RouterLinkActive, TranslateModule,AutoCompleteSearchComponent],
   templateUrl: "./sub-navbar.component.html",
   styleUrl: "./sub-navbar.component.scss",
 })

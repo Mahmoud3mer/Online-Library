@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
 
     _userSettingsService.profileImage.subscribe(res => {
       this.profileImage = res
-      console.log(res , "from navbar");
+      // console.log(res , "from navbar");
       
     })
   }
@@ -124,7 +124,9 @@ export class NavbarComponent implements OnInit {
   toggleMobileMenu() {
   this.isMobileMenuOpen = !this.isMobileMenuOpen;
 }
-
+  xCloseMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
 
 // translate
 

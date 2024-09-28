@@ -8,9 +8,12 @@
 
         </div>
         <div class="basis-2/3">
+            <p class="mb-3 font-semibold dark:text-white"> {{"book-details.category"|translate}} <span
+                    class="text-gray-700 dark:text-text-forDark">{{book.category ? book.category.name: ''}}</span>
+            </p>
             <h1 class="text-4xl font-bold mb-3 dark:text-white">{{book.title}}</h1>
             <p class="mb-3 font-semibold dark:text-white"> {{"book-details.by"|translate}} <span
-                    class="text-blue-500">{{book.author.name}}</span> <span
+                    class="text-blue-500">{{book.author ? book.author.name: ''}}</span> <span
                     class="font-normal ms-2 text-xs text-gray-400">{{"book-details.Author"|translate}}</span></p>
             <div class="flex gap-5">
                 <p class="text-xl font-semibold mb-3 dark:text-white">${{book.price.toFixed(2)}}</p>
@@ -50,7 +53,7 @@
                     <div
                         class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 hover:scale-105 duration-300 dark:bg-slate-300">
                         <button (click)="triggerAddToCart()" class="mt-1 mx-1">
-                            {{"book-details.Add To Favorite" | translate}}
+                            {{"book-details.Add To Cart" | translate}}
                         </button>
                         <app-add-to-cart-btn></app-add-to-cart-btn>
                     </div>
@@ -122,7 +125,8 @@
             <button
                 class="bg-white px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300"
                 (click)="loadMoreReviews()" [disabled]="AllReviews.length == reviewsPagination.length"
-                [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''">{{"book-details.Load More Reviews"|translate}}</button>
+                [ngClass]="AllReviews.length == reviewsPagination.length? 'cursor-not-allowed' : ''">{{"book-details.Load
+                More Reviews"|translate}}</button>
             @if(reviewsPagination.length > 10){
             <button
                 class="bg-white ms-2 px-3 py-2 rounded-md text-black hover:text-white hover:bg-blue-500 border-2 cursor-pointer hover:scale-105 duration-300 dark:bg-slate-300"

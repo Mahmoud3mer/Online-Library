@@ -25,8 +25,8 @@
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">{{"books.All Categories"|translate}}</h5>
           @for (category of categories; track $index) {
           <p (click)="onCategoryFilter(category._id)" [ngClass]="{
-              'bg-gray-200 dark:bg-gray-700 bookmark after:text-black dark:after:text-white': selectedCategory === category._id
-            }" class="relative defualtBookMark text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
+              'bg-gray-200 dark:bg-gray-800 bookmark border-b border-border-dark dark:border-border-light after:text-black dark:after:text-white ': selectedCategory === category._id
+            }" class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
             <span class="text-text-primary dark:text-text-forDark">
               {{ category.name }}
             </span>
@@ -52,8 +52,8 @@
           </h5>
           @for (author of authors; track $index) {
           <p (click)="onAuthorFilter(author._id)" [ngClass]="{
-              'bg-gray-200 dark:bg-gray-700 bookmark after:text-black dark:after:text-white': selectedAuthor === author._id
-            }" class="relative defualtBookMark text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
+              'bg-gray-200 dark:bg-gray-800 border-b border-border-dark dark:border-border-light bookmark after:text-black dark:after:text-white': selectedAuthor === author._id
+            }" class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
             <span class="text-text-primary dark:text-text-forDark">
               {{ author.name }}
             </span>
