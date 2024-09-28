@@ -4,11 +4,13 @@ import { OrderInterface } from "../../interfaces/order.interface";
 import { NgClass, NgFor, NgIf } from "@angular/common";
 import { InvoiceModalComponent } from "../../components/invoice-modal/invoice-modal.component";
 import { CartCountService } from "../../services/cart/CartCount.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-my-orders",
   standalone: true,
-  imports: [NgFor, NgIf, InvoiceModalComponent, NgClass],
+  imports: [NgFor, NgIf, InvoiceModalComponent, NgClass,TranslateModule],
   templateUrl: "./my-orders.component.html",
   styleUrl: "./my-orders.component.scss",
 })
@@ -18,7 +20,9 @@ export class MyOrdersComponent implements OnInit {
   orders: OrderInterface[] = [];
   currentPage: number = 1;
   ordersPerPage: number = 5;
-  constructor(private _getOrdersService: GetOrdersService) {}
+  constructor(private _getOrdersService: GetOrdersService,
+    private _myTranslateService: MyTranslateService
+  ) {}
 
   get paginatedOrders() {
     const startIndex = (this.currentPage - 1) * this.ordersPerPage;
