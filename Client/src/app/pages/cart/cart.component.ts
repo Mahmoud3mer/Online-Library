@@ -105,11 +105,14 @@ export class CartComponent implements OnInit {
 
     this._getCartService.getCart().subscribe({
       next: (res) => {
+        console.log("res.....", res);
+
         this.cartBooks = res.data.books;
         this.subtotal = res.data.subtotal;
         this.shippingCost = res.data.shippingCost;
         this.totalOrder = res.data.totalOrder;
         this.numOfCartItems = res.data.numOfCartItems;
+
         console.log(this.cartBooks);
       },
       error: (err) => {
@@ -227,6 +230,21 @@ export class CartComponent implements OnInit {
 
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
+  }
+
+  isCartEmpty(): boolean {
+    return this.cartBooks.length === 0;
+  }
+  navigateToPayment(event: Event): void {
+    if (this.isCartEmpty()) {
+      event.preventDefault(); // Prevent the default link action
+      this._toastService.showError(
+        "Your cart is empty. Please add items before checking out."
+      );
+    } else {
+      // Allow navigation if the cart is not empty
+      this.router.navigate(["/payment"]);
+    }
   }
 
   checkStock(): void {

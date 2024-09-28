@@ -20,9 +20,25 @@ export class MyOrdersComponent implements OnInit {
   orders: OrderInterface[] = [];
   currentPage: number = 1;
   ordersPerPage: number = 5;
+
   constructor(private _getOrdersService: GetOrdersService,
     private _myTranslateService: MyTranslateService
   ) {}
+
+  get paginatedOrders() {
+    const startIndex = (this.currentPage - 1) * this.ordersPerPage;
+    return this.orders.slice(startIndex, startIndex + this.ordersPerPage);
+  }
+
+  totalPages() {
+    return Math.ceil(this.orders.length / this.ordersPerPage);
+  }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.totalPages()) return;
+    this.currentPage = page;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   get paginatedOrders() {
     const startIndex = (this.currentPage - 1) * this.ordersPerPage;

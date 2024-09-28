@@ -36,16 +36,13 @@ export class OrderController {
   async updateOrder(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
-    @Req() req: any,
   ) {
-    const userId = req.user.userId;
-    return this._orderService.updateOrder(id, updateOrderDto, userId);
+    return this._orderService.updateOrder(id, updateOrderDto);
   }
 
   @Delete(':id')
-  async deleteOrder(@Param('id') id: string, @Req() req: any) {
-    const userName = req.user.userName;
-    return this._orderService.deleteOrder(id, userName);
+  async deleteOrder(@Param('id') id: string) {
+    return this._orderService.deleteOrder(id);
   }
   @Roles(Role.User)
   @UseGuards(AuthGuard)

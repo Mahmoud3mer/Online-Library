@@ -23,10 +23,10 @@ export class OrderService {
   async updateOrder(
     id: string,
     updateOrderDto: UpdateOrderDto,
-    userId: string,
   ): Promise<{ message: string; updatedOrder: Order }> {
-    const updatedOrder = await this.orderModel.findByIdAndUpdate(
-      { _id: id, userId },
+    const updatedOrder = await this.orderModel.findOneAndUpdate(
+      { orderId: id },
+
       { $set: updateOrderDto, orderDate: new Date().toLocaleString() },
       { new: true, runValidators: true },
     );
@@ -37,11 +37,11 @@ export class OrderService {
 
     return { message: 'order updated successfully', updatedOrder };
   }
-  async deleteOrder(id: string, userName: string) {
-    const result = await this.orderModel.findByIdAndDelete({ _id: id });
+  async deleteOrder(id: string) {
+    const result = await this.orderModel.findOneAndDelete({ orderId: id });
 
     if (!result) {
-      throw new NotFoundException(`No Orders found for ${userName}`);
+      throw new NotFoundException(`No Orders found `);
     }
 
     return { message: 'The order deleted Successfully', deleted: true };

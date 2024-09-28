@@ -24,7 +24,9 @@
                   <i class="fas fa-info-circle text-xl mr-1"></i>
                   Details</strong
                 >
-                <small class="mt-1">{{"payment.Some info about your Cart."|translate}}</small>
+                <small class="mt-1">{{
+                  "payment.Some info about your Cart." | translate
+                }}</small>
               </p>
             </button>
           </li>
@@ -45,9 +47,11 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-credit-card text-xl mr-2"></i>
-                  {{"payment.Payment"|translate}}</strong
+                  {{ "payment.Payment" | translate }}</strong
                 >
-                <small class="mt-1">{{"payment.Show us the money."|translate}}</small>
+                <small class="mt-1">{{
+                  "payment.Show us the money." | translate
+                }}</small>
               </p>
             </button>
           </li>
@@ -73,9 +77,11 @@
               <p class="leading-none text-lg">
                 <strong class="block font-semibold"
                   ><i class="fas fa-check-circle text-xl mr-1"></i>
-                  {{"payment.Confirmation"|translate}}</strong
+                  {{ "payment.Confirmation" | translate }}</strong
                 >
-                <small class="mt-1"> {{"payment.Thank you for your order!"|translate}} </small>
+                <small class="mt-1">
+                  {{ "payment.Thank you for your order!" | translate }}
+                </small>
               </p>
             </button>
           </li>
@@ -94,7 +100,7 @@
           <section class="bg-blueGray-100 mt-6">
             <div class="container mx-auto px-4">
               <div class="mb-8 text-2xl font-semibold text-gray-800">
-                {{"payment.Your Order:"|translate}}
+                {{ "payment.Your Order:" | translate }}
               </div>
               <div class="bg-white p-6 rounded-lg shadow-lg">
                 <!-- Product List -->
@@ -116,14 +122,19 @@
                           href="#"
                           >{{ item.name }}</a
                         >
-                        <p class="text-gray-400">{{"payment.Author:"|translate}} {{ item.name }}</p>
                         <p class="text-gray-400">
-                          {{"payment.Description:"|translate}} {{ item.name }}
+                          {{ "payment.Author:" | translate }} {{ item.name }}
+                        </p>
+                        <p class="text-gray-400">
+                          {{ "payment.Description:" | translate }}
+                          {{ item.name }}
                         </p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-gray-400">{{"payment.Qty:"|translate}} {{ item.quantity }}</p>
+                      <p class="text-gray-400">
+                        {{ "payment.Qty:" | translate }} {{ item.quantity }}
+                      </p>
                       <p class="text-blue-500">
                         $
                         <span class="text-blue-500 text-xl">{{
@@ -136,7 +147,9 @@
                 <!-- Summary -->
                 <div class="lg:flex xl:items-center w-full mt-12">
                   <div class="lg:w-2/12 xl:w-1/12 mb-10 xl:mb-0">
-                    <h3 class="text-xl font-heading font-medium">{{"payment.Summary"|translate}}</h3>
+                    <h3 class="text-xl font-heading font-medium">
+                      {{ "payment.Summary" | translate }}
+                    </h3>
                   </div>
                   <div class="w-full lg:w-10/12 xl:w-11/12">
                     <div class="flex flex-wrap lg:justify-end -mx-3">
@@ -155,7 +168,9 @@
                               {{ totalQuantity }}
                             </div>
                           </div>
-                          <span class="ml-16">{{"payment.Products"|translate}}</span>
+                          <span class="ml-16">{{
+                            "payment.Products" | translate
+                          }}</span>
                         </div>
                       </div>
                       <div
@@ -164,10 +179,10 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl"
                         >
-                          <span>{{"payment.Shipping:"|translate}}</span>
+                          <span>{{ "payment.Shipping:" | translate }}</span>
                           <span class="flex items-center">
                             <span class="ml-2 mr-1 text-sm">$</span>
-                            <span class="text-xl">10.00</span>
+                            <span class="text-xl">{{ shipping }}</span>
                           </span>
                         </div>
                       </div>
@@ -177,10 +192,10 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white font-heading font-medium rounded-3xl"
                         >
-                          <span>{{"payment.Total"|translate}}</span>
+                          <span>{{ "payment.Total" | translate }}</span>
                           <span class="flex items-center text-blue-500">
                             <span class="mr-1 text-sm ml-3">$</span>
-                            <span class="text-xl">{{ totalPrice }}</span>
+                            <span class="text-xl">{{ totalOrder }}</span>
                           </span>
                         </div>
                       </div>
@@ -192,7 +207,7 @@
                           class="block py-2 px-6 bg-blue-500 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-600 transition duration-200 mt-4"
                           (click)="setActiveTab('payment')"
                         >
-                          {{"payment.Next"|translate}}
+                          {{ "payment.Next" | translate }}
                           <i class="fa-solid fa-arrow-right"></i>
                         </button>
                       </div>
@@ -214,7 +229,7 @@
                   <h2
                     class="text-5xl font-semibold text-gray-900 ml-12 dark:text-white sm:text-2xl"
                   >
-                    {{"payment.Payment Gateway"|translate}}
+                    {{ "payment.Payment Gateway" | translate }}
                   </h2>
                   <div
                     id="accordionFlushExample"
@@ -229,7 +244,7 @@
                           aria-expanded="onlinePaymentOpen"
                           aria-controls="flush-collapseOne"
                         >
-                          {{"payment.Online Payment"|translate}}
+                          {{ "payment.Online Payment" | translate }}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': onlinePaymentOpen }"
@@ -282,7 +297,7 @@
                           aria-expanded="payOnDeliveryOpen"
                           aria-controls="flush-collapseTwo"
                         >
-                          {{"payment.Pay on Delivery"|translate}}
+                          {{ "payment.Pay on Delivery" | translate }}
                           <span
                             class="ml-auto transition-transform"
                             [ngClass]="{ 'rotate-180': payOnDeliveryOpen }"
@@ -320,7 +335,7 @@
                             <h6
                               class="mb-4 text-lg font-semibold text-center text-gray-900 dark:text-white"
                             >
-                              {{"payment.Billing Address"|translate}}
+                              {{ "payment.Billing Address" | translate }}
                             </h6>
 
                             <!-- First Name and Last Name Inputs -->
@@ -633,13 +648,13 @@
                                 class="py-2 px-4 text-sm text-gray-900 bg-gray-300 border border-gray-400 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition duration-200"
                                 (click)="deliveryForm.reset()"
                               >
-                                {{"payment.Reset"|translate}}
+                                {{ "payment.Reset" | translate }}
                               </button>
                               <button
                                 type="submit"
                                 class="py-2 px-4 text-sm text-white bg-blue-600 border border-blue-700 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
                               >
-                                {{"payment.Confirm & Order"|translate}}
+                                {{ "payment.Confirm & Order" | translate }}
                               </button>
                             </div>
                           </form>
@@ -662,7 +677,11 @@
             <div class="border border-gray-50 rounded-2xl px-6 md:px-12 py-12">
               <div class="pb-10 border-b border-gray-50">
                 <h1 class="font-heading uppercase text-3xl">
-                  {{"payment.Your order has been confirmed and will be shipping soon..."|translate}} 🎉
+                  {{
+                    "payment.Your order has been confirmed and will be shipping soon..."
+                      | translate
+                  }}
+                  🎉
                 </h1>
               </div>
               <div class="py-6 border-b border-gray-50">
@@ -672,15 +691,21 @@
                     <p class="font-semibold">{{ orderDate }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">{{"payment.Order Number"|translate}}</p>
+                    <p class="text-gray-500 mb-2">
+                      {{ "payment.Order Number" | translate }}
+                    </p>
                     <p class="font-semibold">{{ orderId }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">{{"payment.Payment"|translate}}</p>
+                    <p class="text-gray-500 mb-2">
+                      {{ "payment.Payment" | translate }}
+                    </p>
                     <p class="font-semibold">{{ paymentMethod }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">{{"payment.Address"|translate}}</p>
+                    <p class="text-gray-500 mb-2">
+                      {{ "payment.Address" | translate }}
+                    </p>
                     <p class="font-semibold">{{ shippingAddress }}</p>
                   </div>
                 </div>
@@ -707,7 +732,7 @@
                   <div class="w-full md:w-1/3 p-4">
                     <div class="flex md:justify-center">
                       <p>
-                        <span>{{"payment.Quantity:"|translate}}</span>
+                        <span>{{ "payment.Quantity:" | translate }}</span>
                         <span class="font-semibold">{{ item.quantity }}</span>
                       </p>
                     </div>
@@ -721,12 +746,17 @@
               </div>
               <div class="py-6 border-b border-gray-50 mb-10">
                 <div class="flex justify-between flex-wrap">
-                  <p class="text-xl font-semibold">{{"payment.Total"|translate}}</p>
+                  <p class="text-xl font-semibold">
+                    {{ "payment.Total" | translate }}
+                  </p>
                   <p class="text-xl font-semibold">${{ totalPrice }}</p>
                 </div>
               </div>
               <p class="text-gray-500 mb-3">
-                {{"payment.We’ll send you shipping confirmation when you item(s) are on the way! We appreciate your business, and hope you enjoy your purchase."|translate}}
+                {{
+                  "payment.We’ll send you shipping confirmation when you item(s) are on the way! We appreciate your business, and hope you enjoy your purchase."
+                    | translate
+                }}
               </p>
               <p class="text-gray-500">Thank you!</p>
 

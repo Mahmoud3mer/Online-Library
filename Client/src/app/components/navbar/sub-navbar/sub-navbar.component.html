@@ -1,12 +1,24 @@
 <!-- Navbar -->
-<header class="header navbar-area bg-white shadow-md sticky top-0" style="z-index: 100;">
+<header
+  class="header navbar-area bg-white shadow-md sticky top-0"
+  style="z-index: 100"
+>
   <div class="header-middle">
-    <div class="container mx-auto py-2 sm:py-0 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2 flex items-center justify-between flex-wrap md:flex-nowrap gap-y-2">
+    <div
+      class="container mx-auto py-2 sm:py-0 xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2 flex items-center justify-between flex-wrap md:flex-nowrap gap-y-2"
+    >
       <!-- Logo -->
 
       <div class="w-fit order-1">
-        <a class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight" routerLink="/home">
-          <img src="../../../../assets/images/logo/AndlosiaLogo.png" class="h-12 sm:h-20 w-48" alt="">
+        <a
+          class="navbar-brand text-gray-900 text-2xl font-extrabold tracking-tight"
+          routerLink="/home"
+        >
+          <img
+            src="../../../../assets/images/logo/AndlosiaLogo.png"
+            class="h-12 sm:h-20 w-48"
+            alt=""
+          />
         </a>
       </div>
       <div class="w-full order-3 md:order-2">
@@ -14,59 +26,80 @@
       </div>
 
       <!-- Wishlist and Cart Items Positioned to the Right -->
-      <div class="w-fit flex items-center justify-center mx-3 space-x-4 gap-x-5 order-2 md:order-3">
+      <div
+        class="w-fit flex items-center justify-center mx-3 space-x-4 gap-x-5 order-2 md:order-3"
+      >
         <!-- Wishlist -->
         <div class="wishlist relative">
-          <a routerLink="/wishlist" class="text-gray-700 hover:text-gray-900 flex items-center space-x-1">
+          <a
+            routerLink="/wishlist"
+            class="text-gray-700 hover:text-gray-900 flex items-center space-x-1"
+          >
             <i class="fa-regular fa-heart text-2xl"></i>
             <span
-              class="total-items bg-red-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]">{{
-              numOfWishlistItems }}</span>
+              class="total-items bg-red-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
+              >{{ numOfWishlistItems }}</span
+            >
           </a>
         </div>
         <!-- Cart Items -->
         <div class="cart-items ml-4 group relative">
-          <a routerLink="/cart" class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1">
+          <a
+            routerLink="/cart"
+            class="text-gray-700 relative hover:text-gray-900 flex items-center space-x-1"
+          >
             <i class="fa-solid fa-cart-shopping text-2xl"></i>
             <span
-              class="total-items bg-red-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]">{{
-              numOfCartItems }}</span>
+              class="total-items bg-red-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-12px] right-[-14px]"
+              >{{ numOfCartItems }}</span
+            >
           </a>
           @if (cartBooks.length!=0) {
           <div
-            class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40 h-80 overflow-y-scroll">
+            class="shopping-item absolute right-0 top-full w-80 border border-gray-300 rounded-lg shadow-xl bg-white hidden group-hover:block z-40 h-80 overflow-y-scroll"
+          >
             <div
-              class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg">
-              <span>{{ numOfCartItems }} {{"sub-navbar.Items"|translate}}</span>
-              <a routerLink="/cart">{{"sub-navbar.View Cart"|translate}}</a>
+              class="dropdown-cart-header text-gray-900 flex justify-between items-center px-4 py-2 border-b border-gray-300 bg-gray-100 rounded-t-lg"
+            >
+              <span
+                >{{ numOfCartItems }} {{ "sub-navbar.Items" | translate }}</span
+              >
+              <a routerLink="/cart">{{ "sub-navbar.View Cart" | translate }}</a>
             </div>
             <ul class="shopping-list px-4 py-2 space-y-0">
               <!-- Example item, repeat with server-side rendering -->
               @for (item of cartBooks; track $index) {
               <li class="flex items-center border-b border-gray-300 py-2">
-
-                <div class="cart-img-head ml-2 ">
+                <div class="cart-img-head ml-2">
                   <a class="cart-img">
-                    <img [src]="item.book.coverImage" alt="Product Image" class="w-16 h-16 object-cover rounded-md" />
+                    <img
+                      [src]="item.book.coverImage"
+                      alt="Product Image"
+                      class="w-16 h-16 object-cover rounded-md"
+                    />
                   </a>
                 </div>
                 <ul class="content ml-3">
                   <h4>
                     <a href="product-details.html" class="hover:underline">{{
                       item.book.title
-                      }}</a>
+                    }}</a>
                   </h4>
-                  <p class=" text-gray-600 text-sm">
-
-                    <span class="amount font-medium">${{ item.book.price }}</span>
+                  <p class="text-gray-600 text-sm">
+                    <span class="amount font-medium"
+                      >${{ item.book.price }}</span
+                    >
                   </p>
                 </ul>
               </li>
               }
             </ul>
             <div class="button">
-              <a routerLink="/cart"
-                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out">{{"sub-navbar.Checkout"|translate}}</a>
+              <a
+                routerLink="/cart"
+                class="btn bg-blue-600 text-white hover:bg-blue-700 rounded-xl px-4 py-2 mx-2 my-1 text-center block transition duration-150 ease-in-out"
+                >{{ "sub-navbar.Checkout" | translate }}</a
+              >
             </div>
           </div>
           <!-- </div> -->
@@ -76,3 +109,19 @@
     </div>
   </div>
 </header>
+
+<!-- notification Icon -->
+<!-- Notification Icon -->
+<!-- <div class="relative flex items-center">
+  <div
+    class="total-items bg-red-600 text-white rounded-full text-xs px-2 py-1 absolute top-[-8px] right-[-6px]"
+  >
+    1
+    
+  </div>
+  <div
+    class="flex items-center justify-center h-10 w-10 cursor-pointer"
+  >
+    <i class="fas fa-bell text-gray-600 text-2xl"></i>
+  </div>
+</div> -->

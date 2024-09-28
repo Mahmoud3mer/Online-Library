@@ -2,6 +2,7 @@
 <section class="py-20 bg-light-100 dark:bg-dark-900">
   <div class="lg:w-11/12 mx-auto px-4">
     <div>
+
       <div class="flex flex-wrap   ">
         <div class="w-full  xl:w-8/12 mb-8 xl:mb-0 bg-white dark:bg-dark-700  shadow-custom rounded-lg px-4 py-12">
 
@@ -12,6 +13,7 @@
 
             </div> -->
             @if (cartBooks.length!=0) {
+
             <button (click)="openClearCartConfirmation()"
               class="btn bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
               {{"cart.Clear Cart" | translate}}
@@ -26,11 +28,15 @@
               <app-spinner />
             </div>
             }@else if (cartBooks.length==0 && !isLoading) {
-            <div class="text-center p-10 rounded-md ">
+            <div class="text-center p-10 rounded-md">
               <div class="flex justify-center mb-6">
-                <img src="https://metro-website-images.s3.eu-west-1.amazonaws.com/plugins/user/images/emptycart.png"
-                  alt="Empty Cart" class="w-40 h-40" />
+                <img
+                  src="https://metro-website-images.s3.eu-west-1.amazonaws.com/plugins/user/images/emptycart.png"
+                  alt="Empty Cart"
+                  class="w-40 h-40"
+                />
               </div>
+
               <h2 class="text-3xl font-bold text-gray-700 mb-2">{{"cart.Your cart is empty!" | translate}}</h2>
               <p class="text-lg text-gray-500 mb-6">{{"cart.Browse our categories and discover our best deals!" |
                 translate}}</p>
@@ -60,6 +66,7 @@
                   </div>
                   <div class="w-2/3 px-4">
                     @if (item.book.title) {
+
                     <h5 class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}
                     </h5>
                     }
@@ -100,8 +107,9 @@
                 }
                 <!-- <span class="text-xs text-gray-500 line-through">{{item.book.price}}</span> -->
               </div>
-              <div class="w-auto md:w-1/6 lg:w-2/12 px-4  ">
+              <div class="w-auto md:w-1/6 lg:w-2/12 px-4">
                 <div
+
                   class="inline-flex items-center p-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
 
 
@@ -116,45 +124,64 @@
                   </button>
 
                   <div class="px-4">
-                    {{item.quantity}}
+                    {{ item.quantity }}
                   </div>
 
-                  <button (click)="updateCartItem(item.book._id, item.quantity + 1)"
-                    [disabled]="item.quantity >= item.book.stock" [ngClass]="{
+                  <button
+                    (click)="updateCartItem(item.book._id, item.quantity + 1)"
+                    [disabled]="item.quantity >= item.book.stock"
+                    [ngClass]="{
           'cursor-not-allowed opacity-50': item.quantity >= item.book.stock,
 
-        }" class="py-2">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        }"
+                    class="py-2"
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <g opacity="0.35">
-                        <rect x="5" width="2" height="12" fill="currentColor"></rect>
-                        <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect>
+                        <rect
+                          x="5"
+                          width="2"
+                          height="12"
+                          fill="currentColor"
+                        ></rect>
+                        <rect
+                          x="12"
+                          y="5"
+                          width="2"
+                          height="12"
+                          transform="rotate(90 12 5)"
+                          fill="currentColor"
+                        ></rect>
                       </g>
                     </svg>
                   </button>
-
-
                 </div>
               </div>
               <div class="w-auto md:w-1/12 lg:w-1/12 px-4">
                 <app-add-to-wishlist-btn [bookId]="item.book._id" />
 
               </div>
-              <div class="w-auto   md:w-3 lg:w-2/12 px-4 ">
-                <button (click)="openConfirmationDialog(item.book._id)"
-                  class="flex items-center space-x-2   text-red-600 px-4 py-2 ">
+              <div class="w-auto md:w-3 lg:w-2/12 px-4">
+                <button
+                  (click)="openConfirmationDialog(item.book._id)"
+                  class="flex items-center space-x-2 text-red-600 px-4 py-2"
+                >
                   <i class="fa-solid fa-trash text-2xl"></i>
-
                 </button>
-
-
               </div>
             </div>
-            }
-            }
+            } }
           </div>
 
           @if (cartBooks.length!=0) {
           <div class="flex flex-wrap items-center lg:-mb-4">
+
             <span class="mr-12 mb-4 font-medium">{{"cart.Apply discount code:" | translate}}</span>
             <input
               class="flex-1 md:flex-none mr-6 sm:mr-0 md:mr-6 mb-4 px-8 py-4 placeholder-gray-800 font-bold font-heading border rounded-md"
@@ -163,8 +190,8 @@
               href="#">{{"cart.Apply" | translate}}</a>
           </div>
           }
-
         </div>
+
         <div class="w-full xl:w-4/12 ps-4  ">
           <div class="p-6 md:p-12 bg-gray-600 dark:bg-dark-800 shadow-custom rounded-lg">
             <h2 class="mb-6 text-4xl font-bold font-heading text-white">{{"cart.Cart totals" | translate}}</h2>
@@ -197,14 +224,13 @@
             </button>
 
 
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 
 <!-- Stock Alert Modal -->

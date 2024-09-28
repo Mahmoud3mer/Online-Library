@@ -19,7 +19,14 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
 @Component({
   selector: "app-navbar",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf, NgClass, SubNavbarComponent, TranslateModule],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NgIf,
+    NgClass,
+    SubNavbarComponent,
+    TranslateModule,
+  ],
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
@@ -29,12 +36,9 @@ export class NavbarComponent implements OnInit {
   isDropdownOpen = false;
   isFadeIn = false;
   isFadeOut = false;
-  profileImage: string = '';
+  profileImage: string = "";
 
-  languages: string[] = [
-    "English",
-    "العربية",
-  ];
+  languages: string[] = ["English", "العربية"];
 
   token: string | null = "";
   isDarkMode: boolean = false;
@@ -48,8 +52,9 @@ export class NavbarComponent implements OnInit {
     private _authorizationService: AuthourizationService,
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone,
-    private _userSettingsService: UserSettingsService
-  , private _myTranslateService:MyTranslateService) {
+    private _userSettingsService: UserSettingsService,
+    private _myTranslateService: MyTranslateService
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
       this.isDarkMode =
@@ -62,6 +67,7 @@ export class NavbarComponent implements OnInit {
         this.cdr.markForCheck();
       });
     });
+
 
     _userSettingsService.profileImage.subscribe(res => {
       this.profileImage = res
@@ -78,20 +84,19 @@ export class NavbarComponent implements OnInit {
     }
   }
   // !get profile image when render navbar
-  getProfilePicure(){
+  getProfilePicure() {
     this._userSettingsService.getUser().subscribe({
       next: (res) => {
-        this.profileImage = res.user.profilePic
+        this.profileImage = res.user.profilePic;
         // console.log(this.profileImage);
-        
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => {
         console.log("Update Profile Completed");
-      }
-    })
+      },
+    });
   }
 
   toggleDropdown() {
@@ -111,7 +116,7 @@ export class NavbarComponent implements OnInit {
       this.isFadeOut = false;
       this.isFadeIn = false;
 
-      this.isFadeIn = true; 
+      this.isFadeIn = true;
     }, 400);
     localStorage.setItem("darkMode", this.isDarkMode ? "dark" : "light");
     this._darkModeService.toggleDarkMode(this.isDarkMode ? "dark" : "light");
@@ -122,37 +127,34 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleMobileMenu() {
+
   this.isMobileMenuOpen = !this.isMobileMenuOpen;
 }
   xCloseMobileMenu() {
     this.isMobileMenuOpen = false;
   }
 
-// translate
+  // translate
 
-loadLang() {
-  if (typeof window !== 'undefined' && window.localStorage) {
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      this.currentLang = savedLang;
+  loadLang() {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const savedLang = localStorage.getItem("lang");
+      if (savedLang) {
+        this.currentLang = savedLang;
+      }
     }
   }
+
+  toggleLang() {
+    this.currentLang = this.currentLang === "en" ? "ar" : "en";
+    localStorage.setItem("lang", this.currentLang);
+    this.changeLang(this.currentLang);
+  }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }
-
-toggleLang() {
-  this.currentLang = this.currentLang === 'en' ? 'ar' : 'en';
-  localStorage.setItem('lang', this.currentLang);
-  this.changeLang(this.currentLang);
-}
-
-
-changeLang(lang: string) {
-  this._myTranslateService.changLang(lang);
-}
-}
-
-
-
 
 // Darkmode without animation
 // toggleDarkMode() {

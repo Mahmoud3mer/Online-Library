@@ -9,7 +9,7 @@ export class User extends Document {
   @Prop({ required: true })
   lName: string;
 
-  @Prop({ required: false,default: "" })
+  @Prop({ required: false, default: '' })
   profilePic?: string;
 
   @Prop({ required: true, unique: true })

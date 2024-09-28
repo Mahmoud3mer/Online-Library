@@ -15,10 +15,15 @@ import { AuthorModule } from './modules/author/author.module';
 import { PaymentBackendModule } from './modules/payment-backend/payment-backend.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { NotificationGateway } from './notification/notification.gateway';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/onlineLibrary'),
+    MongooseModule.forRoot(
+      `mongodb+srv://itinoteapp:${process.env.MONGO_PASSWORD}@andaloslibrary.zgztk.mongodb.net/?retryWrites=true&w=majority&appName=AndalosLibrary`,
+    ),
     BookModule,
     AuthModule,
     ReviewModule,
@@ -30,13 +35,13 @@ import { join } from 'path';
     CategoryModule,
     AuthorModule,
     PaymentBackendModule,
-  
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'), // هذا هو مجلد "uploads"
       serveRoot: '/uploads/', // المسار الذي يتم تقديم الملفات من خلاله
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotificationGateway],
 })
 export class AppModule {}

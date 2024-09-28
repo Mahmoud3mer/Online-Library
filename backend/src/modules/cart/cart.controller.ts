@@ -1,18 +1,19 @@
 import {
-    Controller,
-    Post,
-    Body,
-    Get,
-    Delete,
-    Patch,
-    UseGuards,
-    Req,
-  } from '@nestjs/common';
-  import { CartService } from './cart.service';
-  import { CartDTO, UpdateDTO } from './dto/cart.dto';
- 
-  import { AuthGuard } from 'src/core/guards/auth.guard';
+  Controller,
+  Post,
+  Body,
+  Get,
+  Delete,
+  Patch,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
+import { CartService } from './cart.service';
+import { CartDTO, UpdateDTO } from './dto/cart.dto';
+
+import { AuthGuard } from 'src/core/guards/auth.guard';
 import { UserDTO } from '../wishlist/dto/wishlist.dto';
+
 import { Role } from 'src/core/EnumRoles/role.enum';
 import { Roles } from 'src/core/decorators/roles.decorator';
   

@@ -1,3 +1,4 @@
+
 <div class="container mx-auto py-10 bg-[#f9f9f9] dark:bg-dark-800">
     <div class="text-center mb-16">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-text-forDark">{{"recommendation.Choose Your Favorite Categories"|translate}}</h2>
@@ -23,20 +24,24 @@
                 </div>
             </div>
         </div>
-        }
+      </div>
     </div>
+    }
+  </div>
 
-    <!-- Save Selections Button -->
-    <div class="flex justify-center mt-8">
-        <button
-           (click)="saveSelections()"
-            class="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-300">
-            {{"recommendation.Save and continue"|translate}}
-        </button>
-        <button
-        (click)="skipSelections()"
-         class="px-8 py-4 ms-5 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors duration-300">
-         {{"recommendation.Skip for now"|translate}}
-     </button>
-    </div>
+  <!-- Save Selections Button -->
+  <div class="flex justify-center mt-8">
+    <button
+      (click)="saveSelections()"
+      class="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-300"
+    >
+      {{ "recommendation.Save and continue" | translate }}
+    </button>
+    <button
+      (click)="skipSelections()"
+      class="px-8 py-4 ms-5 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors duration-300"
+    >
+      {{ "recommendation.Skip for now" | translate }}
+    </button>
+  </div>
 </div>

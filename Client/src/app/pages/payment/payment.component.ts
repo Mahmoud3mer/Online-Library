@@ -1,3 +1,4 @@
+
 import { Component, Inject, inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser, NgClass, NgFor, NgIf } from "@angular/common";
 import {
@@ -64,6 +65,9 @@ export class PaymentComponent implements OnInit {
   errAddMsg: string = "";
   isLoading: boolean = false;
   numOfCartItems: number = 0;
+  totalOrder: number = 0;
+  shipping: number = 0;
+
   // ////////////////////////////////////////////////////////////
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
@@ -71,6 +75,7 @@ export class PaymentComponent implements OnInit {
     private _clearCartService: ClearCartService,
     private _createOrderService: CreateOrderService,
     private _cartCountService: CartCountService,
+
     private _myTranslateService: MyTranslateService,
     private _cartBooksService: CartBooksService,
     private _cartCount:CartCountService,
@@ -127,6 +132,10 @@ export class PaymentComponent implements OnInit {
   private fetchCartItems(): void {
     this._getCartService.getCart().subscribe({
       next: (res) => {
+        console.log(res);
+
+        this.shipping = res.data.shippingCost;
+        this.totalOrder = res.data.totalOrder;
         this.purchaseItems = res.data.books.map((book: any) => ({
           _id: book.book._id,
           name: book.book.title,
@@ -149,10 +158,10 @@ export class PaymentComponent implements OnInit {
       (sum, item) => sum + item.quantity,
       0
     );
-    this.totalPrice = `${this.purchaseItems.reduce(
-      (sum, item) => sum + item.quantity * item.price,
-      0
-    )}`;
+    this.totalPrice = `${this.purchaseItems
+      .reduce((sum, item) => sum + item.quantity * item.price, 0)
+      .toFixed(2)}`;
+    console.log(this.totalPrice);
   }
 
   // ////////////////////////////////////////////////////////////

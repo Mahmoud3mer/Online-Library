@@ -1,5 +1,13 @@
 import { isPlatformBrowser, NgClass, NgIf } from "@angular/common";
-import { Component, Inject, inject, OnInit, PLATFORM_ID } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  inject,
+  NgZone,
+  OnInit,
+  PLATFORM_ID,
+} from "@angular/core";
 
 import {
   AbstractControl,
@@ -15,12 +23,26 @@ import { Router, RouterOutlet } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { environment } from "../../../environments/environment";
+import { GetUserRecommendationService } from "../../services/recommendation/get-user-recommendation.service";
+import { GetWishlistService } from "../../services/wishlist/getWishlist.service";
+import { GetCartService } from "../../services/cart/GetCart.service";
+import { CartCountService } from "../../services/cart/CartCount.service";
+import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
+import { CartBooksService } from "../../services/cart/cart-books.service";
+import { WishListCountService } from "../../services/wishlist/wish-list-count.service";
 
 declare var google: any;
 @Component({
   selector: "app-signup",
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass, FormsModule, RouterOutlet,TranslateModule],
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    NgClass,
+    FormsModule,
+    RouterOutlet,
+    TranslateModule,
+  ],
   templateUrl: "./signup.component.html",
   styleUrl: "./signup.component.scss",
 })
@@ -45,7 +67,16 @@ export class SignupComponent implements OnInit {
   constructor(
     private _authourizationService: AuthourizationService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private _myTranslateService:MyTranslateService
+    private _myTranslateService: MyTranslateService,
+    private _getUserRecommendationService: GetUserRecommendationService,
+    private _getWishlist: GetWishlistService,
+    private _getCartService: GetCartService,
+    private _cartCountService: CartCountService,
+    private _wishlistBooksService: WishlistBookService,
+    private _cartBooksService: CartBooksService,
+    private _numOfWishlist: WishListCountService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -112,22 +143,25 @@ export class SignupComponent implements OnInit {
 
   handleCredentialResponse(response: any): void {
     console.log("Encoded JWT ID token: " + response.credential);
-
-    this._authourizationService
-      .verifyGoogleToken(response.credential)
-      .subscribe({
-        next: (res) => {
-          console.log("Login successful", res);
-          this._authourizationService.saveUserToken(
-            response.credential,
-            res.username
-          );
-          this.router.navigate(["/home"]);
-        },
-        error: (err) => {
-          console.error("Login failed", err);
-        },
-      });
+    this.ngZone.run(() => {
+      this._authourizationService
+        .verifyGoogleToken(response.credential)
+        .subscribe({
+          next: (res) => {
+            this._authourizationService.saveUserToken(
+              res.data.token,
+              res.username
+            );
+            this.getWishList();
+            this.getCart();
+            this.checkRecommendations();
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error("Login failed", err);
+          },
+        });
+    });
   }
 
   /*----------Registration Form ----------- */
@@ -204,5 +238,57 @@ export class SignupComponent implements OnInit {
         return null;
       }
     };
+  }
+
+  checkRecommendations(): void {
+    this._getUserRecommendationService.getRecommendation().subscribe({
+      next: (res) => {
+        if (res.message == "Recommendations retrieved successfully") {
+          this.router.navigate(["/home"]);
+        } else {
+          this.router.navigate(["/recommendation"]);
+        }
+      },
+      error: (err) => {
+        console.log(err, "error from check recommendation");
+        this.router.navigate(["/home"]);
+      },
+      complete: () => {
+        console.log("Recommendations check complete");
+      },
+    });
+  }
+
+  getWishList() {
+    console.log("get");
+
+    this._getWishlist.getWishlist().subscribe({
+      next: (res) => {
+        this._numOfWishlist.updateNumOfWishItems(res.data.books.length);
+        this._wishlistBooksService.updateWishlistBooks(res.data.books);
+      },
+      error: (err) => {
+        console.log(err, "err get wish list prodcuts");
+      },
+      complete: () => {
+        console.log("get wish list  books >> login");
+      },
+    });
+  }
+
+  getCart() {
+    this._getCartService.getCart().subscribe({
+      next: (res) => {
+        this._cartCountService.updateNumOfCartItems(res.data.numOfCartItems); // Update cart count
+
+        this._cartBooksService.updateCartBooks(res.data.books); // Update cart books
+      },
+      error: (err) => {
+        console.log("Error getting cart in login:", err);
+      },
+      complete: () => {
+        console.log("Cart fetched successfully in login");
+      },
+    });
   }
 }
