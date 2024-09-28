@@ -10,7 +10,8 @@ import emailHtml from '../mails/mail-verification';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Injectable()
 export class SignupService {
   constructor(
@@ -29,8 +30,6 @@ export class SignupService {
           HttpStatus.FORBIDDEN,
         );
       } else {
-        console.log('kkkkkkk');
-
         throw new HttpException(
           ' Please check your email to verify your account.',
           HttpStatus.FORBIDDEN,
@@ -40,7 +39,6 @@ export class SignupService {
 
     const hashedPassword = await bcrypt.hash(body.password, 10);
     body.password = hashedPassword;
-
 
     const { token: verificationToken, expiresAt: verificationTokenExpiresAt } =
       generateEmailToken();
@@ -104,7 +102,8 @@ export class SignupService {
         given_name: fName,
         family_name: lName,
       } = response.data;
-      console.log(response.data);
+
+      console.log('Google Token Payload:', response.data);
 
       let user = await this.userModel.findOne({ email });
 
@@ -128,11 +127,28 @@ export class SignupService {
       } else {
         if (!user.googleId) {
           user.googleId = googleId;
+
           await user.save();
         }
       }
 
-      return user;
+      const jwtToken = this._jwtService.sign(
+        {
+          userId: user._id.toString(),
+          email: user.email,
+          fName: user.fName,
+          lName: user.lName,
+          role: user.role,
+          loginMethod: user.loginMethod,
+        },
+        { secret: process.env.JWT_SECRET },
+      );
+
+      console.log(jwtToken);
+      return {
+        user,
+        token: jwtToken,
+      };
     } catch (error) {
       console.error('Error during Google token verification:', error);
       throw new HttpException(

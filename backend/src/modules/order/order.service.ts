@@ -23,12 +23,11 @@ export class OrderService {
   async updateOrder(
     id: string,
     updateOrderDto: UpdateOrderDto,
-    userId: string,
   ): Promise<{ message: string; updatedOrder: Order }> {
-    const updatedOrder = await this.orderModel.findByIdAndUpdate(
-      { _id: id, userId },
-      { $set: updateOrderDto, orderDate: new Date().toLocaleString() }, // Only update the fields provided in the DTO
-      { new: true, runValidators: true }, // Return the updated document and run validators
+    const updatedOrder = await this.orderModel.findOneAndUpdate(
+      { orderId: id },
+      { $set: updateOrderDto, orderDate: new Date().toLocaleString() },
+      { new: true, runValidators: true },
     );
 
     if (!updatedOrder) {
@@ -37,11 +36,11 @@ export class OrderService {
 
     return { message: 'order updated successfully', updatedOrder };
   }
-  async deleteOrder(id: string, userName: string) {
-    const result = await this.orderModel.findByIdAndDelete({ _id: id });
+  async deleteOrder(id: string) {
+    const result = await this.orderModel.findOneAndDelete({ orderId: id });
 
     if (!result) {
-      throw new NotFoundException(`No Orders found for ${userName}`);
+      throw new NotFoundException(`No Orders found `);
     }
 
     return { message: 'The order deleted Successfully', deleted: true };
@@ -79,17 +78,24 @@ export class OrderService {
   }
 
   getAllOrdersByAdmin = async (paginationDTO: PaginationDTO) => {
-    const page = paginationDTO.page;
-    const limit = paginationDTO.limit;
+    const page = paginationDTO.page || 1;
+    const limit = paginationDTO.limit || 10;
     const skip = (page - 1) * limit;
+
     const total = await this.orderModel.countDocuments().exec();
-    const allOrders = await this.orderModel.find().skip(skip).limit(limit);
-    if (allOrders.length === 0) {
+
+    if (total === 0) {
       throw new NotFoundException(`No orders found`);
     }
 
+    const allOrders = await this.orderModel
+      .find()
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
     return {
-      message: 'Success, Get All Books.',
+      message: 'Success, Get All Orders.',
       results: allOrders.length,
       metaData: {
         currentPage: page,

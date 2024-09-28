@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
@@ -29,7 +30,9 @@ export class AuthGuard implements CanActivate {
 
     try {
       // Verify the token
-      const decoded = this._jwtService.verify(token, { secret: 'gaher' });
+      const decoded = this._jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
 
       // Attach decoded information to the request object
       req.user = {
@@ -37,7 +40,7 @@ export class AuthGuard implements CanActivate {
         userId: decoded.userId,
         userName: `${decoded.fName} ${decoded.lName}`,
       };
-      
+
       // Check roles if specified
       const roles = this.reflector.get<string[]>('roles', context.getHandler());
 

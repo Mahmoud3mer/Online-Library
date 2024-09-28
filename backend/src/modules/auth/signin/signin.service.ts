@@ -10,6 +10,8 @@ import { addHours } from 'date-fns';
 import { MailerService } from '@nestjs-modules/mailer';
 import { HttpService } from '@nestjs/axios';
 import resetMail from '../mails/reset-password';
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Injectable()
 export class SigninService {
   constructor(
@@ -45,7 +47,7 @@ export class SigninService {
           role: user.role,
           userId: user._id,
         },
-        { secret: 'gaher' },
+        { secret: process.env.JWT_SECRET },
       );
 
       return { message: 'Welcome back', token: token };

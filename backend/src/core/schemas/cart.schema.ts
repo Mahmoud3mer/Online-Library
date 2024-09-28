@@ -7,14 +7,20 @@ export class Cart {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   user: mongoose.Types.ObjectId;
 
-  @Prop([{
-    book: { type: mongoose.Schema.Types.ObjectId || Book, ref: 'Book', required: true },
-    quantity: { type: Number, required: true },
-  }])
-  books: { book: mongoose.Types.ObjectId | Book, quantity: number }[];
+  @Prop([
+    {
+      book: {
+        type: mongoose.Schema.Types.ObjectId || Book,
+        ref: 'Book',
+        required: true,
+      },
+      quantity: { type: Number, required: true },
+    },
+  ])
+  books: { book: mongoose.Types.ObjectId | Book; quantity: number }[];
 
   @Prop({ type: Number, default: 0 })
-  subtotal: number; 
+  subtotal: number;
 
   @Prop({ type: Number, default: 0 })
   numOfCartItems: number;
@@ -23,7 +29,7 @@ export class Cart {
   shippingCost: number;
 
   @Prop({ type: Number, default: 0 })
-  totalOrder: number; 
+  totalOrder: number;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

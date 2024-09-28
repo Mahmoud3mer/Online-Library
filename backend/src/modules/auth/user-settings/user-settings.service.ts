@@ -6,8 +6,6 @@ import { PaginationDTO } from 'src/modules/book/bookdto/pagination.dto';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
 import emailHtml from '../mails/confirmPass';
-import * as fs from 'fs';
-import * as path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
@@ -28,12 +26,9 @@ export class UserSettingsService {
     const skip = (page - 1) * limit;
     const query ={};
     if (name && name.trim() !== '') {
-      query['$or'] = [
-        { fName: { $regex: name.trim(), $options: 'i' } },
-        { lName: { $regex: name.trim(), $options: 'i' } }
-      ];
+      query['name'] = { $regex: name.trim(), $options: 'i' };
   }
-    const total = await this.userModel.countDocuments(query).exec();
+    const total = await this.userModel.countDocuments().exec();
     const allUsers = await this.userModel
       .find(query)
       .limit(limit)
@@ -92,8 +87,11 @@ export class UserSettingsService {
         });
         // console.log(imgRes['secure_url']);
         body.profilePic = imgRes['secure_url'];
-      }else{
-        throw new HttpException('Fail, File Is Empty!', HttpStatus.BAD_REQUEST);
+      }
+
+      // if deleted image
+    if(!body.profilePic){
+      body.profilePic = '';
     }
 
     if (Array.isArray(body.fName)) {
@@ -161,7 +159,7 @@ export class UserSettingsService {
       },
     });
 
-    return { message: 'Profile updated successfully' , updatedUser};
+    return { message: 'Password updated successfully' , updatedUser};
   }
 
 
