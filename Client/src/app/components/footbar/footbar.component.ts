@@ -14,7 +14,8 @@ import { isPlatformBrowser } from '@angular/common';
 export class FootbarComponent implements OnInit, OnChanges {
   footerLogo: string = '';
 
-  constructor(private _myTranslateService: MyTranslateService,
+  constructor(
+    private _myTranslateService: MyTranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
   changeLang(lang: string) {
@@ -29,7 +30,6 @@ export class FootbarComponent implements OnInit, OnChanges {
   }
   checkForLogo() {
     if (isPlatformBrowser(this.platformId)) {
-
       const mode = localStorage.getItem('darkMode')
       if (!mode) {
         this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
@@ -37,8 +37,8 @@ export class FootbarComponent implements OnInit, OnChanges {
       if (mode === 'light') {
         this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
       } else {
-        this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
-        // this.footerLogo = '../../../assets/images/logo/AndalosiaLogoWhite.png'
+        // this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
+        this.footerLogo = '../../../assets/images/logo/AndalosiaLogoWhite.png'
       }
     }
   }

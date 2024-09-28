@@ -8,38 +8,34 @@
       class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12"
     >
       <h2 class="pl-3 mb-4 text-2xl font-semibold dark:text-gray-400">
-        Settings
+        {{ "user-settings.Settings" | translate }}
       </h2>
 
-            <h2 class="pl-3 mb-4 text-2xl font-semibold dark:text-gray-400">{{"user-settings.Settings"|translate}}</h2>
+      <a
+        routerLink="account"
+        routerLinkActive="bg-blue-400 text-white rounded-full"
+        class="flex items-center px-3 py-2.5 font-semibold cursor-pointer hover:border hover:rounded-full dark:text-gray-300"
+      >
+        {{ "user-settings.Account Settings" | translate }}
+      </a>
+      <a
+        routerLink="security"
+        routerLinkActive="bg-blue-400 text-white rounded-full"
+        class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300"
+      >
+        {{ "user-settings.Security" | translate }}
+      </a>
+      <a
+        routerLink="my-orders"
+        routerLinkActive="bg-blue-400 text-white rounded-full"
+        class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300"
+      >
+        {{ "user-settings.My Orders" | translate }}
+      </a>
+    </div>
+  </aside>
 
-            
-            <a  
-                routerLink="account"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
-                class="flex items-center px-3 py-2.5 font-semibold cursor-pointer hover:border hover:rounded-full dark:text-gray-300">
-                {{"user-settings.Account Settings"|translate}}
-            </a>
-            <a 
-                routerLink="security"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
-
-                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300 ">
-                {{"user-settings.Security"|translate}}
-            </a>
-            <a 
-                routerLink="my-orders"
-                routerLinkActive="bg-blue-400 text-white rounded-full"
-
-                class="flex items-center px-3 py-2.5 font-semibold hover:border hover:rounded-full dark:text-gray-300 ">
-                {{"user-settings.My Orders"|translate}}
-            </a>
-         
-        </div>
-    </aside>
-
-    <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
-        <router-outlet></router-outlet>
-    </main>
-
+  <main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
+    <router-outlet></router-outlet>
+  </main>
 </div>

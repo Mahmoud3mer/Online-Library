@@ -18,7 +18,8 @@ import { CartCountService } from "../../services/cart/CartCount.service";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import { CartBooksService } from "../../services/cart/cart-books.service";
 import { ClearCartService } from "../../services/cart/clear-cart.service";
-
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 @Component({
   standalone: true,
   selector: "app-cart",
@@ -31,6 +32,7 @@ import { ClearCartService } from "../../services/cart/clear-cart.service";
     AddToWishlistBtnComponent,
     SubNavbarComponent,
     RouterLink,
+    TranslateModule,
   ],
 })
 export class CartComponent implements OnInit {
@@ -56,15 +58,15 @@ export class CartComponent implements OnInit {
     private _cartCount: CartCountService,
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
-    private router: Router
+    private router: Router,
+    private _myTranslateService: MyTranslateService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
-    if(this.isBrowser){
+    if (this.isBrowser) {
       this.getCart();
-
     }
   }
 
@@ -87,21 +89,21 @@ export class CartComponent implements OnInit {
       const token = localStorage.getItem("token");
       if (!token) {
         this._toastService.showError("Please log in to view your wishlist.");
-        this.router.navigate(['/signin']);  // Redirect to login page
+        this.router.navigate(["/signin"]); // Redirect to login page
         this.isLoading = false;
         return;
       }
-      
     }
 
     this._getCartService.getCart().subscribe({
       next: (res) => {
+        console.log("res.....", res);
+
         this.cartBooks = res.data.books;
         this.subtotal = res.data.subtotal;
         this.shippingCost = res.data.shippingCost;
         this.totalOrder = res.data.totalOrder;
         this.numOfCartItems = res.data.numOfCartItems;
-        console.log(this.cartBooks);
       },
       error: (err) => {
         console.log("errororro", err);
@@ -213,5 +215,24 @@ export class CartComponent implements OnInit {
   }
   navigatToProducts() {
     this.router.navigate(["/books"]);
+  }
+
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
+
+  isCartEmpty(): boolean {
+    return this.cartBooks.length === 0;
+  }
+  navigateToPayment(event: Event): void {
+    if (this.isCartEmpty()) {
+      event.preventDefault(); // Prevent the default link action
+      this._toastService.showError(
+        "Your cart is empty. Please add items before checking out."
+      );
+    } else {
+      // Allow navigation if the cart is not empty
+      this.router.navigate(["/payment"]);
+    }
   }
 }

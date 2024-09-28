@@ -46,7 +46,7 @@
         "Confirm password is required!":"تاكيد كلمة المرور مطلوب!",
         "Those passwords didn’t match. Try again!":"كلمات المرور ليست متشابهة. حاول مرة اخري!",
         "Save":"حفظ"
-    
+
     },
     "book-card":{
         "Reviews":"المراجعات",
@@ -121,7 +121,7 @@
         "All Categories":"جميع الفئات",
         "Filter By Author":"تصنيف حسب المؤلف",
         "Sort by:":"ترتيب حسب:",
-        "Popularity":"الشعبية",
+        "Popularity":"الأكثر شعبية",
         "A-Z Order":" من الألف إلى الياء",
         "Z-A Order":"  من الياء إلى الألف",
         "Low - High Price":" من الاقل إلى الاعلي سعر ",
@@ -288,7 +288,7 @@
         "Category:":"تصنيف:",
         "Desc:":"الوصف:",
         "EGP":"جنيه"
-        
+
     },
     "about":{
         "About Us":"من نحن",

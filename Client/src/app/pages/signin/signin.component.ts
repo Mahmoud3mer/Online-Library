@@ -16,6 +16,7 @@ import { GetWishlistService } from "../../services/wishlist/getWishlist.service"
 import { GetCartService } from "../../services/cart/GetCart.service";
 import { CartCountService } from "../../services/cart/CartCount.service";
 import { CartBooksService } from "../../services/cart/cart-books.service";
+import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -45,7 +46,8 @@ export class SigninComponent {
     private _getCartService:GetCartService,
     private _cartCountService:CartCountService,
     private _cartBooksService: CartBooksService,
-    private _myTranslateService:MyTranslateService
+    private _wishlistBooksService:WishlistBookService,
+    private _myTranslateService : MyTranslateService
   ) {}
 
   // get email if in  cookies
@@ -131,6 +133,7 @@ export class SigninComponent {
     this._getWishlist.getWishlist().subscribe({
       next: (res) => {
         this._numOfWishlist.updateNumOfWishItems(res.data.books.length);
+        this._wishlistBooksService.updateWishlistBooks(res.data.books)
       },
       error: (err) => {
         console.log(err, "err get wish list prodcuts");
@@ -169,7 +172,8 @@ export class SigninComponent {
         }
       },
       error: (err) => {
-        console.log(err);
+        console.log(err,"error from check recommendation");
+        this.router.navigate(['/home']);
       },
       complete: () => {
         console.log('Recommendations check complete');
@@ -180,6 +184,8 @@ export class SigninComponent {
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
+
+
 }
 
 

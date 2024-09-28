@@ -1,86 +1,122 @@
 <section class="py-12 bg-coolGray-800">
-  <div class="container mx-auto px-4 max-w-7xl">
+  <div class="container mx-auto px-4 max-w-5xl">
     <h1
       class="font-heading text-purple-800 text-center text-4xl font-bold mb-12"
     >
       Order History
     </h1>
 
-    <ng-container *ngIf="orders.length > 0">
+    <ng-container *ngIf="paginatedOrders.length > 0">
       <div
-        *ngFor="let order of orders"
-        class="bg-white rounded-xl shadow-md mb-6 p-6"
+        *ngFor="let order of paginatedOrders"
+        [ngClass]="{
+          'bg-gradient-to-l from-blue-100 to-green-100':
+            order.paymentStatus === 'Completed'
+        }"
+        class="rounded-lg shadow-md mb-4 p-4 bg-white"
       >
-        <div class="border-b border-gray-100 mb-4">
+        <div class="border-b border-gray-100 mb-3">
           <div
-            class="mb-4 inline-block py-1 px-3 rounded-xl bg-orange-100 uppercase text-orange-500 text-xs font-bold tracking-widest"
+            class="mb-2 inline-block py-1 px-2 rounded-xl text-xs font-bold tracking-widest"
+            [ngClass]="{
+              'bg-orange-100 uppercase text-orange-500':
+                order.paymentStatus === 'Pending',
+              'bg-green-200 uppercase text-green-500':
+                order.paymentStatus === 'Completed'
+            }"
           >
-            pending
+            {{ order.paymentStatus }}
           </div>
           <div
-            class="flex flex-col md:flex-row items-center justify-between mb-4"
+            class="flex flex-col md:flex-row items-center justify-between mb-3"
           >
-            <h2 class="font-heading text-rhino-800 text-2xl font-semibold">
-              ID number: {{ order.orderId }}
+            <h2 class="font-heading text-rhino-800 text-xl font-semibold">
+              Order ID: {{ order.orderId }}
             </h2>
             <div class="flex gap-2 mt-2 md:mt-0">
               <button
                 (click)="toggleInvoiceModal(order)"
-                class="py-2 px-4 text-purple-500 border border-gray-200 rounded-sm text-center text-sm font-medium shadow-md hover:bg-purple-500 hover:text-white transition duration-200"
+                class="py-1 px-3 text-blue-500 border border-gray-200 rounded-sm text-center text-sm font-medium shadow-md hover:bg-blue-500 hover:text-white transition duration-200"
               >
                 Your invoice
               </button>
-              <a
-                class="py-2 px-4 bg-purple-500 rounded-sm text-center text-sm text-white font-medium hover:bg-purple-600 transition duration-200"
-                href="#"
-                >Track order</a
-              >
             </div>
           </div>
-          <div class="flex flex-col md:flex-row gap-6 mb-2">
+          <div class="flex flex-col md:flex-row gap-4 mb-2">
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Order Date:</span
-              ><span class="text-rhino-700 ml-2">{{ order.orderDate }}</span>
+              <span class="font-semibold">Order Date:</span>
+              <span class="text-rhino-700 ml-2">{{ order.orderDate }}</span>
             </p>
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Shipping Address:</span
-              ><span class="text-rhino-700 ml-2">{{
+              <span class="font-semibold">Shipping Address:</span>
+              <span class="text-rhino-700 ml-2">{{
                 order.shippingAddress
               }}</span>
             </p>
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Total Price:</span
-              ><span class="text-green-800 font-semibold ml-2"
+              <span class="font-semibold">Total Price:</span>
+              <span class="text-green-700 font-semibold ml-2"
                 >${{ order.totalPrice }}</span
               >
             </p>
           </div>
-        </div>
-
-        <div
-          *ngFor="let item of order.items"
-          class="flex items-center border-b border-gray-100 mb-4 pb-4"
-        >
-          <div
-            class="bg-gray-100 w-20 h-20 flex items-center justify-center mr-4"
-          >
-            <img
-              [src]="item.coverImage"
-              alt="{{ item.title }}"
-              class="max-w-full h-auto"
-            />
-          </div>
-          <div class="flex-grow">
-            <h2 class="text-rhino-800 font-semibold">{{ item.title }}</h2>
-            <p class="text-rhino-500 font-semibold">
-              ${{ item.price.toFixed(2) }}
-            </p>
-            <div class="flex items-center gap-3">
-              <p class="text-rhino-300 text-sm">
-                Author: {{ item.author.name }}
+          <div class="flex flex-col md:flex-row gap-4 mb-2">
+            <ng-container *ngIf="order.phone">
+              <p class="text-rhino-400 text-sm">
+                <span class="font-semibold">Phone Number:</span>
+                <span class="text-rhino-700 ml-2">{{ order.phone }}</span>
               </p>
-              <div class="w-px h-3 bg-rhino-200"></div>
-              <p class="text-rhino-300 text-sm">Qty: {{ item.quantity }}</p>
+            </ng-container>
+            <ng-container *ngIf="order.email">
+              <p class="text-rhino-400 text-sm">
+                <span class="font-semibold">Email:</span>
+                <span class="text-rhino-700 ml-2">{{ order.email }}</span>
+              </p>
+            </ng-container>
+            <ng-container *ngIf="order.name">
+              <p class="text-rhino-400 text-sm">
+                <span class="font-semibold">Name:</span>
+                <span class="text-rhino-700 ml-2">{{ order.name }}</span>
+              </p>
+            </ng-container>
+            <ng-container *ngIf="order.paymentStatus">
+              <p class="text-rhino-400 text-sm">
+                <span class="font-semibold">Payment Method:</span>
+                <span class="text-rhino-700 ml-2">{{
+                  order.paymentMethod
+                }}</span>
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <div
+            *ngFor="let item of order.items"
+            class="flex items-center border-b border-gray-100 mb-3 pb-3 w-full md:w-1/3"
+          >
+            <div
+              class="bg-gray-100 w-16 h-16 flex items-center justify-center mr-3"
+            >
+              <img
+                [src]="item.coverImage"
+                alt="{{ item.title }}"
+                class="max-w-full h-auto"
+              />
+            </div>
+            <div class="flex-grow">
+              <h2 class="text-rhino-800 font-semibold text-sm">
+                {{ item.title }}
+              </h2>
+              <p class="text-rhino-500 font-semibold text-sm">
+                ${{ item.price.toFixed(2) }}
+              </p>
+              <div class="flex items-center gap-2">
+                <p class="text-rhino-300 text-xs">
+                  Author: {{ item.author.name }}
+                </p>
+                <div class="w-px h-2 bg-rhino-200"></div>
+                <p class="text-rhino-300 text-xs">Qty: {{ item.quantity }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -89,14 +125,62 @@
 
     <div
       *ngIf="orders.length === 0"
-      class="bg-white rounded-xl shadow-md p-6 text-center"
+      class="bg-white rounded-lg shadow-md p-4 text-center"
     >
-      <h2 class="text-rhino-800 text-3xl font-bold">You didn’t order yet.</h2>
+      <h2 class="text-rhino-800 text-2xl font-bold">You didn’t order yet.</h2>
       <img
         src="assets/images/noOrdersPlaced.jpg"
         alt="No Orders"
         class="mt-4 max-w-[300px] md:max-w-[600px] h-auto mx-auto"
       />
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-center mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="inline-flex -space-x-px text-sm">
+          <li>
+            <button
+              (click)="setPage(currentPage - 1)"
+              [disabled]="currentPage === 1"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              aria-label="Previous Page"
+            >
+              Previous
+            </button>
+          </li>
+
+          <ng-container
+            *ngFor="let page of [].constructor(totalPages()); let i = index"
+          >
+            <li>
+              <button
+                (click)="setPage(i + 1)"
+                [ngClass]="{
+                  'text-blue-600 border border-gray-300 bg-blue-50':
+                    currentPage === i + 1,
+                  'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700':
+                    currentPage !== i + 1
+                }"
+                class="flex items-center justify-center px-3 h-8 leading-tight rounded-lg"
+              >
+                {{ i + 1 }}
+              </button>
+            </li>
+          </ng-container>
+
+          <li>
+            <button
+              (click)="setPage(currentPage + 1)"
+              [disabled]="currentPage === totalPages()"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              aria-label="Next Page"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <app-invoice-modal
@@ -106,5 +190,3 @@
     ></app-invoice-modal>
   </div>
 </section>
-
-<!-- "mb-4 inline-block py-1 px-3 rounded-xl bg-green-100 uppercase text-green-500 text-xs font-bold tracking-widest" -->
