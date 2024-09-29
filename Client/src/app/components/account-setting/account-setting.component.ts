@@ -49,6 +49,8 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
 
   onProfilePictureChange(event: any){
     this.profilePictureFromDB = ''
+    this.selectedFileImage = null; 
+    
     const file = event.target.files[0];
     if (file) {
       this.selectedFileImage = file;
@@ -92,6 +94,8 @@ constructor( @Inject(PLATFORM_ID) platformId: object ,private _userSettingsServi
 
   updateUserProfile(){
 
+    this.formData = new FormData();
+    
     Object.keys(this.settingsForm.controls).forEach(key => {
       const control = this.settingsForm.get(key);
       if (control && control.value) {

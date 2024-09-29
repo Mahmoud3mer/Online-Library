@@ -24,6 +24,7 @@ import { StreamEventComponent } from "./pages/stream-event/stream-event.componen
 import { SecuritySettingComponent } from "./components/security-setting/security-setting.component";
 import { PaymentComponent } from "./pages/payment/payment.component";
 import { MyOrdersComponent } from "./pages/my-orders/my-orders.component";
+import { authGuard } from "./guard/auth.guard";
 
 export const routes: Routes = [
   {
@@ -41,14 +42,17 @@ export const routes: Routes = [
   },
   {
     path: "contact",
+    canActivate: [authGuard],
     component: ContactComponent,
   },
   {
-    path: "payment",
+    path: "payment", 
+    canActivate: [authGuard],
     component: PaymentComponent,
   },
   {
     path: "book-details/:id",
+    canActivate: [authGuard],
     component: BookDetailsComponent,
   },
   {
@@ -73,14 +77,17 @@ export const routes: Routes = [
   
   {
     path: "cart",
+    canActivate: [authGuard],
     component: CartComponent,
   },
   {
     path: "wishlist",
+    canActivate: [authGuard],
     component: WishlistComponent,
   },
   {
     path: "recommendation",
+    canActivate: [authGuard],
     component: RecommendationComponent,
   },
   {
@@ -93,6 +100,7 @@ export const routes: Routes = [
   },
   {
     path: "user-settings",
+    canActivate: [authGuard],
     component: UserSettingsComponent,
     children: [
       { path: "", redirectTo: "account", pathMatch: "full" },
@@ -103,23 +111,28 @@ export const routes: Routes = [
   },
   {
     path: "verify-email",
+    canActivate: [authGuard],
     component: EmailVerifiedComponent,
   },
 
   {
     path: "forgot-password",
+    canActivate: [authGuard],
     component: ForgotPasswordComponent,
   },
   {
     path: "reset-password",
+    canActivate: [authGuard],
     component: ResetPasswordComponent,
   },
   {
     path: "authors",
+    canActivate: [authGuard],
     component: AuthorsComponent,
   },
   {
     path: "streaming",
+    canActivate: [authGuard],
     component: StreamEventComponent,
   },
   {
