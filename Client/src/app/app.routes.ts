@@ -52,7 +52,6 @@ export const routes: Routes = [
   },
   {
     path: "book-details/:id",
-    canActivate: [authGuard],
     component: BookDetailsComponent,
   },
   {
@@ -111,23 +110,19 @@ export const routes: Routes = [
   },
   {
     path: "verify-email",
-    canActivate: [authGuard],
     component: EmailVerifiedComponent,
   },
 
   {
     path: "forgot-password",
-    canActivate: [authGuard],
     component: ForgotPasswordComponent,
   },
   {
     path: "reset-password",
-    canActivate: [authGuard],
     component: ResetPasswordComponent,
   },
   {
     path: "authors",
-    canActivate: [authGuard],
     component: AuthorsComponent,
   },
   {

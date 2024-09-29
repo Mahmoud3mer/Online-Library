@@ -145,9 +145,11 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleLang() {
-    this.currentLang = this.currentLang === "en" ? "ar" : "en";
-    localStorage.setItem("lang", this.currentLang);
-    this.changeLang(this.currentLang);
+    if(this.isBrowser){
+      this.currentLang = this.currentLang === "en" ? "ar" : "en";
+      localStorage.setItem("lang", this.currentLang);
+      this.changeLang(this.currentLang);
+    }
   }
 
   changeLang(lang: string) {
