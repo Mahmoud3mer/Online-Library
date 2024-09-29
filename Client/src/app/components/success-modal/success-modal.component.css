@@ -1,0 +1,9 @@
+.modal-box {
+  max-width: 600px;
+  padding: 16px;
+}
+@media (min-width: 768px) {
+  .modal-box {
+    width: 80%;
+  }
+}/*# sourceMappingURL=success-modal.component.css.map */

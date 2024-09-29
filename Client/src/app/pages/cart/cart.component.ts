@@ -20,6 +20,8 @@ import { CartBooksService } from "../../services/cart/cart-books.service";
 import { ClearCartService } from "../../services/cart/clear-cart.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { CheckStockService } from "../../services/books/check-stock.service";
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
 @Component({
   standalone: true,
   selector: "app-cart",
@@ -32,7 +34,8 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
     AddToWishlistBtnComponent,
     SubNavbarComponent,
     RouterLink,
-    TranslateModule
+    TranslateModule,
+    SpinnerComponent,
   ],
 })
 export class CartComponent implements OnInit {
@@ -45,6 +48,10 @@ export class CartComponent implements OnInit {
   showConfirmationDialog = false;
   bookIdToRemove: string = "";
   isLoading: boolean = true;
+  noStockBooks: any[] = [];
+  limitedStockBooks: any[] = [];
+  checkStockLoading = false;
+  showStockAlertModal: boolean = false;
   confirmMsg: string =
     "are you sure you want to delete this book from your cart";
   confirmText: string = "delete";
@@ -59,13 +66,14 @@ export class CartComponent implements OnInit {
     private _cartBooksService: CartBooksService,
     private _clearCartService: ClearCartService,
     private router: Router,
-    private _myTranslateService: MyTranslateService
+    private _myTranslateService: MyTranslateService,
+    private _checkStock: CheckStockService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
   ngOnInit(): void {
-    if(this.isBrowser){
+    if (this.isBrowser) {
       this.getCart();
     }
   }
@@ -89,20 +97,22 @@ export class CartComponent implements OnInit {
       const token = localStorage.getItem("token");
       if (!token) {
         this._toastService.showError("Please log in to view your wishlist.");
-        this.router.navigate(['/signin']);  // Redirect to login page
+        this.router.navigate(["/signin"]); // Redirect to login page
         this.isLoading = false;
         return;
       }
-      
     }
 
     this._getCartService.getCart().subscribe({
       next: (res) => {
+        console.log("res.....", res);
+
         this.cartBooks = res.data.books;
         this.subtotal = res.data.subtotal;
         this.shippingCost = res.data.shippingCost;
         this.totalOrder = res.data.totalOrder;
         this.numOfCartItems = res.data.numOfCartItems;
+
         console.log(this.cartBooks);
       },
       error: (err) => {
@@ -131,6 +141,7 @@ export class CartComponent implements OnInit {
     this.confirmText = "clear cart";
     this.showConfirmationDialog = true;
   }
+
 
   deleteBookFromCart(): void {
     this._deleteBookFromCart.deleteBookFormCart(this.bookIdToRemove).subscribe({
@@ -220,4 +231,77 @@ export class CartComponent implements OnInit {
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
+
+  isCartEmpty(): boolean {
+    return this.cartBooks.length === 0;
+  }
+  navigateToPayment(event: Event): void {
+    if (this.isCartEmpty()) {
+      event.preventDefault(); // Prevent the default link action
+      this._toastService.showError(
+        "Your cart is empty. Please add items before checking out."
+      );
+    } else {
+      // Allow navigation if the cart is not empty
+      this.router.navigate(["/payment"]);
+    }
+  }
+
+  checkStock(): void {
+    // Prepare the request body by mapping through cartBooks
+    const stockCheckRequest = this.cartBooks.map((cartItem) => ({
+      bookId: cartItem.book._id, // assuming this is the structure of your book object
+      quantity: cartItem.quantity, // quantity from the cart
+    }));
+
+    // Log the request to see its structure
+    console.log("Checking stock for:", stockCheckRequest);
+
+    this.checkStockLoading = true;
+    this._checkStock.checkStock(stockCheckRequest).subscribe({
+      next: (res) => {
+        // Handle success response here
+        console.log("Stock check response:", res);
+
+        if (res.inStock) {
+          this.router.navigate(["/payment"]);
+        } else {
+          // Some items are out of stock
+          console.log("Some items are out of stock:", res.outOfStockBooks);
+          this.handleOutOfStock(res.outOfStockBooks); // Handle out of stock items
+        }
+      },
+      error: (err) => {
+        console.error("Error checking stock:", err);
+      },
+      complete: () => {
+        this.checkStockLoading = false;
+        console.log("Stock check completed");
+      },
+    });
+  }
+
+  handleOutOfStock(outOfStockBooks: any[]): void {
+    this.noStockBooks = [];
+    this.limitedStockBooks = [];
+   // Loop through outOfStockBooks to categorize based on available stock
+    outOfStockBooks.forEach((book) => {
+      if (book.availableStock === 0) {
+        // Push to noStockBooks if no available stock
+        this.noStockBooks.push(book);
+      } else {
+        // Push to limitedStockBooks if stock is available but limited
+        this.limitedStockBooks.push(book);
+      }
+    });
+
+    this.showStockAlertModal = true;
+  }  
+    // Close the modal
+    closeStockAlertModal(): void {
+      this.showStockAlertModal = false;
+    }
+  
+
+  
 }

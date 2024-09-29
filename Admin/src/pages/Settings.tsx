@@ -117,6 +117,7 @@ const handleSubmitInformation = (e:any) => {
     alertWithError(err.response.data.message)
   })
 
+
   console.log("From Info", adminData);
   
 }

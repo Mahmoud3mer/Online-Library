@@ -21,8 +21,8 @@ export class ReviewService {
       this.token = localStorage.getItem('token');
       if (this.token) {
         this.headers = this.headers.set('token', this.token.slice(1,this.token.length - 1)); 
-        console.log(this.token);
-        console.log(this.token.slice(1,this.token.length - 1));
+        // console.log(this.token);
+        // console.log(this.token.slice(1,this.token.length - 1));
         
       }
     }

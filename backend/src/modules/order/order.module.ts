@@ -6,12 +6,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from 'src/core/guards/auth.guard';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Order', schema: OrderSchema }]),
     JwtModule.register({
-      secret: 'gaher', // Replace with a more secure secret in production
+      secret: process.env.JWT_SECRET, // Replace with a more secure secret in production
       signOptions: { expiresIn: '60m' }, // Adjust token expiration as needed
     }),
   ],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { BookCardComponent } from "../../components/book-card/book-card.component";
 import { SubNavbarComponent } from "../../components/navbar/sub-navbar/sub-navbar.component";
 import {
@@ -11,7 +11,7 @@ import { CategoryService } from "../../services/category/category.service";
 import { SearchFilterBooksService } from "../../services/books/search-filter-books.service";
 import { AuthorService } from "../../services/author/author.service";
 import { debounceTime, Subject } from "rxjs";
-import { CommonModule } from "@angular/common";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BooksGridListComponent } from "../../components/books-grid-list/books-grid-list.component";
 import { BooksListComponent } from "../../components/books-list/books-list.component";
 import {
@@ -23,6 +23,7 @@ import {
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { AutoCompleteSearchComponent } from "../../components/auto-complete-search/auto-complete-search.component";
 
 @Component({
   selector: "app-books",
@@ -36,7 +37,8 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
     RouterLink,
     RouterLinkActive,
     PaginationComponent,
-    TranslateModule
+    TranslateModule,
+    AutoCompleteSearchComponent
   ],
 
   templateUrl: "./books.component.html",
@@ -51,7 +53,7 @@ export class BooksComponent implements OnInit {
   authors: Array<AuthorInterface> = [];
   page: number = 1;
 
-  booksLimit: number = 6;
+  booksLimit: number = 2;
   filteredCategory: string = '';
   selectedCategory: string = '';
 
@@ -73,25 +75,27 @@ export class BooksComponent implements OnInit {
     private _searchFilterBooksService: SearchFilterBooksService,
     private route: ActivatedRoute,
     private router: Router,
-    private _myTranslateService:MyTranslateService
-  ) {}
-
+    private _myTranslateService: MyTranslateService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
+  
   ngOnInit(): void {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchTerm) => {
       this.onSearchFilter(searchTerm);
     });
     this.router.events.subscribe(() => {
       const url = this.route.firstChild?.snapshot.url
-        .map((segment) => segment.path)
-        .join("");
-      this.currentView = url || "grid";
+      .map((segment) => segment.path)
+      .join("");
+      this.currentView = url || "list";
     });
-
-    this.loadBooks();
-    this.getAllCategories();
-    this.getAllAuthors();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadBooks();
+      this.getAllCategories();
+      this.getAllAuthors();
+    }
   }
-
+  
   onSearchInputChange(event: Event): void {
     event.preventDefault();
     const inputElement = event.target as HTMLInputElement;
@@ -102,7 +106,8 @@ export class BooksComponent implements OnInit {
     event.preventDefault();
     this.loadBooks();
   }
-
+  
+  
   numberOfPages!: number;
 
   loadBooks(): void {
@@ -124,6 +129,8 @@ export class BooksComponent implements OnInit {
           this.allBooks = this.filteredBooks;
           this.numberOfPages = res.metaData?.numberOfPages || 1;
           this.page = res.metaData?.currentPage || this.page;
+          console.log(this.allBooks);
+          
         },
         error: (err) => {
           console.error(err);
@@ -156,6 +163,8 @@ export class BooksComponent implements OnInit {
     this._authorService.getAllAuthors(this.page, 5).subscribe({
       next: (res) => {
         this.authors = res.data;
+        // console.log(this.authors);
+
       },
       error: (err) => {
         console.error(err);
@@ -263,5 +272,5 @@ export class BooksComponent implements OnInit {
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }
-  
+
 }

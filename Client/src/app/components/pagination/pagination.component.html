@@ -1,35 +1,31 @@
-<nav aria-label="Page navigation">
-    <ul class="flex items-center -space-x-px h-8 text-lg my-5 justify-center">
-      <!-- Previous Button -->
-      <li>
-        <button
-          (click)="+changePage(currentPage - 1); handleClick()"
-          [disabled]="currentPage === 1"
-          class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
-          <span>{{"pagination.Previous"|translate}}</span>
-        </button>
-      </li>
-  
-      <!-- Page Numbers -->
-      <li *ngFor="let page of [].constructor(totalPages); let i = index">
-        <button
-          (click)="changePage(i + 1)"
-          [class.active]="i + 1 === currentPage"
-          [attr.disabled]="i + 1 === currentPage ? true : null"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
-          {{ i + 1 }}
-        </button>
-      </li>
-      
-  
-      <!-- Next Button -->
-      <li>
-        <button
-          (click)="changePage(+currentPage + 1); handleClick()"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-700 dark:text-text-forDark">
-          <span>{{"pagination.Next"|translate}}</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
-  
+
+<h1 class="text-red-500 bg-black">wtfffff</h1>
+<div class="join">
+  <button
+    class="join-item btn rounded-full dark:btn-neutral dark:text-gray"
+    [disabled]="currentPage === 1"
+    (click)="onPageChange(currentPage - 1)"
+  >
+    «
+  </button>
+
+  @for (page of pageNumbers; track page) {
+  <button
+    class="join-item btn dark:btn-neutral dark:text-gray rounded-full"
+    [class.btn-primary]="currentPage === page"
+    [class.dark:btn-error]="currentPage === page"
+    [disabled]="page === '...'"
+    (click)="onPageChange(page)"
+  >
+    {{ page }}
+  </button>
+  }
+
+  <button
+    class="join-item btn rounded-full dark:btn-neutral dark:text-gray"
+    [disabled]="currentPage === totalPages"
+    (click)="onPageChange(currentPage + 1)"
+  >
+    »
+  </button>
+</div>

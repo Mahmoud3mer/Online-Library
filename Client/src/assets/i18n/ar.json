@@ -3,6 +3,7 @@
         "Home":"الرئيسية",
         "About Us":"من نحن",
         "Contact Us":"تواصل معنا",
+        "Authors": "المؤلفون",
         "Books":"الكتب",
         "Settings":"الاعدادات",
         "My Cart":"السلة",
@@ -13,7 +14,7 @@
     },
     "sub-navbar":{
         "Book Title":"اسم الكتاب",
-        "Author":"اسم الكاتب",
+        "Author":"اسم المؤلف",
         "Search":"بحث",
         "Items":"عنصر",
         "View Cart":"مشاهدة السلة ",
@@ -93,8 +94,8 @@
     },
     "book-details":{
         "by":"بواسطة ",
-        "Author Name":"اسم الكاتب",
-        "Author":"الكاتب",
+        "Author Name":"اسم المؤلف",
+        "Author":"المؤلف",
         "raitings":"تقييم",
         "reviews":"مراجعات",
         "Pages":"صفحة",
@@ -121,7 +122,8 @@
         "All Categories":"جميع الفئات",
         "Filter By Author":"تصنيف حسب المؤلف",
         "Sort by:":"ترتيب حسب:",
-        "Popularity":"الأكثر شعبية",
+
+        "Popularity": "الأكثر شعبية",
         "A-Z Order":" من الألف إلى الياء",
         "Z-A Order":"  من الياء إلى الألف",
         "Low - High Price":" من الاقل إلى الاعلي سعر ",
@@ -163,6 +165,7 @@
         "Trending/Best Sellers":"الأكثر رواجًا/الأكثر مبيعًا",
         "Recommended Books":"كتب مقترحة",
         "Top Rating Books":"الكتب الأعلى تقييمًا",
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.":"هناك العديد من الاختلافات المتوفرة لمقاطع لوريم إيبسوم، ولكن الغالبية خضعت للتعديل في شكل ما.",
         "Browse through our top-rated books, handpicked by readers and critics alike. Discover the most highly acclaimed titles that have garnered widespread praise and attention.":"تصفح كتبنا الأعلى تقييمًا، والتي تم اختيارها بعناية من قبل القراء والنقاد على حد سواء. اكتشف العناوين الأكثر شهرة والتي نالت الثناء والاهتمام على نطاق واسع.",
         "New Books":"كتب جديدة",
         "Stay up to date with the latest arrivals in the literary world. Explore newly published books across various genres, offering fresh narratives and perspectives for your reading pleasure.":"كن على اطلاع بأحدث المستجدات في عالم الأدب. استكشف الكتب المنشورة حديثًا في مختلف الأنواع، والتي تقدم سرديات ووجهات نظر جديدة لمتعة القراءة.",
@@ -302,14 +305,7 @@
         "Secure Online Payment":"دفع إلكتروني آمن",
         "Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase.":"استمتع بتجربة دفع إلكتروني سلسة وآمنة، مما يضمن لك الرضا مع كل عملية شراء."
     },
-    "contact":{
-        "Get connected":"تواصل معنا",
-        "Lorem ipsum dolor sit amet, to the con adipiscing. Volutpat tempor to the condimentum vitae vel purus.":"لوريم إيبسوم دولور يجلس أميت، إلى يخدع adipiscing. Volutpat tempor إلى بهار السيرة الذاتية فيل بوروس.",
-        "Send Email":"إرسال بريد إلكتروني",
-        "Call Us":"اتصل بنا",
-        "Address":"العنوان",
-        "EL-Behera,Egypt":"محافظة البحيرة، مصر"
-    },
+
     "payment":{
         "Some info about your Cart.":"بعض المعلومات عن سلة التسوق الخاصة بك.",
         "Show us the money.":"أرنا المال.",
@@ -359,25 +355,26 @@
         "Previous Streams":"التدفقات السابقة",
         "Newest Stream":"أحدث البث"
     },
-    "footbar":{
-"Get In Touch With Us":"تواصل معنا",
-"Phone:":"رقم الهاتف:",
-"Monday-Friday:":"الاثنين-الجمعة:",
-"am":"صباحا",
-"pm":"مساءا",
-"Saturday:":"السبت:",
-"Quick Links":"روابط سريعة",
-"Home":"الرئيسية",
-"Books":"الكتب",
-"About Us":"معلومات عنا",
-"Contact Us":"اتصل بنا",
-"Follow Us":"تابعنا",
-"facebook":"فيسبوك",
-"twitter":"تويتر",
-"instagram":"انستجرام",
-"google":"جوجل",
-"2024 Online Library. All rights reserved.":"مكتبة إلكترونية 2024. جميع الحقوق محفوظة."
-    },
+   "footbar": {
+    "after logo": "اكتشف التاريخ الغني للإسلام وأخلاقه العميقة من خلال مجموعتنا المختارة من الكتب الإسلامية. يقدم كل عنوان نظرة ثاقبة على التعاليم التي شكلت حضارة وتستمر في إلهام القلوب والعقول.",
+    "Get In Touch With Us": "تواصل معنا",
+    "Phone:": "رقم الهاتف:",
+    "Monday-Friday:": "السبت-الاربعاء:",
+    "am": "صباحا",
+    "pm": "مساءا",
+    "Saturday:": "الخميس:",
+    "Quick Links": "روابط سريعة",
+    "Home": "الرئيسية",
+    "Books": "الكتب",
+    "About Us": "معلومات عنا",
+    "Contact Us": "اتصل بنا",
+    "Follow Us": "تابعنا",
+    "facebook": "فيسبوك",
+    "twitter": "تويتر",
+    "instagram": "انستجرام",
+    "google": "ثريد",
+    "2024 Online Library. All rights reserved.": "متجر الأندلوسية للكتب 2024. جميع الحقوق محفوظة."
+  },
     "security-setting":{
         "Password information":"معلومات كلمة المرور",
         "Current password":"كلمة المرور الحالية",

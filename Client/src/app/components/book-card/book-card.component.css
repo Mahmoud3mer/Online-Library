@@ -3,13 +3,7 @@
   transition-duration: 500ms;
 }
 
-.add-to-cart-btn-holder {
-  left: 50%;
-  bottom: -25%;
-  transform: translateX(-50%);
-}
-
-.book-card:hover .add-to-cart-btn-holder {
-  bottom: 10%;
-  transition: all 0.5s ease;
+.btn-animation:hover {
+  scale: 1.1;
+  transition: 300ms;
 }/*# sourceMappingURL=book-card.component.css.map */

@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { CreateRecommendationService } from '../../services/recommendation/create-recommendation.service'; // Updated service name
-import { ToastService } from '../../services/Toast/toast.service';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { CategoryService } from '../../services/category/category.service';
-import { CategoryInterface } from '../../interfaces/books.interface';
-import { MyTranslateService } from '../../services/translation/my-translate.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { Component, OnInit } from "@angular/core";
+import { CreateRecommendationService } from "../../services/recommendation/create-recommendation.service"; // Updated service name
+import { ToastService } from "../../services/Toast/toast.service";
+import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
+import { CategoryService } from "../../services/category/category.service";
+import { CategoryInterface } from "../../interfaces/books.interface";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-recommendation',
-  standalone:true,
-  templateUrl: './recommendation.component.html',
-  styleUrls: ['./recommendation.component.scss'], // Tailwind CSS is used for styling
-  imports:[CommonModule,TranslateModule]
+  selector: "app-recommendation",
+  standalone: true,
+  templateUrl: "./recommendation.component.html",
+  styleUrls: ["./recommendation.component.scss"], // Tailwind CSS is used for styling
+  imports: [CommonModule, TranslateModule],
 })
 export class RecommendationComponent implements OnInit {
   categories: CategoryInterface[] = [];
   selectedCategories: string[] = []; // Track selected category IDs
   page: number = 1;
   constructor(
-    private _categoryService:CategoryService,
-    private _recommendationService: CreateRecommendationService , 
-    private _toast:ToastService,
+    private _categoryService: CategoryService,
+    private _recommendationService: CreateRecommendationService,
+    private _toast: ToastService,
     private router: Router,
-    private _myTranslateService:MyTranslateService
+    private _myTranslateService: MyTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +39,8 @@ export class RecommendationComponent implements OnInit {
         console.error(err);
       },
       complete: () => {
-        console.log('Got All Categories');
-      }
+        console.log("Got All Categories");
+      },
     });
   }
   // getCategories(): void {
@@ -68,11 +68,11 @@ export class RecommendationComponent implements OnInit {
       console.log(`Category ${categoryId} removed`);
     }
     console.log(this.selectedCategories);
-    
   }
-  
+
   saveSelections(): void {
     if (this.selectedCategories.length > 0) {
+
       this._recommendationService.createRecommendation(this.selectedCategories).subscribe({
         next: (res) => {
           console.log('Selections saved:', res);
@@ -88,14 +88,13 @@ export class RecommendationComponent implements OnInit {
         }
       });
     } else {
-      console.log('No categories selected');
-      this._toast.showError("No categories selected")
-      
+      console.log("No categories selected");
+      this._toast.showError("No categories selected");
     }
   }
-  
+
   skipSelections(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(["/home"]);
   }
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);

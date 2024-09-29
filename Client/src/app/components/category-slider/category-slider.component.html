@@ -1,19 +1,31 @@
-<swiper-container class="mySwiper"
-    loop="true"
-    autoplay-delay="1000"
-    speed="2000"
-    pagination="true"
-    pagination-type="fraction"
-    [breakpoints]="breakpoints"
-    >
-    @for (category of categories; track $index) {
-        <swiper-slide class="relative">
-            <img [src]="category.image ? category.image : ''" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-black opacity-30"></div>
+<swiper-container
+  class="mySwiper"
+  [breakpoints]="breakpoints"
+  autoplay-delay="1000"
+  speed="2000"
+  effect="coverflow"
+  grab-cursor="true"
+  [centeredSlides]="true"
+  coverflow-effect-rotate="-35"
+  coverflow-effect-stretch="0"
+  coverflow-effect-depth="100"
+  coverflow-effect-modifier="1"
+  coverflow-effect-slide-shadows="true"
+  pagination="true"
+>
+  @for (category of categories; track $index) {
+  <swiper-slide class="relative">
+    <img
+      [src]="category.image ? category.image : ''"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black opacity-30"></div>
 
-            <p class="absolute text-text-forDark bg-dark-700 w-full text-center pt-1.5 pb-2 text-2xl font-semibold bottom-7 left-1/2 translate-x-[-50%] z-10">
-                {{ category.name ? category.name : '' }}
-            </p>
-        </swiper-slide>
-    }
+    <p
+      class="absolute text-text-forDark bg-dark-700 w-full text-center pt-1.5 pb-2 text-2xl font-semibold bottom-7 left-1/2 translate-x-[-50%] z-10"
+    >
+      {{ category.name ? category.name : "" }}
+    </p>
+  </swiper-slide>
+  }
 </swiper-container>
