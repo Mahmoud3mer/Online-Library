@@ -71,8 +71,7 @@ export class NavbarComponent implements OnInit {
 
     _userSettingsService.profileImage.subscribe(res => {
       this.profileImage = res
-      // console.log(res , "from navbar");
-      
+
     })
   }
 
