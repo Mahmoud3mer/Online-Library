@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
 
   languages: string[] = ["English", "العربية"];
 
-  token!: string | null
+  token: string | null = "";
   isDarkMode: boolean = false;
   private isBrowser: Boolean = false;
   currentLang: string = "";
@@ -77,7 +77,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.token?.length !== 0) {
+    if(this.token) {
       this.getProfilePicure()
     }
     this.toggleLang()
@@ -85,21 +85,18 @@ export class NavbarComponent implements OnInit {
   }
   // !get profile image when render navbar
   getProfilePicure() {
-    if (this.token?.length !== 0) {
-      
-      this._userSettingsService.getUser().subscribe({
-        next: (res) => {
-          this.profileImage = res.user.profilePic;
-          // console.log(this.profileImage);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log("Update Profile Completed");
-        },
-      });
-    }
+    this._userSettingsService.getUser().subscribe({
+      next: (res) => {
+        this.profileImage = res.user.profilePic;
+        // console.log(this.profileImage);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log("Update Profile Completed");
+      },
+    });
   }
 
   toggleDropdown() {
