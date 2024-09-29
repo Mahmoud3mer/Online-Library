@@ -1,34 +1,66 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  imports: [NgFor,NgClass,TranslateModule],
+  imports: [CommonModule],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss'
 })
 export class PaginationComponent {
-  constructor(private _myTranslateService:MyTranslateService){ }
-  @Input() currentPage!: number;
   @Input() totalPages!: number;
+  @Input() currentPage!: number;
+  @Output() pageChange = new EventEmitter<number>();
 
-  @Output() pageChanged = new EventEmitter<number>();
-  handleClick(): void {
-    console.log('Button clicked');  // Ensure this logs when button is clicked
-  }
-  changePage(newPage: number): void {
-    if (newPage >= 1 && newPage <= this.totalPages) {
-      console.log('Emitting pageChanged event for page:', newPage);
-      this.pageChanged.emit(newPage);
+  get pageNumbers(): (number | string)[] {
+    const pageNumbers: (number | string)[] = [];
+    const siblingsCount = 1;
+    const totalButtons = 7;
+
+    pageNumbers.push(1);
+
+    if (this.totalPages <= totalButtons) {
+      for (let i = 2; i <= this.totalPages; i++) {
+        pageNumbers.push(i);
+      }
     } else {
-      console.log('Page out of range:', newPage);
+      let leftSibling = Math.max(this.currentPage - siblingsCount, 2);
+      let rightSibling = Math.min(this.currentPage + siblingsCount, this.totalPages - 1);
+
+      const shouldShowLeftDots = leftSibling > 2;
+      const shouldShowRightDots = rightSibling < this.totalPages - 1;
+
+      if (!shouldShowLeftDots && shouldShowRightDots) {
+        leftSibling = 2;
+        for (let i = leftSibling; i <= leftSibling + 3; i++) {
+          pageNumbers.push(i);
+        }
+        pageNumbers.push('...');
+      } else if (shouldShowLeftDots && !shouldShowRightDots) {
+        pageNumbers.push('...');
+        for (let i = this.totalPages - 4; i <= this.totalPages - 1; i++) {
+          pageNumbers.push(i);
+        }
+      } else if (shouldShowLeftDots && shouldShowRightDots) {
+        pageNumbers.push('...');
+        for (let i = leftSibling; i <= rightSibling; i++) {
+          pageNumbers.push(i);
+        }
+        pageNumbers.push('...');
+      }
     }
+
+    if (pageNumbers[pageNumbers.length - 1] !== this.totalPages) {
+      pageNumbers.push(this.totalPages);
+    }
+
+    return pageNumbers;
   }
-  
-  changeLang(lang: string) {
-    this._myTranslateService.changLang(lang);
+
+  onPageChange(page: number | string): void {
+    if (typeof page === 'number' && page !== this.currentPage) {
+      this.pageChange.emit(page);
+    }
   }
 }

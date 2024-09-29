@@ -96,8 +96,11 @@
         }
 
         
-        <app-pagination [currentPage]="page" [totalPages]="numberOfPages" (pageChanged)="onPageChanged($event)">
-        </app-pagination>
+        <app-pagination 
+        [currentPage]="page" 
+        [totalPages]="numberOfPages" 
+        (pageChange)="onPageChanged($event)">
+      </app-pagination>
 
 
       </section>
