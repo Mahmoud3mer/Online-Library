@@ -46,17 +46,17 @@
           </div>
           <div class="flex flex-col md:flex-row gap-4 mb-2">
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Order Date:</span>
+              <span class="font-semibold">{{"my-orders.Order Date:"|translate}}</span>
               <span class="text-rhino-700 ml-2">{{ order.orderDate }}</span>
             </p>
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Shipping Address:</span>
+              <span class="font-semibold">{{"my-orders.Shipping Address:"|translate}}</span>
               <span class="text-rhino-700 ml-2">{{
                 order.shippingAddress
               }}</span>
             </p>
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">Total Price:</span>
+              <span class="font-semibold">{{"my-orders.Total Price:"|translate}}</span>
               <span class="text-green-700 font-semibold ml-2"
                 >${{ order.totalPrice }}</span
               >
@@ -65,25 +65,25 @@
           <div class="flex flex-col md:flex-row gap-4 mb-2">
             <ng-container *ngIf="order.phone">
               <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">Phone Number:</span>
+                <span class="font-semibold">{{"my-orders.Phone Number:"|translate}}</span>
                 <span class="text-rhino-700 ml-2">{{ order.phone }}</span>
               </p>
             </ng-container>
             <ng-container *ngIf="order.email">
               <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">Email:</span>
+                <span class="font-semibold">{{"my-orders.Email:"|translate}}</span>
                 <span class="text-rhino-700 ml-2">{{ order.email }}</span>
               </p>
             </ng-container>
             <ng-container *ngIf="order.name">
               <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">Name:</span>
+                <span class="font-semibold">{{"my-orders.Name:"|translate}}</span>
                 <span class="text-rhino-700 ml-2">{{ order.name }}</span>
               </p>
             </ng-container>
             <ng-container *ngIf="order.paymentStatus">
               <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">Payment Method:</span>
+                <span class="font-semibold">{{"my-orders.Payment Method:"|translate}}</span>
                 <span class="text-rhino-700 ml-2">{{
                   order.paymentMethod
                 }}</span>
@@ -115,10 +115,10 @@
               </p>
               <div class="flex items-center gap-2">
                 <p class="text-rhino-300 text-xs">
-                  Author: {{ item.author.name }}
+                  {{"my-orders.Author:"|translate}} {{ item.author.name }}
                 </p>
                 <div class="w-px h-2 bg-rhino-200"></div>
-                <p class="text-rhino-300 text-xs">Qty: {{ item.quantity }}</p>
+                <p class="text-rhino-300 text-xs">{{"my-orders.Qty:"|translate}} {{ item.quantity }}</p>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
       *ngIf="orders.length === 0"
       class="bg-white rounded-lg shadow-md p-4 text-center"
     >
-      <h2 class="text-rhino-800 text-2xl font-bold">You didn’t order yet.</h2>
+      <h2 class="text-rhino-800 text-2xl font-bold">{{"my-orders.You didn’t order yet."|translate}}</h2>
       <img
         src="assets/images/noOrdersPlaced.jpg"
         alt="No Orders"
@@ -149,7 +149,7 @@
               class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               aria-label="Previous Page"
             >
-              Previous
+              {{"my-orders.Previous"|translate}}
             </button>
           </li>
 
@@ -179,7 +179,7 @@
               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               aria-label="Next Page"
             >
-              Next
+              {{"my-orders.Next"|translate}}
             </button>
           </li>
         </ul>
