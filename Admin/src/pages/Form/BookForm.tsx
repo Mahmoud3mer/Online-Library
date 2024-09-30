@@ -56,19 +56,19 @@ const BookForm = () => {
           : "",
       stockError:
         bookData.stock == ""
-          ? "Stock feild is Required"
+          ? "Stock field is Required"
           : +bookData.stock < 0
           ? "Stock must be a positive number"
           : "",
       priceError:
         bookData.price == ""
-          ? "Stock feild is Required"
+          ? "Stock field is Required"
           : +bookData.price < 0
           ? "Price must be a positive number"
           : "",
       pagesError:
         bookData.pages == ""
-          ? "Stock feild is Required"
+          ? "Stock field is Required"
           : +bookData.pages < 0
           ? "Page count must be a positive number"
           : "",

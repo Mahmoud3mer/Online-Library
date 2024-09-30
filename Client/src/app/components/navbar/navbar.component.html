@@ -184,6 +184,7 @@
                   class="absolute top-full mt-2 w-48 bg-white dark:bg-dark-800 border dark:border-white text-black dark:dark:text-white rounded-lg shadow-lg p-2 z-50"
                 >
                   <a
+                  (click)="closeDropdowb()"
                     routerLink="/user-settings"
                     routerLinkActive="text-text-forDark dark:text-text-primary bg-dark-700 dark:bg-light-300" 
                     class="block p-2 rounded hover:text-text-primary dark:hover:text-text-forDark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
@@ -192,6 +193,7 @@
                     {{ "navbar.Settings" | translate }}
                   </a>
                   <a
+                  (click)="closeDropdowb()"
                     routerLink="/cart"
                     routerLinkActive="text-text-forDark dark:text-text-primary bg-dark-700 dark:bg-light-300"
                     class="block p-2 rounded hover:text-text-primary dark:hover:text-text-forDark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
