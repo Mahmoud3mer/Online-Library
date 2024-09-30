@@ -3,11 +3,12 @@ import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navba
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MyTranslateService } from '../../services/translation/my-translate.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-user-settings',
   standalone: true,
-  imports: [SubNavbarComponent, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule],
+  imports: [SubNavbarComponent, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule,NgClass],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss'
 })

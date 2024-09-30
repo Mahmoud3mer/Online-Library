@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
   recommendationBooks: BookInterface[] = [];
 
   page: number = 1;
-  limit: number = 6;
+  limit: number = 12;
 
   topRatingBooks: BookInterface[] = [];
   newBooks: BookInterface[] = [];
@@ -205,7 +205,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCategories() {
-    this._categoryService.getAllCategory(1, 5).subscribe({
+    this._categoryService.getAllCategory(1, 10).subscribe({
       next: (res) => {
         // console.log(res.data);
 
@@ -224,7 +224,7 @@ export class HomeComponent implements OnInit {
 
   // for test but we will use service
   getAuthors() {
-    this._authorService.getAllAuthors(1, 5).subscribe({
+    this._authorService.getAllAuthors(1, 10).subscribe({
       next: (res) => {
         // console.log(res);
         this.authors = res.data;

@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.token) {
+    if(this.token?.length !== 0) {
       this.getProfilePicure()
     }
     this.toggleLang()
@@ -101,6 +101,9 @@ export class NavbarComponent implements OnInit {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
+  closeDropdowb() {
+    this.isDropdownOpen = false;
+  }
   getToken() {
     if (this.isBrowser) {
       this.token = localStorage.getItem("token");
@@ -122,6 +125,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.closeDropdowb()
     this._authorizationService.logOut();
   }
 

@@ -24,6 +24,8 @@ import { PaginationComponent } from "../../components/pagination/pagination.comp
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { AutoCompleteSearchComponent } from "../../components/auto-complete-search/auto-complete-search.component";
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
+import { LoadingSpinnerComponent } from "../../components/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: "app-books",
@@ -38,8 +40,10 @@ import { AutoCompleteSearchComponent } from "../../components/auto-complete-sear
     RouterLinkActive,
     PaginationComponent,
     TranslateModule,
-    AutoCompleteSearchComponent
-  ],
+    AutoCompleteSearchComponent,
+    SpinnerComponent,
+    LoadingSpinnerComponent
+],
 
   templateUrl: "./books.component.html",
   styleUrls: ["./books.component.scss"],
@@ -53,7 +57,7 @@ export class BooksComponent implements OnInit {
   authors: Array<AuthorInterface> = [];
   page: number = 1;
 
-  booksLimit: number = 2;
+  booksLimit: number = 12;
   filteredCategory: string = '';
   selectedCategory: string = '';
 

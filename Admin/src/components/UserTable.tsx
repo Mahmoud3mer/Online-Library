@@ -100,7 +100,7 @@ const UserTable: React.FC<UserTableProps> = ({
 
       <ConfirmationModal
         isOpen={isModalOpen}
-        message="Are you sure you want to delete this item?"
+        message="Are you sure you want to delete this user?"
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
