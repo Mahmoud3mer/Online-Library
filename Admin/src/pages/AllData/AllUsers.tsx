@@ -5,6 +5,7 @@ import UserTable from '../../components/UserTable';
 import { UserInterface } from '../../interfaces/UserInterface';
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
+import AlertModal from '../../components/AlertModal';
 // import AutoCompleteSearch from '../../components/AutoCompeleteSearch';
 
 
@@ -16,7 +17,9 @@ const AllUsers = () => {
     const [limit, setLimit] = useState(10);
     const navigate = useNavigate(); // Use navigate to move between routes
     const [searchTerm, setSearchTerm] = useState<string>('');
-
+    const [alertModalOpen, setAlertModalOpen] = useState(false);
+    const [alertTitle, setAlertTitle] = useState(''); // Add this state for the alert title
+    const [alertMessage, setAlertMessage] = useState('');
     const [selectedUser, setSelectedUser] = useState<UserInterface | null>(null);
     const [numberOfPages, setnumberOfPages] = useState(0)
     useEffect(() => {
@@ -69,14 +72,33 @@ const AllUsers = () => {
     const handleDelete = async (userId: string) => {
         try {
             const token = getToken();
-            await axios.delete(`http://localhost:3000/user-settings/admin/users/${userId}`, { 'headers': { 'token': token || "" } });
+           const res= await axios.delete(`http://localhost:3000/user-settings/admin/users/${userId}`, { 'headers': { 'token': token || "" } });
+           if (res.data.message === "Deleted Success") {
             setUsers(users.filter(user => user._id !== userId));
-        } catch (error) {
-            console.error('Error deleting user:', error);
+           
+            setAlertTitle('Success!');
+            setAlertMessage('User deleted successfully!');
+            setAlertModalOpen(true);
+
+        } else if (res.data.message=="Cannot delete this protected admin"){
+            setAlertTitle('Not allowed!');
+            setAlertMessage('Not allowed to delete the admin !');
+            setAlertModalOpen(true);
+        }
+
+        } catch (err) {
+            console.log(err);
+            setAlertMessage('Failed to delete user. Please try again.');
+            setAlertTitle('Error');
+            setAlertModalOpen(true);
+
+
         }
     };
- 
 
+    const closeAlertModal = () => {
+        setAlertModalOpen(false);
+    };
     return (<>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="py-6 px-4 md:px-6 xl:px-7.5">
@@ -84,7 +106,7 @@ const AllUsers = () => {
                     Users
                 </h4>
             </div>
-         
+
 
 
 
@@ -106,7 +128,7 @@ const AllUsers = () => {
                 />
             </div>
 
- 
+
             <div className="grid grid-cols-10 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
                 <div className="col-span-1 flex items-center">
                     <p className="font-medium">image</p>
@@ -132,7 +154,7 @@ const AllUsers = () => {
 
 
             {users && users.map((user, index) => (
-                <div   className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
+                <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
                     <UserTable
                         image={user.profilePic}
                         fName={user.fName}
@@ -182,6 +204,18 @@ const AllUsers = () => {
             </dialog>
         )}
 
+
+
+
+        {/* Alert Modal */}
+        {alertModalOpen && (
+            <AlertModal
+                isOpen={alertModalOpen}
+                onClose={closeAlertModal}
+                message={alertMessage}
+                title={alertTitle}
+            />
+        )}
         {/* Pagingation */}
         <div className='py-3 flex justify-center'>
             <Pagination totalPages={numberOfPages} currentPage={page} onPageChange={handlePageChange} />

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
@@ -26,7 +26,10 @@ export class UserSettingsService {
     const skip = (page - 1) * limit;
     const query ={};
     if (name && name.trim() !== '') {
-      query['name'] = { $regex: name.trim(), $options: 'i' };
+      query['$or'] = [
+        { fName: { $regex: name.trim(), $options: 'i' } },
+        { lName: { $regex: name.trim(), $options: 'i' } }
+      ];
   }
     const total = await this.userModel.countDocuments().exec();
     const allUsers = await this.userModel
@@ -168,6 +171,14 @@ export class UserSettingsService {
 
 
   async deleteAccount(userId: string) {
+
+    const protectedAdminId = '66f9e34f28db096b6a2463aa';  
+
+    if (userId === protectedAdminId) {
+      return { message: "Cannot delete this protected admin" }
+
+    }
+
     const deletedUser = await this.userModel.findByIdAndDelete(userId)
 
     if (!deletedUser) throw new NotFoundException('User Not Found');

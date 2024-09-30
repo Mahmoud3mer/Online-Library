@@ -10,7 +10,7 @@
       <div class="text-gray-500">{{ numOfWishlist }} {{"wishlist.items"|translate}}</div>
     </div>
     @if (wishlistBooks.length==0 && isLoading) {
-      {{"wishlist.loading ..............."|translate}}
+      <app-spinner/>
     }@else if (wishlistBooks.length==0 && !isLoading) {
     <div class="text-center p-10 rounded-md ">
       <div class="flex justify-center mb-6">
@@ -69,15 +69,15 @@
 
           </div>
 
-          <p class="hidden md:block text-gray-500  dark:text-gray-400"><span >{{"wishlist.Desc:"|translate}}</span>{{ book.description }}</p>
+          <p class="hidden md:block text-gray-500  dark:text-gray-400"><span >{{"wishlist.Desc:"|translate}}</span>{{ getShortDescription(book.description) }}</p>
 
         </div>
 
         <div class="w-1/6 text-center text-blue-600 font-semibold dark:text-blue-300">{{ book.price }} {{"wishlist.EGP"|translate}}</div>
         <!-- <div class="w-1/6 text-center"><p class="text-lg text-blue-500 font-bold font-heading">{{book.price}} EGP</p> </div> -->
 
-        <div class="w-1/6 text-center">
-          <app-add-to-cart-btn [bookId]="book._id" />
+        <div class="w-1/6 text-center dark:text-white">
+          <app-add-to-cart-btn [bookId]="book._id" [stock]="book.stock" />
         </div>
 
         <div class="w-1/6 flex justify-center">
