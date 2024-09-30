@@ -55,7 +55,7 @@ export class BooksComponent implements OnInit {
   authors: Array<AuthorInterface> = [];
   page: number = 1;
 
-  booksLimit: number = 2;
+  booksLimit: number = 6;
   filteredCategory: string = '';
   selectedCategory: string = '';
 
