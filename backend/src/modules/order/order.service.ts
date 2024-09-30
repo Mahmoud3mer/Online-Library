@@ -64,7 +64,7 @@ export class OrderService {
     const allOrders = await this.orderModel.find().skip(skip).limit(limit);
     if (allOrders.length === 0) {
       throw new NotFoundException(`No orders found`);
-    } 
+    }
 
     return {
       message: 'Success, Get All Books.',
@@ -84,10 +84,6 @@ export class OrderService {
     const skip = (page - 1) * limit;
 
     const total = await this.orderModel.countDocuments().exec();
-
-    if (total === 0) {
-      throw new NotFoundException(`No orders found`);
-    }
 
     const allOrders = await this.orderModel
       .find()

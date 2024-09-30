@@ -54,9 +54,11 @@ const AllOrders = () => {
       setLoading(true);
       try {
         const data = await fetchAllOrders(1, 1000);
+
         setAllOrders(data.data);
         setTotalPages(Math.ceil(data.metaData.totalCount / limit));
       } catch (err: unknown) {
+        console.log(err);
         if (axios.isAxiosError(err)) {
           setError(err.response?.data?.message || "Error fetching orders");
         } else if (err instanceof Error) {
@@ -150,7 +152,8 @@ const AllOrders = () => {
     if (!editingOrder) return;
     if (!validate()) return;
     try {
-      const response = await axios.patch(`
+      const response = await axios.patch(
+        `
         ${apiUrl}/orders/${editingOrder.orderId}`,
         editingOrder
       );
@@ -243,6 +246,17 @@ const AllOrders = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+  if (allOrders.length === 0)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">No orders found.</h1>
+          <p className="text-lg mt-2">
+            Please check back later or create an order.
+          </p>
+        </div>
+      </div>
+    );
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -335,6 +349,7 @@ const AllOrders = () => {
             </div>
 
             {/* Phone */}
+
             <div>
               <label className="block text-sm font-medium mb-1">Phone</label>
               <input
@@ -621,21 +636,21 @@ const AllOrders = () => {
                       )}{" "}
                       : Name
                     </div>
-                    <div className="text-gray-500">
-                      {order.email && (
-                        <span className="font-semibold">{order.email}</span>
-                      )}{" "}
-                      : Email
-                    </div>
-                    <div className="text-gray-500">
-                      {order.phone && (
-                        <span className="font-semibold">{order.phone}</span>
-                      )}{" "}
-                      : Phone
-                    </div>
+                    {order.email && (
+                      <div className="text-gray-500">
+                        <span className="font-semibold">{order.email}</span>:
+                        Email
+                      </div>
+                    )}{" "}
+                    {order.phone && (
+                      <div className="text-gray-500">
+                        <span className="font-semibold">{order.phone}</span>:
+                        Phone
+                      </div>
+                    )}{" "}
                     <div className="font-bold text-lg mt-1">
                       <span className="text-success text-xl">
-                        ${order.totalPrice.toFixed(2)}
+                        {order.totalPrice.toFixed(2)} <small>EGP</small>
                       </span>{" "}
                       : Total
                     </div>

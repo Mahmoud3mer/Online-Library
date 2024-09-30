@@ -78,7 +78,7 @@ const CategoryTable = () => {
         setIsDeleteModalOpen(true); // Open the delete confirmation modal
     };
 
-    console.log(detailedCategory);
+    // console.log(detailedCategory);
 
     return (
         <>
@@ -99,7 +99,7 @@ const CategoryTable = () => {
                         <div className="card-container">
 
                                 <div className="rounded-md p-2">
-                                    <img src={category.image} alt={category.name} className='h-30'/>
+                                    <img src={category.image} alt={category.name} className='h-30 w-full'/>
                                 </div>
                             <div className="content p-2">
                                 <p className="text-center text-black dark:text-white py-4">{category.name}</p>

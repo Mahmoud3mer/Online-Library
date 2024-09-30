@@ -24,9 +24,10 @@
         <div class="search bg-white dark:bg-dark-800 dark:border-gray-500 border-gray-100 border-2 rounded p-7">
           <h5 class="border-b pb-3 mb-6 dark:text-gray-300">{{"books.All Categories"|translate}}</h5>
           @for (category of categories; track $index) {
-          <p (click)="onCategoryFilter(category._id)" [ngClass]="{
+          <p dir="ltr" (click)="onCategoryFilter(category._id)" [ngClass]="{
               'bg-gray-200 dark:bg-gray-800 bookmark border-b border-border-dark dark:border-border-light after:text-black dark:after:text-white ': selectedCategory === category._id
-            }" class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
+            }"
+            class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
             <span class="text-text-primary dark:text-text-forDark">
               {{ category.name }}
             </span>
@@ -51,9 +52,10 @@
             {{"books.Filter By Author"|translate}}
           </h5>
           @for (author of authors; track $index) {
-          <p (click)="onAuthorFilter(author._id)" [ngClass]="{
+          <p dir="ltr" (click)="onAuthorFilter(author._id)" [ngClass]="{
               'bg-gray-200 dark:bg-gray-800 border-b border-border-dark dark:border-border-light bookmark after:text-black dark:after:text-white': selectedAuthor === author._id
-            }" class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
+            }"
+            class="relative defualtBookMark hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-300 dark:text-text-secondary py-2 px-2 mb-3 cursor-pointer">
             <span class="text-text-primary dark:text-text-forDark">
               {{ author.name }}
             </span>
@@ -89,18 +91,22 @@
           </div>
         </div>
 
-        @if(currentView === 'grid'){
-        <app-books-grid-list [allBooks]="allBooks"></app-books-grid-list>
-        } @if(currentView === 'list'){
-        <app-books-list [allBooks]="allBooks"></app-books-list>
+        @if(allBooks.length === 0 ) {
+          <div class="py-24 mx-auto">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+        } @else {
+          @if(currentView === 'grid'){
+          <app-books-grid-list [allBooks]="allBooks"></app-books-grid-list>
+          }
+          @if(currentView === 'list'){
+          <app-books-list [allBooks]="allBooks"></app-books-list>
+          }
         }
 
-        
-        <app-pagination 
-        [currentPage]="page" 
-        [totalPages]="numberOfPages" 
-        (pageChange)="onPageChanged($event)">
-      </app-pagination>
+
+        <app-pagination [currentPage]="page" [totalPages]="numberOfPages" (pageChange)="onPageChanged($event)">
+        </app-pagination>
 
 
       </section>

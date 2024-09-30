@@ -47,6 +47,7 @@ module.exports = {
       "meta-88": "#ef4444",
       "meta-808": "#b91c1c",
       "meta-11": "#a16207",
+      "meta-err": "#ef4444",
 
       success: "#219653",
       danger: "#D34053",
