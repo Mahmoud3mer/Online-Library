@@ -22,6 +22,7 @@ dotenv.config();
 @Module({
   imports: [
     MongooseModule.forRoot(
+
       `mongodb+srv://itinoteapp:${process.env.MONGO_PASSWORD}@andaloslibrary.zgztk.mongodb.net/?retryWrites=true&w=majority&appName=AndalosLibrary`,
       
     ),

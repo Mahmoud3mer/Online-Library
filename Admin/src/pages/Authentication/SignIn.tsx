@@ -195,6 +195,14 @@ const SignIn = () => {
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to Andalosia
               </h2>
+              {error && (
+                <div
+                  aria-live="polite"
+                  className="mb-4 rounded-lg  bg-meta-err border border-meta-88 text-white p-4 shadow-md text-center font-bold"
+                >
+                  {error}
+                </div>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -276,11 +284,7 @@ const SignIn = () => {
                     Sign In
                   </button>
                 </div>
-                {error && (
-                  <div aria-live="polite" className="font-bold text-red-500">
-                    {error}
-                  </div>
-                )}
+
                 {loading && <div className="loader">Loading...</div>}
               </form>
             </div>

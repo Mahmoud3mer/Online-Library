@@ -1,4 +1,3 @@
-
 import { Component, Inject, inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser, NgClass, NgFor, NgIf } from "@angular/common";
 import {
@@ -78,8 +77,8 @@ export class PaymentComponent implements OnInit {
 
     private _myTranslateService: MyTranslateService,
     private _cartBooksService: CartBooksService,
-    private _cartCount:CartCountService,
-    private _updateBooksStockService:UpdateBooksStockService
+    private _cartCount: CartCountService,
+    private _updateBooksStockService: UpdateBooksStockService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.deliveryForm = new FormGroup({
@@ -123,7 +122,7 @@ export class PaymentComponent implements OnInit {
   total!: string;
   ngOnInit(): void {
     this.initConfig();
-    if(this.isBrowser){
+    if (this.isBrowser) {
       this.fetchCartItems();
     }
   }
@@ -231,10 +230,9 @@ export class PaymentComponent implements OnInit {
         const booksToUpdate = this.purchaseItems.map((item) => ({
           bookId: item._id,
           quantity: item.quantity,
-        }
-      ));
-      console.log(booksToUpdate,'------------------------');
-      
+        }));
+        console.log(booksToUpdate, "------------------------");
+
         //update stock
         this._updateBooksStockService.updateStock(booksToUpdate).subscribe({
           next: () => {
