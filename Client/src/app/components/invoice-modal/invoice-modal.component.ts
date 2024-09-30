@@ -2,19 +2,21 @@ import { NgFor, NgIf } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import jsPDF from "jspdf";
 import { OrderInterface } from "../../interfaces/order.interface";
+import { TranslateModule } from "@ngx-translate/core";
+import { MyTranslateService } from "../../services/translation/my-translate.service";
 
 @Component({
   selector: "app-invoice-modal",
   templateUrl: "./invoice-modal.component.html",
   styleUrl: "./invoice-modal.component.scss",
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor,TranslateModule],
 })
 export class InvoiceModalComponent {
   @Input() isVisible = false;
   @Input() orderData: OrderInterface | null = null; // Add this input
   @Output() close = new EventEmitter<void>();
-
+constructor(private _myTranslateService:MyTranslateService){ }
   generatePDF() {
     if (!this.orderData) return; // Ensure orderData is available
     const doc = new jsPDF();
@@ -54,5 +56,8 @@ export class InvoiceModalComponent {
 
   closeModal() {
     this.close.emit();
+  }
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
   }
 }

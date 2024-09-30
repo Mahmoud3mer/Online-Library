@@ -51,7 +51,8 @@
     },
     "book-card":{
         "Reviews":"Reviews",
-        "More Details":"More Details..."
+        "More Details":"More Details...",
+        "Out Of Stock":"Out Of Stock"
     },
     "call-section":{
         "Join Us Today!":"Join Us Today!",
@@ -134,7 +135,7 @@
         "Your cart":"Your cart",
         "Clear Cart":"Clear Cart",
         "loading ...":"loading ...",
-        "our cart is empty!":"our cart is empty!",
+        "Your cart is empty!":"our cart is empty!",
         "Browse our categories and discover our best deals!":"Browse our categories and discover our best deals!",
         "Start Shopping Now":"Start Shopping Now",
         "Author:":"Author:",
@@ -144,7 +145,13 @@
         "Subtotal":"Subtotal",
         "Order total":"Order total",
         "Checkout":"Checkout",
-        "Shipping":"Shipping"
+        "Shipping":"Shipping",
+        "Stock Availability":"Stock Availability",
+        "Out of Stock Will be Available Soon!":"Out of Stock Will be Available Soon!",
+        "Limited Stock Available":"Limited Stock Available",
+        "has only":"has only",
+        "copies left. Hurry up before it's gone!":"copies left. Hurry up before it's gone!",
+        "OK":"OK"
     },
     "email-verified":{
         "Congratulations!":"Congratulations!",
@@ -293,19 +300,6 @@
         "Desc:":"Desc:",
         "EGP":"EGP"
     },
-    "about":{
-        "About Us":"About Us",
-        "Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.":"Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.",
-        "Authentic Arabic Books":"Authentic Arabic Books",
-        "Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.":"Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.",
-        "Islamic Studies & Literature":"Islamic Studies & Literature",
-        "Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.":"Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.",
-        "Excellent Customer Service":"Excellent Customer Service",
-        "We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.":"We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.",
-        "Secure Online Payment":"Secure Online Payment",
-        "Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase.":"Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase."
-    },
-
     "payment":{
         "Some info about your Cart.":"Some info about your Cart.",
         "Show us the money.":"Show us the money.",
@@ -348,7 +342,33 @@
         "Quantity:":"Quantity:",
         "Total":"Total",
         "We’ll send you shipping confirmation when you item(s) are on the way! We appreciate your business, and hope you enjoy your purchase.":"We’ll send you shipping confirmation when your item(s) are on the way! We appreciate your business, and hope you enjoy your purchase.",
-        "Thank you!":"Thank you!"
+        "Thank you!":"Thank you!",
+        "First Name *":"First Name *",
+        "Your first name":"Your first name",
+        "First Name is required.":"First Name is required.",
+        "Must be 3-15 letters":"Must be 3-15 letters",
+        "No spaces or special characters.":"No spaces or special characters.",
+        "Last Name *":"Last Name *",
+        "Your last name":"Your last name",
+        "Last Name is required.":"Last Name is required.",
+        "Phone Number *":"Phone Number *",
+        "Phone Number is required.":"Phone Number is required.",
+        "Must be a valid phone number.":"Must be a valid phone number.",
+        "City *":"City *",
+        "City is required.":"City is required.",
+        "Must be letters only.":"Must be letters only.",
+        "Email *":"Email *",
+        "Your email":"Your email",
+        "Email is required.":"Email is required.",
+        "Please enter a valid email address.":"Please enter a valid email address.",
+        "Delivery Address *":"Delivery Address *",
+        "Your delivery address":"Your delivery address",
+        "Delivery Address is required.":"Delivery Address is required.",
+        "Must be letters and numbers.":"Must be letters and numbers.",
+        "Max length 30 characters,":"Max length 30 characters,",
+        "Go Back to Shop":"Go Back to Shop",
+        "See My Orders":"See My Orders"
+
     },
     "stream-event":{
         "Enjoy the stream":"Enjoy the stream",
@@ -399,6 +419,66 @@
         "Completed":"Completed",
         "Payment completed successfully!":"Payment completed successfully!",
         "Ok, Close":"Ok, Close"
+    },
+    "my-orders.":{
+        "Order History":"Order History",
+        "pending":"pending",
+        "ID number:":"ID number:",
+        "Your invoice":"Your invoice",
+        "Track order":"Track order",
+        "Order Date:":"Order Date:",
+        "Shipping Address:":"Shipping Address:",
+        "Total Price:":"Total Price:",
+        "Phone Number:":"Phone Number:",
+        "Email:":"Email:",
+        "Name:":"Name:",
+        "Previous":"Previous",
+        "Next":"Next",
+        "Author:":"Author:",
+        "Qty:":"Qty:",
+        "You didn’t order yet.":"You didn’t order yet."
+    },
+    "about":{
+        "We are here to offer the best Arabic books with a digital touch":"We are here to offer the best Arabic books with a digital touch",
+        "Founded":"Founded",
+        "Total books":"Total books",
+        "Contributing Authors":"Contributing Authors",
+        "Nationalities":"Nationalities",
+        "A Library with values":"A Library with values",
+        "The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.":"The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.",
+        "Content Diversity":"Content Diversity",
+        "Embracing Knowledge":"Embracing Knowledge",
+        "Quality Content":"Quality Content",
+        "Sustainable Library":"Sustainable Library",
+        "People-first":"People-first",
+        "Meet the team":"Meet the team",
+        "A collaborative group united by a passion for reading and sharing.":"A collaborative group united by a passion for reading and sharing.",
+        "Explore Our Collection and Be Part of Our Journey":"Explore Our Collection and Be Part of Our Journey",
+        "View Books":"View Books"
+    },
+    "contact":{
+        "Let’s stay connected":"Let’s stay connected",
+        "If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!":"If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!",
+        "Address":"Address",
+        "Contact":"Contact",
+        "Socials":"Socials",
+        "damanhour":"damanhour",
+        "El-Behera, Egypt":"El-Behera, Egypt"
+    },
+    "invoice-model":{
+        "Andalusia Services":"Andalusia Services",
+        "Invoice":"Invoice",
+        "Date:":"Date:",
+        "Invoice #:":"Invoice #:",
+        "Bill To:":"Bill To:",
+        "Description":"Description",
+        "Amount":"Amount",
+        "Total":"Total",
+        "Thank you for your Order!":"Thank you for your Order!",
+        "Please remit payment within 30 days.":"Please remit payment within 30 days.",
+        "Download PDF":"Download PDF",
+        "Close":"Close"
+
     }
 
 }

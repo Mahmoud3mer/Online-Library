@@ -1,7 +1,7 @@
 <div dir="ltr" class="book-card grid grid-cols-1  md:grid-cols-8 mt-6 bg-light-200 dark:bg-dark-800 rounded shadow-md">
   <div class="p-2 md:col-span-3 relative">
     @if (bookStock === 0) {
-      <span class="absolute top-6 left-0 bg-red-700 text-gray-100 py-1 ps-1.5 pe-4 rounded-e-lg z-50">Out Of Stock</span>
+      <span class="absolute top-6 left-0 bg-red-700 text-gray-100 py-1 ps-1.5 pe-4 rounded-e-lg z-50">{{"book-card.Out Of Stock"|translate}}</span>
     } 
     <!-- @else {
       <span class="absolute top-6 left-0 bg-green-600 text-gray-100 py-1 ps-1.5 pe-4 rounded-e-lg z-50">Book In Stock</span>
