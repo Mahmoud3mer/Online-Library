@@ -7,13 +7,15 @@ import { BookInterface } from '../../interfaces/books.interface';
 import { SubNavbarComponent } from '../../components/navbar/sub-navbar/sub-navbar.component';
 import { BookCardComponent } from "../../components/book-card/book-card.component";
 import { LoadingSpinnerComponent } from "../../components/loading-spinner/loading-spinner.component";
+import { MyTranslateService } from '../../services/translation/my-translate.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
   templateUrl: './author-details.component.html',
   styleUrls: ['./author-details.component.scss'],
-  imports: [SubNavbarComponent, BookCardComponent, LoadingSpinnerComponent] // Include necessary Angular modules here (e.g. CommonModule, RouterModule, etc.)
+  imports: [SubNavbarComponent, BookCardComponent, LoadingSpinnerComponent, TranslateModule] // Include necessary Angular modules here (e.g. CommonModule, RouterModule, etc.)
  // Include necessary Angular modules here (e.g. CommonModule, RouterModule, etc.)
  // Include necessary Angular modules here (e.g. CommonModule, RouterModule, etc.)
 })
@@ -31,7 +33,8 @@ export class AuthorDetailsComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _authorService: AuthorService,
-    private _searchService: SearchFilterBooksService
+    private _searchService: SearchFilterBooksService,
+    private _myTranslateService :MyTranslateService
   ) {}
 
   ngOnInit(): void {
@@ -96,5 +99,7 @@ export class AuthorDetailsComponent implements OnInit {
     this.getAuthorBooks(this.page, this.limit);
   }
 
-
+  changeLang(lang: string) {
+    this._myTranslateService.changLang(lang);
+  }
 }

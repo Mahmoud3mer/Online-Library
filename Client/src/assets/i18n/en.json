@@ -128,7 +128,7 @@
         "Popularity":"Popularity",
         "A-Z Order":"A-Z Order",
         "Z-A Order":"Z-A Order",
-        "Low - High Price":"ow - High Price",
+        "Low - High Price":"Low - High Price",
         "High - Low Price":"High - Low Price"
     },
     "cart":{
@@ -420,7 +420,7 @@
         "Payment completed successfully!":"Payment completed successfully!",
         "Ok, Close":"Ok, Close"
     },
-    "my-orders.":{
+    "my-orders":{
         "Order History":"Order History",
         "pending":"pending",
         "ID number:":"ID number:",
@@ -486,6 +486,9 @@
     },
     "MyOrders": {
       "Order History" : "Order History"
+    },
+    "authorDetails": {
+      "noBooksFound" : "No Books Added For This Author Yet"
     }
 
 }

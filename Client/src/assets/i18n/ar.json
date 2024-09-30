@@ -492,5 +492,8 @@
       },
       "MyOrders": {
         "Order History" : "تاريخ الشراء"
+      },
+      "authorDetails": {
+        "noBooksFound" : "لم يتم ادخال الكتب لهذا المؤلف بعد"
       }
 }

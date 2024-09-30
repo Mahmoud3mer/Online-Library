@@ -21,7 +21,7 @@ const BooksTable = () => {
   const [numberOfPages, setnumberOfPages] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const limit = 2;
+  const limit = 6;
 
   const getToken = () => localStorage.getItem('token')
   useEffect(() => {

@@ -14,7 +14,8 @@ export class SwiperComponent {
     640: { slidesPerView: 2 },
     768: { slidesPerView: 2.5},
     1024: { slidesPerView: 3 },
-    1280: { slidesPerView: 3.5 }
+    1280: { slidesPerView: 3.5 },
+    1440: {slidesPerView: 4.2}
   };
   
 
