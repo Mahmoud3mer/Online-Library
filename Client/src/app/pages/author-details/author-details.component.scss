@@ -1,0 +1,38 @@
+h1.heading {
+    letter-spacing: 1px;
+    margin-bottom: 50px;
+    font-size: 30px;
+    text-transform: capitalize;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 20%;
+        height: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #555;
+        margin-top: 30px;
+    }
+
+}
+
+@media (max-width: 767px) {
+    h1.heading {
+        margin-top: -25px;
+        margin-bottom: 30px;
+        font-size: 20px;
+        &::after {
+            margin-top: 12px;
+            width: 32%;
+        }
+
+        &::before {
+            margin-top: 32px;
+            font-size: 25px;
+        }
+    }
+}
+
+

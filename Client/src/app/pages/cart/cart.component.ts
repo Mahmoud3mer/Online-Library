@@ -52,7 +52,8 @@ export class CartComponent implements OnInit {
   limitedStockBooks: any[] = [];
   checkStockLoading = false;
   showStockAlertModal: boolean = false;
-  confirmMsg: string = "";
+  confirmMsg: string =
+    "are you sure you want to delete this book from your cart";
   confirmText: string = "delete";
   clearCartMode = false;
   constructor(
@@ -132,6 +133,10 @@ export class CartComponent implements OnInit {
     this.confirmText = "delete";
     this.clearCartMode = false; // Ensure clearCartMode is false
     this.showConfirmationDialog = true;
+    console.log(this.confirmMsg);
+    
+    console.log(this.confirmText);
+    
   }
 
   openClearCartConfirmation(): void {
@@ -139,6 +144,10 @@ export class CartComponent implements OnInit {
     this.confirmMsg = "Are you sure you want to clear your cart?";
     this.confirmText = "clear cart";
     this.showConfirmationDialog = true;
+    console.log(this.confirmMsg);
+    console.log(this.confirmText);
+    
+    
   }
 
 
@@ -194,11 +203,10 @@ export class CartComponent implements OnInit {
   handleConfirm(): void {
     if (this.clearCartMode) {
       this.clearCart(); // Call the clear cart method
-    } else {
-      if (this.bookIdToRemove) {
+    } else if  (this.bookIdToRemove) {
         this.deleteBookFromCart(); // Delete specific book
       }
-    }
+    
   }
 
   handleCancel() {
@@ -313,7 +321,7 @@ export class CartComponent implements OnInit {
   
    //for long description
     getShortDescription(description: string): string {
-      const maxLength = 220;  
+      const maxLength = 80;  
       if (description.length > maxLength) {
         return description.substring(0, maxLength) + '...';
       } else {

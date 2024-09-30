@@ -484,7 +484,13 @@
         "Please remit payment within 30 days.":"يرجى تحويل الدفعة خلال 30 يومًا.",
         "Download PDF":"تنزيل بصيغة PDF",
         "Close":"اغلاق"
-    }
+      },
+      "Author": {
+        "title": "جد مؤلفك المفضل",
+        "search": "إبحث عن طريق مؤلفك المفضل"
 
-
+      },
+      "MyOrders": {
+        "Order History" : "تاريخ الشراء"
+      }
 }

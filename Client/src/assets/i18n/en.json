@@ -479,6 +479,13 @@
         "Download PDF":"Download PDF",
         "Close":"Close"
 
+    },
+    "Author": {
+      "title": "Find Your Favorite Author",
+      "search": "Search Your Favorite Author"
+    },
+    "MyOrders": {
+      "Order History" : "Order History"
     }
 
 }

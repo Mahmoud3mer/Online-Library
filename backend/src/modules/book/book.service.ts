@@ -87,35 +87,37 @@ export class BookService {
         sortField: string,
         sortOrder: string
     ) => {
-        const page = paginationDTO.page;
-        const limit = paginationDTO.limit;
+        // Trim and validate page and limit
+        const page = Math.max(1, parseInt(paginationDTO.page.toString(), 10) || 1); // Ensure page is at least 1
+        const limit = Math.min(Math.max(1, parseInt(paginationDTO.limit.toString(), 10) || 10), 100); // Limit between 1 and 100
+    
         const skip = (page - 1) * limit;
-
+    
         const query: any = {};
-
+    
         if (category && category.trim() !== '') {
             query['category'] = category.trim();
         }
-
+    
         if (author && author.trim() !== '') {
             query['author'] = author.trim();
         }
-
+    
         if (title && title.trim() !== '') {
             query['title'] = { $regex: title.trim(), $options: 'i' };
         }
-
+    
         const sort: any = {};
-
+    
         if (sortField && sortField.trim() && sortOrder && sortOrder.trim()) {
             sort[sortField.trim()] = sortOrder.trim() === 'asc' ? 1 : -1;
         }
+    
         console.log('Query:', query);
         console.log('Page:', page, 'Limit:', limit, 'Skip:', skip);
-
-
+    
         const total = await this.bookModel.countDocuments(query).exec();
-
+    
         try {
             const books = await this.bookModel
                 .find(query)
@@ -132,7 +134,7 @@ export class BookService {
                     }
                 })
                 .exec();
-
+    
             return {
                 message: "Success, Got Books.",
                 results: books.length,
@@ -147,6 +149,7 @@ export class BookService {
             return { message: "Error fetching the books.", Error: error.message };
         }
     }
+    
 
 
 

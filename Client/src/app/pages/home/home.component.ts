@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit {
   }
 
   getBooks() {
-    this._booksService.getAllBooks().subscribe({
+    this._searchFilterBooksService.getFilteredBooks(1,24,'','','',"","").subscribe({
       next: (res) => {
         // console.log(res.data);
         this.allBooks = res.data;

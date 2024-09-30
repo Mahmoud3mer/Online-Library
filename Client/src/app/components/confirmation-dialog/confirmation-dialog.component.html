@@ -1,4 +1,4 @@
-<div class="fixed inset-0 flex items-center justify-center" style="z-index: 1500;">
+<div class="fixed inset-0 flex items-center justify-center z-50">
   <!-- Dark mode overlay background -->
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-dark-900 dark:bg-opacity-75"></div>
 
@@ -11,17 +11,17 @@
           </svg>
         </div>
         <div class="ml-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-text-forDark">{{"confirmation-dialog.Confirm Action"|translate}}</h3> <!-- Use dynamic title -->
-          <p class="mt-2 text-gray-700 dark:text-gray-400">{{"confirmation-dialog.Are you sure you."|translate}}</p> <!-- Use dynamic message -->
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-text-forDark">{{confirmText}}</h3> <!-- Use dynamic title -->
+          <p class="mt-2 text-gray-700 dark:text-gray-400">{{message}}</p> <!-- Use dynamic message -->
         </div>
       </div>
     </div>
     <div class="flex justify-end bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg">
       <button (click)="onConfirm()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-        {{"confirmation-dialog.Confirm"|translate}} <!-- Dynamic confirm button text -->
+      {{confirmText}} <!-- Dynamic confirm button text -->
       </button>
       <button (click)="onCancel()" class="ml-3 bg-gray-200 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
-        {{"confirmation-dialog.Cancel"|translate}} <!-- Dynamic cancel button text -->
+         {{cancelText}} <!-- Dynamic cancel button text -->
       </button>
     </div>
   </div>

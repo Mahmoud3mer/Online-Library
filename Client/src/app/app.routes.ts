@@ -25,6 +25,7 @@ import { SecuritySettingComponent } from "./components/security-setting/security
 import { PaymentComponent } from "./pages/payment/payment.component";
 import { MyOrdersComponent } from "./pages/my-orders/my-orders.component";
 import { authGuard } from "./guard/auth.guard";
+import { AuthorDetailsComponent } from "./pages/author-details/author-details.component";
 
 export const routes: Routes = [
   {
@@ -124,6 +125,10 @@ export const routes: Routes = [
   {
     path: "authors",
     component: AuthorsComponent,
+  },
+  {
+    path: "authors/:id",
+    component: AuthorDetailsComponent,
   },
   {
     path: "streaming",

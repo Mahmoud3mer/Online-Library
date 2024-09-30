@@ -24,7 +24,6 @@ import { PaginationComponent } from "../../components/pagination/pagination.comp
 import { TranslateModule } from "@ngx-translate/core";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { AutoCompleteSearchComponent } from "../../components/auto-complete-search/auto-complete-search.component";
-import { SpinnerComponent } from "../../components/spinner/spinner.component";
 import { LoadingSpinnerComponent } from "../../components/loading-spinner/loading-spinner.component";
 
 @Component({
@@ -41,9 +40,8 @@ import { LoadingSpinnerComponent } from "../../components/loading-spinner/loadin
     PaginationComponent,
     TranslateModule,
     AutoCompleteSearchComponent,
-    SpinnerComponent,
     LoadingSpinnerComponent
-],
+  ],
 
   templateUrl: "./books.component.html",
   styleUrls: ["./books.component.scss"],
@@ -57,7 +55,7 @@ export class BooksComponent implements OnInit {
   authors: Array<AuthorInterface> = [];
   page: number = 1;
 
-  booksLimit: number = 12;
+  booksLimit: number = 2;
   filteredCategory: string = '';
   selectedCategory: string = '';
 
@@ -128,26 +126,30 @@ export class BooksComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log("API Response for page:", this.page, res);
-
-          this.filteredBooks = res.data;
-          this.allBooks = this.filteredBooks;
-          this.numberOfPages = res.metaData?.numberOfPages || 1;
-          this.page = res.metaData?.currentPage || this.page;
-          console.log(this.allBooks);
-          
+  
+          if (res.metaData) {
+            this.filteredBooks = res.data;
+            this.allBooks = this.filteredBooks;
+            this.numberOfPages = res.metaData.numberOfPages || 1;
+            this.page = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
+          }
+          console.log(this.filteredBooks);
         },
         error: (err) => {
           console.error(err);
         },
       });
   }
-
+  
   onPageChanged(newPage: number): void {
     console.log("Page changed to:", newPage);
-    console.log("num of pages:", this.numberOfPages);
-    this.page = newPage;
-    this.loadBooks();
+    if (newPage !== this.page) {
+      this.page = newPage;
+      this.loadBooks(); // Load books for the new page
+    }
   }
+  
+  
 
   getAllCategories(): void {
     this._categoryService.getAllCategory(this.page, 5).subscribe({

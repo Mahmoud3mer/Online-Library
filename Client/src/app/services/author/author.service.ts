@@ -13,4 +13,7 @@ export class AuthorService {
   getAllAuthors(page: number, limit: number): Observable<any> {
     return this._httpClient.get(`${apiUrl}/authors?page=${page}&limit=${limit}`)
   }
+  getAuthorById(id: string): Observable<any> {
+    return this._httpClient.get(`${apiUrl}/authors/${id}`);
+  }
 }
