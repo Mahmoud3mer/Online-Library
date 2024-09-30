@@ -51,7 +51,8 @@
     },
     "book-card":{
         "Reviews":"المراجعات",
-        "More Details":"تفاصيل اكتر..."
+        "More Details":"تفاصيل اكتر...",
+        "Out Of Stock":"غير موجود في المخزن"
     },
     "call-section":{
         "Join Us Today!":"انضم الينا اليوم!",
@@ -133,7 +134,7 @@
         "Your cart":" السلة الخاصة بي",
         "Clear Cart":"مسح السلة",
         "loading ...":"تحميل ...",
-        "our cart is empty!":"السلة فارغة!",
+        "Your cart is empty!":"السلة فارغة!",
         "Browse our categories and discover our best deals!":"تصفح فئاتنا واكتشف أفضل عروضنا!",
         "Start Shopping Now":"ابدأ التسوق الآن",
         "Author:":"المؤلف:",
@@ -144,7 +145,12 @@
         "Order total":"مجموع الطلب",
            "Checkout":"الدفع",
         "Shipping":"شحن",
-        "Your cart is empty!": "السلة الخاصة بك فارغة"
+        "Stock Availability":"توفر المخزون",
+        "Out of Stock Will be Available Soon!":"غير متوفر في المخزون سوف يتوفر قريبا!",
+        "Limited Stock Available":"متوفر مخزون محدود",
+        "has only":"ليس لديه سوى",
+        "copies left. Hurry up before it's gone!":"تم بيع نسخ عديدة. سارع بالحصول عليها قبل نفاد الكمية!",
+        "OK":"نعم"
     },
     "email-verified":{
         "Congratulations!":"تهانيا ",
@@ -294,19 +300,6 @@
         "EGP":"جنيه"
 
     },
-    "about":{
-        "About Us":"من نحن",
-        "Discover the world of Arabic and Islamic books, crafted to provide a unique reading experience.":"اكتشف عالم الكتب العربية والإسلامية، المصممة لتقديم تجربة قراءة فريدة.",
-        "Authentic Arabic Books":"كتب عربية أصلية",
-        "Our collection of Arabic books is curated from authentic sources, ensuring high-quality content for readers.":"مجموعة كتبنا العربية مختارة من مصادر أصلية، مما يضمن محتوى عالي الجودة للقراء.",
-        "Islamic Studies & Literature":"الدراسات الإسلامية والأدب",
-        "Explore a wide selection of Islamic books that cover religious studies, philosophy, and history.":"استكشف مجموعة واسعة من الكتب الإسلامية التي تغطي الدراسات الدينية والفلسفة والتاريخ.",
-        "Excellent Customer Service":"خدمة عملاء ممتازة",
-        "We are dedicated to providing top-notch customer service, ready to assist you with any inquiries.":"نحن ملتزمون بتقديم خدمة عملاء عالية الجودة، ومستعدون لمساعدتك في أي استفسار.",
-        "Secure Online Payment":"دفع إلكتروني آمن",
-        "Enjoy a seamless and secure online payment experience, ensuring your satisfaction with every purchase.":"استمتع بتجربة دفع إلكتروني سلسة وآمنة، مما يضمن لك الرضا مع كل عملية شراء."
-    },
-
     "payment":{
         "Some info about your Cart.":"بعض المعلومات عن سلة التسوق الخاصة بك.",
         "Show us the money.":"أرنا المال.",
@@ -349,7 +342,33 @@
         "Quantity:":"الكمية:",
         "Total":"المجموع",
         "We’ll send you shipping confirmation when you item(s) are on the way! We appreciate your business, and hope you enjoy your purchase.":"سنرسل إليك تأكيد الشحن عندما تكون العناصر التي تريدها في الطريق! نحن نقدر عملك، ونأمل أن تستمتع بشرائك.",
-        "Thank you!":"شكرا لك!"
+        "Thank you!":"شكرا لك!",
+        "First Name *":"الاسم الاول *",
+        "Your first name":"اسمك الاول",
+        "First Name is required.":"الاسم الاول مطلوب.",
+        "Must be 3-15 letters":"يجب أن يكون من 3 إلى 15 حرفًا",
+        "No spaces or special characters.":"لا توجد مسافات أو أحرف خاصة.",
+        "Last Name *":"الاسم الاخير *",
+        "Your last name":"اسمك الاخير",
+        "Last Name is required.":"الاسم الاخير مطلوب.",
+        "Phone Number *":"رقم الهاتف *",
+        "Phone Number is required.":"رقم الهاتف مطلوب.",
+        "Must be a valid phone number.":"يجب أن يكون رقم الهاتف صالحًا.",
+        "City *":"المدينة *",
+        "City is required.":"المدينة مطلوبة",
+        "Must be letters only.":"يجب أن تكون أحرف فقط.",
+        "Email *":"البريد الالكتروني *",
+        "Your email":"بريدك الالكتروني",
+        "Email is required.":"البريد الالكتروني مطلوب",
+        "Please enter a valid email address.":"يرجى إدخال عنوان بريد إلكتروني صالح.",
+        "Delivery Address *":"عنوان التسليم *",
+        "Your delivery address":"عنوان التسليم ",
+        "Delivery Address is required.":"عنوان التسليم مطلوب",
+        "Must be letters and numbers.":"يجب ان يحتوي علي احرف وارقام",
+        "Max length 30 characters,":"الحد الأقصى للطول 30 حرفًا،",
+        "Go Back to Shop":"العودة إلى المتجر",
+        "See My Orders":"انظر طلبياتي"
+
     },
     "stream-event":{
         "Enjoy the stream":"استمتع بالبث",
@@ -401,8 +420,70 @@
         "Payment completed successfully!":"تمت عملية الدفع بنجاح",
         "Ok, Close":"حسنا، إغلاق"
     },
-    "MyOrders": {
-      "Order History" : "تاريخ الشراء"
+    "my-orders":{
+        "Order History":"سجل الطلبات",
+        "pending":"قيد الانتظار",
+        "ID number:":"رقم الهوية:",
+        "Your invoice":"فاتورتك",
+        "Track order":"تتبع الطلب",
+        "Order Date:":"تاريخ الطلب:",
+        "Shipping Address:":"عنوان الشحن:",
+        "Total Price:":"السعر الإجمالي:",
+        "Phone Number:":"رقم الهاتف:",
+        "Email:":"البريد الالكتروني:",
+        "Name:":"الاسم:",
+        "Previous":"السابق",
+        "Next":"التالي",
+        "Author:":"المؤلف:",
+        "Qty:":"الكمية:",
+        "You didn’t order yet.":"لم تطلب بعد"
+    },
+    "about":{
+        "We are here to offer the best Arabic books with a digital touch":"نحن هنا لنقدم أفضل الكتب العربية بلمسة رقمية.",
+        "Founded":"تأسست",
+        "Total books":"إجمالي الكتب",
+        "Contributing Authors":"المؤلفون المساهمون",
+        "Nationalities":"الجنسيات",
+        "A Library with values":"قيم مكتبتنا",
+        "The diversity of books and Arabic and Islamic content contributes to the success of our library. We believe that the best experiences occur when readers from different backgrounds come together to share knowledge.":"تنوع الكتب والمحتوى العربي والإسلامي يسهم في نجاح مكتبتنا. نؤمن أن أفضل التجارب تحدث عندما يجتمع القراء من خلفيات مختلفة لتبادل المعرفة.",
+        "Content Diversity":"تنوع المحتوى",
+        "Embracing Knowledge":"الانتماء",
+        "Quality Content":"الجودة",
+        "Sustainable Library":"الاستدامة",
+        "People-first":"الناس أولاً",
+        "Meet the team":"تعرف على الفريق",
+        "A collaborative group united by a passion for reading and sharing.":"مجموعة تعاونية تجمعها شغف القراءة والمشاركة.",
+        "Explore Our Collection and Be Part of Our Journey":"استكشف مجموعتنا وكن جزءًا من رحلتنا",
+        "View Books":"عرض الكتب",
+
+        "Who We Are: Your Gateway to Arabic and Islamic Literature":"من نحن: بوابتك إلى الأدب العربي والإسلامي",
+        "Our mission is to provide a gateway to the world of Arabic and Islamic knowledge. We are committed to delivering an unparalleled collection of books that celebrate the rich heritage and culture of the Arab and Islamic world.":"مهمتنا هي توفير بوابة إلى عالم المعرفة العربية والإسلامية. نحن ملتزمون بتقديم مجموعة لا مثيل لها من الكتب التي تحتفي بالتراث والثقافة الغنية للعالم العربي والإسلامي.",
+        "With a curated selection of works ranging from classical to contemporary, we aim to inspire readers with authentic voices and timeless wisdom. Whether you're seeking spiritual enlightenment, academic resources, or cultural exploration, our library offers something for every reader.":"من خلال مجموعة مختارة من الأعمال التي تتراوح من الكلاسيكية إلى المعاصرة، نهدف إلى إلهام القراء بأصوات أصيلة وحكمة خالدة. سواء كنت تبحث عن التنوير الروحي أو الموارد الأكاديمية أو الاستكشاف الثقافي، فإن مكتبتنا تقدم شيئًا لكل قارئ.",
+        "At the heart of our library is a dedication to preserving the integrity of Arabic and Islamic scholarship while making it accessible to modern readers around the globe.":"يقع في قلب مكتبتنا التزام بالحفاظ على سلامة الدراسات العربية والإسلامية وجعلها في متناول القراء المعاصرين في جميع أنحاء العالم.",
+        "We believe in the transformative power of literature and strive to create a space where knowledge, culture, and tradition come together to inspire future generations.":"نحن نؤمن بالقوة التحويلية للأدب ونسعى جاهدين لإنشاء مساحة حيث تتجمع المعرفة والثقافة والتقاليد لإلهام الأجيال القادمة."
+    },
+    "contact":{
+        "Let’s stay connected":"دعونا نبقى على تواصل",
+        "If you have any inquiries or need assistance, do not hesitate to contact us. We are here to help you!":"إذا كان لديك أي استفسارات أو تحتاج إلى مساعدة، فلا تتردد في التواصل معنا. نحن هنا لمساعدتك!",
+        "Address":"العنوان",
+        "Contact":"للتواصل معنا",
+        "Socials":"وسائل التواصل الاجتماعي",
+        "damanhour":"دمنهور",
+        "El-Behera, Egypt":"البحيرة، مصر"
+    },
+    "invoice-model":{
+        "Andalusia Services":"خدمات أندلسية",
+        "Invoice":"فاتورة",
+        "Date:":"التاريخ:",
+        "Invoice #:":"فاتورة #:",
+        "Bill To:":"فاتورة قيد السداد:",
+        "Description":"الوصف",
+        "Amount":"كمية",
+        "Total":"الاجمالي",
+        "Thank you for your Order!":"شكرا لك على طلبك!",
+        "Please remit payment within 30 days.":"يرجى تحويل الدفعة خلال 30 يومًا.",
+        "Download PDF":"تنزيل بصيغة PDF",
+        "Close":"اغلاق"
     }
 
 

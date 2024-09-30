@@ -179,7 +179,7 @@
                         <div
                           class="flex items-center justify-between py-4 px-10 leading-8 bg-white bg-opacity-50 font-heading font-medium rounded-3xl"
                         >
-                          <span>{{ "payment.Shipping:" | translate }}</span>
+                          <span>{{ "payment.Sshipping:" | translate }}</span>
                           <span class="flex items-center">
                             <span class="ml-2 mr-1 text-sm"
                               ><small>EGP</small></span
@@ -347,7 +347,7 @@
                                   for="input-first-name"
                                   class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                 >
-                                  First Name *
+                                  {{"payment.First Name *"|translate}}
                                 </label>
                                 <input
                                   id="input-first-name"
@@ -364,7 +364,7 @@
                                       ? 'border-red-500'
                                       : 'border-gray-400'
                                   }}"
-                                  placeholder="Your first name"
+                                  placeholder="{{'payment.Your first name'|translate}}"
                                   formControlName="firstName"
                                 />
                                 <p
@@ -376,7 +376,7 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  First Name is required.
+                                  {{'payment.First Name is required.'|translate}}
                                 </p>
                                 <p
                                   *ngIf="
@@ -387,8 +387,8 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  - Must be 3-15 letters<br />
-                                  - No spaces or special characters.
+                                  - {{"payment.Must be 3-15 letters"|translate}}<br />
+                                  - {{"payment.No spaces or special characters."|translate}}
                                 </p>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -396,7 +396,7 @@
                                   for="input-last-name"
                                   class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                 >
-                                  Last Name *
+                                  {{"payment.Last Name *"|translate}}
                                 </label>
                                 <input
                                   id="input-last-name"
@@ -412,7 +412,7 @@
                                       ? 'border-red-500'
                                       : 'border-gray-400'
                                   }}"
-                                  placeholder="Your last name"
+                                  placeholder="{{'payment.Your last name'|translate}}"
                                   formControlName="lastName"
                                 />
                                 <p
@@ -424,7 +424,7 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  Last Name is required.
+                                  {{"payment.Last Name is required."|translate}}
                                 </p>
                                 <p
                                   *ngIf="
@@ -435,8 +435,8 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  - Must be 3-15 letters<br />
-                                  - No spaces or special characters.
+                                  - {{"payment.Must be 3-15 letters"|translate}}<br />
+                                  - {{"payment.No spaces or special characters."|translate}}
                                 </p>
                               </div>
                             </div>
@@ -447,7 +447,7 @@
                                 for="input-phone"
                                 class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                               >
-                                Phone Number *
+                                {{"payment.Phone Number *"|translate}}
                               </label>
                               <input
                                 id="input-phone"
@@ -464,7 +464,7 @@
                                     ? 'border-red-500'
                                     : 'border-gray-400'
                                 }}"
-                                placeholder="Your phone number"
+                                placeholder="{{'payment.Your phone number'|translate}}"
                                 formControlName="phoneNumber"
                               />
                               <p
@@ -476,7 +476,7 @@
                                 "
                                 class="text-red-500 text-sm italic mt-1"
                               >
-                                Phone Number is required.
+                                {{"payment.Phone Number is required."|translate}}
                               </p>
                               <p
                                 *ngIf="
@@ -487,7 +487,7 @@
                                 "
                                 class="text-red-500 text-sm italic mt-1"
                               >
-                                - Must be a valid phone number.
+                                - {{"payment.Must be a valid phone number."|translate}}
                               </p>
                             </div>
 
@@ -498,7 +498,7 @@
                                   for="input-city"
                                   class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                 >
-                                  City *
+                                  {{"payment.City *"|translate}}
                                 </label>
                                 <input
                                   id="input-city"
@@ -514,7 +514,7 @@
                                       ? 'border-red-500'
                                       : 'border-gray-400'
                                   }}"
-                                  placeholder="Your city"
+                                  placeholder="{{'payment.Your city'|translate}}"
                                   formControlName="city"
                                 />
                                 <p
@@ -526,7 +526,7 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  City is required.
+                                  {{"payment.City is required."|translate}}
                                 </p>
                                 <p
                                   *ngIf="
@@ -537,8 +537,8 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  - Must be letters only.<br />
-                                  - Max length 10 characters,
+                                  - {{"payment.Must be letters only."|translate}}<br />
+                                  - {{"payment.Max length 10 characters,"|translate}}
                                 </p>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -546,7 +546,7 @@
                                   for="input-email"
                                   class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                                 >
-                                  Email *
+                                  {{"payment.Email *"|translate}}
                                 </label>
                                 <input
                                   id="input-email"
@@ -562,7 +562,7 @@
                                       ? 'border-red-500'
                                       : 'border-gray-400'
                                   }}"
-                                  placeholder="Your email"
+                                  placeholder="{{'payment.Your email'|translate}}"
                                   formControlName="email"
                                 />
                                 <p
@@ -574,7 +574,7 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  Email is required.
+                                  {{"payment.Email is required."|translate}}
                                 </p>
                                 <p
                                   *ngIf="
@@ -583,7 +583,7 @@
                                   "
                                   class="text-red-500 text-sm italic mt-1"
                                 >
-                                  Please enter a valid email address.
+                                  {{"payment.Please enter a valid email address."|translate}}
                                 </p>
                               </div>
                             </div>
@@ -594,7 +594,7 @@
                                 for="input-delivery-address"
                                 class="mb-1.5 inline-block text-sm text-gray-800 dark:text-gray-200"
                               >
-                                Delivery Address *
+                                {{"payment.Delivery Address *"|translate}}
                               </label>
                               <input
                                 id="input-delivery-address"
@@ -613,7 +613,7 @@
                                     ? 'border-red-500'
                                     : 'border-gray-400'
                                 }}"
-                                placeholder="Your delivery address"
+                                placeholder="{{'payment.Your delivery address'|translate}}"
                                 formControlName="shippingAddress"
                               />
                               <p
@@ -626,7 +626,7 @@
                                 "
                                 class="text-red-500 text-sm italic mt-1"
                               >
-                                Delivery Address is required.
+                                {{"payment.Delivery Address is required."|translate}}
                               </p>
                               <p
                                 *ngIf="
@@ -638,8 +638,8 @@
                                 "
                                 class="text-red-500 text-sm italic mt-1"
                               >
-                                - Must be letters and numbers.<br />
-                                - Max length 30 characters,
+                                - {{"payment.Must be letters and numbers."|translate}}<br />
+                                - {{"payment.Max length 30 characters,"|translate}}
                               </p>
                             </div>
 
@@ -689,7 +689,7 @@
               <div class="py-6 border-b border-gray-50">
                 <div class="flex flex-wrap -m-4">
                   <div class="w-full md:w-1/4 p-4">
-                    <p class="text-gray-500 mb-2">Order Date</p>
+                    <p class="text-gray-500 mb-2">{{"payment.Order Date"|translate}}</p>
                     <p class="font-semibold">{{ orderDate }}</p>
                   </div>
                   <div class="w-full md:w-1/4 p-4">
@@ -762,7 +762,7 @@
                     | translate
                 }}
               </p>
-              <p class="text-gray-500">Thank you!</p>
+              <p class="text-gray-500">{{"payment.Thank you!"}}</p>
 
               <!-- Buttons -->
               <div class="mt-8 flex justify-center space-x-4">
@@ -770,13 +770,13 @@
                   routerLink="/books/grid"
                   class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-200"
                 >
-                  Go Back to Shop
+                  {{"payment.Go Back to Shop"|translate}}
                 </a>
                 <a
                   routerLink="/user-settings/my-orders"
                   class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-200"
                 >
-                  See My Orders
+                  {{"payment.See My Orders"|translate}}
                 </a>
               </div>
             </div>
