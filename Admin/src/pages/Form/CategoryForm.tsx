@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../../components/Breadcrumb'
 import CustomInput from './FromComponents/CustomInput'
@@ -15,6 +17,7 @@ const CategoryForm = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
   const [categoryData, setCategoryData] = useState({
     name: '',
     image: null
@@ -23,24 +26,38 @@ const CategoryForm = () => {
   const resetForm = () => {
     setCategoryData({
       name: '',
-    image: null
+      image: null
     })
   }
 
   const fetchCategory = async () => {
-    const res = await axios.get(`${apiUrl}/category/${id}`)
-    setCategoryData(res.data.category)
-  }
+    try {
+      const res = await axios.get(`${apiUrl}/category/${id}`);
+      setCategoryData(res.data.category);
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        console.error("Category not found", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Category not found!',
+        });
+      } else {
+        console.error("An error occurred", error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   useEffect(() => {
     if (id) {
       fetchCategory()
-      .then(() => setLoading(false))
-      .catch(() => setLoading(false));
+        .then(() => setLoading(false))
+        .catch(() => setLoading(false));
     } else {
-      // navigate(`/forms/category-form`)
       setLoading(false)
-
     }
   }, [id])
   const getToken = () => localStorage.getItem('token');
@@ -50,9 +67,16 @@ const CategoryForm = () => {
   };
 
   const handleCategoryImage = (e: any) => {
-    setCategoryData({ ...categoryData, image: e.target.files[0] })
-  }
-
+    const file = e.target.files[0];
+    setCategoryData({ ...categoryData, image: file })
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
 
   const handleSubmit = (e: any) => {
@@ -67,16 +91,16 @@ const CategoryForm = () => {
     setIsLoading(true)
     if (id) {
       axios.patch(`${apiUrl}/category/${id}`, formData, { 'headers': { 'token': token } })
-        .then((res) =>
-        {
+        .then((res) => {
           Swal.fire({
             icon: 'success',
             title: `${res.data.data.name}<br> \n Updated Successfully!`,
             showConfirmButton: true,
             timer: 2000
-          })
+          });
+          resetForm();
         }
-          
+
         )
         .catch(err =>
           Swal.fire({
@@ -104,29 +128,27 @@ const CategoryForm = () => {
             title: 'Error',
             text: `Something went wrong!`,
           })
-        ).finally(() =>{
-           setIsLoading(false)
-          })
+        ).finally(() => {
+          setIsLoading(false)
+        })
     }
   };
 
 
-  console.log(categoryData);
 
-
-  const handleCategorySelect = (selectedCategory: CategoryInterface) => {
-    console.log("Selected Category:", selectedCategory);
+  const handleCategorySelect = (selectedCategory: any) => {
+    // console.log("Selected Category:", selectedCategory);
     navigate(`/forms/category-form/${selectedCategory._id}`)
     setCategoryData(selectedCategory);
   };
 
   const navigate = useNavigate()
-  const handleCreateBtn = () => {
+  const handleClearBtn = () => {
     resetForm()
     navigate(`/forms/category-form`)
   }
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LoadingSpinner color='white' /> </div>;
   }
   return (
     <>
@@ -154,9 +176,7 @@ const CategoryForm = () => {
         </div>
       </div>
 
-      {id &&
-        <span className='bg-[#0e0edb] cursor-pointer rounded ms-auto my-4 px-8 py-4 text-xl text-center block w-fit' onClick={() => handleCreateBtn()}>Create New Book</span>
-      }
+
 
 
       <form onSubmit={handleSubmit}>
@@ -179,7 +199,10 @@ const CategoryForm = () => {
             <div className="grid grid-cols-4 gap-5.5 p-6.5">
               {categoryData.image &&
                 <div className='col-span-1 w-full'>
-                  <img src={categoryData.image} alt="" />
+                  <img
+                    src={previewImage ? previewImage : categoryData.image}
+                    alt=""
+                  />
                 </div>
               }
 
@@ -198,11 +221,17 @@ const CategoryForm = () => {
 
 
         </div>
-        <button
-          className={isLoading ? 'btn btn-primary ms-auto mt-4 px-8 text-xl block cursor-progress' : 'btn btn-primary ms-auto mt-4 px-8 text-xl block'}
-        >
-          {isLoading ? <LoadingSpinner color='white'/> : (id ? 'Update Category' : 'Create category')}
-        </button>
+        <div className='flex'>
+
+          {id &&
+            <button className='btn btn-primary mt-4 px-8 text-xl block' onClick={() => handleClearBtn()}>Clear All Feilds</button>
+          }
+          <button
+            className={isLoading ? 'btn btn-primary ms-auto mt-4 px-8 text-xl block cursor-progress' : 'btn btn-primary ms-auto mt-4 px-8 text-xl block'}
+          >
+            {isLoading ? <LoadingSpinner color='white' /> : (id ? 'Update Category' : 'Create category')}
+          </button>
+        </div>
 
       </form>
 
