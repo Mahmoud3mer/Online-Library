@@ -3,7 +3,7 @@
     <h1
       class="font-heading text-purple-800 text-center text-4xl font-bold mb-12"
     >
-      {{"my-orders.Order History"|translate}}
+      {{ "Order History" | translate }}
     </h1>
 
     <ng-container *ngIf="paginatedOrders.length > 0">
@@ -12,7 +12,6 @@
         [ngClass]="{
           'bg-gradient-to-l from-blue-100 to-green-100':
             order.paymentStatus === 'Completed'
-
         }"
         class="rounded-lg shadow-md mb-4 p-4 bg-white"
       >
@@ -27,7 +26,6 @@
             }"
           >
             {{ order.paymentStatus }}
-
           </div>
           <div
             class="flex flex-col md:flex-row items-center justify-between mb-3"
@@ -40,7 +38,7 @@
                 (click)="toggleInvoiceModal(order)"
                 class="py-1 px-3 text-blue-500 border border-gray-200 rounded-sm text-center text-sm font-medium shadow-md hover:bg-blue-500 hover:text-white transition duration-200"
               >
-                {{"my-orders.Your invoice"|translate}}
+                {{ "Your invoice" | translate }}
               </button>
             </div>
           </div>
@@ -58,8 +56,8 @@
             <p class="text-rhino-400 text-sm">
               <span class="font-semibold">Total Price:</span>
               <span class="text-green-700 font-semibold ml-2"
-                >${{ order.totalPrice }}</span
-              >
+                >{{ order.totalPrice }} <small>EGP</small>
+              </span>
             </p>
           </div>
           <div class="flex flex-col md:flex-row gap-4 mb-2">
@@ -89,7 +87,6 @@
                 }}</span>
               </p>
             </ng-container>
-
           </div>
         </div>
         <div class="flex flex-wrap gap-4">
@@ -111,7 +108,7 @@
                 {{ item.title }}
               </h2>
               <p class="text-rhino-500 font-semibold text-sm">
-                ${{ item.price.toFixed(2) }}
+                {{ item.price.toFixed(2) }} <small>EGP</small>
               </p>
               <div class="flex items-center gap-2">
                 <p class="text-rhino-300 text-xs">
