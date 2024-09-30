@@ -37,15 +37,16 @@ export class AddToCartBtnComponent {
       }
     }
 
+    // Check if the book is out of stock
+    if (this.stock == 0) {
+      this._toastService.showError("Book is out of stock.");
+      return;
+    }
+    
     this._addToCartService.addToCart(bookId).subscribe({
       next: (res) => {
         console.log(res);
 
-        // Check if the book is out of stock
-        if (this.stock == 0) {
-          this._toastService.showError("Book is out of stock.");
-          return;
-        }
 
         if (localStorage.getItem("lang") === "en") {
           if (res.message === "Book is already in the cart") {

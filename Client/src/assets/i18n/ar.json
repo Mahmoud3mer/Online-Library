@@ -143,7 +143,8 @@
         "Subtotal":"المجموع الفرعي",
         "Order total":"مجموع الطلب",
            "Checkout":"الدفع",
-        "Shipping":"شحن"
+        "Shipping":"شحن",
+        "Your cart is empty!": "السلة الخاصة بك فارغة"
     },
     "email-verified":{
         "Congratulations!":"تهانيا ",
@@ -399,8 +400,10 @@
         "Completed":"اكتملت",
         "Payment completed successfully!":"تمت عملية الدفع بنجاح",
         "Ok, Close":"حسنا، إغلاق"
+    },
+    "MyOrders": {
+      "Order History" : "تاريخ الشراء"
     }
-
 
 
 }

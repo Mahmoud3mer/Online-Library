@@ -581,7 +581,7 @@ const AllOrders = () => {
             orders.map((order) => (
               <div
                 key={order.orderId}
-                className="bg-white p-3 max-w-4xl rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-meta-9 hover:shadow-lg"
+                className="bg-bodydark1 dark:bg-meta-4 p-3 max-w-6xl rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-meta-9 hover:shadow-lg"
               >
                 <div className="flex justify-between items-start flex-col sm:flex-row">
                   <div className="flex-1">

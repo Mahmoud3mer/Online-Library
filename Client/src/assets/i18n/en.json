@@ -144,7 +144,8 @@
         "Subtotal":"Subtotal",
         "Order total":"Order total",
         "Checkout":"Checkout",
-        "Shipping":"Shipping"
+        "Shipping":"Shipping",
+        "Your cart is empty!": "Your Cart Is Empty!"
     },
     "email-verified":{
         "Congratulations!":"Congratulations!",
@@ -399,6 +400,9 @@
         "Completed":"Completed",
         "Payment completed successfully!":"Payment completed successfully!",
         "Ok, Close":"Ok, Close"
+    },
+    "MyOrders": {
+      "Order History" : "Order History"
     }
 
 }

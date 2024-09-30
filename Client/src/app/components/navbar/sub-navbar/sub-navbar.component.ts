@@ -4,6 +4,8 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   NgZone,
+  Inject,
+  PLATFORM_ID,
 } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { CartCountService } from "../../../services/cart/CartCount.service";
@@ -14,30 +16,39 @@ import { TranslateModule } from "@ngx-translate/core";
 import { io, Socket } from "socket.io-client";
 import { apiUrl } from "../../../util/apiUrl";
 import { AutoCompleteSearchComponent } from "../../auto-complete-search/auto-complete-search.component";
+import { isPlatformBrowser, NgClass } from "@angular/common";
 
 
 @Component({
   selector: "app-sub-navbar",
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslateModule,AutoCompleteSearchComponent],
+  imports: [RouterLink, RouterLinkActive, TranslateModule,AutoCompleteSearchComponent ,NgClass],
   templateUrl: "./sub-navbar.component.html",
   styleUrls: ["./sub-navbar.component.scss"],
 })
 export class SubNavbarComponent implements OnInit {
+  lang:string | null = ''
   numOfCartItems: number = 0;
   numOfWishlistItems: number = 0;
   cartBooks: any[] = [];
   numOfNotifications: number = 0;
   private socket!: Socket;
+  private isBrowser: Boolean = false;
 
   constructor(
+    @Inject(PLATFORM_ID) platformId: object,
     private _cartCountService: CartCountService,
     private _wishlistCount: WishListCountService,
     private _cartBooksService: CartBooksService,
     private _myTranslateService: MyTranslateService,
     private ngZone: NgZone
 
-  ) {}
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    if (this.isBrowser) {
+       this.lang = localStorage.getItem('lang')
+    }
+  }
 
   ngOnInit(): void {
     this._cartCountService.cartCount$.subscribe((count) => {
@@ -87,6 +98,8 @@ export class SubNavbarComponent implements OnInit {
   //   }
   // }
 
+
+  
   changeLang(lang: string) {
     this._myTranslateService.changLang(lang);
   }

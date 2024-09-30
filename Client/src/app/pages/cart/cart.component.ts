@@ -52,8 +52,7 @@ export class CartComponent implements OnInit {
   limitedStockBooks: any[] = [];
   checkStockLoading = false;
   showStockAlertModal: boolean = false;
-  confirmMsg: string =
-    "are you sure you want to delete this book from your cart";
+  confirmMsg: string = "";
   confirmText: string = "delete";
   clearCartMode = false;
   constructor(
