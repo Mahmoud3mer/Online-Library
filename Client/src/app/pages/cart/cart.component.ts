@@ -235,20 +235,26 @@ export class CartComponent implements OnInit {
   isCartEmpty(): boolean {
     return this.cartBooks.length === 0;
   }
-  navigateToPayment(event: Event): void {
-    if (this.isCartEmpty()) {
-      event.preventDefault(); // Prevent the default link action
+  // navigateToPayment(event: Event): void {
+  //   if (this.isCartEmpty()) {
+  //     event.preventDefault(); // Prevent the default link action
+  //     this._toastService.showError(
+  //       "Your cart is empty. Please add items before checking out."
+  //     );
+  //   } else {
+  //     // Allow navigation if the cart is not empty
+  //     this.router.navigate(["/payment"]);
+  //   }
+  // }
+
+  checkStock(): void {
+       if (this.isCartEmpty()) {
+   
       this._toastService.showError(
         "Your cart is empty. Please add items before checking out."
       );
     } else {
-      // Allow navigation if the cart is not empty
-      this.router.navigate(["/payment"]);
-    }
-  }
-
-  checkStock(): void {
-    // Prepare the request body by mapping through cartBooks
+           // Prepare the request body by mapping through cartBooks
     const stockCheckRequest = this.cartBooks.map((cartItem) => ({
       bookId: cartItem.book._id, // assuming this is the structure of your book object
       quantity: cartItem.quantity, // quantity from the cart
@@ -279,6 +285,10 @@ export class CartComponent implements OnInit {
         console.log("Stock check completed");
       },
     });
+ 
+    }
+     
+
   }
 
   handleOutOfStock(outOfStockBooks: any[]): void {
@@ -302,6 +312,14 @@ export class CartComponent implements OnInit {
       this.showStockAlertModal = false;
     }
   
-
-  
+   //for long description
+    getShortDescription(description: string): string {
+      const maxLength = 220;  
+      if (description.length > maxLength) {
+        return description.substring(0, maxLength) + '...';
+      } else {
+        return description;
+      }
+    }
+    
 }

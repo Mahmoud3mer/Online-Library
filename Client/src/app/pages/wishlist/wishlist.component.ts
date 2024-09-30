@@ -13,6 +13,7 @@ import { BookInterface } from "../../interfaces/books.interface";
 import { WishlistBookService } from "../../services/wishlist/wishlist-books.service";
 import { isPlatformBrowser } from "@angular/common";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
+import { SpinnerComponent } from "../../components/spinner/spinner.component";
 
 @Component({
   selector: "app-wishlist",
@@ -22,8 +23,9 @@ import { MyTranslateService } from "../../services/translation/my-translate.serv
   imports: [
     AddToCartBtnComponent,
     ConfirmationDialogComponent,
-    SubNavbarComponent, TranslateModule
-  ],
+    SubNavbarComponent, TranslateModule,
+    SpinnerComponent
+],
 })
 export class WishlistComponent implements OnInit {
   wishlistBooks: BookInterface[] = [];
@@ -142,4 +144,15 @@ export class WishlistComponent implements OnInit {
   navigatToProducts() {
     this.router.navigate(["/books"]);
   }
+
+
+     //for long description
+     getShortDescription(description: string): string {
+      const maxLength = 80;  
+      if (description.length > maxLength) {
+        return description.substring(0, maxLength) + '...';
+      } else {
+        return description;
+      }
+    }
 }
