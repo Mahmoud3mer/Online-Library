@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import LogoDark from "../../images/logo/logo-dark.svg";
-import Logo from "../../images/logo/logo.svg";
+import Logo from "../../images/logo/AndlosiaLogo.png";
 import { useState } from "react";
 import { apiUrl } from "../../utils/apiUrl";
 
