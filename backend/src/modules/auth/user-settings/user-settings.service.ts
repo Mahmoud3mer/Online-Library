@@ -172,7 +172,7 @@ export class UserSettingsService {
 
   async deleteAccount(userId: string) {
 
-    const protectedAdminId = '66f9e34f28db096b6a2463aa';  
+    const protectedAdminId = '66fbe26e92e26a4c06650c84';  
 
     if (userId === protectedAdminId) {
       return { message: "Cannot delete this protected admin" }

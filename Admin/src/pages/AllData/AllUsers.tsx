@@ -156,7 +156,7 @@ const AllUsers = () => {
             {users && users.map((user, index) => (
                 <div className={index % 2 === 0 ? "bg-white dark:bg-form-input" : "bg-[#f9f9f9] dark:bg-strokedark"} key={user._id}>
                     <UserTable
-                        image={user.profilePic}
+                        image={user.profilePic ? user.profilePic : "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg"}
                         fName={user.fName}
                         lName={user.lName}
                         email={user.email}

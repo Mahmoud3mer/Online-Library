@@ -37,8 +37,8 @@ export class FootbarComponent implements OnInit, OnChanges {
       if (mode === 'light') {
         this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
       } else {
-        // this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
-        this.footerLogo = '../../../assets/images/logo/AndalosiaLogoWhite.png'
+        this.footerLogo = '../../../assets/images/logo/AndlosiaLogo.png'
+        // this.footerLogo = '../../../assets/images/logo/AndalosiaLogoWhite.png'
       }
     }
   }
