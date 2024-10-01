@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation" class="flex justify-center mt-4">
+<nav dir="ltr" aria-label="Page navigation" class="flex justify-center mt-4">
   <ul class="inline-flex items-center -space-x-px">
     <li>
       <button
@@ -13,15 +13,10 @@
     @for (page of pageNumbers; track page) {
       <li>
         <button
-          [class.bg-blue-50]="currentPage === page"
-          [class.text-blue-600]="currentPage === page"
-          [class.border-blue-300]="currentPage === page"
-          [class.hover:bg-blue-100]="currentPage === page"
-          [class.hover:text-blue-700]="currentPage === page"
           [disabled]="page === '...'"
           (click)="onPageChange(page)"
-          [ngClass]="{'bg-dark-700 dark:bg-border-dark' : currentPage === page}"
-          class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          [ngClass]="{'bg-black text-text-forDark dark:bg-border-dark' : currentPage === page}"
+          class="px-3 py-2 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           {{ page }}
         </button>

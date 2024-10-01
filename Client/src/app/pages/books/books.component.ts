@@ -54,6 +54,9 @@ export class BooksComponent implements OnInit {
   categories: Array<CategoryInterface> = [];
   authors: Array<AuthorInterface> = [];
   page: number = 1;
+  catPage: number = 1;
+  authorPage: number = 1;
+
 
   booksLimit: number = 6;
   filteredCategory: string = '';
@@ -110,7 +113,9 @@ export class BooksComponent implements OnInit {
   }
   
   
-  numberOfPages!: number;
+  bookPages!: number;
+  categoryPages!: number;
+  authorPages!: number;
 
   loadBooks(): void {
     this._searchFilterBooksService
@@ -130,7 +135,7 @@ export class BooksComponent implements OnInit {
           if (res.metaData) {
             this.filteredBooks = res.data;
             this.allBooks = this.filteredBooks;
-            this.numberOfPages = res.metaData.numberOfPages || 1;
+            this.bookPages = res.metaData.numberOfPages || 1;
             this.page = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
           }
           console.log(this.filteredBooks);
@@ -141,20 +146,77 @@ export class BooksComponent implements OnInit {
       });
   }
   
-  onPageChanged(newPage: number): void {
-    console.log("Page changed to:", newPage);
-    if (newPage !== this.page) {
-      this.page = newPage;
+  onPageChanged(newBookPage: number): void {
+    console.log("Page changed to:", newBookPage);
+    if (newBookPage !== this.page) {
+      this.page = newBookPage;
       this.loadBooks(); // Load books for the new page
     }
   }
-  
+
+  loadMoreCategories() {
+    ++this.catPage
+    this.getAllCategories()
+  }
+
+  resetCategories() {
+    this.catPage = 1;
+    this.resetAllCategories()
+  }
+  loadMoreAuthors() {
+    ++this.authorPage
+    this.getAllAuthors()
+  }
+
+  resetAuthors() {
+    this.authorPage = 1;
+    this.resetAllAuthors()
+  }
+
+  resetAllCategories(): void {
+    this._categoryService.getAllCategory(this.catPage, 5).subscribe({
+      next: (res) => {
+        this.categories = res.data;
+        this.categoryPages = res.metaData.numberOfPages || 1;
+        this.catPage = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
+        console.log(this.categories);
+        console.log(this.catPage);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        console.log("Got All Categories");
+      },
+    });
+  }
+  resetAllAuthors(): void {
+    this._authorService.getAllAuthors(this.authorPage, 5).subscribe({
+      next: (res) => {
+        this.authors = res.data;
+        this.authorPages = res.metaData.numberOfPages || 1;
+        this.authorPage = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
+        console.log(this.authors);
+        console.log(this.authorPage);
+        
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        console.log("Got All Authors");
+      },
+    });
+  }
   
 
   getAllCategories(): void {
-    this._categoryService.getAllCategory(this.page, 5).subscribe({
+    this._categoryService.getAllCategory(this.catPage, 5).subscribe({
       next: (res) => {
-        this.categories = res.data;
+        this.categories = [...this.categories,...res.data];
+        this.categoryPages = res.metaData.numberOfPages || 1;
+        this.catPage = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
+
       },
       error: (err) => {
         console.error(err);
@@ -166,10 +228,11 @@ export class BooksComponent implements OnInit {
   }
 
   getAllAuthors(): void {
-    this._authorService.getAllAuthors(this.page, 5).subscribe({
+    this._authorService.getAllAuthors(this.authorPage, 5).subscribe({
       next: (res) => {
-        this.authors = res.data;
-        // console.log(this.authors);
+        this.authors = [...this.authors,...res.data];
+        this.authorPages = res.metaData.numberOfPages || 1;
+        this.authorPage = res.metaData.currentPage || 1; // Ensure we set to 1 if not available
 
       },
       error: (err) => {
@@ -202,6 +265,7 @@ export class BooksComponent implements OnInit {
       this.filteredCategory = categoryId;
       this.selectedCategory = categoryId;
     }
+    this.page = 1;
 
     this.loadBooks();
   }
@@ -214,6 +278,8 @@ export class BooksComponent implements OnInit {
       this.selectedAuthor = authorId;
       this.filteredAuthor = authorId;
     }
+    this.page = 1;
+
     this.loadBooks();
   }
 

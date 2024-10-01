@@ -92,9 +92,11 @@ const CategoryForm = () => {
     if (id) {
       axios.patch(`${apiUrl}/category/${id}`, formData, { 'headers': { 'token': token } })
         .then((res) => {
+          console.log(res);
+
           Swal.fire({
             icon: 'success',
-            title: `${res.data.data.name}<br> \n Updated Successfully!`,
+            title: `${res.data.category.name}<br> \n Updated Successfully!`,
             showConfirmButton: true,
             timer: 2000
           });
@@ -114,19 +116,23 @@ const CategoryForm = () => {
           })
     } else {
       axios.post(`${apiUrl}/category`, formData, { 'headers': { 'token': token } })
-        .then((res) =>
+        .then((res) => {
+          console.log(res);
+
           Swal.fire({
             icon: 'success',
-            title: `${res.data.category.name}<br> \n Created Successfully!`,
+            title: `${res.data.newCategory.name}<br> \n Created Successfully!`,
             showConfirmButton: true,
             timer: 2000
           })
+          resetForm();
+        }
         )
         .catch(err =>
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: `Something went wrong!`,
+            text: `Invalid Data, All Feilds Are Required!`,
           })
         ).finally(() => {
           setIsLoading(false)
@@ -153,7 +159,11 @@ const CategoryForm = () => {
   return (
     <>
       <Breadcrumb pageName="Category Form" />
-      <h1 className='font-extrabold text-3xl pb-5'>Category Form</h1>
+      <h1 className='font-extrabold text-3xl pb-5'>
+        {
+          id ? "Update Category" : "Add New Category"
+        }
+      </h1>
 
       <div className=" block rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mb-5">
         <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">

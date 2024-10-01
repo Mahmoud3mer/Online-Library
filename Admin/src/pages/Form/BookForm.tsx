@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "../../components/Breadcrumb";
 import axios from "axios";
 import { apiUrl } from "../../utils/apiUrl";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CustomInput from "./FromComponents/CustomInput";
 import {
   AuthorInterface,
@@ -32,6 +32,25 @@ const BookForm = () => {
     description: "",
   });
 
+  const resetForm = () => {
+    setBookData({
+      title: "",
+      stock: "",
+      price: "",
+      pages: "",
+      author: "",
+      category: "",
+      publishedDate: "",
+      coverImage: null,
+      description: "",
+    })
+  }
+  const navigate = useNavigate()
+
+  const handleClearBtn = () => {
+    resetForm()
+    navigate(`/forms/book-form`)
+  }
   const [Errors, setErrors] = useState({
     titleError: "",
     stockError: "",
@@ -50,28 +69,25 @@ const BookForm = () => {
         bookData.title.length === 0
           ? "Book Title is required"
           : bookData.title.length < 3
-          ? "Title minimum length 3"
-          : bookData.title.length > 100
-          ? "Title maximum length 100"
-          : "",
+            ? "Title minimum length 3"
+            : bookData.title.length > 100
+              ? "Title maximum length 100"
+              : "",
       stockError:
         bookData.stock == ""
-          ? "Stock field is Required"
-          : +bookData.stock < 0
-          ? "Stock must be a positive number"
-          : "",
+          ? "Stock field is Required" : "",
       priceError:
         bookData.price == ""
           ? "Stock field is Required"
           : +bookData.price < 0
-          ? "Price must be a positive number"
-          : "",
+            ? "Price must be a positive number"
+            : "",
       pagesError:
         bookData.pages == ""
           ? "Stock field is Required"
           : +bookData.pages < 0
-          ? "Page count must be a positive number"
-          : "",
+            ? "Page count must be a positive number"
+            : "",
       authorError: !bookData.author ? "Select author for this book" : "",
       categoryError: !bookData.category ? "Select category for this book" : "",
       publishedDateError: !bookData.publishedDate
@@ -84,10 +100,10 @@ const BookForm = () => {
         bookData.description.length === 0
           ? "Book description is required"
           : bookData.description.length < 10
-          ? "Book description minimum length 10"
-          : bookData.description.length > 500
-          ? "Book description maximum length 500"
-          : "",
+            ? "Book description minimum length 10"
+            : bookData.description.length > 500
+              ? "Book description maximum length 500"
+              : "",
     };
 
     setErrors(newErrors);
@@ -103,7 +119,7 @@ const BookForm = () => {
       ...prevData,
       [name]: value,
     }));
-    validateForm(); 
+    validateForm();
   };
 
   const handleCoverImgChange = (e: any) => {
@@ -136,7 +152,7 @@ const BookForm = () => {
         axios.get(`${apiUrl}/authors`),
         axios.get(`${apiUrl}/category`),
       ]);
-      setAuthors(authorsRes.data); 
+      setAuthors(authorsRes.data);
       setCategories(categoriesRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -267,13 +283,13 @@ const BookForm = () => {
   };
 
   if (loading) {
-    return <div><LoadingSpinner color="white"/></div>;
+    return <div><LoadingSpinner color="white" /></div>;
   }
 
   return (
     <>
-      <Breadcrumb pageName={id ? "Update Book" : "Add New Book"} />
-      <h1 className="font-extrabold text-3xl pb-5">Book Form</h1>
+      <Breadcrumb pageName="Book Form" />
+      <h1 className="font-extrabold text-3xl pb-5">{id ? "Update Book" : "Add New Book"}</h1>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="relative">
@@ -489,7 +505,7 @@ const BookForm = () => {
             {/* Display error under field */}
           </div>
         </div>
-        <button
+        {/* <button
           className={
             isLoading
               ? "btn btn-primary ms-auto mt-4 px-8 text-xl block cursor-progress"
@@ -501,9 +517,20 @@ const BookForm = () => {
               ? "Updating..."
               : "Creating..."
             : id
-            ? "Update Book"
-            : "Create Book"}
-        </button>
+              ? "Update Book"
+              : "Create Book"}
+        </button> */}
+        <div className='flex'>
+
+          {id &&
+            <button className='btn btn-primary mt-4 px-8 text-xl block' onClick={() => handleClearBtn()}>Clear All Feilds</button>
+          }
+          <button
+            className={isLoading ? 'btn btn-primary ms-auto mt-4 px-8 text-xl block cursor-progress' : 'btn btn-primary ms-auto mt-4 px-8 text-xl block'}
+          >
+            {isLoading ? <LoadingSpinner color='white' /> : (id ? 'Update Book' : 'Create Book')}
+          </button>
+        </div>
       </form>
     </>
   );
