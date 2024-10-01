@@ -13,9 +13,9 @@
         "Stream Events":"Stream Events"
     },
     "sub-navbar":{
-        "Book Title":"Book Title",
-        "Author":"Author",
-        "Search":"Search",
+        "Book Title":"Book title",
+        "Author":"Author name",
+        "Search":"Search books by Book title / Author name",
         "Items":"Items",
         "View Cart":"View Cart",
         "Checkout":"Checkout"

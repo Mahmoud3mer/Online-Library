@@ -66,7 +66,7 @@ export class PaymentComponent implements OnInit {
   numOfCartItems: number = 0;
   totalOrder: number = 0;
   shipping: number = 0;
-
+  displayedItems: any[] = [];
   // ////////////////////////////////////////////////////////////
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
@@ -145,6 +145,7 @@ export class PaymentComponent implements OnInit {
           description: book.book.description || "No description available",
         }));
         this.calculateTotals();
+        this.displayedItems = this.purchaseItems.slice(0, 4);
         this.initConfig();
       },
       error: (err) => {

@@ -8,13 +8,13 @@
 
     <ng-container *ngIf="paginatedOrders.length > 0">
       <div
-      dir="ltr"
+        dir="ltr"
         *ngFor="let order of paginatedOrders"
         [ngClass]="{
           'bg-gradient-to-l from-blue-100 to-green-100 dark:from-gray-600 dark:to-gray-800':
             order.paymentStatus === 'Completed'
         }"
-        class="rounded-lg shadow-md mb-4  p-4 text-text-primary dark:text-text-forDark bg-light-200 dark:bg-dark-700"
+        class="rounded-lg shadow-md mb-4 p-4 text-text-primary dark:text-text-forDark bg-light-200 dark:bg-dark-700"
       >
         <div class="border-b border-gray-100 mb-3">
           <div
@@ -45,11 +45,15 @@
           </div>
           <div class="flex flex-col md:flex-row gap-4 mb-2">
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">{{"my-orders.Order Date:"|translate}}</span>
+              <span class="font-semibold">{{
+                "my-orders.Order Date:" | translate
+              }}</span>
               <span class="text-rhino-700 ml-2">{{ order.orderDate }}</span>
             </p>
             <p class="text-rhino-400 text-sm">
-              <span class="font-semibold">{{"my-orders.Shipping Address:"|translate}}</span>
+              <span class="font-semibold">{{
+                "my-orders.Shipping Address:" | translate
+              }}</span>
               <span class="text-rhino-700 ml-2">{{
                 order.shippingAddress
               }}</span>
@@ -62,27 +66,11 @@
             </p>
           </div>
           <div class="flex flex-col md:flex-row gap-4 mb-2">
-            <ng-container *ngIf="order.phone">
-              <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">{{"my-orders.Phone Number:"|translate}}</span>
-                <span class="text-rhino-700 ml-2">{{ order.phone }}</span>
-              </p>
-            </ng-container>
-            <ng-container *ngIf="order.email">
-              <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">{{"my-orders.Email:"|translate}}</span>
-                <span class="text-rhino-700 ml-2">{{ order.email }}</span>
-              </p>
-            </ng-container>
-            <ng-container *ngIf="order.name">
-              <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">{{"my-orders.Name:"|translate}}</span>
-                <span class="text-rhino-700 ml-2">{{ order.name }}</span>
-              </p>
-            </ng-container>
             <ng-container *ngIf="order.paymentStatus">
               <p class="text-rhino-400 text-sm">
-                <span class="font-semibold">{{"my-orders.Payment Method:"|translate}}</span>
+                <span class="font-semibold">{{
+                  "Payment Method:" | translate
+                }}</span>
                 <span class="text-rhino-700 ml-2">{{
                   order.paymentMethod
                 }}</span>
@@ -92,34 +80,70 @@
         </div>
         <div class="flex flex-wrap gap-4">
           <div
-            *ngFor="let item of order.items"
-            class="flex items-center border-b border-gray-100 mb-3 pb-3 w-full md:w-1/3"
+            *ngIf="order.items.length >= 4; else singleRow"
+            class="flex overflow-x-auto space-x-4"
           >
             <div
-              class="bg-gray-100 w-16 h-16 m-6 flex items-center justify-center mr-3"
+              *ngFor="let item of order.items"
+              class="flex-shrink-0 w-1/5 border-b border-gray-100 pb-3 "
             >
-              <img
-                [src]="item.coverImage"
-                alt="{{ item.title }}"
-                class="max-w-full h-auto"
-              />
-            </div>
-            <div class="flex-grow">
+              <div
+                class="bg-gray-100 w-16 h-16 m-6 flex items-center justify-center"
+              >
+                <img
+                  [src]="item.coverImage"
+                  alt="{{ item.title }}"
+                  class="max-w-full h-auto"
+                />
+              </div>
               <h2 class="text-rhino-800 font-semibold text-sm">
                 {{ item.title }}
               </h2>
-              <p class="text-rhino-500 font-semibold text-sm">
-                {{ item.price.toFixed(2) }} <small>EGP</small>
-              </p>
               <div class="flex items-center gap-2">
-                <p class="text-rhino-300 text-xs">
-                  {{"my-orders.Author:"|translate}} {{ item.author.name }}
+                <p class="text-rhino-500 font-semibold text-sm">
+                  {{ item.price.toFixed(2) }} <small>EGP</small>
                 </p>
                 <div class="w-px h-2 bg-rhino-200"></div>
-                <p class="text-rhino-300 text-xs">{{"my-orders.Qty:"|translate}} {{ item.quantity }}</p>
+                <p class="text-rhino-300 text-xs">
+                  {{ "my-orders.Qty:" | translate }} {{ item.quantity }}
+                </p>
               </div>
             </div>
           </div>
+
+          <ng-template #singleRow>
+            <div class="flex space-x-4">
+              <div
+                *ngFor="let item of order.items"
+                class="flex-shrink-0 w-1/3 border-b border-gray-100 pb-3"
+              >
+                <div
+                  class="bg-gray-100 w-16 h-16 m-6 flex items-center justify-center"
+                >
+                  <img
+                    [src]="item.coverImage"
+                    alt="{{ item.title }}"
+                    class="max-w-full h-auto"
+                  />
+                </div>
+                <h2 class="text-rhino-800 font-semibold text-sm">
+                  {{ item.title }}
+                </h2>
+                <p class="text-rhino-500 font-semibold text-sm">
+                  {{ item.price.toFixed(2) }} <small>EGP</small>
+                </p>
+                <div class="flex items-center gap-2">
+                  <p class="text-rhino-300 text-xs">
+                    {{ "my-orders.Author:" | translate }} {{ item.author.name }}
+                  </p>
+                  <div class="w-px h-2 bg-rhino-200"></div>
+                  <p class="text-rhino-300 text-xs">
+                    {{ "my-orders.Qty:" | translate }} {{ item.quantity }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ng-template>
         </div>
       </div>
     </ng-container>
@@ -128,7 +152,9 @@
       *ngIf="orders.length === 0"
       class="bg-white rounded-lg shadow-md p-4 text-center"
     >
-      <h2 class="text-rhino-800 text-2xl font-bold">{{"my-orders.You didn’t order yet."|translate}}</h2>
+      <h2 class="text-rhino-800 text-2xl font-bold">
+        {{ "my-orders.You didn’t order yet." | translate }}
+      </h2>
       <img
         src="assets/images/noOrdersPlaced.jpg"
         alt="No Orders"
@@ -144,10 +170,10 @@
             <button
               (click)="setPage(currentPage - 1)"
               [disabled]="currentPage === 1"
-              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white mr-2"
               aria-label="Previous Page"
             >
-              {{"my-orders.Previous"|translate}}
+              {{ "my-orders.Previous" | translate }}
             </button>
           </li>
 
@@ -174,10 +200,10 @@
             <button
               (click)="setPage(currentPage + 1)"
               [disabled]="currentPage === totalPages()"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ml-2"
               aria-label="Next Page"
             >
-              {{"my-orders.Next"|translate}}
+              {{ "my-orders.Next" | translate }}
             </button>
           </li>
         </ul>

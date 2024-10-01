@@ -264,10 +264,13 @@ export class CartComponent implements OnInit {
         "Your cart is empty. Please add items before checking out."
       );
     } else {
+      console.log("ssssssssssssssss",this.cartBooks);
+
            // Prepare the request body by mapping through cartBooks
-    const stockCheckRequest = this.cartBooks.map((cartItem) => ({
+    const stockCheckRequest = this.cartBooks.map((cartItem ?) => ({
       bookId: cartItem.book._id, // assuming this is the structure of your book object
       quantity: cartItem.quantity, // quantity from the cart
+      
     }));
 
     // Log the request to see its structure
