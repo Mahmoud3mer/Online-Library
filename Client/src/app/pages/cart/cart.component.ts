@@ -225,6 +225,9 @@ export class CartComponent implements OnInit {
         this.subtotal = res.data.subtotal;
         this.shippingCost = res.data.shippingCost;
         this.totalOrder = res.data.totalOrder;
+        console.log(res.data.books);
+        console.log(this.cartBooks);
+        
       },
       error: (err) => {
         console.error(err);
@@ -329,4 +332,8 @@ export class CartComponent implements OnInit {
       }
     }
     
+    //go to details
+    goToDetails(bookId: string) {
+      this.router.navigate(["book-details", bookId])
+    }
 }

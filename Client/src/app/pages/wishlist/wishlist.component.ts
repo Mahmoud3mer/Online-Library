@@ -14,6 +14,7 @@ import { WishlistBookService } from "../../services/wishlist/wishlist-books.serv
 import { isPlatformBrowser } from "@angular/common";
 import { MyTranslateService } from "../../services/translation/my-translate.service";
 import { SpinnerComponent } from "../../components/spinner/spinner.component";
+import { ClearWishlistService } from "../../services/wishlist/clear-wishlist.service";
 
 @Component({
   selector: "app-wishlist",
@@ -34,7 +35,12 @@ export class WishlistComponent implements OnInit {
   showConfirmationDialog = false;
   bookIdToRemove: string = "";
   isLoading = true;
-
+ 
+   
+  confirmMsg: string =
+    "are you sure you want to delete this book from your wishlist";
+  confirmText: string = "delete";
+  clearWishlistMode = false;
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
     private _getWishlist: GetWishlistService,
@@ -43,7 +49,8 @@ export class WishlistComponent implements OnInit {
     private _wishlistBooks:WishlistBookService,
     private _toastService:ToastService,
     private router: Router,
-    private _myTranslateService:MyTranslateService
+    private _myTranslateService:MyTranslateService,
+    private _clearWishlistService:ClearWishlistService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -72,13 +79,43 @@ export class WishlistComponent implements OnInit {
     const emptyStars = 5 - this.starArray.length;
     this.starArray.push(...Array(emptyStars).fill(0));
   }
+  //clear
+  
+  clearWishlist(): void {
+    this._clearWishlistService.clearWishlist().subscribe({
+      next: (res) => {
+        this.wishlistBooks = res.data.books;
+        console.log(res);
+        this._wishlistBooks.clearWishlistBooks();
+        this._toastService.showSuccess("wishlist cleared successfully!"); 
+        this._wishlistCount.clearWishlistCount()
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        this.showConfirmationDialog = false;
+        console.log("wishlist cleared successfully");
+      }
+    });
+  }
   //confirmation
   openConfirmationDialog(bookId: string): void {
     this.bookIdToRemove = bookId;
+    this.confirmMsg =
+      "are you sure you want to delete this book from your wishlist";
+    this.confirmText = "delete";
+    this.clearWishlistMode = false; // Ensure clearWishlist is false
     this.showConfirmationDialog = true;
   }
 
-  handleConfirm(): void {
+  openClearCartConfirmation(): void {
+    this.clearWishlistMode = true; // Set clearCartMode to true
+    this.confirmMsg = "Are you sure you want to clear your wishlist?";
+    this.confirmText = "clear wishlist";
+    this.showConfirmationDialog = true;  
+  }
+  deletBookFromWishlist(): void {
     if (this.bookIdToRemove) {
       this._deletFromWishlist
         .deleteFromWihslist(this.bookIdToRemove)
@@ -106,9 +143,19 @@ export class WishlistComponent implements OnInit {
         });
     }
   }
+  handleConfirm(): void {
+    if (this.clearWishlistMode) {
+      this.clearWishlist(); // Call the clear cart method
+    } else if  (this.bookIdToRemove) {
+        this.deletBookFromWishlist(); // Delete specific book
+      }
+    
+  }
 
   handleCancel() {
     this.showConfirmationDialog = false;
+    this.clearWishlistMode = false;
+    this.bookIdToRemove = "";
   }
 
   getWishList() {
@@ -118,7 +165,7 @@ export class WishlistComponent implements OnInit {
         this._toastService.showError("Please log in to view your cart.");
         this.router.navigate(['/signin']);  // Redirect to login page
         this.isLoading = false;
-        return;
+        return;  
       }
       
  
@@ -154,5 +201,10 @@ export class WishlistComponent implements OnInit {
       } else {
         return description;
       }
+    }
+
+    //go to details
+    goToDetails(bookId: string) {
+      this.router.navigate(["book-details", bookId])
     }
 }

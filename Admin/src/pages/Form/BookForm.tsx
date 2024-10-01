@@ -217,7 +217,7 @@ const BookForm = () => {
             timer: 2000,
           });
           console.log(res);
-          fetchBookById();
+          handleClearBtn();
         })
         .catch((err) => {
           Swal.fire({
@@ -226,7 +226,9 @@ const BookForm = () => {
             text: err.response?.data?.message || "Something went wrong!",
           });
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => {
+          setIsLoading(false)
+        });
     } else {
       formData.append("title", bookData.title);
       formData.append("stock", bookData.stock);
@@ -251,6 +253,7 @@ const BookForm = () => {
             timer: 2000,
           });
           console.log(res);
+          resetForm()
         })
         .catch((err) => {
           Swal.fire({
@@ -262,7 +265,10 @@ const BookForm = () => {
           });
           console.log(err.response.data.message);
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => {
+          setIsLoading(false)
+          resetForm()
+        });
     }
   };
 

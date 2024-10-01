@@ -3,7 +3,7 @@
   <div class=" lg:px-12 ">
 
     <div class="flex flex-wrap  ">
-    <div class="px-4 w-full  xl:w-8/12 mb-8 xl:mb-0">
+    <div class="px-2 sm:px-4 w-full  xl:w-8/12 mb-8 xl:mb-0">
       <div class="dark:bg-dark-700  shadow-custom rounded-lg px-4 py-12">
 
         <div class="flex justify-between items-center pb-5">
@@ -45,107 +45,112 @@
 
           }@else {
           @for (item of cartBooks; track $index) {
-          <div class="flex flex-wrap items-center   mb-6 md:mb-3  ">
-            <div class="w-full md:w-1/2  pe-4 mb-6 md:mb-0 ">
-              <div class="flex  flex-wrap  items-center">
-                <div class="w-1/4   md:px-0 mb-3  ">
+            @if(item.book) {
+              <div class="flex flex-wrap items-center   mb-6 md:mb-3  ">
+                <div class="w-full md:w-1/2  pe-4 mb-6 md:mb-0 ">
+                  <div class="flex  flex-wrap  items-center">
+                    <div class="w-1/4   md:px-0 mb-3  ">
+                   
+                        @if (item.book.coverImage) {
+                          <button (click)="goToDetails(item.book._id)">
+                            <img class="text-center w-full block object-contain" [src]="item.book.coverImage "
+                          [alt]="item.book.title">
+                          </button>
                
-                    @if (item.book.coverImage) {
-                    <img class="text-center w-full block object-contain" [src]="item.book.coverImage "
-                      [alt]="item.book.title">
-                    }@else {
-                    <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png"
-                      [alt]="item.book.title">
-                    }
-
- 
+                        }@else {
+                        <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png"
+                          [alt]="item.book.title">
+                        }
+    
+     
+                    </div>
+                    <div class="w-3/4 px-4">
+                      @if (item.book.title) {
+    
+                      <h5 class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}
+                      </h5>
+                      }
+    
+                      @if (item.book.averageRating) {
+                      {{updateStarArray(item.book.averageRating)}}
+                      <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                        <span>
+                          @for (star of starArray; track $index) {
+                          @if (star === 1) {
+                          <i class="fa-solid fa-star text-yellow-500"></i>
+                          }
+                          @if (star === .5) {
+                          <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                          }
+                          @if (star === 0) {
+                          <i class="fa-regular fa-star text-yellow-500"></i>
+                          }
+                          }
+    
+                        </span>
+    
+                      </p>
+                      }
+              
+                      <p class="dark:text-gray-300">{{"cart.Author:" | translate}} {{ item.book.author?.name || 'Unknown Author' }}</p>
+                     
+                      @if(item.book.description){
+                      <p class="hidden sm:block text-gray-500 dark:text-gray-400"> {{getShortDescription(item.book.description)}}</p>
+                      }
+     
+                    </div>
+                  </div>
                 </div>
-                <div class="w-3/4 px-4">
-                  @if (item.book.title) {
-
-                  <h5 class="text-gray-900 text-base font-bold truncate my-1  dark:text-gray-200">{{item.book.title}}
-                  </h5>
+                <div class="lg:block md:w-1/6 ps-0 pe-4  text-center ">
+                  @if (item.book.price) {
+                  <p class="text-lg text-blue-500 font-bold font-heading">{{item.book.price}} <span>EGP</span></p> 
                   }
-
-                  @if (item.book.averageRating) {
-                  {{updateStarArray(item.book.averageRating)}}
-                  <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
-                    <span>
-                      @for (star of starArray; track $index) {
-                      @if (star === 1) {
-                      <i class="fa-solid fa-star text-yellow-500"></i>
-                      }
-                      @if (star === .5) {
-                      <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
-                      }
-                      @if (star === 0) {
-                      <i class="fa-regular fa-star text-yellow-500"></i>
-                      }
-                      }
-
-                    </span>
-
-                  </p>
-                  }
-                  @if (item.book.author.name) {
-                  <p class="dark:text-gray-300">{{"cart.Author:" | translate}} {{item.book.author.name}}</p>
-                  }
-                  @if(item.book.description){
-                  <p class="text-gray-500 dark:text-gray-400"> {{getShortDescription(item.book.description)}}</p>
-                  }
-
+                  <!-- <span class="text-xs text-gray-500 line-through">{{item.book.price}}</span> -->
+                </div>
+                <div class="w-auto md:w-1/6  px-0 sm:px-4 ">
+                  <div
+                    class="inline-flex items-center p-3 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
+    
+    
+                    <button (click)="updateCartItem(item.book._id, item.quantity - 1)" [disabled]="item.quantity <= 1"
+                      [ngClass]="{ 'cursor-not-allowed opacity-50': item.quantity <= 1 }" class="py-2">
+                      <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.7">
+                          <rect x="12" width="2" height="12" transform="rotate(90 12 0)" fill="currentColor"></rect>
+                        </g>
+                      </svg>
+                    </button>
+    
+                    <div class="px-4">
+                      {{ item.quantity }}
+                    </div>
+    
+                    <button (click)="updateCartItem(item.book._id, item.quantity + 1)"
+                      [disabled]="item.quantity >= item.book.stock" [ngClass]="{
+              'cursor-not-allowed opacity-50': item.quantity >= item.book.stock,
+    
+            }" class="py-2">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.35">
+                          <rect x="5" width="2" height="12" fill="currentColor"></rect>
+                          <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect>
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="w-1/12 px-4 dark:text-white">
+                  <app-add-to-wishlist-btn [bookId]="item.book._id" />
+    
+                </div>
+                <div class="w-1/12 ms-2 sm:ms-0  px-4">
+                  <button (click)="openConfirmationDialog(item.book._id)"
+                    class="flex items-center space-x-2 text-red-600    sm:px-4 py-2">
+                    <i class="fa-solid fa-trash text-xl sm:text-2xl"></i>
+                  </button>
                 </div>
               </div>
-            </div>
-            <div class="lg:block md:w-1/6 px-4 text-center  ">
-              @if (item.book.price) {
-              <p class="text-lg text-blue-500 font-bold font-heading">{{item.book.price}} <span>EGP</span></p> 
-              }
-              <!-- <span class="text-xs text-gray-500 line-through">{{item.book.price}}</span> -->
-            </div>
-            <div class="w-auto md:w-1/6 lg:w-2/12 px-4">
-              <div
-                class="inline-flex items-center p-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-
-
-                <button (click)="updateCartItem(item.book._id, item.quantity - 1)" [disabled]="item.quantity <= 1"
-                  [ngClass]="{ 'cursor-not-allowed opacity-50': item.quantity <= 1 }" class="py-2">
-                  <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g opacity="0.7">
-                      <rect x="12" width="2" height="12" transform="rotate(90 12 0)" fill="currentColor"></rect>
-                    </g>
-                  </svg>
-                </button>
-
-                <div class="px-4">
-                  {{ item.quantity }}
-                </div>
-
-                <button (click)="updateCartItem(item.book._id, item.quantity + 1)"
-                  [disabled]="item.quantity >= item.book.stock" [ngClass]="{
-          'cursor-not-allowed opacity-50': item.quantity >= item.book.stock,
-
-        }" class="py-2">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g opacity="0.35">
-                      <rect x="5" width="2" height="12" fill="currentColor"></rect>
-                      <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect>
-                    </g>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="w-auto md:w-1/12 lg:w-1/12 px-4 dark:text-white">
-              <app-add-to-wishlist-btn [bookId]="item.book._id" />
-
-            </div>
-            <div class="w-1/12  px-4">
-              <button (click)="openConfirmationDialog(item.book._id)"
-                class="flex items-center space-x-2 text-red-600 px-4 py-2">
-                <i class="fa-solid fa-trash text-2xl"></i>
-              </button>
-            </div>
-          </div>
+            }
           } }
         </div>
 

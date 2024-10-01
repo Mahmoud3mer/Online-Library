@@ -6,25 +6,9 @@ import { CubeIcon } from "@heroicons/react/solid";
 import { apiUrl } from "../../utils/apiUrl";
 import Swal from "sweetalert2";
 import { io, Socket } from "socket.io-client";
-interface OrderItem {
-  coverImage: string;
-  quantity: number;
-  title: string;
-}
-
-interface Order {
-  userId: string;
-  totalPrice: number;
-  orderDate: string;
-  orderId: string;
-  paymentStatus: string;
-  paymentMethod: string;
-  shippingAddress: string;
-  name?: string; // Optional fields
-  phone?: string;
-  email?: string;
-  items: OrderItem[];
-}
+import DetailsModal from "../../components/DetailsModal";
+import OrderTable from "../../components/OrderTable";
+import { Order } from "../../interfaces/OrderInterface";
 
 const AllOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -40,6 +24,14 @@ const AllOrders = () => {
   const [searchUserId, setSearchUserId] = useState("");
   const [searchOrderId, setSearchOrderId] = useState("");
   const [editingOrder, setEditingOrder] = useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const viewOrderDetails = (order: Order) => {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  };
+
   const [errors, setErrors] = useState({
     shippingAddress: "",
     paymentStatus: "",
@@ -261,7 +253,10 @@ const AllOrders = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {editingOrder && (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-4" id="edit-form">
+        <div
+          className="bg-white p-6 rounded-lg shadow-md mb-4 dark:bg-graydark "
+          id="edit-form"
+        >
           <h2 className="text-xl font-semibold mb-4">
             Edit Order #{editingOrder.orderId}
           </h2>
@@ -281,7 +276,7 @@ const AllOrders = () => {
                     shippingAddress: e.target.value,
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-4 ${
                   errors.shippingAddress
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -307,7 +302,7 @@ const AllOrders = () => {
                     paymentStatus: e.target.value,
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-4 ${
                   errors.paymentStatus
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -335,7 +330,7 @@ const AllOrders = () => {
                     name: e.target.value,
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-4 ${
                   errors.name
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -361,7 +356,7 @@ const AllOrders = () => {
                     phone: e.target.value,
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-4 ${
                   errors.phone
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -386,7 +381,7 @@ const AllOrders = () => {
                     email: e.target.value,
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-4 ${
                   errors.email
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -414,7 +409,7 @@ const AllOrders = () => {
                     totalPrice: parseFloat(e.target.value) || 0, // Ensure it's a number
                   })
                 }
-                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 ${
+                className={`border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 transition duration-200 text-meta-3 ${
                   errors.totalPrice
                     ? "border-meta-1 text-danger"
                     : "focus:ring-primary"
@@ -564,9 +559,32 @@ const AllOrders = () => {
           </div>
         </div>
       </div>
+      {/* order table */}
+      <div className="grid grid-cols-10 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-10 md:px-6 2xl:px-7.5">
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Order ID</p>
+        </div>
+        <div className="col-span-2 hidden items-center sm:flex">
+          <p className="font-medium">Eamil</p>
+        </div>
+        <div className="col-span-2 flex items-center">
+          <p className="font-medium">Payment Status</p>
+        </div>
+        <div className="col-span-2 flex items-center">
+          <p className="font-medium">Payment Method</p>
+        </div>
+
+        <div className="col-span-2 flex items-center">
+          <p className="font-medium">User ID</p>
+        </div>
+        <div className="col-span-1 flex items-center">
+          <p className="font-medium">Actions</p>
+        </div>
+      </div>
+      {/* all orders */}
       <div className="flex justify-center">
         <div className="space-y-4">
-          {filteredOrdersCount === 0 ? (
+          {orders.length === 0 ? (
             <div className="flex items-start justify-center h-screen">
               <div className="text-center bg-gray-200 p-6 rounded-lg shadow-lg">
                 <h2 className="text-title-xl font-semibold text-gray-800 mb-4">
@@ -579,133 +597,29 @@ const AllOrders = () => {
             </div>
           ) : (
             orders.map((order) => (
-              <div
+              <OrderTable
                 key={order.orderId}
-                className="bg-bodydark1 dark:bg-meta-4 p-3 max-w-6xl rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-meta-9 hover:shadow-lg"
-              >
-                <div className="flex justify-between items-start flex-col sm:flex-row">
-                  <div className="flex-1">
-                    <div>
-                      Order ID:{" "}
-                      <span className="font-semibold">#{order.orderId}</span>
-                    </div>
-                    <div className="text-gray-500">
-                      Order Date:{" "}
-                      <span className="font-semibold">
-                        {new Date(order.orderDate).toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="text-gray-500">
-                      Shipping Address:{" "}
-                      <span className="font-semibold">
-                        {order.shippingAddress}
-                      </span>
-                    </div>
-                    <div className="mt-2">
-                      <div className="text-gray-500">
-                        Payment Method:{" "}
-                        <span className="font-semibold">
-                          {order.paymentMethod}
-                        </span>
-                      </div>
-                      <div className="mt-1">
-                        Payment Status:
-                        <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-white font-semibold ${
-                            order.paymentStatus === "Pending"
-                              ? "bg-warning border border-warning-dark"
-                              : order.paymentStatus === "Completed"
-                              ? "bg-success border border-success-dark"
-                              : "bg-gray border border-graydark"
-                          }`}
-                        >
-                          {order.paymentStatus}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col items-end mt-4 sm:mt-0">
-                    <div className="text-gray-500">
-                      <span className="font-semibold">{order.userId}</span> :
-                      User ID
-                    </div>
-                    <div className="text-gray-500">
-                      {order.name && (
-                        <span className="font-semibold">{order.name}</span>
-                      )}{" "}
-                      : Name
-                    </div>
-                    {order.email && (
-                      <div className="text-gray-500">
-                        <span className="font-semibold">{order.email}</span>:
-                        Email
-                      </div>
-                    )}{" "}
-                    {order.phone && (
-                      <div className="text-gray-500">
-                        <span className="font-semibold">{order.phone}</span>:
-                        Phone
-                      </div>
-                    )}{" "}
-                    <div className="font-bold text-lg mt-1">
-                      <span className="text-success text-xl">
-                        {order.totalPrice.toFixed(2)} <small>EGP</small>
-                      </span>{" "}
-                      : Total
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="my-4 border-t border-gray-300 opacity-50" />
-
-                <div className="mt-4">
-                  <div className="flex flex-wrap justify-center -mx-1">
-                    {order.items.map((item) => (
-                      <div
-                        key={item.title}
-                        className="w-1/3 px-1 mb-2 flex items-center"
-                      >
-                        <img
-                          src={item.coverImage}
-                          alt={item.title}
-                          className="w-16 h-16 object-cover rounded-lg mr-2"
-                        />
-                        <div className="flex-1">
-                          <div className="font-medium text-gray-900">
-                            {item.title}
-                          </div>
-                          <div className="text-gray-500">
-                            (qty: {item.quantity})
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Delete & Update Buttons */}
-                <div className="mt-6 flex justify-end">
-                  <button
-                    onClick={() => deleteOrder(order.orderId)}
-                    className="bg-meta-88 btn glass hover:bg-meta-808 hover:text-white"
-                  >
-                    Delete Order
-                  </button>
-
-                  <button
-                    className="btn glass ml-2 bg-meta-99 hover:bg-meta-909 hover:text-white"
-                    onClick={() => editOrder(order)}
-                  >
-                    Update Order
-                  </button>
-                </div>
-              </div>
+                orderId={order.orderId}
+                email={order.email}
+                paymentStatus={order.paymentStatus}
+                paymentMethod={order.paymentMethod}
+                userId={order.userId}
+                viewDetails={() => viewOrderDetails(order)}
+                editOrder={() => editOrder(order)}
+                deleteOrder={() => deleteOrder(order.orderId)}
+              />
             ))
           )}
         </div>
       </div>
 
+     
+      <DetailsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        order={selectedOrder}
+      />
+       
       <div className="flex justify-center mt-6">
         <Pagination
           currentPage={page}

@@ -43,21 +43,24 @@
             <ul class="shopping-list px-4 py-2 space-y-0">
               <!-- Example item, repeat with server-side rendering -->
               @for (item of cartBooks; track $index) {
-              <li class="flex items-center border-b text-text-primary dark:text-text-forDark border-gray-300 py-2">
-                <div class="cart-img-head ml-2">
-                  <a class="cart-img">
-                    <img [src]="item.book.coverImage" alt="Product Image" class="w-16 h-16 object-cover rounded-md" />
-                  </a>
-                </div>
-                <ul class="content ml-3">
-                  <h4>
-                    <span>{{item.book.title}}</span>
-                  </h4>
-                  <p class="text-sm">
-                    <span class="amount font-medium">${{ item.book.price }}</span>
-                  </p>
-                </ul>
-              </li>
+                @if(item.book) {
+                  <li class="flex items-center border-b text-text-primary dark:text-text-forDark border-gray-300 py-2">
+                    <div class="cart-img-head ml-2">
+                      <a class="cart-img">
+                        <img [src]="item.book.coverImage" alt="Product Image" class="w-16 h-16 object-cover rounded-md" />
+                      </a>
+                    </div>
+                    <ul class="content ml-3">
+                      <h4>
+                        <span>{{item.book.title}}</span>
+                      </h4>
+                      <p class="text-sm">
+                        <span class="amount font-medium">${{ item.book.price }}</span>
+                      </p>
+                    </ul>
+                  </li>
+                }
+           
               }
             </ul>
             <div class="button">

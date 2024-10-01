@@ -2,12 +2,20 @@
 
 <div class="card bg-light-100 dark:bg-dark-900 px-5 py-10">
 
-  <div class=" w-full shadow-custom xl:px-24 lg:px-12 md:px-6 sm:px-8 px-2 py-5 bg-white dark:bg-dark-700  mx-auto   lg:w-2/3       rounded-lg">
+  <div
+    class=" w-full shadow-custom    md:px-6 sm:px-8 px-2 py-5 bg-white dark:bg-dark-700  mx-auto   lg:w-3/4       rounded-lg">
     <div class="pb-4 mb-2  flex justify-between border-b-2   border-gray-300">
       <div>
         <h4 class="font-semibold text-3xl  dark:text-white ">{{"wishlist.wish list"|translate}}</h4>
       </div>
-      <div class="text-gray-500">{{ numOfWishlist }} {{"wishlist.items"|translate}}</div>
+      <div class="text-gray-500"> @if (wishlistBooks.length!=0) {
+
+        <button (click)="openClearCartConfirmation()"
+          class="btn bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out">
+          clear wishlist
+        </button>
+        }
+      </div>
     </div>
     @if (wishlistBooks.length==0 && isLoading) {
     <app-spinner />
@@ -30,72 +38,89 @@
     @for (book of wishlistBooks; track $index) {
     <div class=" border-b-2   border-gray-300 pb-4 pt-4 ">
       <div class="flex flex-wrap items-center">
-        <div class="w-full md:w-1/4">
-          @if (book.coverImage) {
-          <img class="text-center h-full max-h-32 mx-auto block object-contain" [src]="book.coverImage"
-            [alt]="book.title">
-          }@else {
-          <img class="block mx-auto lg:w-40 h-60 dark:text-white" src="assets/images/bookImageNotFound.png"
-            [alt]="book.title">
-          }
-
-        </div>
-
-        <div class="sm:w-5/12 w-2/3 ps-5 ">
-          <div class="pb-3">
-
-            <h1 class="dark:text-text-forDark text-gray-700 font-semibold ">
-              <span>{{"wishlist.Title:"|translate}}</span> {{ book.title }}</h1>
-            @if (book.averageRating) {
-            {{updateStarArray(book.averageRating)}}
-            <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
-              <span>
-                @for (star of starArray; track $index) {
-                @if (star === 1) {
-                <i class="fa-solid fa-star text-yellow-500"></i>
-                }
-                @if (star === .5) {
-                <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
-                }
-                @if (star === 0) {
-                <i class="fa-regular fa-star text-yellow-500"></i>
-                }
-                }
-
-              </span>
-
-            </p>
+        <div class="md:w-1/2 flex mb-4 md:mb-0">
+          <div class="w-1/4 ">
+            @if (book.coverImage) {
+            <img (click)="goToDetails(book._id)"
+              class="text-center w-full cursor-pointer   block object-contain" [src]="book.coverImage"
+              [alt]="book.title">
+            }@else {
+            <img (click)="goToDetails(book._id)"
+              class="text-center w-full cursor-pointer    block object-contain"
+              src="assets/images/bookImageNotFound.png" [alt]="book.title">
             }
 
-            <p class=" text-gray-500 dark:text-gray-300"> <span class="font-semibold">{{"wishlist.Author:"|translate}}
-              </span>{{"wishlist.author"|translate}} {{ book.author.name }}</p>
-            <p class="text-gray-500 dark:text-gray-300"> <span class="font-semibold"> {{"wishlist.Category:"|translate}}
-              </span>{{ book.category.name}}</p>
+          </div>
+          <div class="w-3/4 flex flex-wrap items-center ps-2">
+            <div class="pb-3">
 
+              <h1 class="dark:text-text-forDark text-gray-700 font-semibold ">
+                <span>{{"wishlist.Title:"|translate}}</span> {{ book.title }}
+              </h1>
+              @if (book.averageRating) {
+              {{updateStarArray(book.averageRating)}}
+              <p class="text-gray-400 text-sm font-semibold flex justify-between dark:text-gray-200">
+                <span>
+                  @for (star of starArray; track $index) {
+                  @if (star === 1) {
+                  <i class="fa-solid fa-star text-yellow-500"></i>
+                  }
+                  @if (star === .5) {
+                  <i class="fa-regular fa-star-half-stroke text-yellow-500"></i>
+                  }
+                  @if (star === 0) {
+                  <i class="fa-regular fa-star text-yellow-500"></i>
+                  }
+                  }
+
+                </span>
+
+              </p>
+              }
+
+              <p class=" text-gray-500 dark:text-gray-300"> <span
+                  class="font-semibold">{{"wishlist.Author:"|translate}}
+                </span>
+                {{ book.author ? book.author.name : "" }}
+              </p>
+              <p class=" text-gray-500 dark:text-gray-300"> <span class="font-semibold">
+                  {{"wishlist.Category:"|translate}}
+                </span>
+                {{ book.category ? book.category.name : "" }}
+              </p>
+
+
+            </div>
+
+            <p class="hidden xl:block text-gray-500  dark:text-gray-400"><span>{{"wishlist.Desc:"|translate}}</span>{{
+              getShortDescription(book.description) }}</p>
 
           </div>
+        </div>
 
-          <p class="hidden md:block text-gray-500  dark:text-gray-400"><span>{{"wishlist.Desc:"|translate}}</span>{{
-            getShortDescription(book.description) }}</p>
+        <div class="w-full md:w-1/2 flex items-center justify-center text-center">
+          <div class="w-1/3 md:w-1/2 text-lg text-blue-500 font-bold font-heading">{{ book.price }}
+            {{"wishlist.EGP"|translate}}
+          </div>
+    
+
+          <div class="w-1/6 md:w-1/4  text-center dark:text-white">
+            <app-add-to-cart-btn [bookId]="book._id" [stock]="book.stock" />
+          </div>
+
+          <div class="w-1/6 md:w-1/4 flex justify-center">
+
+            <button (click)="openConfirmationDialog(book._id)"
+              class="flex items-center space-x-2   text-red-600 px-4 py-2 ">
+              <i class="fa-solid fa-trash text-2xl"></i>
+
+            </button>
+          </div>
 
         </div>
 
-        <div class="w-1/6 text-center text-blue-600 font-semibold dark:text-blue-300">{{ book.price }}
-          {{"wishlist.EGP"|translate}}</div>
-        <!-- <div class="w-1/6 text-center"><p class="text-lg text-blue-500 font-bold font-heading">{{book.price}} EGP</p> </div> -->
 
-        <div class="w-1/12 text-center dark:text-white">
-          <app-add-to-cart-btn [bookId]="book._id" [stock]="book.stock" />
-        </div>
 
-        <div class="w-1/12 flex justify-center">
-
-          <button (click)="openConfirmationDialog(book._id)"
-            class="flex items-center space-x-2   text-red-600 px-4 py-2 ">
-            <i class="fa-solid fa-trash text-2xl"></i>
-
-          </button>
-        </div>
       </div>
     </div>
     }
@@ -104,6 +129,6 @@
 
 </div>
 @if (showConfirmationDialog) {
-<app-confirmation-dialog (confirm)="handleConfirm()" (cancel)="handleCancel()"></app-confirmation-dialog>
-
+<app-confirmation-dialog [message]="confirmMsg" [confirmText]="confirmText" (confirm)="handleConfirm()"
+  (cancel)="handleCancel()"></app-confirmation-dialog>
 }
